@@ -48,3 +48,23 @@ Methoden, die durch ein async-Schlüsselwort gekennzeichnet sind, haben das Suffi
 Beispiel:
 
 	public async Task PaintButtonsAsync() { ... };
+
+------------------------
+Parallele Programmierung
+------------------------
+
+Bitte in der MSDN-Dokumentation auf Angaben zur Threadsicherheit achten! 
+z.B. ist eine List<T> nicht threadsafe:
+
+	List<int> list = new List<int>();
+	Parallel.For(0, 100, (int i) => {
+            list.Add(i);
+        });
+
+Threadsichere Collections findet man im Namespace "System.Collections.Concurrent", 
+z.B. den ConcurrentBag<T> (entspricht in etwa einem Set<T> in Java):
+
+	ConcurrentBag<int> bag = new ConcurrentBag<int>();
+        Parallel.For(0, 100, (int i) => {
+            bag.Add(i);
+        });	
