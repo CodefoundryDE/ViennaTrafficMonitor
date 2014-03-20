@@ -1,0 +1,50 @@
+---------------------------
+Visual Studio - Codeanalyse
+---------------------------
+
+Beim kompilieren die Hinweise im Visual Studio bzgl. Benennungen, evtl. Sicherheitslücken u.a. beachten!
+
+-------------
+Dokumentation
+-------------
+
+Methoden unbedingt dokumentieren!
+
+"C#-Doc"-Kommentare sehen so aus:
+
+        /// <summary>
+        /// Methode Bla
+        /// </summary>
+        /// <param name="a">Beschreibung</param>
+        /// <param name="b">Beschreibung</param>
+        /// <returns>Beschreibung</returns>
+
+Visual Studio generiert den größten Teil selbst wenn man in der Zeile über der Methode /// eintippt!
+
+-------------------------
+Namen von GUI-Komponenten
+-------------------------
+
+- Erster Buchstabe groß / CamelCase
+- Präfixe für unterschiedliche Klassen:
+	- Button:	Btn
+	- CheckBox:	Cb
+	- RadioButton:	Rb
+	- Label: 	L
+	- TextBox:	Tb
+	- Image:	I
+	- usw...
+
+- Beispiel:
+
+	BtnNeu, CbLoeschen, TbBeschreibung
+
+-------------------------
+Asynchrone Programmierung
+-------------------------
+
+Methoden, die durch ein async-Schlüsselwort gekennzeichnet sind, haben das Suffix "Async".
+
+Beispiel:
+
+	public async Task PaintButtonsAsync() { ... };
