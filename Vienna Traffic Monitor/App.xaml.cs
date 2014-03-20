@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Vienna_Traffic_Monitor
+namespace ViennaTrafficMonitor
 {
     /// <summary>
     /// Interaktionslogik für "App.xaml"
