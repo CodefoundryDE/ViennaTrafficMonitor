@@ -21,9 +21,19 @@ Methoden unbedingt dokumentieren!
 
 Visual Studio generiert den größten Teil selbst wenn man in der Zeile über der Methode /// eintippt!
 
--------------------------
-Namen von GUI-Komponenten
--------------------------
+-------------------
+Namenskonventionen:
+-------------------
+
+Interfaces:
+	"I" davorstellen.
+	Beispiel: IDisposable
+
+Abstrakte Klassen:
+	"Abstract" davorstellen.
+	Beispiel: AbstractActionController
+
+GUI-Komponenten:
 
 - Erster Buchstabe groß / CamelCase
 - Präfixe für unterschiedliche Klassen:
@@ -32,7 +42,7 @@ Namen von GUI-Komponenten
 	- RadioButton:	Rb
 	- Label: 	L
 	- TextBox:	Tb
-	- Image:	I
+	- Image:	Img
 	- usw...
 
 - Beispiel:
