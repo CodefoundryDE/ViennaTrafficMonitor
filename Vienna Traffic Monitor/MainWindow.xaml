@@ -1,8 +1,10 @@
-﻿<Window x:Class="ViennaTrafficMonitor.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        xmlns:local="clr-namespace:ViennaTrafficMonitor" x:Class="ViennaTrafficMonitor.MainWindow"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <m:Map CredentialsProvider="Au_Oe8pRlO9EaWGylNNP8oCaDBam-PQKsb1gy-aV8RoCAvT_TghRV3W0zA_TFGWh" Center="48.21,16.37" AnimationLevel="Full" ZoomLevel="11" Margin="0,0,0.4,-0.2"/>
     </Grid>
 </Window>
