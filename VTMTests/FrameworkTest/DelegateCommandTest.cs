@@ -21,7 +21,7 @@ namespace VTMTests.FrameworkTest {
         /// Hier werden einzelne Commands geprüft
         /// </summary>
         [TestMethod]
-        public void testExecute() {
+        public void TestExecute() {
 
             int integer = 0;
             Action action = () => {
@@ -31,7 +31,7 @@ namespace VTMTests.FrameworkTest {
             DelegateCommand command = new DelegateCommand(action);
             command.Execute(null);
 
-            Assert.AreEqual(11, integer, "Die Action wurde vom DelegateCommand nicht ausgeführt.");
+            Assert.AreEqual(10, integer, "Die Action wurde vom DelegateCommand nicht ausgeführt.");
         }
 
         [TestMethod]
