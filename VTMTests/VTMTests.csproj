@@ -52,6 +52,13 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FrameworkTest\DelegateCommandTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vienna Traffic Monitor\Vienna Traffic Monitor.csproj">
+      <Project>{7ee5bfdc-cc25-427e-96d7-cef77a07fa2d}</Project>
+      <Name>Vienna Traffic Monitor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
