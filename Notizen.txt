@@ -1,3 +1,9 @@
+----
+TODO
+----
+
+- Build-Skript für Projekt bauen
+
 ---------------------------
 Wiener Linien API - Lizenz:
 ---------------------------

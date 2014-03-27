@@ -25,6 +25,8 @@ Visual Studio generiert den größten Teil selbst wenn man in der Zeile über der M
 Namenskonventionen:
 -------------------
 
+Private und Protectete Methoden beginnen mit _
+
 Interfaces:
 	"I" davorstellen.
 	Beispiel: IDisposable
