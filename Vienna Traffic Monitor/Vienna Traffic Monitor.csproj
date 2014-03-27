@@ -84,6 +84,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Framework\DelegateCommand.cs" />
     <Compile Include="Framework\ViewModel\AbstractViewModel.cs" />
     <Compile Include="Framework\ViewModel\IViewModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
