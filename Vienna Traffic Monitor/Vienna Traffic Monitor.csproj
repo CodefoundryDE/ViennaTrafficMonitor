@@ -134,7 +134,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="src\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VTMFramework\VTM Framework.csproj">
       <Project>{78b1ca3e-47e0-4596-9881-a81461eb8776}</Project>

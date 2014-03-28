@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VtmFramework;
 
-namespace VtmTests.FrameworkTest {
+namespace VtmFrameworkTests.FrameworkTest {
 
     [TestClass]
     public class DelegateCommandTest {
