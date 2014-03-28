@@ -54,12 +54,12 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FrameworkTest\DelegateCommandTest.cs" />
+    <Compile Include="src\DelegateCommandTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Vienna Traffic Monitor\Vienna Traffic Monitor.csproj">
-      <Project>{7ee5bfdc-cc25-427e-96d7-cef77a07fa2d}</Project>
-      <Name>Vienna Traffic Monitor</Name>
+    <ProjectReference Include="..\VTMFramework\VTM Framework.csproj">
+      <Project>{78b1ca3e-47e0-4596-9881-a81461eb8776}</Project>
+      <Name>VTM Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

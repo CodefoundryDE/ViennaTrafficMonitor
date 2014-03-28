@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ViennaTrafficMonitor.Framework.ViewModel {
+namespace VtmFramework.ViewModel {
 
     abstract class AbstractViewModel : IViewModel {
 

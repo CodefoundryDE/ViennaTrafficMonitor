@@ -84,9 +84,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Framework\DelegateCommand.cs" />
-    <Compile Include="Framework\ViewModel\AbstractViewModel.cs" />
-    <Compile Include="Framework\ViewModel\IViewModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -137,8 +134,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Framework\View\" />
+    <ProjectReference Include="..\VTMFramework\VTM Framework.csproj">
+      <Project>{78b1ca3e-47e0-4596-9881-a81461eb8776}</Project>
+      <Name>VTM Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
