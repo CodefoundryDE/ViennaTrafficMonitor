@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ViennaTrafficMonitor.Framework;
 
-namespace VTMTests.FrameworkTest {
+namespace VtmTests.FrameworkTest {
 
     [TestClass]
     public class DelegateCommandTest {
