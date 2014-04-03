@@ -47,6 +47,8 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\DelegateCommand.cs" />
+    <Compile Include="src\Factory\IFactory.cs" />
+    <Compile Include="src\Mapper\IMapper.cs" />
     <Compile Include="src\ViewModel\AbstractViewModel.cs" />
     <Compile Include="src\ViewModel\IViewModel.cs" />
   </ItemGroup>

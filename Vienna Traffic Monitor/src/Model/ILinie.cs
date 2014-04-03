@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ViennaTrafficMonitor.Model {
 
-    interface ILinie {
+    public interface ILinie {
         string Bezeichnung { get; set; }
         bool Echtzeit { get; set; }
         int Id { get; set; }
