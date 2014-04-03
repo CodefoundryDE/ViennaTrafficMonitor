@@ -76,6 +76,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\Model\Haltestelle.cs" />
+    <Compile Include="src\Model\IHaltestelle.cs" />
+    <Compile Include="src\Model\ILinie.cs" />
+    <Compile Include="src\Model\ISteig.cs" />
+    <Compile Include="src\Model\Linie.cs" />
+    <Compile Include="src\Model\Steig.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -134,9 +140,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\VTMFramework\VTM Framework.csproj">
       <Project>{78b1ca3e-47e0-4596-9881-a81461eb8776}</Project>
