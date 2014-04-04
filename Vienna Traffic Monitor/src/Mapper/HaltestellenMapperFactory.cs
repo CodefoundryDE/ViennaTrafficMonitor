@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViennaTrafficMonitor.Model;
 
 namespace ViennaTrafficMonitor.Mapper {
 
@@ -17,7 +18,7 @@ namespace ViennaTrafficMonitor.Mapper {
             get {
                 if (instance == null) {
                     lock (syncRoot) {
-                        if (instance == null) instance = new HaltestellenMapper();
+                        if (instance == null) instance = new HaltestellenMapper(new List<IHaltestelle>());
                     }
                 }
                 return instance;
