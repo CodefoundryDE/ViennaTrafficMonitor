@@ -76,21 +76,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="src\Mapper\HaltestellenMapper.cs" />
-    <Compile Include="src\Mapper\HaltestellenMapperFactory.cs" />
-    <Compile Include="src\Mapper\IHaltestellenMapper.cs" />
-    <Compile Include="src\Mapper\ILinienMapper.cs" />
-    <Compile Include="src\Mapper\ISteigMapper.cs" />
-    <Compile Include="src\Mapper\LinienMapper.cs" />
-    <Compile Include="src\Mapper\LinienMapperFactory.cs" />
-    <Compile Include="src\Mapper\SteigMapper.cs" />
-    <Compile Include="src\Mapper\SteigMapperFactory.cs" />
-    <Compile Include="src\Model\Haltestelle.cs" />
-    <Compile Include="src\Model\IHaltestelle.cs" />
-    <Compile Include="src\Model\ILinie.cs" />
-    <Compile Include="src\Model\ISteig.cs" />
-    <Compile Include="src\Model\Linie.cs" />
-    <Compile Include="src\Model\Steig.cs" />
+    <Compile Include="Mapper\HaltestellenMapper.cs" />
+    <Compile Include="Mapper\HaltestellenMapperFactory.cs" />
+    <Compile Include="Mapper\IHaltestellenMapper.cs" />
+    <Compile Include="Mapper\ILinienMapper.cs" />
+    <Compile Include="Mapper\ISteigMapper.cs" />
+    <Compile Include="Mapper\LinienMapper.cs" />
+    <Compile Include="Mapper\LinienMapperFactory.cs" />
+    <Compile Include="Mapper\SteigMapper.cs" />
+    <Compile Include="Mapper\SteigMapperFactory.cs" />
+    <Compile Include="Model\Haltestelle.cs" />
+    <Compile Include="Model\IHaltestelle.cs" />
+    <Compile Include="Model\ILinie.cs" />
+    <Compile Include="Model\ISteig.cs" />
+    <Compile Include="Model\Linie.cs" />
+    <Compile Include="Model\Steig.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
