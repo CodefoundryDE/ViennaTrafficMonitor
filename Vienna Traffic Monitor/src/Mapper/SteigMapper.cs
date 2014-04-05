@@ -8,10 +8,19 @@ using VtmFramework.Mapper;
 
 namespace ViennaTrafficMonitor.Mapper {
 
-    internal class SteigMapper : ISteigMapper {
+    public class SteigMapper : ISteigMapper {
+
+        private IEnumerable<ISteig> data;
+
+        public SteigMapper(IEnumerable<ISteig> data) {
+            this.data = data;
+        }
 
         public ISteig Find(int id) {
-            throw new NotImplementedException();
+            IEnumerable<ISteig> query = from steig in data
+                                        where steig.Id == id
+                                        select steig;
+            return query.First();
         }
     }
 

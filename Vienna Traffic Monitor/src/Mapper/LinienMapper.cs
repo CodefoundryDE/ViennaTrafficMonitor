@@ -7,10 +7,19 @@ using ViennaTrafficMonitor.Model;
 
 namespace ViennaTrafficMonitor.Mapper {
 
-    internal class LinienMapper : ILinienMapper {
+    public class LinienMapper : ILinienMapper {
+
+        private IEnumerable<ILinie> data;
+
+        public LinienMapper(IEnumerable<ILinie> data) {
+            this.data = data;
+        }
 
         public ILinie Find(int id) {
-            throw new NotImplementedException();
+            IEnumerable<ILinie> query = from linie in data
+                                        where linie.Id == id
+                                        select linie;
+            return query.First();
         }
 
     }

@@ -8,24 +8,24 @@ using System.Windows;
 namespace VtmTests.Mapper {
 
     [TestClass]
-    public class HaltestellenMapperTest {
+    public class LinienMapperTest {
 
-        private List<IHaltestelle> data;
-        private IHaltestellenMapper mapper;
+        private List<ILinie> data;
+        private ILinienMapper mapper;
 
         [TestInitialize]
         public void TestInitialize() {
-            data = new List<IHaltestelle>();
+            data = new List<ILinie>();
             for (int i = 1; i <= 10; i++) {
-                data.Add(new Haltestelle(i, 123, "Haltestelle " + i.ToString(), new Point()));
+                data.Add(new Linie(i, "U" + i.ToString(), 1, true, EVerkehrsmittel.NachtBus));    
             }
-            mapper = new HaltestellenMapper(data);
+            mapper = new LinienMapper(data);
         }
 
         [TestMethod]
         public void TestFind() {
             for (int i = 1; i <= 10; i++) {
-                Assert.AreEqual("Haltestelle " + i.ToString(), mapper.Find(i).Name, "Vorhandenes Element wurde nicht gefunden.");    
+                Assert.AreEqual("U" + i.ToString(), mapper.Find(i).Bezeichnung, "Vorhandenes Element wurde nicht gefunden.");    
             }
             try {
                 mapper.Find(123);

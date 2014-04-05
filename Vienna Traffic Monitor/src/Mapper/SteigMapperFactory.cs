@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Shapes;
+using ViennaTrafficMonitor.Model;
 using VtmFramework.Factory;
 
 namespace ViennaTrafficMonitor.Mapper {
@@ -20,7 +21,7 @@ namespace ViennaTrafficMonitor.Mapper {
             get {
                 if (instance == null) {
                     lock (syncRoot) {
-                        if (instance == null) instance = new SteigMapper();
+                        if (instance == null) instance = new SteigMapper(new List<ISteig>());
                     }
                 }
                 return instance;

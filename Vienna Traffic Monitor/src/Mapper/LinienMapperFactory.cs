@@ -19,7 +19,7 @@ namespace ViennaTrafficMonitor.Mapper {
             get {
                 if (instance == null) {
                     lock (syncRoot) {
-                        if (instance == null) instance = new LinienMapper();
+                        if (instance == null) instance = new LinienMapper(new List<ILinie>());
                     }
                 }
                 return instance;
