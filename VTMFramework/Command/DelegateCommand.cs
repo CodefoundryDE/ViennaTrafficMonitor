@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace VtmFramework {
+namespace VtmFramework.Command {
 
     public class DelegateCommand : ICommand {
 
