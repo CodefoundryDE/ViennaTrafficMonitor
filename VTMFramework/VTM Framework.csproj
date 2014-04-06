@@ -7,7 +7,7 @@
     <ProjectGuid>{78B1CA3E-47E0-4596-9881-A81461EB8776}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VtmFramework</RootNamespace>
+    <RootNamespace>ViennaTrafficMonitor</RootNamespace>
     <AssemblyName>VtmFramework</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -51,6 +51,7 @@
     <Compile Include="src\ViewModel\IViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\Library\" />
     <Folder Include="src\View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

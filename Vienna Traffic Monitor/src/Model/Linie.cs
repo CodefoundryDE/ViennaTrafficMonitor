@@ -33,6 +33,8 @@ namespace ViennaTrafficMonitor.Model {
             this.Verkehrsmittel = verkehrsmittel;
         }
 
+        
+
     }
 
 }

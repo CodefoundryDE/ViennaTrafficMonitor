@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\CsvImport\LinienImportTest.cs" />
     <Compile Include="src\Model\HaltestelleTest.cs" />
     <Compile Include="src\Model\LinieTest.cs" />
     <Compile Include="src\Model\SteigTest.cs" />
@@ -64,6 +65,12 @@
       <Project>{7ee5bfdc-cc25-427e-96d7-cef77a07fa2d}</Project>
       <Name>Vienna Traffic Monitor</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\CsvImport\TestFiles\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

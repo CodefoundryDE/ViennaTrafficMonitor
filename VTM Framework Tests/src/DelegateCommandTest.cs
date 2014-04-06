@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VtmFramework;
+using ViennaTrafficMonitor;
 
 namespace VtmFrameworkTests.FrameworkTest {
 
