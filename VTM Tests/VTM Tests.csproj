@@ -25,7 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Vienna Traffic Monitor\Vtm.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -53,24 +53,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Mapper\SteigMapperTest.cs" />
+    <Compile Include="Mapper\LinienMapperTest.cs" />
+    <Compile Include="Mapper\HaltestellenMapperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\CsvImport\LinienImportTest.cs" />
-    <Compile Include="src\Model\HaltestelleTest.cs" />
-    <Compile Include="src\Model\LinieTest.cs" />
-    <Compile Include="src\Model\SteigTest.cs" />
-  </ItemGroup>
+    <Compile Include="src\CsvImport\LinienImportTest.cs" />  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Vienna Traffic Monitor\Vienna Traffic Monitor.csproj">
       <Project>{7ee5bfdc-cc25-427e-96d7-cef77a07fa2d}</Project>
       <Name>Vienna Traffic Monitor</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\CsvImport\TestFiles\" />
+    <ProjectReference Include="..\VTMFramework\VTM Framework.csproj">
+      <Project>{78b1ca3e-47e0-4596-9881-a81461eb8776}</Project>
+      <Name>VTM Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

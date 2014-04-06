@@ -38,7 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Vtm.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -81,6 +81,15 @@
     </ApplicationDefinition>
     <Compile Include="src\CsvImport\Parser\LinienParser.cs" />
     <Compile Include="src\CsvImport\Record\LinieRecord.cs" />
+    <Compile Include="src\Mapper\HaltestellenMapper.cs" />
+    <Compile Include="src\Mapper\HaltestellenMapperFactory.cs" />
+    <Compile Include="src\Mapper\IHaltestellenMapper.cs" />
+    <Compile Include="src\Mapper\ILinienMapper.cs" />
+    <Compile Include="src\Mapper\ISteigMapper.cs" />
+    <Compile Include="src\Mapper\LinienMapper.cs" />
+    <Compile Include="src\Mapper\LinienMapperFactory.cs" />
+    <Compile Include="src\Mapper\SteigMapper.cs" />
+    <Compile Include="src\Mapper\SteigMapperFactory.cs" />
     <Compile Include="src\Model\Haltestelle.cs" />
     <Compile Include="src\Model\IHaltestelle.cs" />
     <Compile Include="src\Model\ILinie.cs" />
@@ -95,7 +104,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -119,7 +127,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Docs\FileHelpers - Documentation.chm" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
