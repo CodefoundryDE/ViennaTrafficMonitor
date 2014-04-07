@@ -57,7 +57,11 @@
     <Compile Include="Mapper\LinienMapperTest.cs" />
     <Compile Include="Mapper\HaltestellenMapperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\CsvImport\LinienImportTest.cs" />  </ItemGroup>
+    <Compile Include="Model\HaltestelleTest.cs" />
+    <Compile Include="Model\LinieTest.cs" />
+    <Compile Include="Model\SteigTest.cs" />
+    <Compile Include="CsvImport\LinienImportTest.cs" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Vienna Traffic Monitor\Vienna Traffic Monitor.csproj">
       <Project>{7ee5bfdc-cc25-427e-96d7-cef77a07fa2d}</Project>

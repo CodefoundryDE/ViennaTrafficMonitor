@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VtmFramework.Command;
 
+
 namespace VtmFrameworkTests.Command {
 
     [TestClass]

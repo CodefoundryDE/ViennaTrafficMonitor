@@ -12,7 +12,7 @@ namespace VtmTests.CsvImport {
 
     [TestClass]
     public class LinienImportTest {
-        private String testPath = @"..\..\src\CsvImport\TestFiles\DemoLinien.csv";
+        private String testPath = @"..\..\CsvImport\TestFiles\DemoLinien.csv";
         
         [TestInitialize]
 

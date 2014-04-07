@@ -5,11 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-<<<<<<< HEAD:VTMFramework/src/DelegateCommand.cs
-namespace ViennaTrafficMonitor {
-=======
+
 namespace VtmFramework.Command {
->>>>>>> 2ae897d472c322c3cc45e04637dc816ec972ee0d:VTMFramework/Command/DelegateCommand.cs
 
     public class DelegateCommand : ICommand {
 
