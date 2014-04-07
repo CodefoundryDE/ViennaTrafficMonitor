@@ -5,6 +5,6 @@
         xmlns:local="clr-namespace:ViennaTrafficMonitor" x:Class="ViennaTrafficMonitor.MainWindow"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <m:Map CredentialsProvider="Au_Oe8pRlO9EaWGylNNP8oCaDBam-PQKsb1gy-aV8RoCAvT_TghRV3W0zA_TFGWh" Center="48.21,16.37" AnimationLevel="Full" ZoomLevel="11" Margin="0,0,0.4,-0.2"/>
+        <TextBox x:Name="textbox" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

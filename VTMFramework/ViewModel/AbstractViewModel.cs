@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ViennaTrafficMonitor.ViewModel {
+namespace VtmFramework.ViewModel {
 
-    abstract class AbstractViewModel : IViewModel {
+    public abstract class AbstractViewModel : IViewModel {
 
         public event PropertyChangedEventHandler PropertyChanged;
 
