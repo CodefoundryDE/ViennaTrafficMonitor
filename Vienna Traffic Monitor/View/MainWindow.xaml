@@ -3,8 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         xmlns:local="clr-namespace:ViennaTrafficMonitor" x:Class="ViennaTrafficMonitor.MainWindow"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" WindowState="Maximized" WindowStyle="None">
     <Grid>
-        <TextBox x:Name="textbox" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Content="&lt;= Zurück" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75"/>
+        <Button Grid.Row="0" Grid.Column="2" Content="Home" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" />
+        <ContentControl Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding ActiveViewModel}" />
     </Grid>
 </Window>
