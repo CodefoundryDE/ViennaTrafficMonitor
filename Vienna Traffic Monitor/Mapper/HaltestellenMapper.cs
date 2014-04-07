@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,17 +10,14 @@ namespace ViennaTrafficMonitor.Mapper {
 
     public class HaltestellenMapper : IHaltestellenMapper {
 
-        private IEnumerable<IHaltestelle> data;
+        private ConcurrentDictionary<int, IHaltestelle> _data;
 
-        public HaltestellenMapper(IEnumerable<IHaltestelle> data) {
-            this.data = data;
+        public HaltestellenMapper(ConcurrentDictionary<int, IHaltestelle> data) {
+            this._data = data;
         }
 
         public IHaltestelle Find(int id) {
-            IEnumerable<IHaltestelle> query = from haltestelle in data
-                                              where haltestelle.Id == id
-                                              select haltestelle;
-            return query.First();
+            return _data[id];
         }
 
     }

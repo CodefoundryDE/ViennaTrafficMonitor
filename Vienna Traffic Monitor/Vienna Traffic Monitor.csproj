@@ -156,9 +156,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FileHelpers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\VTMFramework\VTM Framework.csproj">
       <Project>{78b1ca3e-47e0-4596-9881-a81461eb8776}</Project>
       <Name>VTM Framework</Name>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,17 +11,14 @@ namespace ViennaTrafficMonitor.Mapper {
 
     public class SteigMapper : ISteigMapper {
 
-        private IEnumerable<ISteig> data;
+        private ConcurrentDictionary<int, ISteig> _data;
 
-        public SteigMapper(IEnumerable<ISteig> data) {
-            this.data = data;
+        public SteigMapper(ConcurrentDictionary<int, ISteig> data) {
+            this._data = data;
         }
 
         public ISteig Find(int id) {
-            IEnumerable<ISteig> query = from steig in data
-                                        where steig.Id == id
-                                        select steig;
-            return query.First();
+            return _data[id];
         }
     }
 

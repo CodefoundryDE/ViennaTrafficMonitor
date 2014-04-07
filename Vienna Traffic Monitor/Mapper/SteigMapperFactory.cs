@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,11 +22,15 @@ namespace ViennaTrafficMonitor.Mapper {
             get {
                 if (instance == null) {
                     lock (syncRoot) {
-                        if (instance == null) instance = new SteigMapper(new List<ISteig>());
+                        if (instance == null) instance = _createInstance();
                     }
                 }
                 return instance;
             }
+        }
+
+        private static ISteigMapper _createInstance() {
+            return new SteigMapper(new ConcurrentDictionary<int, ISteig>());
         }
 
     }

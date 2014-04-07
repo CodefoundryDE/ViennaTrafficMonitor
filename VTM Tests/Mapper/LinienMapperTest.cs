@@ -4,33 +4,35 @@ using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Model;
 using System.Collections.Generic;
 using System.Windows;
+using System.Collections.Concurrent;
 
 namespace VtmTests.Mapper {
 
     [TestClass]
     public class LinienMapperTest {
 
-        private List<ILinie> data;
-        private ILinienMapper mapper;
+        private ConcurrentDictionary<int, ILinie> _data;
+        private ILinienMapper _mapper;
 
         [TestInitialize]
         public void TestInitialize() {
-            data = new List<ILinie>();
+            _data = new ConcurrentDictionary<int, ILinie>();
             for (int i = 1; i <= 10; i++) {
-                data.Add(new Linie(i, "U" + i.ToString(), 1, true, EVerkehrsmittel.NachtBus));    
+                _data.TryAdd(i, new Linie(i, "U" + i.ToString(), 1, true, EVerkehrsmittel.NachtBus));    
             }
-            mapper = new LinienMapper(data);
+            _mapper = new LinienMapper(_data);
         }
 
         [TestMethod]
         public void TestFind() {
             for (int i = 1; i <= 10; i++) {
-                Assert.AreEqual("U" + i.ToString(), mapper.Find(i).Bezeichnung, "Vorhandenes Element wurde nicht gefunden.");    
+                Assert.AreEqual("U" + i.ToString(), _mapper.Find(i).Bezeichnung, "Vorhandenes Element wurde nicht gefunden.");    
             }
-            try {
-                mapper.Find(123);
-                Assert.Fail("Find auf leeres Element wirft keine Exception.");
-            } catch (InvalidOperationException) { }
+        }
+
+        [TestMethod, ExpectedException(typeof(KeyNotFoundException))]
+        public void TestNotFound() {
+            _mapper.Find(123);
         }
 
     }

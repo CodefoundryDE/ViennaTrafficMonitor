@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,11 +20,15 @@ namespace ViennaTrafficMonitor.Mapper {
             get {
                 if (instance == null) {
                     lock (syncRoot) {
-                        if (instance == null) instance = new LinienMapper(new List<ILinie>());
+                        if (instance == null) instance = _createInstance();
                     }
                 }
                 return instance;
             }
+        }
+
+        private static ILinienMapper _createInstance() {
+            return new LinienMapper(new ConcurrentDictionary<int, ILinie>());
         }
     }
 
