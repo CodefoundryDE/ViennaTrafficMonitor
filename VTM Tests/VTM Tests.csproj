@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CsvImport\HaltestellenImportTest.cs" />
     <Compile Include="CsvImport\SteigeImportTest.cs" />
     <Compile Include="Mapper\SteigMapperTest.cs" />
     <Compile Include="Mapper\LinienMapperTest.cs" />
