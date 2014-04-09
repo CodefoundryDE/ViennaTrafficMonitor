@@ -7,16 +7,14 @@ using FileHelpers;
 using FileHelpers.RunTime;
 using ViennaTrafficMonitor.Model;
 using ViennaTrafficMonitor.CsvImport.Record;
-using System.Collections.ObjectModel;
+using System.Collections.Concurrent;
 
 namespace ViennaTrafficMonitor.CsvImport.Parser {
     public static class LinienParser {
 
-        public static ICollection<ILinie> ReadFile(String filePath) {
+        public static ConcurrentDictionary<int,ILinie> ReadFile(String filePath) {
             FileHelperEngine<LinieRecord> engine = new FileHelperEngine<LinieRecord>();
-            ICollection<ILinie> linien = new Collection<ILinie> ();
-            
-                
+            ConcurrentDictionary<int,ILinie> linien = new ConcurrentDictionary<int,ILinie>();                
 
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
 
@@ -58,7 +56,7 @@ namespace ViennaTrafficMonitor.CsvImport.Parser {
                 }
 
                 //Schreiben des Models in Collection für den Rückgabewert:
-                linien.Add(transport);
+                linien.AddOrUpdate(transport.Id, transport, (key, oldValue) => transport);
             }
             return (linien);
         }
