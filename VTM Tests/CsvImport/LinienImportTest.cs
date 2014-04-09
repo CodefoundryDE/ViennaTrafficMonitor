@@ -11,14 +11,14 @@ namespace VtmTests.CsvImport {
 
     [TestClass]
     public class LinienImportTest {
-        private String testPath = @"..\..\CsvImport\TestFiles\DemoLinien.csv";
+        private String testPathLinie = @"..\..\CsvImport\TestFiles\DemoLinien.csv";
 
         [TestInitialize]
 
         [TestMethod]
 
         public void TestLinienImport() {
-            ConcurrentDictionary<int, ILinie> linien = LinienParser.ReadFile(testPath);
+            ConcurrentDictionary<int, ILinie> linien = LinienParser.ReadFile(testPathLinie);
 
             ILinie testLinie;
             if (linien.TryGetValue(214433717, out testLinie)) {
