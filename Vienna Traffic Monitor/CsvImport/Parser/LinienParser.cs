@@ -7,58 +7,67 @@ using FileHelpers;
 using FileHelpers.RunTime;
 using ViennaTrafficMonitor.Model;
 using ViennaTrafficMonitor.CsvImport.Record;
-using System.Collections.ObjectModel;
+using System.Collections.Concurrent;
 
-namespace ViennaTrafficMonitor.CsvImport.Parser {
-    public static class LinienParser {
+namespace ViennaTrafficMonitor.CsvImport.Parser
+{
+    public static class LinienParser
+    {
 
-        public static ICollection<ILinie> ReadFile(String filePath) {
+        public static ConcurrentDictionary<int, ILinie> ReadFile(String filePath)
+        {
             FileHelperEngine<LinieRecord> engine = new FileHelperEngine<LinieRecord>();
-            ICollection<ILinie> linien = new Collection<ILinie> ();
-            
-                
+            ConcurrentDictionary<int, ILinie> linien = new ConcurrentDictionary<int, ILinie>();
 
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
 
             LinieRecord[] res = engine.ReadFile(filePath);
 
-            foreach (LinieRecord linie in res) {
+            foreach (LinieRecord linie in res)
+            {
                 //Übernehmen der eingelesenen Daten in das Programm-Model:
                 ILinie transport = new Linie();
                 transport.Bezeichnung = linie.Bezeichnung;
                 transport.Echtzeit = linie.Echtzeit;
                 transport.Id = linie.Id;
                 transport.Reihenfolge = linie.Reihenfolge;
-                switch (linie.Verkehrsmittel) {
-                    case "ptTram": {
-                        transport.Verkehrsmittel = EVerkehrsmittel.Tram;
-                        break;
+                switch (linie.Verkehrsmittel)
+                {
+                    case "ptTram":
+                        {
+                            transport.Verkehrsmittel = EVerkehrsmittel.Tram;
+                            break;
                         }
-                    case "ptBusCity": {
+                    case "ptBusCity":
+                        {
                             transport.Verkehrsmittel = EVerkehrsmittel.CityBus;
                             break;
                         }
-                    case "ptBusNight": {
-                        transport.Verkehrsmittel = EVerkehrsmittel.NachtBus;
-                        break;
+                    case "ptBusNight":
+                        {
+                            transport.Verkehrsmittel = EVerkehrsmittel.NachtBus;
+                            break;
                         }
-                    case "ptTrainS": {
-                        transport.Verkehrsmittel = EVerkehrsmittel.SBahn;
-                        break;
+                    case "ptTrainS":
+                        {
+                            transport.Verkehrsmittel = EVerkehrsmittel.SBahn;
+                            break;
                         }
-                    case "ptMetro": {
-                        transport.Verkehrsmittel = EVerkehrsmittel.Metro;
-                        break;
+                    case "ptMetro":
+                        {
+                            transport.Verkehrsmittel = EVerkehrsmittel.Metro;
+                            break;
                         }
-                    case "ptTramWLB": {
-                        transport.Verkehrsmittel = EVerkehrsmittel.TramWlb;
-                        break;
+                    case "ptTramWLB":
+                        {
+                            transport.Verkehrsmittel = EVerkehrsmittel.TramWlb;
+                            break;
                         }
 
                 }
 
                 //Schreiben des Models in Collection für den Rückgabewert:
-                linien.Add(transport);
+                linien.AddOrUpdate(transport.Id, transport, (key, oldValue) => transport);
             }
             return (linien);
         }
