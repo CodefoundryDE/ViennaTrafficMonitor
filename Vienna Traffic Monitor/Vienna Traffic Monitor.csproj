@@ -80,6 +80,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CsvImport\Parser\HaltestellenParser.cs" />
+    <Compile Include="CsvImport\Parser\SteigeParser.cs" />
+    <Compile Include="CsvImport\Record\HaltestelleRecord.cs" />
+    <Compile Include="CsvImport\Record\SteigRecord.cs" />
     <Compile Include="Mapper\HaltestellenMapper.cs" />
     <Compile Include="Mapper\HaltestellenMapperFactory.cs" />
     <Compile Include="CsvImport\Parser\LinienParser.cs" />
