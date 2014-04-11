@@ -6,25 +6,22 @@
         xmlns:v="clr-namespace:ViennaTrafficMonitor.View"
         xmlns:fv="clr-namespace:VtmFramework.View;assembly=VtmFramework"
         Title="MainWindow" WindowState="Maximized" WindowStyle="None">
-    <UserControl>
-        <UserControl.Resources>
-            <DataTemplate DataType="{x:Type vm:HauptfensterViewModel}">
-                <v:Hauptfenster />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:UserControl1ViewModel}">
-                <v:UserControl1 />
-            </DataTemplate>
-        </UserControl.Resources>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="&lt;= Zurück" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75"/>
-            <Button Grid.Row="0" Content="Home" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" />
-            <fv:AnimatedContentControl Name="ScreenChanger" Grid.Row="1" Content="{Binding ActiveViewModel}" />
-        </Grid>
-
-    </UserControl>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:HauptfensterViewModel}">
+            <v:Hauptfenster />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:UserControl1ViewModel}">
+            <v:UserControl1 />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Content="&lt;= Zurück" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75"/>
+        <Button Grid.Row="0" Content="Home" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" />
+        <fv:AnimatedContentControl Name="ScreenChanger" Grid.Row="1" Content="{Binding ActiveViewModel}" />
+    </Grid>
 
 </Window>
