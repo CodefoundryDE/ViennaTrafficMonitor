@@ -9,21 +9,17 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ViennaTrafficMonitor.ViewModel;
 
 namespace ViennaTrafficMonitor.View {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Interaktionslogik für Hauptfenster.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-
-        public MainWindow() {
+    public partial class Hauptfenster : UserControl {
+        public Hauptfenster() {
             InitializeComponent();
-            DataContext = new MainViewModel();
-        }        
-
+        }
     }
 }
