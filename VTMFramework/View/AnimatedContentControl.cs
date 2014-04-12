@@ -85,18 +85,18 @@ namespace VtmFramework.View {
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
-        /// <param name="whenDone"></param>
+        /// <param name="completed"></param>
         /// <returns></returns>
-        private AnimationTimeline CreateAnimation(double from, double to, EventHandler whenDone = null) {
+        private AnimationTimeline CreateAnimation(double from, double to, EventHandler completed = null) {
             IEasingFunction ease = new BackEase {
                 Amplitude = 0.5,
-                EasingMode = EasingMode.EaseOut
+                EasingMode = EasingMode.EaseInOut
             };
-            Duration duration = new Duration(TimeSpan.FromSeconds(3));
+            Duration duration = new Duration(TimeSpan.FromSeconds(1));
             var animation = new DoubleAnimation(from, to, duration);
             animation.EasingFunction = ease;
-            if (whenDone != null) {
-                animation.Completed += whenDone;
+            if (completed != null) {
+                animation.Completed += completed;
             }
             animation.Freeze();
             return animation;

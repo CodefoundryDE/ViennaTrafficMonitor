@@ -53,6 +53,7 @@
     <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="Factory\IFactory.cs" />
     <Compile Include="Mapper\IMapper.cs" />
+    <Compile Include="Scheduler\Scheduler.cs" />
     <Compile Include="ViewModel\AbstractViewModel.cs" />
     <Compile Include="ViewModel\IViewModel.cs" />
     <Compile Include="View\AnimatedContentControl.cs" />
