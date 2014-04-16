@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using VtmFramework.ViewModel;
 
 namespace VtmFramework.Scheduler {
 
-    public class Scheduler<T> : IDisposable {
+    public class Scheduler<T> : IDisposable{
 
-        private bool disposed = false;
+        private bool _disposed = false;
 
         private ConcurrentQueue<T> _queue;
         private Task _contentSwitcher;
@@ -31,13 +27,13 @@ namespace VtmFramework.Scheduler {
         /// <summary>
         /// Dieses Event wird ausgelöst, wenn sich der Aktuelle Inhalt des Schedulers ändert.
         /// </summary>
-        public event EventHandler AktuellChanged;
+        public event PropertyChangedEventHandler AktuellChanged;
 
         public Scheduler() {
             this._queue = new ConcurrentQueue<T>();
             _cts = new CancellationTokenSource();
-            _contentSwitcher = new Task(Tick, _cts.Token, TaskCreationOptions.LongRunning);
-            Delay = 5000;
+            _contentSwitcher = new Task(_Loop, _cts.Token, TaskCreationOptions.LongRunning);
+            Delay = 1500;
         }
 
         /// <summary>
@@ -53,8 +49,9 @@ namespace VtmFramework.Scheduler {
         /// </summary>
         /// <param name="element"></param>
         public void ScheduleInstant(T element) {
-            Pause();
+            _Pause();
             Aktuell = element;
+            _RaiseAktuellChangedEvent();
         }
 
         /// <summary>
@@ -68,13 +65,13 @@ namespace VtmFramework.Scheduler {
         /// Führt eine Runde des Schedulers aus.
         /// Das erste Element der Warteschlange wird aktuell und anschließend wieder hinten eingereiht.
         /// </summary>
-        private void Tick() {
-            T result;
+        private void _Loop() {
+            T temp;
             while (true) {
-                if (_queue.TryDequeue(out result)) {
-                    Aktuell = result;
-                    RaiseChangedEvent();
-                    _queue.Enqueue(result);
+                if (_queue.TryDequeue(out temp)) {
+                    Aktuell = temp;
+                    _RaiseAktuellChangedEvent();
+                    _queue.Enqueue(temp);
                 }
                 Thread.Sleep(Delay);
             }
@@ -83,16 +80,16 @@ namespace VtmFramework.Scheduler {
         /// <summary>
         /// Löst das AktuellChanged-Event aus.
         /// </summary>
-        private void RaiseChangedEvent() {
+        private void _RaiseAktuellChangedEvent() {
             var handler = AktuellChanged;
             if (handler != null)
-                handler(this, new EventArgs());
+                handler(this, new PropertyChangedEventArgs("Aktuell"));
         }
 
         /// <summary>
         /// Pausiert den Scheduler.
         /// </summary>
-        private void Pause() {
+        private void _Pause() {
             _cts.Cancel();
         }
 
@@ -103,19 +100,19 @@ namespace VtmFramework.Scheduler {
         }
 
         protected virtual void Dispose(bool disposing) {
-            if (!disposed) {
+            if (!_disposed) {
                 if (disposing) {
                     _cts.Dispose();
                     _contentSwitcher.Dispose();
                 }
-                disposed = true;
+                _disposed = true;
             }
         }
 
         ~Scheduler() {
             Dispose(false);
         }
-        #endregion 
+        #endregion
 
     }
 

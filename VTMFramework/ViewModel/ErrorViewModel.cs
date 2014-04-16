@@ -19,7 +19,13 @@ namespace VtmFramework.ViewModel {
         private IObserver<EErrorResult> _observer;
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public string Title { get; set; }
+
+        private string _title;
+        public string Title {
+            get { return _title; }
+            set { _title = value; RaisePropertyChangedEvent("Title"); }
+        }
+
         public string Message { get; set; }
         public EErrorButtons ButtonSet { get; set; }
 

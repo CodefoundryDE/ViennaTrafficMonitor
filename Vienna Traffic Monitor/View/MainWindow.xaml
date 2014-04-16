@@ -5,8 +5,12 @@
         xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
         xmlns:v="clr-namespace:ViennaTrafficMonitor.View"
         xmlns:fv="clr-namespace:VtmFramework.View;assembly=VtmFramework"
+        xmlns:fvm="clr-namespace:VtmFramework.ViewModel;assembly=VtmFramework"
         Title="MainWindow" WindowState="Maximized" WindowStyle="None">
     <Window.Resources>
+        <DataTemplate DataType="{x:Type fvm:ErrorViewModel}">
+            <fv:ErrorView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:HauptfensterViewModel}">
             <v:Hauptfenster />
         </DataTemplate>
@@ -14,15 +18,15 @@
             <v:UserControl1 />
         </DataTemplate>
     </Window.Resources>
-    <StackPanel>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="&lt;= Zurück" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75"/>
-            <Button Grid.Row="0" Content="Home" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" />
-            <fv:AnimatedContentControl Name="ScreenChanger" Grid.Row="1" Content="{Binding Scheduler.Aktuell}" />
-        </Grid>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Content="&lt;= Zurück" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75"/>
+        <Button Grid.Row="0" Content="Home" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" />
+        <fv:AnimatedContentControl Grid.Row="1" Name="ScreenChanger" Content="{Binding Scheduler.Aktuell}" />
+        <fv:AnimatedContentControl Grid.Row="1" Name="Error" Content="{Binding Scheduler.Aktuell.Error}" />
+        <TextBox Text="{Binding Scheduler.Aktuell.Error.Title}"></TextBox>
+    </Grid>
 </Window>

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VtmFramework.ViewModel {
+namespace VtmFramework.View {
     /// <summary>
     /// Interaktionslogik für ErrorView.xaml
     /// </summary>

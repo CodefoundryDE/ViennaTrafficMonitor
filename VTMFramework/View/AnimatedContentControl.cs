@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace VtmFramework.View {
@@ -20,6 +12,9 @@ namespace VtmFramework.View {
 
         private ContentPresenter _mainContent;
         private Shape _paintArea;
+
+        public Transform OldContentTransform { get; set; }
+        public Transform NewContentTransform { get; set; }
 
         static AnimatedContentControl() {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AnimatedContentControl), new FrameworkPropertyMetadata(typeof(AnimatedContentControl)));
@@ -42,8 +37,8 @@ namespace VtmFramework.View {
         /// <param name="newContent"></param>
         protected override void OnContentChanged(object oldContent, object newContent) {
             if (_paintArea != null && _mainContent != null) {
-                _paintArea.Fill = CreateBrushFromVisual(_mainContent);
-                BeginAnimateContentReplacement();
+                _paintArea.Fill = _CreateBrushFromVisual(_mainContent, (int)this.ActualWidth, (int)this.ActualHeight);
+                _BeginAnimateContentReplacement();
             }
             base.OnContentChanged(oldContent, newContent);
         }
@@ -53,10 +48,10 @@ namespace VtmFramework.View {
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
-        private Brush CreateBrushFromVisual(Visual v) {
+        private static Brush _CreateBrushFromVisual(Visual v, int width, int height) {
             if (v == null)
                 throw new ArgumentNullException("v");
-            RenderTargetBitmap target = new RenderTargetBitmap((int)this.ActualWidth, (int)this.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            RenderTargetBitmap target = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
             target.Render(v);
             Brush brush = new ImageBrush(target);
             brush.Freeze();
@@ -66,16 +61,16 @@ namespace VtmFramework.View {
         /// <summary>
         /// Führt die Animation für beide Contents aus
         /// </summary>
-        private void BeginAnimateContentReplacement() {
-            TranslateTransform newContentTransform = new TranslateTransform();
-            TranslateTransform oldContentTransform = new TranslateTransform();
+        private void _BeginAnimateContentReplacement() {
+            OldContentTransform = new TranslateTransform();
+            NewContentTransform = new TranslateTransform();
 
-            _paintArea.RenderTransform = oldContentTransform;
-            _mainContent.RenderTransform = newContentTransform;
             _paintArea.Visibility = Visibility.Visible;
+            _paintArea.RenderTransform = OldContentTransform;
+            _mainContent.RenderTransform = NewContentTransform;
 
-            newContentTransform.BeginAnimation(TranslateTransform.XProperty, CreateAnimation(this.ActualWidth, 0));
-            oldContentTransform.BeginAnimation(TranslateTransform.XProperty, CreateAnimation(0, -this.ActualWidth, (s, e) => {
+            NewContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(this.ActualWidth, 0));
+            OldContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(0, -this.ActualWidth, (s, e) => {
                 _paintArea.Visibility = Visibility.Hidden;
             }));
         }
@@ -87,7 +82,7 @@ namespace VtmFramework.View {
         /// <param name="to"></param>
         /// <param name="completed"></param>
         /// <returns></returns>
-        private AnimationTimeline CreateAnimation(double from, double to, EventHandler completed = null) {
+        private static AnimationTimeline _CreateAnimation(double from, double to, EventHandler completed = null) {
             IEasingFunction ease = new BackEase {
                 Amplitude = 0.5,
                 EasingMode = EasingMode.EaseInOut
