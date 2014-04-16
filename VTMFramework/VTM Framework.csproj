@@ -56,6 +56,9 @@
     <Compile Include="Mapper\IMapper.cs" />
     <Compile Include="Scheduler\Scheduler.cs" />
     <Compile Include="ViewModel\AbstractViewModel.cs" />
+    <Compile Include="View\ErrorView.xaml.cs">
+      <DependentUpon>ErrorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ErrorViewModel.cs" />
     <Compile Include="ViewModel\ErrorViewModelFactory.cs" />
     <Compile Include="ViewModel\IViewModel.cs" />
@@ -66,6 +69,10 @@
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ErrorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

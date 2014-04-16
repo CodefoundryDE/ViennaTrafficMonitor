@@ -14,14 +14,15 @@
             <v:UserControl1 />
         </DataTemplate>
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Button Grid.Row="0" Content="&lt;= Zurück" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75"/>
-        <Button Grid.Row="0" Content="Home" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" />
-        <fv:AnimatedContentControl Name="ScreenChanger" Grid.Row="1" Content="{Binding Scheduler.Aktuell}" />
-    </Grid>
-
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Content="&lt;= Zurück" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75"/>
+            <Button Grid.Row="0" Content="Home" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" />
+            <fv:AnimatedContentControl Name="ScreenChanger" Grid.Row="1" Content="{Binding Scheduler.Aktuell}" />
+        </Grid>
+    </StackPanel>
 </Window>

@@ -20,6 +20,17 @@ namespace VtmFramework.ViewModel {
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public void OnCompleted() {
+            throw new NotImplementedException();
+        }
+
+        public void OnError(Exception error) {
+            throw new NotImplementedException();
+        }
+
+        public void OnNext(EErrorResult value) {
+            throw new NotImplementedException();
+        }
     }
 
 }
