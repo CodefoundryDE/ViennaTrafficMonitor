@@ -6,9 +6,6 @@
              xmlns:vm="clr-namespace:VtmFramework.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="300" Width="579.872" Background="Green" VerticalAlignment="Center">
-    <UserControl.DataContext>
-        <vm:ErrorViewModel />
-    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
@@ -26,7 +23,7 @@
         </Grid.ColumnDefinitions>
 
         <Image Grid.Row="1" Grid.Column="1" Width="32" Height="32" />
-        <Label Grid.Row="1" Grid.Column="2" Content="{Binding Title}" />
+        <Label Grid.Row="1" Grid.Column="2" Content="{Binding Title, FallbackValue=Fallback}" />
 
         <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Content="{Binding Message}" />
         <ListView Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Background="Transparent">

@@ -22,7 +22,6 @@ namespace ViennaTrafficMonitor.View {
 
         public MainWindow() {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }        
 
     }

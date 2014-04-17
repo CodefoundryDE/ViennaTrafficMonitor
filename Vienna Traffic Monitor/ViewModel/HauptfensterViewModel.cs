@@ -11,7 +11,6 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public HauptfensterViewModel() {
             this.Error = ErrorViewModelFactory.getInstance("Hallo Welt", "Ganz strenge Fehlermeldung", VtmFramework.Error.EErrorButtons.OkCancel, this);
-            RaisePropertyChangedEvent("Error");
         }
 
     }

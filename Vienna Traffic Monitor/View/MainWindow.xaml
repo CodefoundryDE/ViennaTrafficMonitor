@@ -7,9 +7,12 @@
         xmlns:fv="clr-namespace:VtmFramework.View;assembly=VtmFramework"
         xmlns:fvm="clr-namespace:VtmFramework.ViewModel;assembly=VtmFramework"
         Title="MainWindow" WindowState="Maximized" WindowStyle="None">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
     <Window.Resources>
         <DataTemplate DataType="{x:Type fvm:ErrorViewModel}">
-            <fv:ErrorView />
+            <fv:ErrorView DataContext="{Binding}" />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:HauptfensterViewModel}">
             <v:Hauptfenster />
