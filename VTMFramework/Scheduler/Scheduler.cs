@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
+using VtmFramework.ViewModel;
 
 namespace VtmFramework.Scheduler {
 
-    public class Scheduler<T> : IDisposable {
+    public class Scheduler<T> : IDisposable where T : AbstractViewModel {
 
         private bool _disposed = false;
 
@@ -73,10 +74,13 @@ namespace VtmFramework.Scheduler {
         /// </summary>
         private void _Tick(object state) {
             T temp;
-            if (_queue.TryDequeue(out temp)) {
-                Aktuell = temp;
-                _RaiseAktuellChangedEvent();
-                _queue.Enqueue(temp);
+            // Es darf nur geswitcht werden wenn aktuell kein Error vorhanden ist
+            if (Aktuell == null || Aktuell.Error == null) {
+                if (_queue.TryDequeue(out temp)) {
+                    Aktuell = temp;
+                    _RaiseAktuellChangedEvent();
+                    _queue.Enqueue(temp);
+                }
             }
         }
 
