@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using VtmFramework.Command;
 using VtmFramework.Error;
 
 namespace VtmFramework.ViewModel {
@@ -18,25 +21,15 @@ namespace VtmFramework.ViewModel {
 
         private IObserver<EErrorResult> _observer;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private string _title;
-        public string Title {
-            get { return _title; }
-            set { _title = value; RaisePropertyChangedEvent("Title"); }
-        }
-
+        public string Title { get; set; }
         public string Message { get; set; }
         public EErrorButtons ButtonSet { get; set; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
         protected void RaisePropertyChangedEvent(string propertyName) {
             var handler = PropertyChanged;
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public ErrorViewModel() {
-
         }
 
         /// <summary>
@@ -48,6 +41,15 @@ namespace VtmFramework.ViewModel {
         public IDisposable Subscribe(IObserver<EErrorResult> observer) {
             this._observer = observer;
             return new Unsubscriber();
+        }
+
+        public ICommand ButtonOkCommand {
+            get { return new DelegateCommand(_ButtonOk); }
+        }
+
+        private void _ButtonOk() {
+            _observer.OnNext(EErrorResult.Ok);
+            _observer.OnCompleted();
         }
     }
 }

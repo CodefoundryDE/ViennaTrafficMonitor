@@ -74,8 +74,7 @@ namespace VtmFramework.Scheduler {
         /// </summary>
         private void _Tick(object state) {
             T temp;
-            // Es darf nur geswitcht werden wenn aktuell kein Error vorhanden ist
-            if (Aktuell == null || Aktuell.Error == null) {
+            if (Aktuell == null || Aktuell.CanSwitch()) {
                 if (_queue.TryDequeue(out temp)) {
                     Aktuell = temp;
                     _RaiseAktuellChangedEvent();

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:VtmFramework.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="300" Width="579.872" Background="Green" VerticalAlignment="Center">
+             d:DesignHeight="300" Width="579.872" Background="Wheat" VerticalAlignment="Center">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
@@ -22,24 +22,16 @@
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
 
-        <Image Grid.Row="1" Grid.Column="1" Width="32" Height="32" />
-        <Label Grid.Row="1" Grid.Column="2" Content="{Binding Title, FallbackValue=Fallback}" />
+        <Image Grid.Row="1" Grid.Column="1" Width="32" Height="32" Source="D:\Franzi Wimmer\Downloads\warning_shield_grey.png" />
+        <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Content="{Binding Title, FallbackValue=Titel}" FontWeight="Bold" BorderThickness="1,0,0,1" BorderBrush="Red" VerticalContentAlignment="Center" />
+        <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Content="{Binding Message, FallbackValue=Nachricht}" />
 
-        <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Content="{Binding Message}" />
-        <ListView Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Background="Transparent">
-            <ListView.Resources>
-                <Style TargetType="GridViewColumnHeader">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </Style>
-            </ListView.Resources>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <Button Content="Hallo"></Button>
-            <Button Content="Hallo"></Button>
-            <Button Content="Hallo"></Button>
-        </ListView>
+        <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="5,0,5,0" Padding="5,0,5,0" Command="{Binding ButtonYesCommand}">Ja</Button>
+            <Button Margin="5,0,5,0" Padding="5,0,5,0" Command="{Binding ButtonNoCommand}">Nein</Button>
+            <Button Margin="5,0,5,0" Padding="5,0,5,0" Command="{Binding ButtonRetryCommand}">Wiederholen</Button>
+            <Button Margin="5,0,5,0" Padding="5,0,5,0" Command="{Binding ButtonOkCommand}">Ok</Button>
+            <Button Margin="5,0,5,0" Padding="5,0,5,0" Command="{Binding ButtonCancelCommand}">Abbrechen</Button>
+        </StackPanel>
     </Grid>
 </UserControl>
