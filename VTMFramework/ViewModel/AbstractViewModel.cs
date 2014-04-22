@@ -11,14 +11,16 @@ namespace VtmFramework.ViewModel {
 
     public abstract class AbstractViewModel : IViewModel, IObserver<EErrorResult> {
 
-        protected AbstractViewModel() {
-            _errorCompleted = new AutoResetEvent(false);
-        }
-
         private AutoResetEvent _errorCompleted;
         private EErrorResult _errorResult;
 
         public ErrorViewModel Error { get; private set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected AbstractViewModel() {
+            _errorCompleted = new AutoResetEvent(false);
+        }
+
         protected async Task<EErrorResult> RaiseError(string title, string message, EErrorButtons buttonSet) {
             this.Error = ErrorViewModelFactory.GetInstance(title, message, buttonSet, this);
             RaisePropertyChangedEvent("Error");
@@ -28,7 +30,6 @@ namespace VtmFramework.ViewModel {
             return _errorResult;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
         protected void RaisePropertyChangedEvent(string propertyName) {
             var handler = PropertyChanged;
             if (handler != null)

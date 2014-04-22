@@ -19,11 +19,7 @@ namespace VtmFramework.Command {
         private readonly DelegateCommand _underlyingCommand;
         private bool _isExecuting;
 
-        public AwaitableDelegateCommand(Func<Task> executeMethod)
-            : this(executeMethod, () => true) {
-        }
-
-        public AwaitableDelegateCommand(Func<Task> executeMethod, Func<bool> canExecuteMethod) {
+        public AwaitableDelegateCommand(Func<Task> executeMethod) {
             _executeMethod = executeMethod;
             _underlyingCommand = new DelegateCommand(() => { });
         }
