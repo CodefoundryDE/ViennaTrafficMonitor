@@ -11,9 +11,6 @@
         <vm:MainViewModel />
     </Window.DataContext>
     <Window.Resources>
-        <DataTemplate DataType="{x:Type fvm:ErrorViewModel}">
-            <fv:ErrorView DataContext="{Binding}" />
-        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:HauptfensterViewModel}">
             <v:Hauptfenster />
         </DataTemplate>
@@ -28,8 +25,9 @@
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Content="&lt;= Zurück" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75"/>
         <Button Grid.Row="0" Content="Home" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" />
-        <fv:AnimatedContentControl Grid.Row="1" Name="ScreenChanger" Content="{Binding Scheduler.Aktuell}" />
-        <fv:AnimatedContentControl Grid.Row="1" Name="Error" Content="{Binding Scheduler.Aktuell.Error}" />
-        <TextBox Text="{Binding Scheduler.Aktuell.Error.Title}"></TextBox>
+        <fv:AnimatedContentControl Grid.Row="1" Content="{Binding Scheduler.Aktuell}" />
+        <fv:AnimatedContentControl Grid.Row="1">
+            <fv:ErrorView DataContext="{Binding Scheduler.Aktuell.Error}" Grid.Row="1" VerticalAlignment="Center" />
+        </fv:AnimatedContentControl>
     </Grid>
 </Window>

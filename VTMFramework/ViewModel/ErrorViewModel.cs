@@ -19,10 +19,15 @@ namespace VtmFramework.ViewModel {
             }
         }
 
+        public ErrorViewModel() : base() {
+            Visible = Visibility.Visible;
+        }
+
         private IObserver<EErrorResult> _observer;
 
         public string Title { get; set; }
         public string Message { get; set; }
+        public Visibility Visible { get; private set; }
         public EErrorButtons ButtonSet { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;

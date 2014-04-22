@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using VtmFramework.Error;
 
 namespace VtmFramework.ViewModel {
-    public class ErrorViewModelFactory {
-        public static ErrorViewModel getInstance(string title, string message, EErrorButtons buttonSet, IObserver<EErrorResult> observer) {
+
+    public static class ErrorViewModelFactory {
+
+        public static ErrorViewModel GetInstance(string title, string message, EErrorButtons buttonSet, IObserver<EErrorResult> observer) {
             ErrorViewModel evm = new ErrorViewModel();
             evm.Title = title;
             evm.Message = message;
@@ -16,5 +18,7 @@ namespace VtmFramework.ViewModel {
 
             return evm;
         }
+
     }
+
 }

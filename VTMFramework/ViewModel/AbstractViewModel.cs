@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using VtmFramework.Error;
 
@@ -10,9 +11,21 @@ namespace VtmFramework.ViewModel {
 
     public abstract class AbstractViewModel : IViewModel, IObserver<EErrorResult> {
 
-        public ErrorViewModel Error { get; set; }
-        protected void RaiseError(string title, string message, EErrorButtons buttonSet) {
-            this.Error = ErrorViewModelFactory.getInstance(title, message, EErrorButtons.OkCancel, this);
+        protected AbstractViewModel() {
+            _errorCompleted = new AutoResetEvent(false);
+        }
+
+        private AutoResetEvent _errorCompleted;
+        private EErrorResult _errorResult;
+
+        public ErrorViewModel Error { get; private set; }
+        protected async Task<EErrorResult> RaiseError(string title, string message, EErrorButtons buttonSet) {
+            this.Error = ErrorViewModelFactory.GetInstance(title, message, buttonSet, this);
+            RaisePropertyChangedEvent("Error");
+            await Task.Run(() => _errorCompleted.WaitOne());
+            this.Error = null;
+            RaisePropertyChangedEvent("Error");
+            return _errorResult;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -31,15 +44,15 @@ namespace VtmFramework.ViewModel {
         }
 
         public void OnCompleted() {
-            throw new NotImplementedException();
+            _errorCompleted.Set();
         }
 
         public void OnError(Exception error) {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void OnNext(EErrorResult value) {
-            throw new NotImplementedException();
+            _errorResult = value;
         }
     }
 

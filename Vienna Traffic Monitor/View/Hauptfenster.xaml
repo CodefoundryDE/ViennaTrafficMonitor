@@ -18,7 +18,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Button Content="Hauptfensterbutton 1" Grid.Row="1" Grid.Column="1" Margin="10,0,10,0" Padding="10,10,10,10" BorderThickness="2,0,0,2" Background="{x:Null}" >
+        <Button Command="{Binding BErrorCommand}" Content="Hauptfensterbutton 1" Grid.Row="1" Grid.Column="1" Margin="10,0,10,0" Padding="10,10,10,10" BorderThickness="2,0,0,2" Background="{x:Null}" >
             <Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
