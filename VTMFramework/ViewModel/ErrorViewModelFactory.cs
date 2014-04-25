@@ -9,6 +9,7 @@ namespace VtmFramework.ViewModel {
 
     public static class ErrorViewModelFactory {
 
+        [Obsolete ("Use getInsance with exception for logging")]
         public static ErrorViewModel GetInstance(string title, string message, EErrorButtons buttonSet, IObserver<EErrorResult> observer) {
             ErrorViewModel evm = new ErrorViewModel();
             evm.Title = title;
@@ -18,6 +19,15 @@ namespace VtmFramework.ViewModel {
 
             return evm;
         }
+
+        public static ErrorViewModel GetInstance (Exception ex, string title, string message, EErrorButtons buttonSet, IObserver<EErrorResult> observer){
+            ErrorViewModel evm = new ErrorViewModel(ex, title, message, buttonSet);
+            evm.Subscribe(observer);
+
+            return evm;
+    }
+
+
 
     }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -23,7 +24,8 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private async Task _berror() {
             Task<EErrorResult> result;
-            result = RaiseError("Hallo Welt!", "Ganz strenge Fehlermeldung!", EErrorButtons.OkCancel);
+            //result = RaiseError("Hallo Welt!", "Ganz strenge Fehlermeldung!", EErrorButtons.OkCancel);
+            result = RaiseError(new Exception("Logging-Exception zum Test2"), "Exception", "Ganz toll geloggte Exception", EErrorButtons.OkCancel);
             string text = (await result).ToString();
         }
 
