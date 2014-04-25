@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VtmFramework.Logging
 {
-    class VTMLogger
+    class VTMLogger : VtmFramework.Logging.IVTMLogger
     {
         private TraceListener _tListener = null;
         private BooleanSwitch _bSwitch = null;

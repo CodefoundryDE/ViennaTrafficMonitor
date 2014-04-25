@@ -17,8 +17,6 @@ namespace VtmFramework.ViewModel
     public class ErrorViewModel : IViewModel, IObservable<EErrorResult>
     {
 
-        private static VTMLogger _logger = new VTMLogger();
-
         private class Unsubscriber : IDisposable
         {
             public void Dispose()
@@ -27,7 +25,7 @@ namespace VtmFramework.ViewModel
             }
         }
 
-        public ErrorViewModel(Exception ex, string title, string message, EErrorButtons buttonSet)
+        public ErrorViewModel(string title, string message, EErrorButtons buttonSet, Exception ex, IVTMLogger logger)
             : base()
         {
             Visible = Visibility.Visible;
@@ -36,7 +34,7 @@ namespace VtmFramework.ViewModel
             this.Message = message;
             this.ButtonSet = buttonSet;
 
-            _logger.Error(ex);
+            logger.Error(ex);
         }
 
         [Obsolete("Use Constructor with Exception (includes Logging)")]
