@@ -1,0 +1,16 @@
+Weekly Scrum – 10.04.2014
+
+Aufgaben erledigt:
+
+- CSV-Import (Michi)
+- Response-Klasse für Wien-API (Martin)
+- Deserialisierung des JSON-Objekts (Martin)
+- Mapper für die CSV-Dateien (Franz)
+- Wechselstrategie auf dem Hauptfenster (Franz)
+
+
+To-Do für nächste Woche:
+
+- Zentrale Ausgabe für Fehler (Michi)
+- Struktur für Deserializer mit Factory (Martin)
+- Animationen für Hauptfenster (Franz)

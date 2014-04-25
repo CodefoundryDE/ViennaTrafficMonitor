@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ViennaTrafficMonitor.Deserializer;
 using System.Web.Script.Serialization;
 using System.IO;
-using ViennaTrafficMonitor.Deserializer;
 
 namespace VtmTests.Deserializer {
 
@@ -53,7 +53,7 @@ namespace VtmTests.Deserializer {
         public void TestLine() {
 
             Assert.AreEqual(firstLine.Name, "N49");
-            Assert.AreEqual(firstLine.Towards, "Hütteldorf");
+            Assert.AreEqual(firstLine.Towards, "H�tteldorf");
             Assert.AreEqual(firstLine.Direction, "H");
             Assert.AreEqual(firstLine.RichtungsId, "1");
             Assert.AreEqual(firstLine.BarrierFree, true);

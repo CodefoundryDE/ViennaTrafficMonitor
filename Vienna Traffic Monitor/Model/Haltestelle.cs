@@ -28,6 +28,20 @@ namespace ViennaTrafficMonitor.Model {
             this.Location = location;
         }
 
+        public override bool Equals(Object obj)
+        {
+            Haltestelle halt = obj as Haltestelle;
+            if (halt == null)
+            {
+                return false;
+            }
+            return (halt).Id.Equals(this.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 
 }
