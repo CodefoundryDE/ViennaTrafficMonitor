@@ -25,7 +25,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         private async Task _berror() {
             Task<EErrorResult> result;
             //result = RaiseError("Hallo Welt!", "Ganz strenge Fehlermeldung!", EErrorButtons.OkCancel);
-            result = RaiseError(new Exception("Logging-Exception zum Test2"), "Exception", "Ganz toll geloggte Exception", EErrorButtons.OkCancel);
+            result = RaiseError("Exception", "Ganz toll geloggte Exception", EErrorButtons.OkCancel, new Exception("Logging-Exception zum Test2"));
             string text = (await result).ToString();
         }
 

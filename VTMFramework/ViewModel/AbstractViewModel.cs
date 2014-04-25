@@ -21,9 +21,7 @@ namespace VtmFramework.ViewModel {
             _errorCompleted = new AutoResetEvent(false);
         }
 
-        [Obsolete("Use RaiseError including an execption for proper treatment and logging")]
-        protected async Task<EErrorResult> RaiseError(string title, string message, EErrorButtons buttonSet) {
-            this.Error = ErrorViewModelFactory.GetInstance(title, message, buttonSet, this);
+        private async Task<EErrorResult> _raiseError() {
             RaisePropertyChangedEvent("Error");
             await Task.Run(() => _errorCompleted.WaitOne());
             this.Error = null;
@@ -31,14 +29,14 @@ namespace VtmFramework.ViewModel {
             return _errorResult;
         }
 
-        protected async Task<EErrorResult> RaiseError(Exception ex, string title, string message, EErrorButtons buttonSet)
-        {
-            this.Error = ErrorViewModelFactory.GetInstance(ex, title, message, buttonSet, this);
-            RaisePropertyChangedEvent("Error");
-            await Task.Run(() => _errorCompleted.WaitOne());
-            this.Error = null;
-            RaisePropertyChangedEvent("Error");
-            return _errorResult;
+        protected async Task<EErrorResult> RaiseError(string title, string message, EErrorButtons buttonSet) {
+            this.Error = ErrorViewModelFactory.GetInstance(title, message, buttonSet, this);
+            return await _raiseError();
+        }
+
+        protected async Task<EErrorResult> RaiseError(string title, string message, EErrorButtons buttonSet, Exception ex) {
+            this.Error = ErrorViewModelFactory.GetInstance(title, message, buttonSet, this, ex);
+            return await _raiseError();
         }
 
         protected void RaisePropertyChangedEvent(string propertyName) {
@@ -55,6 +53,7 @@ namespace VtmFramework.ViewModel {
             return (Error == null);
         }
 
+        #region Observer
         public void OnCompleted() {
             _errorCompleted.Set();
         }
@@ -66,6 +65,7 @@ namespace VtmFramework.ViewModel {
         public void OnNext(EErrorResult value) {
             _errorResult = value;
         }
+        #endregion
     }
 
 }

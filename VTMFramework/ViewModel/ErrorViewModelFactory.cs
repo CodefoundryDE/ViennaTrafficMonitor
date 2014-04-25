@@ -10,9 +10,8 @@ namespace VtmFramework.ViewModel {
 
     public static class ErrorViewModelFactory {
 
-        private static IVTMLogger _logger = new VTMLogger();
+        private static IVtmLogger _logger = new VTMLogger();
 
-        [Obsolete ("Use getInsance with exception for logging")]
         public static ErrorViewModel GetInstance(string title, string message, EErrorButtons buttonSet, IObserver<EErrorResult> observer) {
             ErrorViewModel evm = new ErrorViewModel();
             evm.Title = title;
@@ -23,12 +22,15 @@ namespace VtmFramework.ViewModel {
             return evm;
         }
 
-        public static ErrorViewModel GetInstance (Exception ex, string title, string message, EErrorButtons buttonSet, IObserver<EErrorResult> observer){
-            ErrorViewModel evm = new ErrorViewModel(title, message, buttonSet, ex, _logger);
+        public static ErrorViewModel GetInstance(string title, string message, EErrorButtons buttonSet, IObserver<EErrorResult> observer, Exception ex) {
+            ErrorViewModel evm = new ErrorViewModel(ex, _logger);
+            evm.Title = title;
+            evm.Message = message;
+            evm.ButtonSet = buttonSet;
             evm.Subscribe(observer);
 
             return evm;
-    }
+        }
 
 
 
