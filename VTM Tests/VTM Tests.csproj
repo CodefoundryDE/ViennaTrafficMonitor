@@ -57,6 +57,7 @@
     <Compile Include="CsvImport\HaltestellenImportTest.cs" />
     <Compile Include="Deserializer\DeserializerTest.cs" />
     <Compile Include="CsvImport\SteigeImportTest.cs" />
+    <Compile Include="Deserializer\RequesterTest.cs" />
     <Compile Include="Mapper\SteigMapperTest.cs" />
     <Compile Include="Mapper\LinienMapperTest.cs" />
     <Compile Include="Mapper\HaltestellenMapperTest.cs" />

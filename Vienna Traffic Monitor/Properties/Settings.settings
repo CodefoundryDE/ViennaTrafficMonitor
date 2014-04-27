@@ -1,7 +1,18 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ViennaTrafficMonitor.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SenderIdDev" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">wLpcx61vtJ</Value>
+    </Setting>
+    <Setting Name="SenderIdProd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ubDJsLwREM</Value>
+    </Setting>
+    <Setting Name="MonitorRequestBegin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.wienerlinien.at/ogd_realtime/monitor?</Value>
+    </Setting>
+    <Setting Name="MonitorRequestEnd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">&amp;activateTrafficInfo=stoerungkurz&amp;activateTrafficInfo=stoerunglang&amp;activateTrafficInfo=aufzugsinfo&amp;sender=</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

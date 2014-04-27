@@ -63,6 +63,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
@@ -83,6 +84,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CsvImport\Parser\HaltestellenParser.cs" />
+    <Compile Include="Deserializer\DeserializerFactory.cs" />
+    <Compile Include="Deserializer\IApiWrapper.cs" />
+    <Compile Include="Deserializer\Requester.cs" />
     <Compile Include="Deserializer\Response.cs" />
     <Compile Include="CsvImport\Parser\SteigeParser.cs" />
     <Compile Include="CsvImport\Record\HaltestelleRecord.cs" />
