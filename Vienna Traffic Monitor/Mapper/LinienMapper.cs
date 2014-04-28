@@ -20,6 +20,13 @@ namespace ViennaTrafficMonitor.Mapper {
             return _data[id];
         }
 
+        public List<ILinie> FindByBezeichnung(string bezeichnung) {
+            var query = from linie in _data.Values
+                        where linie.Bezeichnung.Contains(bezeichnung)
+                        select linie;
+            return new List<ILinie>(query);
+        }
+
     }
 
 }
