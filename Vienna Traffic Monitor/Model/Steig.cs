@@ -45,6 +45,20 @@ namespace ViennaTrafficMonitor.Model {
             this.Location = location;
         }
 
+        public override bool Equals(Object obj)
+        {
+           Steig st = obj as Steig;
+            if (st == null)
+            {
+                return false;
+            }
+            return (st).Id.Equals(this.Id);
+        }
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
     }
 
 }
