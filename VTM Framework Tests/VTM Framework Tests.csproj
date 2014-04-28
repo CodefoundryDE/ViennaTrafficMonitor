@@ -52,8 +52,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Command\AwaitableDelegateCommandTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Command\DelegateCommandTest.cs" />
+    <Compile Include="Scheduler\SchedulerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VTMFramework\VTM Framework.csproj">

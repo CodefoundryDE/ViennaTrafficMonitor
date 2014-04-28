@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ViennaTrafficMonitor.ViewModel {
+namespace VtmFramework.ViewModel {
 
     interface IViewModel : INotifyPropertyChanged {
     }

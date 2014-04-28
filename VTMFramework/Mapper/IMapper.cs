@@ -8,6 +8,11 @@ namespace VtmFramework.Mapper {
 
     public interface IMapper<T> {
 
+        /// <summary>
+        /// Gibt einen Datensatz basierend auf der Id aus.
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>T</returns>
         T Find(int id);
 
     }

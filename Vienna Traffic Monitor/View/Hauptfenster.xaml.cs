@@ -13,15 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ViennaTrafficMonitor {
+namespace ViennaTrafficMonitor.View {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Interaktionslogik für Hauptfenster.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-
-        public MainWindow() {
+    public partial class Hauptfenster : UserControl {
+        public Hauptfenster() {
             InitializeComponent();
         }
-
     }
 }

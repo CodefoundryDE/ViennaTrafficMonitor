@@ -9,13 +9,13 @@ namespace VtmFrameworkTests.Command {
     public class DelegateCommandTest {
 
         /// <summary>
-        /// Leeres Command zum grundsätzlichen Test
+        /// Leeres _command zum grundsätzlichen Test
         /// </summary>
-        public DelegateCommand Command { get; set; }
+        private DelegateCommand _command { get; set; }
 
         [TestInitialize]
         public void TestInitialize() {
-            Command = new DelegateCommand(() => { });
+            _command = new DelegateCommand(() => { });
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace VtmFrameworkTests.Command {
 
         [TestMethod]
         public void TestCanExecute() {
-            Assert.AreEqual(true, Command.CanExecute(null), "CanExecute gibt nicht true zurück.");
+            Assert.AreEqual(true, _command.CanExecute(null), "CanExecute gibt nicht true zurück.");
         }
     }
 }
