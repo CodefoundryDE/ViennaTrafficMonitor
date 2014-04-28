@@ -84,8 +84,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CsvImport\Parser\HaltestellenParser.cs" />
-    <Compile Include="Deserializer\DeserializerFactory.cs" />
-    <Compile Include="Deserializer\IApiWrapper.cs" />
     <Compile Include="Deserializer\Requester.cs" />
     <Compile Include="Deserializer\Response.cs" />
     <Compile Include="CsvImport\Parser\SteigeParser.cs" />

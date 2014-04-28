@@ -33,6 +33,20 @@ namespace ViennaTrafficMonitor.Model {
             this.Verkehrsmittel = verkehrsmittel;
         }
 
+        public override bool Equals(Object obj)
+        {
+            Linie line = obj as Linie;
+            if (line == null)
+            {
+                return false;
+            }
+            return (line).Id.Equals(this.Id);
+        }
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
         
 
     }

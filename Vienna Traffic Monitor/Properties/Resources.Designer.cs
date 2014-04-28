@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Vienna_Traffic_Monitor.Properties
+namespace ViennaTrafficMonitor.Properties
 {
 
 
