@@ -8,7 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViennaTrafficMonitor.Properties {
+namespace VtmFramework.Properties {
+    
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
@@ -24,38 +25,19 @@ namespace ViennaTrafficMonitor.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("wLpcx61vtJ")]
-        public string SenderIdDev {
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string Enable {
             get {
-                return ((string)(this["SenderIdDev"]));
+                return ((string)(this["Enable"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ubDJsLwREM")]
-        public string SenderIdProd {
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string Type {
             get {
-                return ((string)(this["SenderIdProd"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.wienerlinien.at/ogd_realtime/monitor?")]
-        public string MonitorRequestBegin {
-            get {
-                return ((string)(this["MonitorRequestBegin"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("&activateTrafficInfo=stoerungkurz&activateTrafficInfo=stoerunglang&activateTraffi" +
-            "cInfo=aufzugsinfo&sender=")]
-        public string MonitorRequestEnd {
-            get {
-                return ((string)(this["MonitorRequestEnd"]));
+                return ((string)(this["Type"]));
             }
         }
     }

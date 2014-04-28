@@ -1,0 +1,33 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ViennaTrafficMonitor" x:Class="ViennaTrafficMonitor.View.MainWindow"
+        xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
+        xmlns:v="clr-namespace:ViennaTrafficMonitor.View"
+        xmlns:fv="clr-namespace:VtmFramework.View;assembly=VtmFramework"
+        xmlns:fvm="clr-namespace:VtmFramework.ViewModel;assembly=VtmFramework"
+        Title="MainWindow" WindowState="Maximized" WindowStyle="None">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:HauptfensterViewModel}">
+            <v:Hauptfenster />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:UserControl1ViewModel}">
+            <v:UserControl1 />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Content="&lt;= Zurück" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75"/>
+        <Button Grid.Row="0" Content="Home" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" />
+        <fv:AnimatedContentControl Grid.Row="1" Content="{Binding Scheduler.Aktuell}" />
+        <fv:AnimatedContentControl Grid.Row="1">
+            <fv:ErrorView DataContext="{Binding Scheduler.Aktuell.Error}" Grid.Row="1" VerticalAlignment="Center" />
+        </fv:AnimatedContentControl>
+    </Grid>
+</Window>

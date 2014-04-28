@@ -25,5 +25,10 @@ namespace VtmFramework.Command {
         }
 
         public event EventHandler CanExecuteChanged;
+        public void RaiseCanExecuteChanged() {
+            var handler = CanExecuteChanged;
+            if (handler != null)
+                handler(this, new EventArgs());
+        }
     }
 }
