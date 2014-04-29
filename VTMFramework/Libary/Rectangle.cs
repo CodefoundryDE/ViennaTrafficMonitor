@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace VtmFramework.Libary {
-    class Rectangle {
+    public class Rectangle {
 
         public Point TopRight { get; set; }
         public Point BottomLeft { get; set; }
