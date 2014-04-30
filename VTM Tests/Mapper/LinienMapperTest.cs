@@ -30,6 +30,19 @@ namespace VtmTests.Mapper {
             }
         }
 
+        [TestMethod]
+        public void TestFindByBezeichnung() {
+            List<ILinie> list = _mapper.FindByBezeichnung("U");
+            Assert.AreEqual(10, list.Count);
+
+            list = _mapper.FindByBezeichnung("U3");
+            Assert.AreEqual(1, list.Count);
+            Assert.AreEqual("U3", list[0].Bezeichnung);
+
+            list = _mapper.FindByBezeichnung("XYZ");
+            Assert.AreEqual(0, list.Count);
+        }
+
         [TestMethod, ExpectedException(typeof(KeyNotFoundException))]
         public void TestNotFound() {
             _mapper.Find(123);
