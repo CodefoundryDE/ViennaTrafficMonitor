@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Web.Script.Serialization;
 
 namespace ViennaTrafficMonitor.Deserializer {
-    public class RblRequester {
+    public static class RblRequester {
 
         private const string _rblAllocator = "rbl=";
         private const string _rblConnector = "&rbl=";
@@ -18,7 +18,7 @@ namespace ViennaTrafficMonitor.Deserializer {
         /// </summary>
         /// <param name="rbl"></param>
         /// <returns></returns>
-        public static async Task<Response> getResponseAsync(int rbl) {
+        public static async Task<Response> GetResponseAsync(int rbl) {
 
             string requestString =
                 ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestBegin
@@ -45,7 +45,7 @@ namespace ViennaTrafficMonitor.Deserializer {
         /// </summary>
         /// <param name="rblEnumerable"></param>
         /// <returns></returns>
-        public static async Task<Response> getResponseAsync(IEnumerable<int> rblEnumerable) {
+        public static async Task<Response> GetResponseAsync(IEnumerable<int> rblEnumerable) {
 
 
             StringBuilder builder = new StringBuilder();
