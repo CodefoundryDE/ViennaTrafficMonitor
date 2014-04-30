@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViennaTrafficMonitor.Model;
-using VtmFramework.Libary;
+using VtmFramework.Library;
 
 namespace ViennaTrafficMonitor.Mapper {
 
@@ -31,7 +31,7 @@ namespace ViennaTrafficMonitor.Mapper {
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public List<IHaltestelle> findByName(String name) {
+        public List<IHaltestelle> FindByName(String name) {
 
             return (from date in _data
                     where date.Value.Name.Contains(name)
@@ -43,7 +43,7 @@ namespace ViennaTrafficMonitor.Mapper {
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
-        public List<IHaltestelle> findByRectangle(Rectangle rect) {
+        public List<IHaltestelle> FindByRectangle(Rectangle rect) {
             double minX = rect.BottomLeft.X;
             double minY = rect.BottomLeft.Y;
             double maxX = rect.TopRight.X;

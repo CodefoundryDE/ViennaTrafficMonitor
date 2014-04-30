@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace VtmFramework.Libary {
+namespace VtmFramework.Library {
     public class Rectangle {
 
         public Point TopRight { get; set; }
