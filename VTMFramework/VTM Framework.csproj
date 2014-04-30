@@ -52,6 +52,7 @@
     <Compile Include="Command\AwaitableDelegateCommand.cs" />
     <Compile Include="Error\Error.cs" />
     <Compile Include="Library\Rectangle.cs" />
+    <Compile Include="Library\StrLib.cs" />
     <Compile Include="Logging\IVTMLogger.cs" />
     <Compile Include="Logging\VTMLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
