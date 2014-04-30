@@ -32,7 +32,9 @@ namespace ViennaTrafficMonitor.Mapper {
         /// <param name="name"></param>
         /// <returns></returns>
         public List<IHaltestelle> FindByName(String name) {
-
+            if (name.Equals("")) {
+                return new List<IHaltestelle>();
+            }
             return (from date in _data
                     where date.Value.Name.Contains(name)
                     select date.Value).ToList();
