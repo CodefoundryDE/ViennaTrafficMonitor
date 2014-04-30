@@ -23,10 +23,16 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Content="&lt;= Zurück" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75"/>
-        <Button Grid.Row="0" Content="Home" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" />
-        <fv:AnimatedContentControl Grid.Row="1" Content="{Binding Scheduler.Aktuell}" />
-        <fv:AnimatedContentControl Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Content="&lt;= Zurück" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75" Grid.Column="0"/>
+        <v:Suche Grid.Row="0" Grid.Column="1" />
+        <Button Grid.Row="0" Content="Home" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" Grid.Column="2" />
+        <fv:AnimatedContentControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Scheduler.Aktuell}" />
+        <fv:AnimatedContentControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
             <fv:ErrorView DataContext="{Binding Scheduler.Aktuell.Error}" Grid.Row="1" VerticalAlignment="Center" />
         </fv:AnimatedContentControl>
     </Grid>

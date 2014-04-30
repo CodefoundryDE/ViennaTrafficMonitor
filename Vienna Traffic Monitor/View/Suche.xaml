@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="ViennaTrafficMonitor.View.Suche"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
+             mc:Ignorable="d" d:DesignHeight="44.476" d:DesignWidth="1072.537">
+    <UserControl.DataContext>
+        <vm:SucheViewModel />
+    </UserControl.DataContext>
+    <DockPanel LastChildFill="True">
+        <Popup DockPanel.Dock="Bottom" Placement="Relative" VerticalOffset="{Binding ActualHeight, ElementName=SearchField}" 
+               IsOpen="{Binding ElementName=ListBox, Path=Items.Count, Mode=OneWay}" PlacementTarget="{Binding ElementName=SearchField}"
+               PopupAnimation="Slide" AllowsTransparency="True" HorizontalAlignment="Stretch"
+               Width="{Binding ActualWidth, ElementName=SearchField}">
+            <ListBox Name="ListBox" DockPanel.Dock="Bottom" ItemsSource="{Binding Matches}" MaxHeight="100"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" PreviewKeyDown="ListBox_PreviewKeyDown" />
+        </Popup>
+        <Button DockPanel.Dock="Right" Command="{Binding ButtonSearchClickCommand}" Content="Suche" Padding="10,10,10,10" />
+        <TextBox Name="SearchField" DockPanel.Dock="Left" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                 Padding="10,10,10,10" FontWeight="Bold" PreviewKeyDown="SearchField_PreviewKeyDown"/>
+    </DockPanel>
+</UserControl>
