@@ -11,7 +11,7 @@ namespace ViennaTrafficMonitor.Mapper {
 
     public sealed class HaltestellenMapperFactory {
 
-        private const string CSVDIR = "CsvImport\\Parser\\";
+        private const string CSVDIR = "Ressources\\Csv\\";
 
         private static volatile IHaltestellenMapper instance = null;
         private static object syncRoot = new Object();

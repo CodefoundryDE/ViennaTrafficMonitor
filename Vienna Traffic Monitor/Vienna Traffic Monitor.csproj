@@ -162,17 +162,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="CsvImport\Parser\wienerlinien-ogd-haltestellen.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="Ressources\Csv\wienerlinien-ogd-haltestellen.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="CsvImport\Parser\wienerlinien-ogd-linien.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="Ressources\Csv\wienerlinien-ogd-linien.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="CsvImport\Parser\wienerlinien-ogd-steige.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="Ressources\Csv\wienerlinien-ogd-steige.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="CsvImport\Parser\wienerlinien-ogd-version.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="Ressources\Csv\wienerlinien-ogd-version.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -206,6 +206,13 @@
       <Project>{78b1ca3e-47e0-4596-9881-a81461eb8776}</Project>
       <Name>VTM Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Light\appbar.magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Dark\appbar.magnify.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
