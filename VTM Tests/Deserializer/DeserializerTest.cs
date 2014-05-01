@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ViennaTrafficMonitor.Deserializer;
-using System.Web.Script.Serialization;
 using System.IO;
 
 namespace VtmTests.Deserializer {
