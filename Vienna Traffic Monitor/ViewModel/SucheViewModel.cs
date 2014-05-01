@@ -21,12 +21,12 @@ namespace ViennaTrafficMonitor.ViewModel {
             set {
                 _searchText = value;
                 RaisePropertyChangedEvent("SearchText");
-                _buttonSearchClick();
+                _textChangedAsync();
             }
         }
 
-        private List<string> _matches;
-        public List<string> Matches {
+        private List<IHaltestelle> _matches;
+        public List<IHaltestelle> Matches {
             get { return _matches; }
             private set {
                 _matches = value; RaisePropertyChangedEvent("Matches");
@@ -39,18 +39,12 @@ namespace ViennaTrafficMonitor.ViewModel {
             _mapper = HaltestellenMapperFactory.Instance;
         }
 
-        public ICommand ButtonSearchClickCommand { get { return new AwaitableDelegateCommand(_buttonSearchClickAsync); } }
-
-        private async Task _buttonSearchClickAsync() {
+        private async void _textChangedAsync() {
             await Task.Run(() => {
                 Matches = (from haltestelle in _mapper.FindByName(SearchText)
-                           select haltestelle.Name).ToList(); ;
+                           select haltestelle).ToList();
 
             });
-        }
-
-        private async void _buttonSearchClick() {
-            await _buttonSearchClickAsync();
         }
 
     }

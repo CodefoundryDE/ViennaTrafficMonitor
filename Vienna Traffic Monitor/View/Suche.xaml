@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
-             mc:Ignorable="d" d:DesignHeight="44.476" d:DesignWidth="1072.537">
+             mc:Ignorable="d" d:DesignHeight="38.876" d:DesignWidth="637.337">
     <UserControl.DataContext>
         <vm:SucheViewModel />
     </UserControl.DataContext>
@@ -16,8 +16,12 @@
             <ListBox Name="ListBox" DockPanel.Dock="Bottom" ItemsSource="{Binding Matches}" MaxHeight="100"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" PreviewKeyDown="ListBox_PreviewKeyDown" />
         </Popup>
-        <Button DockPanel.Dock="Right" Command="{Binding ButtonSearchClickCommand}" Content="Suche" Padding="10,10,10,10" />
-        <TextBox Name="SearchField" DockPanel.Dock="Left" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
-                 Padding="10,10,10,10" FontWeight="Bold" PreviewKeyDown="SearchField_PreviewKeyDown"/>
+        <!--<Button DockPanel.Dock="Right" Command="{Binding ButtonSearchClickCommand}" Content="Suche" Padding="10,10,10,10" />-->
+        <TextBox DockPanel.Dock="Top" Name="SearchField" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                 Padding="10,10,10,10" FontWeight="Bold" PreviewKeyDown="SearchField_PreviewKeyDown">
+            <TextBox.Background>
+                <ImageBrush ImageSource="/Ressources/Icons/Light/appbar.magnify.png" AlignmentX="Right" AlignmentY="Center" Stretch="Uniform" />
+            </TextBox.Background>
+        </TextBox>
     </DockPanel>
 </UserControl>
