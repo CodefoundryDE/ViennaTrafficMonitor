@@ -106,7 +106,11 @@
     <Compile Include="Model\ISteig.cs" />
     <Compile Include="Model\Linie.cs" />
     <Compile Include="Model\Steig.cs" />
+    <Compile Include="ViewModel\SucheViewModel.cs" />
     <Compile Include="ViewModel\UserControl1ViewModel.cs" />
+    <Compile Include="View\Suche.xaml.cs">
+      <DependentUpon>Suche.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
@@ -131,6 +135,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Suche.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,6 +162,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Ressources\Csv\wienerlinien-ogd-haltestellen.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\Csv\wienerlinien-ogd-linien.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\Csv\wienerlinien-ogd-steige.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\Csv\wienerlinien-ogd-version.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -186,6 +206,13 @@
       <Project>{78b1ca3e-47e0-4596-9881-a81461eb8776}</Project>
       <Name>VTM Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Light\appbar.magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Dark\appbar.magnify.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
