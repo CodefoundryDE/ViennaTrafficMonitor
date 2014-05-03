@@ -51,7 +51,7 @@ namespace VtmFramework.View {
         private static Brush _CreateBrushFromVisual(Visual v, int width, int height) {
             if (v == null)
                 throw new ArgumentNullException("v");
-            RenderTargetBitmap target = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            RenderTargetBitmap target = new RenderTargetBitmap(Math.Max(width, 1), Math.Max(height, 1), 96, 96, PixelFormats.Pbgra32);
             target.Render(v);
             Brush brush = new ImageBrush(target);
             brush.Freeze();

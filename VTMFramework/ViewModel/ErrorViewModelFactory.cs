@@ -10,7 +10,7 @@ namespace VtmFramework.ViewModel {
 
     public static class ErrorViewModelFactory {
 
-        private static IVtmLogger _logger = new VTMLogger();
+        private static IVtmLogger _logger = VTMLoggerFactory.getInstance();
 
         public static ErrorViewModel GetInstance(string title, string message, EErrorButtons buttonSet, IObserver<EErrorResult> observer) {
             ErrorViewModel evm = new ErrorViewModel();

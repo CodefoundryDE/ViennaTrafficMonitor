@@ -21,7 +21,7 @@ namespace ViennaTrafficMonitor.CsvImport.Parser
             ConcurrentDictionary<int, IHaltestelle> haltestellen = new ConcurrentDictionary<int, IHaltestelle>();
 
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
-
+            engine.Encoding = Encoding.UTF8;
             HaltestelleRecord[] res = engine.ReadFile(filePath);
 
             foreach (HaltestelleRecord haltestelle in res)

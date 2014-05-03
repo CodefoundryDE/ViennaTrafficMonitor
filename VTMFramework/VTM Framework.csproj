@@ -51,9 +51,11 @@
   <ItemGroup>
     <Compile Include="Command\AwaitableDelegateCommand.cs" />
     <Compile Include="Error\Error.cs" />
+    <Compile Include="Library\Rectangle.cs" />
     <Compile Include="Library\StrLib.cs" />
     <Compile Include="Logging\IVTMLogger.cs" />
     <Compile Include="Logging\VTMLogger.cs" />
+    <Compile Include="Logging\VTMLoggerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="Factory\IFactory.cs" />

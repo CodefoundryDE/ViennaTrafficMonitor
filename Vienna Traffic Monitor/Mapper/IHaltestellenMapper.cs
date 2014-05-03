@@ -5,9 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using ViennaTrafficMonitor.Model;
 using VtmFramework.Mapper;
+using VtmFramework.Library;
 
 namespace ViennaTrafficMonitor.Mapper {
 
-    public interface IHaltestellenMapper : IMapper<IHaltestelle> { }
+    public interface IHaltestellenMapper : IMapper<IHaltestelle> {
+
+        List<IHaltestelle> FindByName(String name);
+
+        List<IHaltestelle> FindByRectangle(Rectangle rect);
+
+    }
 
 }

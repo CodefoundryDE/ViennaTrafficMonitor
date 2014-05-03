@@ -20,7 +20,7 @@ namespace ViennaTrafficMonitor.CsvImport.Parser
             ConcurrentDictionary<int, ILinie> linien = new ConcurrentDictionary<int, ILinie>();
 
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
-
+            engine.Encoding = Encoding.UTF8;
             LinieRecord[] res = engine.ReadFile(filePath);
 
             foreach (LinieRecord linie in res)
