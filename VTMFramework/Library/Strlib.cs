@@ -17,12 +17,15 @@ namespace VtmFramework.Library {
         /// <param name="separator">Trenner</param>
         /// <returns></returns>
         public static string StrCat(string str1, string str2, string separator) {
+            if (str1 == null) str1 = "";
+            if (str2 == null) str2 = "";
+            if (separator == null) separator = "";
             string temp1 = str1.Trim();
             string temp2 = str2.Trim();
 
             StringBuilder result = new StringBuilder();
             result.Append(temp1);
-            if (!temp1.Equals("") && !temp2.Equals("")) result.Append(separator);
+            if (!String.IsNullOrEmpty(temp1) && !String.IsNullOrEmpty(temp2)) result.Append(separator);
             result.Append(temp2);
             return result.ToString();
         }

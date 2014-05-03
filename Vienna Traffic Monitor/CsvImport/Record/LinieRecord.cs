@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FileHelpers;
+using System.CodeDom.Compiler;
 
 namespace ViennaTrafficMonitor.CsvImport.Record {
     [IgnoreFirst(1)]
     [IgnoreEmptyLines()]
     [DelimitedRecord(";")]
+    [GeneratedCodeAttribute("CSV to  C#", "")]
     public sealed class LinieRecord {
 
         private int mId;

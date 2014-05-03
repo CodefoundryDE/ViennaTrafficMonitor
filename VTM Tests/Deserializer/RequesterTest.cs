@@ -29,8 +29,8 @@ namespace VtmTests.Deserializer {
         [TestMethod]
         public async Task TestRequest() {
 
-            Task<Response> request = RblRequester.getResponseAsync(_TestRbl);
-            Task<Response> requestEnumerable = RblRequester.getResponseAsync(_TestRblEnumerable);
+            Task<Response> request = RblRequester.GetResponseAsync(_TestRbl);
+            Task<Response> requestEnumerable = RblRequester.GetResponseAsync(_TestRblEnumerable);
 
             _Response = await request;
             _ResponseEnumerable = await requestEnumerable;
