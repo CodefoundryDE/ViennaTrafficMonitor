@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace VtmFramework.Logging {
-    class VTMLogger : VtmFramework.Logging.IVtmLogger {
+    public class VTMLogger : VtmFramework.Logging.IVTMLogger {
         private TraceListener _tListener = null;
         private BooleanSwitch _bSwitch = null;
-        private TraceSwitch _tSwitch = null;
-        private static volatile VTMLogger instance;
+        private static FileStream _hlogFile = null;
+        private static TraceSwitch _tSwitch = new TraceSwitch("Type", "", VtmFramework.Properties.Settings.Default.Type);
+        private static volatile VTMLogger _instance;
         private static String _logPath = "";
         private static bool _logPathChanged = false;
         private static string _defaultLogPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName) + "\\VTM_LOG.log"; //Environment.ExpandEnvironmentVariables("%userprofile%") + @"\AppData\VTMTrafficMonitor\VTM_Log.log";
@@ -31,30 +32,33 @@ namespace VtmFramework.Logging {
         private VTMLogger() {
             _tListener = Trace.Listeners[_traceName];
             _bSwitch = new BooleanSwitch("Enable", "", VtmFramework.Properties.Settings.Default.Enable);
-            _tSwitch = new TraceSwitch("Type", "", VtmFramework.Properties.Settings.Default.Type);
 
         }
 
         public static VTMLogger Instance {
             [MethodImpl(MethodImplOptions.Synchronized)]
             get {
-                if (_logPathChanged == true) {
-                    CreateTraceListener(_logPath);
+                if (_instance == null || _logPathChanged) {
+                    if (_logPathChanged == true) {
+                        
+                        CreateTraceListener(_logPath);
+                        _logPathChanged = false;
+                    } else {
+                        CreateTraceListener(_defaultLogPath);
+                    }
+                    _instance = new VTMLogger();
                 }
-                if (instance == null) {
-                    CreateTraceListener(_defaultLogPath);
-                } else {
-                    return instance;
-                }
-                instance = new VTMLogger();
-                return instance;
+                return _instance;
             }
         }
 
         private static void CreateTraceListener(string logPath) {
             Trace.Listeners.Clear();
-            FileStream hlogFile = new FileStream(logPath, FileMode.OpenOrCreate, FileAccess.Write);
-            TextWriterTraceListener VTMListener = new TextWriterTraceListener(hlogFile);
+            if (_hlogFile != null) {
+                _hlogFile.Dispose();
+            }
+            _hlogFile = new FileStream(logPath, FileMode.OpenOrCreate, FileAccess.Write);
+            TextWriterTraceListener VTMListener = new TextWriterTraceListener(_hlogFile);
             VTMListener.Name = _traceName;
             Trace.Listeners.Add(VTMListener);
 
@@ -85,5 +89,17 @@ namespace VtmFramework.Logging {
                 Trace.TraceInformation(DateTime.Now + " " + infoMessage);
             }
         }
+
+        public static void SetLoggingLevel(System.Diagnostics.TraceLevel level) {
+            _tSwitch.Level = level;
+        }
+
+        public void Dispose() {
+            //Freigabe des Filehandels und der Instanz; 
+            _hlogFile.Dispose();
+            _instance = null;            
+        }
+
+
     }
 }

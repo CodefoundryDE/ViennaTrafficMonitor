@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Command\AwaitableDelegateCommandTest.cs" />
     <Compile Include="Library\StrLibTest.cs" />
+    <Compile Include="Logging\LoggingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Command\DelegateCommandTest.cs" />
     <Compile Include="Scheduler\SchedulerTest.cs" />
