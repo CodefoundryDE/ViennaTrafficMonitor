@@ -23,6 +23,7 @@ namespace VtmTests.Mapper {
         private Point pointHauptbhfOst;
         private Point pointPraterstern;
         private Rectangle rectHbfPrater;
+        private Rectangle rectHbfHbf;
 
         [TestInitialize]
         public void TestInitialize() {
@@ -38,6 +39,7 @@ namespace VtmTests.Mapper {
             pointPraterstern = new Point(48.2185133276323, 16.3923272266447);
 
             rectHbfPrater = new Rectangle(pointPraterstern, pointHauptbhfOst);
+            rectHbfHbf = new Rectangle(pointHauptbhfOst, pointHauptbhfOst);
 
             hauptbahnhof = new Haltestelle(214461409, 60201349, "Hauptbahnhof", new Point(48.1844162175681, 16.3803748315515));
             hauptbahnhofOst = new Haltestelle(214461006, 60200905, "Hauptbahnhof Ost", pointHauptbhfOst);
@@ -51,13 +53,18 @@ namespace VtmTests.Mapper {
             for (int i = 1; i <= 10; i++) {
                 Assert.AreEqual("Haltestelle " + i.ToString(), _mapperFictional.Find(i).Name, "Vorhandenes Element wurde nicht gefunden.");
             }
+
+            Assert.AreEqual(hauptbahnhofOst, _mapperReal.Find(214461006));
+            Assert.AreEqual(hauptbahnhof, _mapperReal.Find(214461409));
+            Assert.AreEqual(hauptbahnhofStPoelten, _mapperReal.Find(214463796));
+            Assert.AreEqual(hauptbahnhofWrNeustadt, _mapperReal.Find(214464157));
+            Assert.AreEqual(praterstern, _mapperReal.Find(214461125));
         }
 
-        /*[TestMethod, ExpectedException(typeof(KeyNotFoundException))]
+        [TestMethod, ExpectedException(typeof(KeyNotFoundException))]
         public void TestNotFound() {
-            _mapperFictional.Find(123);
-        }*/
-
+            _mapperReal.Find(123);
+        }
 
         [TestMethod]
         public void TestFindByName() {
@@ -79,6 +86,11 @@ namespace VtmTests.Mapper {
             List<IHaltestelle> result = _mapperReal.FindByRectangle(rectHbfPrater);
             Assert.IsTrue(result.Contains(praterstern));
             Assert.IsTrue(result.Contains(hauptbahnhofOst));
+
+            result = _mapperReal.FindByRectangle(rectHbfHbf);
+            Assert.IsTrue(result.Contains(hauptbahnhofOst));
+            Assert.AreEqual(1, result.Count);
+
         }
     }
 }
