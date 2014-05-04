@@ -26,7 +26,7 @@ namespace VtmFramework.ViewModel {
             Visible = Visibility.Visible;
         }
 
-        public ErrorViewModel(Exception ex, IVtmLogger logger)
+        public ErrorViewModel(Exception ex, IVTMLogger logger)
             : this() {
             if (logger != null) logger.Error(ex);
         }
