@@ -16,10 +16,10 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public MainViewModel() {
             Scheduler = new Scheduler<AbstractViewModel>();
-            Scheduler.Schedule(new UserControl1ViewModel());
-            Scheduler.Schedule(new HauptfensterViewModel());
-            Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
             Scheduler.Start();
+            //Scheduler.Schedule(new UserControl1ViewModel());
+            Scheduler.ScheduleInstant(new HauptfensterViewModel());
+            Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
         }
 
         private void OnSchedulerAktuellChanged(object Sender, EventArgs e) {

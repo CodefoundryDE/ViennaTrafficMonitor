@@ -74,6 +74,7 @@
     <Compile Include="ViewModel\ErrorViewModelFactory.cs" />
     <Compile Include="ViewModel\IViewModel.cs" />
     <Compile Include="View\AnimatedContentControl.cs" />
+    <Compile Include="View\SplitFlapDisplay.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
