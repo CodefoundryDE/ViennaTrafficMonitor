@@ -7,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace VtmFramework.Logging {
-    public static class VTMLoggerFactory {
+    public static class VtmLoggerFactory {
 
-        public static IVTMLogger getInstance (string logPath) {
+        public static IVTMLogger GetInstance (string logPath) {
             VTMLogger.LogPath = logPath;
-            return getInstance();
+            return GetInstance();
         }
 
-        public static IVTMLogger getInstance () {
+        public static IVTMLogger GetInstance () {
             return VTMLogger.Instance;
         }
 

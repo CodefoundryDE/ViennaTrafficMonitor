@@ -19,7 +19,7 @@ namespace VtmFrameworkTests.Logging {
         public void TestInitialize() {
             _path = ".\\TestLog.log";
             VTMLogger.SetLoggingLevel(TraceLevel.Verbose);
-            _log = VTMLoggerFactory.getInstance(_path);
+            _log = VtmLoggerFactory.GetInstance(_path);
             //_log = VTMLoggerFactory.getInstance();
         }
 
