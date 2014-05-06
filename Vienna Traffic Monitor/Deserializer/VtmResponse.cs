@@ -11,18 +11,18 @@ namespace ViennaTrafficMonitor.Deserializer {
 
         public readonly Departure Departure { get; set; }
 
-        public readonly TrafficInfoCategory TrafficInfoCategory {get; set;}
+        public readonly List<TrafficInfoCategory> TrafficInfoCategories {get; set;}
 
-        public readonly TrafficInfoCategoryGroup TrafficInfoCategoryGroup { get; set; }
+        public readonly List<TrafficInfoCategoryGroup> TrafficInfoCategoryGroups { get; set; }
 
         public readonly LocationStop LocationStop { get; set; }
 
-        public VtmResponse(Line line, Departure departure, Message message, LocationStop locstop, TrafficInfoCategory tic, TrafficInfoCategoryGroup ticg) {
+        public VtmResponse(Line line, Departure departure, LocationStop locstop, List<TrafficInfoCategory> tic, List<TrafficInfoCategoryGroup> ticg) {
             Line = line;
             Departure = departure;
             LocationStop = locstop;
-            TrafficInfoCategory = tic;
-            TrafficInfoCategoryGroup = ticg;
+            TrafficInfoCategories = tic;
+            TrafficInfoCategoryGroups = ticg;
         }
     }
 }
