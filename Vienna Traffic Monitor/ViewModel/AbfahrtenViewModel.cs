@@ -11,25 +11,20 @@ using ViennaTrafficMonitor.Mapper;
 namespace ViennaTrafficMonitor.ViewModel {
     
     public class AbfahrtenViewModel : AbstractViewModel {
-        private Response _Response;
+        private IList<VtmResponse> _Response;
 
         private Func<ICollection<Departure>> _Filter;
 
-        private Response Response {
+        private IList<VtmResponse> Response {
             get { return _Response; }
             set {
                 _Response = value;
                 RaisePropertyChangedEvent("Abfahrten");
-                RaisePropertyChangedEvent("Messages");
             }
         }
 
         public ICollection<Departure> Abfahrten {
             get { return _Filter(); }
-        }
-
-        public Message Message {
-            get { return _Response.Message; }
         }
 
         private IHaltestelle _Haltestelle;
@@ -52,14 +47,10 @@ namespace ViennaTrafficMonitor.ViewModel {
             _Rbls = from steig in sm.FindByHaltestelle(HaltestellenId)
                     select steig.Rbl;
             _GetResponse();
-            _Filter = () => {
-                var lines = from monitor in Response.Data.Monitors
-                            select monitor.Lines;
-            };
         }
 
         private async void _GetResponse() {
-            _Response = await RblRequester.GetResponseAsync(_Rbls);
+            _Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
         }
     }
 }
