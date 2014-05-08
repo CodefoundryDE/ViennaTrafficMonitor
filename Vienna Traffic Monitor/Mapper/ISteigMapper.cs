@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ViennaTrafficMonitor.Model;
 namespace ViennaTrafficMonitor.Mapper {
@@ -7,5 +8,6 @@ namespace ViennaTrafficMonitor.Mapper {
         List<ISteig> FindByHaltestelle(int HaltestellenId);
         List<ISteig> FindByLinie(int LinienId);
         List<ISteig> FindByRbl(int Rbl);
+        ConcurrentDictionary<int, ISteig> GetAll();
     }
 }

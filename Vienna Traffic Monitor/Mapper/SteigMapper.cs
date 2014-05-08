@@ -49,6 +49,14 @@ namespace ViennaTrafficMonitor.Mapper {
             return new List<ISteig>(query);
             
         }
+
+        /// <summary>
+        /// Gibt alle Steige zurück
+        /// </summary>
+        /// <returns></returns>
+        public ConcurrentDictionary<int, ISteig> GetAll() {
+            return _data;
+        }
     }
 
 }
