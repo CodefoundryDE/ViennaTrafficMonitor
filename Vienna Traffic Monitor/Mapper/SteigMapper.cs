@@ -40,14 +40,14 @@ namespace ViennaTrafficMonitor.Mapper {
             var query = from steig in _data.Values
                         where steig.LinienId.Equals(LinienId)
                         orderby steig.Reihenfolge ascending
-                        select steig;       
+                        select steig;
             //SortedList<int, ISteig> linieRhf = new SortedList<int, ISteig>();
             //foreach (ISteig steig in query) {
             //    linieRhf.Add(steig.Reihenfolge, steig);
             //}
             //return linieRhf;
             return new List<ISteig>(query);
-            
+
         }
 
         /// <summary>
