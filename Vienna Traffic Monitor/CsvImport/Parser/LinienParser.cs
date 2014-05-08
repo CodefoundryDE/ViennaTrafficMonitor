@@ -31,40 +31,7 @@ namespace ViennaTrafficMonitor.CsvImport.Parser
                 transport.Echtzeit = linie.Echtzeit;
                 transport.Id = linie.Id;
                 transport.Reihenfolge = linie.Reihenfolge;
-                switch (linie.Verkehrsmittel)
-                {
-                    case "ptTram":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.Tram;
-                            break;
-                        }
-                    case "ptBusCity":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.CityBus;
-                            break;
-                        }
-                    case "ptBusNight":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.NachtBus;
-                            break;
-                        }
-                    case "ptTrainS":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.SBahn;
-                            break;
-                        }
-                    case "ptMetro":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.Metro;
-                            break;
-                        }
-                    case "ptTramWLB":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.TramWlb;
-                            break;
-                        }
-
-                }
+                transport.Verkehrsmittel = Linie.Verkehrsmittel_Converter(linie.Verkehrsmittel);
 
                 //Schreiben des Models in Collection für den Rückgabewert:
                 linien.AddOrUpdate(transport.Id, transport, (key, oldValue) => transport);

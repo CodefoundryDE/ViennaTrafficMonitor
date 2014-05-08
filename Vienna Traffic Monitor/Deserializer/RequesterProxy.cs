@@ -23,7 +23,7 @@ namespace ViennaTrafficMonitor.Deserializer {
             foreach (Monitor monitor in response.Data.Monitors) {
                 foreach (Line line in monitor.Lines) {
                     foreach (Departure departure in line.Departures.Departure) {
-                        responses.Add(new VtmResponse(line, departure, monitor.LocationStop, response.Data.TrafficInfoCategories, response.Data.TrafficInfoCategoryGroups));
+                        responses.Add(new VtmResponse(line, departure, monitor.LocationStop, response.Data.TrafficInfoCategories, response.Data.TrafficInfoCategoryGroups, line.Type));
                     }
                 }
             }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ViennaTrafficMonitor.Model {
 
-    public enum EVerkehrsmittel { Metro, SBahn, Tram, NachtBus, CityBus, TramWlb };
+    public enum EVerkehrsmittel { NoInfo, Metro, SBahn, Tram, NachtBus, CityBus, TramWlb };
 
     public class Linie : ILinie {
 
@@ -45,6 +45,42 @@ namespace ViennaTrafficMonitor.Model {
         public override int GetHashCode()
         {
             return Id.GetHashCode();
+        }
+
+        public static EVerkehrsmittel Verkehrsmittel_Converter(String type) {
+            EVerkehrsmittel verkehrsmittel;
+            switch (type) {
+                case "ptTram": {
+                        verkehrsmittel = EVerkehrsmittel.Tram;
+                        break;
+                    }
+                case "ptBusCity": {
+                        verkehrsmittel = EVerkehrsmittel.CityBus;
+                        break;
+                    }
+                case "ptBusNight": {
+                        verkehrsmittel = EVerkehrsmittel.NachtBus;
+                        break;
+                    }
+                case "ptTrainS": {
+                        verkehrsmittel = EVerkehrsmittel.SBahn;
+                        break;
+                    }
+                case "ptMetro": {
+                        verkehrsmittel = EVerkehrsmittel.Metro;
+                        break;
+                    }
+                case "ptTramWLB": {
+                        verkehrsmittel = EVerkehrsmittel.TramWlb;
+                        break;
+                    }
+                default: {
+                    verkehrsmittel = EVerkehrsmittel.NoInfo;
+                    break;
+                    }
+
+            }
+            return verkehrsmittel;
         }
 
         
