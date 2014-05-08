@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using ViennaTrafficMonitor.Model;
 using VtmFramework.Library;
 
@@ -59,6 +60,16 @@ namespace ViennaTrafficMonitor.Mapper {
                     select date.Value).ToList();
         }
 
+        /// <summary>
+        /// Gibt alle Koordinaten der Haltestellen als Dictionary<int, Point> aus, 
+        /// wobei der Schlüssel die Haltestellen-Id repräsentiert.
+        /// </summary>
+        /// <returns></returns>
+        public IDictionary<int, Point> GetAllCoordinates() {
+            var dict = _data.Select(t => new { t.Key, t.Value.Location })
+                .ToDictionary(t => t.Key, t => t.Location);
+            return dict;
+        }
     }
 
 }

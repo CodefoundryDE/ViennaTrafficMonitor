@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ViennaTrafficMonitor.Model;
 using VtmFramework.Mapper;
 using VtmFramework.Library;
+using System.Windows;
 
 namespace ViennaTrafficMonitor.Mapper {
 
@@ -15,6 +16,7 @@ namespace ViennaTrafficMonitor.Mapper {
 
         List<IHaltestelle> FindByRectangle(Rectangle rect);
 
+        IDictionary<int, Point> GetAllCoordinates();
     }
 
 }
