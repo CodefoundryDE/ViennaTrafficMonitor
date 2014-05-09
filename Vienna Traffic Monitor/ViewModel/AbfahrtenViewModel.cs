@@ -18,25 +18,23 @@ namespace ViennaTrafficMonitor.ViewModel {
             get { return _Filters; }
         }
 
-        private IList<VtmResponse> _Response;
-        private IList<VtmResponse> Response {
+        private ICollection<VtmResponse> _Response;
+        private ICollection<VtmResponse> Response {
             set {
                 _Response = value;
                 RaisePropertyChangedEvent("Abfahrten");
             }
         }
 
-        private Func<IList<VtmResponse>,IList<VtmResponse>> _Filter = (_Response) => {
-            IList<VtmResponse> gefilterteAbfahrten = _Response;
+        private Func<ICollection<VtmResponse>,ICollection<VtmResponse>> _Filter = (_Response) => {
+            ICollection<VtmResponse> gefilterteAbfahrten = _Response;
             foreach (AbstractAbfahrtenFilter filter in Filters) {
-                if (filter.Active) {
                     gefilterteAbfahrten = filter.Filter(gefilterteAbfahrten);
-                }
             }
             return gefilterteAbfahrten;
 
         };
-        public IList<VtmResponse> Abfahrten {
+        public ICollection<VtmResponse> Abfahrten {
             get { return _Filter(_Response); }
         }
 

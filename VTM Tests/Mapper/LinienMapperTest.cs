@@ -32,7 +32,7 @@ namespace VtmTests.Mapper {
 
         [TestMethod]
         public void TestFindByBezeichnung() {
-            List<ILinie> list = _mapper.FindByBezeichnung("U");
+            IList<ILinie> list = _mapper.FindByBezeichnung("U");
             Assert.AreEqual(10, list.Count);
 
             list = _mapper.FindByBezeichnung("U3");

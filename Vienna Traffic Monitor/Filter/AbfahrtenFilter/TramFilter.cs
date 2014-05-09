@@ -9,9 +9,9 @@ using ViennaTrafficMonitor.Model;
 namespace ViennaTrafficMonitor.Filter.AbfahrtenFilter {
     public class TramFilter : AbstractAbfahrtenFilter {
 
-        public TramFilter(bool activated)
-            : base("RemoveTram", activated) {
-            Filter = (IList<VtmResponse> abfahrten) => {
+        public TramFilter()
+            : base() {
+            Filter = (ICollection<VtmResponse> abfahrten) => {
                 var query = from response in abfahrten
                             where (response.Typ != EVerkehrsmittel.Tram) || (response.Typ != EVerkehrsmittel.TramWlb)
                             select response;

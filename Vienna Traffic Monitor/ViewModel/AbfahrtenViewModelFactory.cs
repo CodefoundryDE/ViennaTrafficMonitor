@@ -17,10 +17,10 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
         private static void _InitializeFilters() {
             //Hinzufügen aller bekannten Abfahrtsfilter zum AbfahrtenViewModel:
-            AbfahrtenViewModel.AddFilter (new MetroFilter(false));
-            AbfahrtenViewModel.AddFilter (new SBahnFilter(false));
-            AbfahrtenViewModel.AddFilter (new TramFilter(false));
-            AbfahrtenViewModel.AddFilter(new BusFilter(false));
+            AbfahrtenViewModel.AddFilter (new MetroFilter());
+            AbfahrtenViewModel.AddFilter (new SBahnFilter());
+            AbfahrtenViewModel.AddFilter (new TramFilter());
+            AbfahrtenViewModel.AddFilter(new BusFilter());
         }
     }
 }

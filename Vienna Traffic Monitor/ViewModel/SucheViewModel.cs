@@ -25,8 +25,8 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        private List<IHaltestelle> _matches;
-        public List<IHaltestelle> Matches {
+        private ICollection<IHaltestelle> _matches;
+        public ICollection<IHaltestelle> Matches {
             get { return _matches; }
             private set {
                 _matches = value; RaisePropertyChangedEvent("Matches");

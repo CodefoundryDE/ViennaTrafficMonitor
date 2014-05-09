@@ -15,6 +15,7 @@ namespace ViennaTrafficMonitor.Mapper {
     public sealed class SteigMapperFactory {
 
         private const string CSVDIR = "Ressources\\Csv\\";
+
         private static volatile ISteigMapper instance = null;
         private static object syncRoot = new Object();
 

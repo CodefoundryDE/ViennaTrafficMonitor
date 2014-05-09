@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ViennaTrafficMonitor.Model;
 using VtmFramework.Mapper;
 using VtmFramework.Library;
+using System.Windows;
+using System.Collections.Concurrent;
 
 namespace ViennaTrafficMonitor.Mapper {
 
@@ -15,6 +17,18 @@ namespace ViennaTrafficMonitor.Mapper {
 
         List<IHaltestelle> FindByRectangle(Rectangle rect);
 
+        /// <summary>
+        /// Gibt alle Koordinaten der Haltestellen als Dictionary<int, Point> aus, 
+        /// wobei der Schlüssel die Haltestellen-Id repräsentiert.
+        /// </summary>
+        /// <returns></returns>
+        IDictionary<int, Point> AllCoordinates { get; }
+
+        /// <summary>
+        /// Gibt alle Haltestellen zurück.
+        /// </summary>
+        /// <returns></returns>
+        ICollection<IHaltestelle> All { get; }
     }
 
 }
