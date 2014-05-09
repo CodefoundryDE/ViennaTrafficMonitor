@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using ViennaTrafficMonitor.Model;
 using VtmFramework.Library;
 
@@ -61,6 +62,19 @@ namespace ViennaTrafficMonitor.Mapper {
                         select date.Value).ToList();
             }
             return null;
+        }
+
+        public IDictionary<int, Point> AllCoordinates {
+            get { return _getAllCoordinates(); }
+        }
+        private IDictionary<int, Point> _getAllCoordinates() {
+            var dict = _data.Select(t => new { t.Key, t.Value.Location })
+                .ToDictionary(t => t.Key, t => t.Location);
+            return dict;
+        }
+
+        public ConcurrentDictionary<int, IHaltestelle> All {
+            get { return _data; }
         }
 
     }

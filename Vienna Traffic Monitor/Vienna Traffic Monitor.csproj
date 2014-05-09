@@ -111,10 +111,15 @@
     <Compile Include="Model\ISteig.cs" />
     <Compile Include="Model\Linie.cs" />
     <Compile Include="Model\Steig.cs" />
+    <Compile Include="ViewModel\MapViewModel.cs" />
+    <Compile Include="ViewModel\MapViewModelFactory.cs" />
     <Compile Include="ViewModel\AbfahrtenViewModel.cs" />
     <Compile Include="ViewModel\AbfahrtenViewModelFactory.cs" />
     <Compile Include="ViewModel\SucheViewModel.cs" />
     <Compile Include="ViewModel\UserControl1ViewModel.cs" />
+    <Compile Include="View\Map.xaml.cs">
+      <DependentUpon>Map.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Abfahrten.xaml.cs">
       <DependentUpon>Abfahrten.xaml</DependentUpon>
     </Compile>
@@ -124,6 +129,14 @@
     <Compile Include="View\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
+    <Page Include="Themes\Default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Light.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Abfahrten.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,6 +162,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Map.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Suche.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
