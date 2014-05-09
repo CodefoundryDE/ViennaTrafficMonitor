@@ -94,6 +94,7 @@
     <Compile Include="Filter\AbfahrtenFilter\AbstractAbfahrtenFilter.cs" />
     <Compile Include="Filter\AbfahrtenFilter\MetroFilter.cs" />
     <Compile Include="Filter\AbfahrtenFilter\SBahnFilter.cs" />
+    <Compile Include="Filter\AbfahrtenFilter\TramFilter.cs" />
     <Compile Include="Filter\AbstractFilter.cs" />
     <Compile Include="Mapper\HaltestellenMapper.cs" />
     <Compile Include="Mapper\HaltestellenMapperFactory.cs" />

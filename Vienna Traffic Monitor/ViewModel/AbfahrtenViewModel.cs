@@ -12,9 +12,9 @@ using ViennaTrafficMonitor.Filter;
 namespace ViennaTrafficMonitor.ViewModel {
 
     public class AbfahrtenViewModel : AbstractViewModel {
-        private static IDictionary<string, AbstractAbfahrtenFilter> _Filters = new Dictionary<string, AbstractAbfahrtenFilter>();
+        private static IList<AbstractAbfahrtenFilter> _Filters = new List<AbstractAbfahrtenFilter>();
 
-        public static IDictionary<string, AbstractAbfahrtenFilter> Filters {
+        public static IList< AbstractAbfahrtenFilter> Filters {
             get { return _Filters; }
         }
 
@@ -26,11 +26,18 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        private Func<IList<VtmResponse>> _Filter = () => {
-            return new List<VtmResponse>(); ;
+        private Func<IList<VtmResponse>,IList<VtmResponse>> _Filter = (_Response) => {
+            IList<VtmResponse> gefilterteAbfahrten = _Response;
+            foreach (AbstractAbfahrtenFilter filter in Filters) {
+                if (filter.Active) {
+                    gefilterteAbfahrten = filter.Filter(gefilterteAbfahrten);
+                }
+            }
+            return gefilterteAbfahrten;
+
         };
         public IList<VtmResponse> Abfahrten {
-            get { return _Filter(); }
+            get { return _Filter(_Response); }
         }
 
         private IHaltestelle _Haltestelle;
@@ -59,7 +66,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public static void AddFilter(AbstractAbfahrtenFilter filter) {
             if (filter != null) {
-                _Filters.Add(filter.FilterName, filter);
+                _Filters.Add(filter);
             }
         }
     }
