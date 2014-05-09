@@ -27,9 +27,14 @@ namespace ViennaTrafficMonitor.Mapper {
             return new List<ILinie>(query);
         }
 
-        public Dictionary<ILinie, List<IHaltestelle>> GetHaltestellenOrdered() {
-            ConcurrentDictionary<int, ISteig> steige = SteigMapperFactory.Instance.GetAll();
-            ConcurrentDictionary<int, IHaltestelle> haltestellen = HaltestellenMapperFactory.Instance.GetAll();
+        
+
+        public Dictionary<ILinie, List<IHaltestelle>> HaltestellenOrdered {
+            get { return _getHaltestellenOrdered(); }
+        }
+        private Dictionary<ILinie, List<IHaltestelle>> _getHaltestellenOrdered() {
+            ConcurrentDictionary<int, ISteig> steige = SteigMapperFactory.Instance.All;
+            ConcurrentDictionary<int, IHaltestelle> haltestellen = HaltestellenMapperFactory.Instance.All;
 
             var query = (from steig in steige.Values 
                          where steig.Richtung == ERichtung.Hin

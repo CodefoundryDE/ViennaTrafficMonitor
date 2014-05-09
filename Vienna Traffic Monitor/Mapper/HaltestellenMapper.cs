@@ -42,42 +42,40 @@ namespace ViennaTrafficMonitor.Mapper {
         }
 
         /// <summary>
-        /// Findet alle Haltestellen in dem übergebenen Rechteck 
+        /// Findet alle Haltestellen in dem übergebenen Rechteck.
+        /// Ist das Rechteck null, wird eine leere Liste zurückgegeben.
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
         public List<IHaltestelle> FindByRectangle(Rectangle rect) {
-            double minX = rect.BottomLeft.X;
-            double minY = rect.BottomLeft.Y;
-            double maxX = rect.TopRight.X;
-            double maxY = rect.TopRight.Y;
+            if (rect != null) {
+                double minX = rect.BottomLeft.X;
+                double minY = rect.BottomLeft.Y;
+                double maxX = rect.TopRight.X;
+                double maxY = rect.TopRight.Y;
 
-            return (from date in _data
-                    where date.Value.Location.X >= minX
-                    && date.Value.Location.X <= maxX
-                    && date.Value.Location.Y >= minY
-                    && date.Value.Location.Y <= maxY
-                    select date.Value).ToList();
+                return (from date in _data
+                        where date.Value.Location.X >= minX
+                        && date.Value.Location.X <= maxX
+                        && date.Value.Location.Y >= minY
+                        && date.Value.Location.Y <= maxY
+                        select date.Value).ToList();
+            } else return new List<IHaltestelle>();
         }
 
-        /// <summary>
-        /// Gibt alle Koordinaten der Haltestellen als Dictionary<int, Point> aus, 
-        /// wobei der Schlüssel die Haltestellen-Id repräsentiert.
-        /// </summary>
-        /// <returns></returns>
-        public IDictionary<int, Point> GetAllCoordinates() {
+        public IDictionary<int, Point> AllCoordinates {
+            get { return _getAllCoordinates(); }
+        }
+        private IDictionary<int, Point> _getAllCoordinates() {
             var dict = _data.Select(t => new { t.Key, t.Value.Location })
                 .ToDictionary(t => t.Key, t => t.Location);
             return dict;
         }
 
-        /// <summary>
-        /// Gibt alle Haltestellen zurück.
-        /// </summary>
-        /// <returns></returns>
-        public ConcurrentDictionary<int, IHaltestelle> GetAll() {
-            return _data;
+        public ConcurrentDictionary<int, IHaltestelle> All {
+            get { return _data; }
         }
+
     }
 
 }

@@ -17,9 +17,18 @@ namespace ViennaTrafficMonitor.Mapper {
 
         List<IHaltestelle> FindByRectangle(Rectangle rect);
 
-        IDictionary<int, Point> GetAllCoordinates();
+        /// <summary>
+        /// Gibt alle Koordinaten der Haltestellen als Dictionary<int, Point> aus, 
+        /// wobei der Schlüssel die Haltestellen-Id repräsentiert.
+        /// </summary>
+        /// <returns></returns>
+        IDictionary<int, Point> AllCoordinates { get; }
 
-        ConcurrentDictionary<int, IHaltestelle> GetAll();
+        /// <summary>
+        /// Gibt alle Haltestellen zurück.
+        /// </summary>
+        /// <returns></returns>
+        ConcurrentDictionary<int, IHaltestelle> All { get; }
     }
 
 }

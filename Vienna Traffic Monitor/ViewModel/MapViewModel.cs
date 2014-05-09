@@ -41,7 +41,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         private void _drawHaltestellen() {
-            IDictionary<int, Point> haltestellen = _HaltestellenMapper.GetAllCoordinates();
+            IDictionary<int, Point> haltestellen = _HaltestellenMapper.AllCoordinates;
             foreach (KeyValuePair<int, Point> kvp in haltestellen) {
                 Pushpin pin = new Pushpin();
                 Location location = new Location(kvp.Value.X, kvp.Value.Y);
@@ -52,7 +52,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         private void _drawLinien() {
-            Dictionary<ILinie, List<IHaltestelle>> dict = _LinienMapper.GetHaltestellenOrdered();
+            Dictionary<ILinie, List<IHaltestelle>> dict = _LinienMapper.HaltestellenOrdered;
             foreach (KeyValuePair<ILinie, List<IHaltestelle>> kvp in dict) {
                 MapPolyline polyline = new MapPolyline();
                 polyline.Stroke = new SolidColorBrush(_getColorByLine(kvp.Key.Bezeichnung));
@@ -70,7 +70,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        private Color _getColorByLine(string line) {
+        private static Color _getColorByLine(string line) {
             switch (line) {
                 case "U1": return Colors.Red;
                 case "U2": return Colors.Purple;

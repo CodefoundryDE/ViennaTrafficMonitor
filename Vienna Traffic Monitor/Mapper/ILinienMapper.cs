@@ -22,7 +22,7 @@ namespace ViennaTrafficMonitor.Mapper {
         /// Gibt alle Steige nach Linien geordnet aus.
         /// </summary>
         /// <returns></returns>
-        Dictionary<ILinie, List<IHaltestelle>> GetHaltestellenOrdered();
+        Dictionary<ILinie, List<IHaltestelle>> HaltestellenOrdered { get; }
     }
 
 }
