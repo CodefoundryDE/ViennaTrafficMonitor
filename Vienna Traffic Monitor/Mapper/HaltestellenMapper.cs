@@ -70,6 +70,14 @@ namespace ViennaTrafficMonitor.Mapper {
                 .ToDictionary(t => t.Key, t => t.Location);
             return dict;
         }
+
+        /// <summary>
+        /// Gibt alle Haltestellen zurück.
+        /// </summary>
+        /// <returns></returns>
+        public ConcurrentDictionary<int, IHaltestelle> GetAll() {
+            return _data;
+        }
     }
 
 }
