@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Web.Script.Serialization;
+using ViennaTrafficMonitor.Deserializer;
 
 namespace ViennaTrafficMonitor.Deserializer {
     public class RblRequester : IRequester {
@@ -12,6 +13,10 @@ namespace ViennaTrafficMonitor.Deserializer {
         private const string _rblAllocator = "rbl=";
         private const string _rblConnector = "&rbl=";
 
+        public RblRequester()
+        {
+
+        }
 
         /// <summary>
         /// Erzeugt einen request string für EINE rbl, führt den request an die Wiener Linien aus

@@ -15,22 +15,22 @@ namespace VtmTests.Deserializer {
         private Response _ResponseEnumerable;
         private int _TestRbl;
         private IEnumerable<int> _TestRblEnumerable;
+        private IRequester _requester;
 
         [TestInitialize]
         public void TestInitialize() {
 
             _TestRbl = 147;
             _TestRblEnumerable = new int[] { 7, 8, 9 };
-
-
+            _requester = RequesterFactory.GetInstance();
 
         }
 
         [TestMethod]
         public async Task TestRequest() {
 
-            Task<Response> request = RblRequester.GetResponseAsync(_TestRbl);
-            Task<Response> requestEnumerable = RblRequester.GetResponseAsync(_TestRblEnumerable);
+            Task<Response> request = _requester.GetResponseAsync(_TestRbl);
+            Task<Response> requestEnumerable = _requester.GetResponseAsync(_TestRblEnumerable);
 
             _Response = await request;
             _ResponseEnumerable = await requestEnumerable;
