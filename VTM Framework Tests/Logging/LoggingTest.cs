@@ -12,13 +12,13 @@ namespace VtmFrameworkTests.Logging {
     [TestClass]
     public class LoggingTest {
 
-        private IVTMLogger _log;
+        private IVtmLogger _log;
         private string _path;
 
         [TestInitialize]
         public void TestInitialize() {
             _path = ".\\TestLog.log";
-            VTMLogger.SetLoggingLevel(TraceLevel.Verbose);
+            VtmLogger.SetLoggingLevel(TraceLevel.Verbose);
             _log = VtmLoggerFactory.GetInstance(_path);
             //_log = VTMLoggerFactory.getInstance();
         }

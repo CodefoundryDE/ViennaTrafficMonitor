@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace VtmFramework.Logging {
     public static class VtmLoggerFactory {
 
-        public static IVTMLogger GetInstance (string logPath) {
-            VTMLogger.LogPath = logPath;
+        public static IVtmLogger GetInstance (string logPath) {
+            VtmLogger.LogPath = logPath;
             return GetInstance();
         }
 
-        public static IVTMLogger GetInstance () {
-            return VTMLogger.Instance;
+        public static IVtmLogger GetInstance () {
+            return VtmLogger.Instance;
         }
 
     }

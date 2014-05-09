@@ -47,6 +47,42 @@ namespace ViennaTrafficMonitor.Model {
             return Id.GetHashCode();
         }
 
+        public static EVerkehrsmittel VerkehrsmittelConverter(String type) {
+            EVerkehrsmittel verkehrsmittel;
+            switch (type) {
+                case "ptTram": {
+                        verkehrsmittel = EVerkehrsmittel.Tram;
+                        break;
+                    }
+                case "ptBusCity": {
+                        verkehrsmittel = EVerkehrsmittel.CityBus;
+                        break;
+                    }
+                case "ptBusNight": {
+                        verkehrsmittel = EVerkehrsmittel.NachtBus;
+                        break;
+                    }
+                case "ptTrainS": {
+                        verkehrsmittel = EVerkehrsmittel.SBahn;
+                        break;
+                    }
+                case "ptMetro": {
+                        verkehrsmittel = EVerkehrsmittel.Metro;
+                        break;
+                    }
+                case "ptTramWLB": {
+                        verkehrsmittel = EVerkehrsmittel.TramWlb;
+                        break;
+                    }
+                default: {
+                    verkehrsmittel = EVerkehrsmittel.NoInfo;
+                    break;
+                    }
+
+            }
+            return verkehrsmittel;
+        }
+
         
 
     }
