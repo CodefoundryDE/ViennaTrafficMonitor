@@ -34,13 +34,13 @@ namespace ViennaTrafficMonitor.Mapper {
         }
         private Dictionary<ILinie, List<IHaltestelle>> _getHaltestellenOrdered() {
             ConcurrentDictionary<int, ISteig> steige = SteigMapperFactory.Instance.All;
-            ConcurrentDictionary<int, IHaltestelle> haltestellen = HaltestellenMapperFactory.Instance.All;
+            ICollection<IHaltestelle> haltestellen = HaltestellenMapperFactory.Instance.All;
 
             var query = (from steig in steige.Values 
                          where steig.Richtung == ERichtung.Hin
                          orderby steig.Reihenfolge
                          join linie in _data.Values on steig.LinienId equals linie.Id
-                         join haltestelle in haltestellen.Values on steig.HaltestellenId equals haltestelle.Id
+                         join haltestelle in haltestellen on steig.HaltestellenId equals haltestelle.Id
                          select new { linie, haltestelle })
             .GroupBy(x => x.linie)
             .ToDictionary(x => x.Key, x => x.Select(o => o.haltestelle).ToList());

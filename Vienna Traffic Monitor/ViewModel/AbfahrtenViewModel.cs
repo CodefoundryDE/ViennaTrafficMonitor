@@ -59,7 +59,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public static void AddFilter(AbstractAbfahrtenFilter filter) {
             if (filter != null) {
-                _Filters.Add(filter.FilterName, filter);
+                _Filters.Add("", filter);
             }
         }
     }

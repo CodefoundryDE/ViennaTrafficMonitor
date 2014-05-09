@@ -28,7 +28,7 @@ namespace ViennaTrafficMonitor.Mapper {
         /// Gibt alle Haltestellen zurück.
         /// </summary>
         /// <returns></returns>
-        ConcurrentDictionary<int, IHaltestelle> All { get; }
+        ICollection<IHaltestelle> All { get; }
     }
 
 }
