@@ -31,7 +31,7 @@ namespace ViennaTrafficMonitor.CsvImport.Parser
                 transport.Echtzeit = linie.Echtzeit;
                 transport.Id = linie.Id;
                 transport.Reihenfolge = linie.Reihenfolge;
-                transport.Verkehrsmittel = Linie.Verkehrsmittel_Converter(linie.Verkehrsmittel);
+                transport.Verkehrsmittel = Linie.VerkehrsmittelConverter(linie.Verkehrsmittel);
 
                 //Schreiben des Models in Collection für den Rückgabewert:
                 linien.AddOrUpdate(transport.Id, transport, (key, oldValue) => transport);

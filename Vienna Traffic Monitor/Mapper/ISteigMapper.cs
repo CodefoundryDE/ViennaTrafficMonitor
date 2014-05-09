@@ -4,8 +4,8 @@ using ViennaTrafficMonitor.Model;
 namespace ViennaTrafficMonitor.Mapper {
     public interface ISteigMapper {
         ISteig Find(int id);
-        List<ISteig> FindByHaltestelle(int HaltestellenId);
-        List<ISteig> FindByLinie(int LinienId);
-        List<ISteig> FindByRbl(int Rbl);
+        List<ISteig> FindByHaltestelle(int haltestellenId);
+        List<ISteig> FindByLinie(int linienId);
+        List<ISteig> FindByRbl(int rbl);
     }
 }

@@ -47,7 +47,7 @@ namespace ViennaTrafficMonitor.Model {
             return Id.GetHashCode();
         }
 
-        public static EVerkehrsmittel Verkehrsmittel_Converter(String type) {
+        public static EVerkehrsmittel VerkehrsmittelConverter(String type) {
             EVerkehrsmittel verkehrsmittel;
             switch (type) {
                 case "ptTram": {

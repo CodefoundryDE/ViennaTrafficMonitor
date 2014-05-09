@@ -11,25 +11,24 @@ using ViennaTrafficMonitor.Filter;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
-    public class AbfahrtenViewModel  : AbstractViewModel {
+    public class AbfahrtenViewModel : AbstractViewModel {
         private static IDictionary<string, AbstractAbfahrtenFilter> _Filters = new Dictionary<string, AbstractAbfahrtenFilter>();
 
         public static IDictionary<string, AbstractAbfahrtenFilter> Filters {
             get { return _Filters; }
-            set { _Filters = value; }
         }
 
         private IList<VtmResponse> _Response;
         private IList<VtmResponse> Response {
-            get { return _Response; }
             set {
                 _Response = value;
                 RaisePropertyChangedEvent("Abfahrten");
-                RaisePropertyChangedEvent("Messages");
             }
         }
 
-        private Func<IList<VtmResponse>> _Filter;
+        private Func<IList<VtmResponse>> _Filter = () => {
+            return new List<VtmResponse>(); ;
+        };
         public IList<VtmResponse> Abfahrten {
             get { return _Filter(); }
         }
@@ -52,18 +51,16 @@ namespace ViennaTrafficMonitor.ViewModel {
             _Rbls = from steig in sm.FindByHaltestelle(_Haltestelle.Id)
                     select steig.Rbl;
             _GetResponse();
-            _Filter = () => {
-                //zunächst leerer Filter;
-                return _Response;
-            };
         }
 
         private async void _GetResponse() {
-            _Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
+            Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
         }
 
         public static void AddFilter(AbstractAbfahrtenFilter filter) {
-            Filters.Add(filter.FilterName, filter);
+            if (filter != null) {
+                _Filters.Add(filter.FilterName, filter);
+            }
         }
     }
 }

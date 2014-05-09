@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,17 +10,17 @@ using ViennaTrafficMonitor.Model;
 namespace ViennaTrafficMonitor.Deserializer {
     public class VtmResponse {
 
-        public readonly Line Line { get; set; }
+        public Line Line { get; private set; }
 
-        public readonly Departure Departure { get; set; }
+        public  Departure Departure { get; private set; }
 
-        public readonly EVerkehrsmittel Type { get; set; }
+        public EVerkehrsmittel Typ { get; private  set; }
 
-        public readonly List<TrafficInfoCategory> TrafficInfoCategories {get; set;}
+        public List<TrafficInfoCategory> TrafficInfoCategories {get; private set;}
 
-        public readonly List<TrafficInfoCategoryGroup> TrafficInfoCategoryGroups { get; set; }
+        public List<TrafficInfoCategoryGroup> TrafficInfoCategoryGroups { get; private set; }
 
-        public readonly LocationStop LocationStop { get; set; }
+        public LocationStop LocationStop { get; private set; }
 
         public VtmResponse(Line line, Departure departure, LocationStop locstop, List<TrafficInfoCategory> tic, List<TrafficInfoCategoryGroup> ticg, String type) {
             Line = line;
@@ -27,7 +28,7 @@ namespace ViennaTrafficMonitor.Deserializer {
             LocationStop = locstop;
             TrafficInfoCategories = tic;
             TrafficInfoCategoryGroups = ticg;
-            Type = Linie.Verkehrsmittel_Converter(type);
+            Typ = Linie.VerkehrsmittelConverter(type);
         }
     }
 }

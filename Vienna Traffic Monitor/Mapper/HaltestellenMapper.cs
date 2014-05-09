@@ -46,17 +46,21 @@ namespace ViennaTrafficMonitor.Mapper {
         /// <param name="rect"></param>
         /// <returns></returns>
         public List<IHaltestelle> FindByRectangle(Rectangle rect) {
-            double minX = rect.BottomLeft.X;
-            double minY = rect.BottomLeft.Y;
-            double maxX = rect.TopRight.X;
-            double maxY = rect.TopRight.Y;
+            if (rect != null) {
+                double minX = rect.BottomLeft.X;
+                double minY = rect.BottomLeft.Y;
+                double maxX = rect.TopRight.X;
+                double maxY = rect.TopRight.Y;
 
-            return (from date in _data
-                    where date.Value.Location.X >= minX
-                    && date.Value.Location.X <= maxX
-                    && date.Value.Location.Y >= minY
-                    && date.Value.Location.Y <= maxY
-                    select date.Value).ToList();
+
+                return (from date in _data
+                        where date.Value.Location.X >= minX
+                        && date.Value.Location.X <= maxX
+                        && date.Value.Location.Y >= minY
+                        && date.Value.Location.Y <= maxY
+                        select date.Value).ToList();
+            }
+            return null;
         }
 
     }
