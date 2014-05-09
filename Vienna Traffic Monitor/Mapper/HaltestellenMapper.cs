@@ -73,8 +73,8 @@ namespace ViennaTrafficMonitor.Mapper {
             return dict;
         }
 
-        public ConcurrentDictionary<int, IHaltestelle> All {
-            get { return _data; }
+        public ICollection<IHaltestelle> All {
+            get { return _data.Values.ToList<IHaltestelle>(); }
         }
 
     }

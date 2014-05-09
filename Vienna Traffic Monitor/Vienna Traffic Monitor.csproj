@@ -93,7 +93,9 @@
     <Compile Include="Deserializer\VtmResponse.cs" />
     <Compile Include="Filter\AbfahrtenFilter\AbstractAbfahrtenFilter.cs" />
     <Compile Include="Filter\AbfahrtenFilter\MetroFilter.cs" />
-    <Compile Include="Filter\AbstractFilter.cs" />
+    <Compile Include="Filter\GenericFilter.cs" />
+    <Compile Include="Filter\FilterCollection.cs" />
+    <Compile Include="Filter\IFilter.cs" />
     <Compile Include="Mapper\HaltestellenMapper.cs" />
     <Compile Include="Mapper\HaltestellenMapperFactory.cs" />
     <Compile Include="CsvImport\Parser\LinienParser.cs" />

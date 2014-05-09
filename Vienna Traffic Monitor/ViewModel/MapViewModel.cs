@@ -11,13 +11,20 @@ using System.Windows;
 using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Model;
 using System.Windows.Media;
+using VtmFramework.Command;
+using ViennaTrafficMonitor.Filter;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
     public class MapViewModel : AbstractViewModel {
 
-        private IHaltestellenMapper _HaltestellenMapper;
         private ILinienMapper _LinienMapper;
+
+        private IDictionary<ILinie, List<IHaltestelle>> _linien;
+
+        private FilterCollection<KeyValuePair<ILinie, List<IHaltestelle>>> _linienFilter;
+
+        private IFilter<KeyValuePair<ILinie, List<IHaltestelle>>> _ubahnFilter;
 
         private Map _map;
         public Map MapControl {
@@ -28,31 +35,40 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        public MapViewModel(IHaltestellenMapper haltestellenMapper, ILinienMapper linienMapper) {
-            _HaltestellenMapper = haltestellenMapper;
+        public MapViewModel(ILinienMapper linienMapper) {
             _LinienMapper = linienMapper;
+            _linien = _LinienMapper.HaltestellenOrdered;
+            _linienFilter = new FilterCollection<KeyValuePair<ILinie, List<IHaltestelle>>>();
+
+            _ubahnFilter = new GenericFilter<KeyValuePair<ILinie, List<IHaltestelle>>>(
+                (ICollection<KeyValuePair<ILinie, List<IHaltestelle>>> collection) => {
+                    var query = from linie in collection
+                                where linie.Key.Verkehrsmittel != EVerkehrsmittel.Metro
+                                select linie;
+                    return query.ToDictionary(x => x.Key, x => x.Value);
+                });
+            _ubahnFilter.Active = false;
+            _linienFilter.Add(_ubahnFilter);
+
             MapControl = new Map();
             // Startpunkt: Wien Stephansdom
             MapControl.Center = new Location(48.208333, 16.372778);
             MapControl.ZoomLevel = 13.0;
 
-            _drawHaltestellen();
             _drawLinien();
         }
 
-        private void _drawHaltestellen() {
-            IDictionary<int, Point> haltestellen = _HaltestellenMapper.AllCoordinates;
-            foreach (KeyValuePair<int, Point> kvp in haltestellen) {
-                Pushpin pin = new Pushpin();
-                Location location = new Location(kvp.Value.X, kvp.Value.Y);
-                pin.Tag = kvp.Key;
-                pin.Location = location;
-                MapControl.Children.Add(pin);
-            }
+        private void _drawHaltestelle(IHaltestelle haltestelle) {
+            Pushpin pin = new Pushpin();
+            Location location = new Location(haltestelle.Location.X, haltestelle.Location.Y);
+            pin.Tag = haltestelle.Id;
+            pin.Location = location;
+            MapControl.Children.Add(pin);
         }
 
         private void _drawLinien() {
-            Dictionary<ILinie, List<IHaltestelle>> dict = _LinienMapper.HaltestellenOrdered;
+            MapControl.Children.Clear();
+            ICollection<KeyValuePair<ILinie, List<IHaltestelle>>> dict = _linienFilter.Filter(_linien);
             foreach (KeyValuePair<ILinie, List<IHaltestelle>> kvp in dict) {
                 MapPolyline polyline = new MapPolyline();
                 polyline.Stroke = new SolidColorBrush(_getColorByLine(kvp.Key.Bezeichnung));
@@ -64,6 +80,7 @@ namespace ViennaTrafficMonitor.ViewModel {
                 foreach (IHaltestelle haltestelle in kvp.Value) {
                     Location location = new Location(haltestelle.Location.X, haltestelle.Location.Y);
                     locations.Add(location);
+                    _drawHaltestelle(haltestelle);
                 }
                 polyline.Locations = locations;
                 MapControl.Children.Add(polyline);
@@ -81,6 +98,20 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
+        #region ButtonUBahn
+        public ICommand ButtonUBahnCommand {
+            get { return new AwaitableDelegateCommand(_ubahn); }
+        }
+        private async Task _ubahn() {
+            _ubahnFilter.Active = _ubahnFilter.Active ? false : true;
+            RaisePropertyChangedEvent("ButtonUBahnOpacity");
+            _drawLinien();
+        }
+
+        public double ButtonUBahnOpacity {
+            get { return _ubahnFilter.Active ? 0.5 : 0.8; }
+        }
+        #endregion
     }
 
 }
