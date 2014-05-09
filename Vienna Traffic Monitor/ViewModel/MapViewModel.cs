@@ -18,8 +18,8 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private IHaltestellenMapper _HaltestellenMapper;
         private ILinienMapper _LinienMapper;
-        private Map _map;
 
+        private Map _map;
         public Map MapControl {
             get { return _map; }
             set {
@@ -35,7 +35,8 @@ namespace ViennaTrafficMonitor.ViewModel {
             // Startpunkt: Wien Stephansdom
             MapControl.Center = new Location(48.208333, 16.372778);
             MapControl.ZoomLevel = 13.0;
-            //_drawHaltestellen();
+
+            _drawHaltestellen();
             _drawLinien();
         }
 
@@ -51,20 +52,35 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         private void _drawLinien() {
-            Dictionary<ILinie, List<ISteig>> dict = _LinienMapper.GetSteigeOrdered();
-            foreach (KeyValuePair<ILinie, List<ISteig>> kvp in dict) {
+            Dictionary<ILinie, List<IHaltestelle>> dict = _LinienMapper.GetHaltestellenOrdered();
+            foreach (KeyValuePair<ILinie, List<IHaltestelle>> kvp in dict) {
                 MapPolyline polyline = new MapPolyline();
-                polyline.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                polyline.Stroke = new SolidColorBrush(_getColorByLine(kvp.Key.Bezeichnung));
                 polyline.StrokeThickness = 5;
+                polyline.StrokeLineJoin = PenLineJoin.Round;
+                polyline.StrokeEndLineCap = PenLineCap.Round;
+                polyline.StrokeMiterLimit = 0.5;
                 LocationCollection locations = new LocationCollection();
-                foreach (ISteig steig in kvp.Value) {
-                    Location location = new Location(steig.Location.X, steig.Location.Y);
+                foreach (IHaltestelle haltestelle in kvp.Value) {
+                    Location location = new Location(haltestelle.Location.X, haltestelle.Location.Y);
                     locations.Add(location);
                 }
                 polyline.Locations = locations;
                 MapControl.Children.Add(polyline);
             }
         }
+
+        private Color _getColorByLine(string line) {
+            switch (line) {
+                case "U1": return Colors.Red;
+                case "U2": return Colors.Purple;
+                case "U3": return Colors.Orange;
+                case "U4": return Colors.Green;
+                case "U6": return Colors.Brown;
+                default: return Colors.Black;
+            }
+        }
+
     }
 
 }
