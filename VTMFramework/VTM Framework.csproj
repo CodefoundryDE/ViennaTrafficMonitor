@@ -66,6 +66,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Scheduler\Scheduler.cs" />
+    <Compile Include="ViewModel\AbfahrtenViewModel.cs" />
     <Compile Include="ViewModel\AbstractViewModel.cs" />
     <Compile Include="View\ErrorView.xaml.cs">
       <DependentUpon>ErrorView.xaml</DependentUpon>

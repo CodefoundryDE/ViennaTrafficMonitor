@@ -7,15 +7,20 @@ using VtmFramework.ViewModel;
 using ViennaTrafficMonitor.Deserializer;
 using ViennaTrafficMonitor.Model;
 using ViennaTrafficMonitor.Mapper;
+using ViennaTrafficMonitor.Filter;
 
 namespace ViennaTrafficMonitor.ViewModel {
-    
-    public class AbfahrtenViewModel : AbstractViewModel {
-        private Response _Response;
 
-        private Func<ICollection<Departure>> _Filter;
+    public class AbfahrtenViewModel  : AbstractViewModel {
+        private static IDictionary<string, AbstractAbfahrtenFilter> _Filters = new Dictionary<string, AbstractAbfahrtenFilter>();
 
-        private Response Response {
+        public static IDictionary<string, AbstractAbfahrtenFilter> Filters {
+            get { return _Filters; }
+            set { _Filters = value; }
+        }
+
+        private IList<VtmResponse> _Response;
+        private IList<VtmResponse> Response {
             get { return _Response; }
             set {
                 _Response = value;
@@ -24,16 +29,12 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        public ICollection<Departure> Abfahrten {
+        private Func<IList<VtmResponse>> _Filter;
+        public IList<VtmResponse> Abfahrten {
             get { return _Filter(); }
         }
 
-        public Message Message {
-            get { return _Response.Message; }
-        }
-
         private IHaltestelle _Haltestelle;
-
         public IHaltestelle Haltestelle {
             get { return _Haltestelle; }
             private set {
@@ -41,25 +42,28 @@ namespace ViennaTrafficMonitor.ViewModel {
                 RaisePropertyChangedEvent("Haltestelle");
             }
         }
+
         private readonly IEnumerable<int> _Rbls;
 
-
-        public AbfahrtenViewModel(int HaltestellenId)
+        public AbfahrtenViewModel(IHaltestelle haltestelle)
             : base() {
-            IHaltestellenMapper hm = HaltestellenMapperFactory.Instance;
-            Haltestelle = hm.Find(HaltestellenId);
+            Haltestelle = haltestelle;
             ISteigMapper sm = SteigMapperFactory.Instance;
-            _Rbls = from steig in sm.FindByHaltestelle(HaltestellenId)
+            _Rbls = from steig in sm.FindByHaltestelle(_Haltestelle.Id)
                     select steig.Rbl;
             _GetResponse();
             _Filter = () => {
-                var lines = from monitor in Response.Data.Monitors
-                            select monitor.Lines;
+                //zunächst leerer Filter;
+                return _Response;
             };
         }
 
         private async void _GetResponse() {
-            _Response = await RblRequester.GetResponseAsync(_Rbls);
+            _Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
+        }
+
+        public static void AddFilter(AbstractAbfahrtenFilter filter) {
+            Filters.Add(filter.FilterName, filter);
         }
     }
 }
