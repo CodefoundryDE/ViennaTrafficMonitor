@@ -42,8 +42,7 @@ namespace ViennaTrafficMonitor.Mapper {
         }
 
         /// <summary>
-        /// Findet alle Haltestellen in dem übergebenen Rechteck.
-        /// Ist das Rechteck null, wird eine leere Liste zurückgegeben.
+        /// Findet alle Haltestellen in dem übergebenen Rechteck 
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
@@ -54,13 +53,15 @@ namespace ViennaTrafficMonitor.Mapper {
                 double maxX = rect.TopRight.X;
                 double maxY = rect.TopRight.Y;
 
+
                 return (from date in _data
                         where date.Value.Location.X >= minX
                         && date.Value.Location.X <= maxX
                         && date.Value.Location.Y >= minY
                         && date.Value.Location.Y <= maxY
                         select date.Value).ToList();
-            } else return new List<IHaltestelle>();
+            }
+            return null;
         }
 
         public IDictionary<int, Point> AllCoordinates {

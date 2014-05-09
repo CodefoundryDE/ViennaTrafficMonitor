@@ -10,7 +10,6 @@ using System.Windows;
 
 namespace VtmFramework.Logging {
     public class VtmLogger : VtmFramework.Logging.IVtmLogger {
-        private TraceListener _tListener = null;
         private BooleanSwitch _bSwitch = null;
         private static FileStream _hlogFile = null;
         private static TraceSwitch _tSwitch = new TraceSwitch("Type", "", VtmFramework.Properties.Settings.Default.Type);
@@ -30,7 +29,6 @@ namespace VtmFramework.Logging {
 
 
         private VtmLogger() {
-            _tListener = Trace.Listeners[_traceName];
             _bSwitch = new BooleanSwitch("Enable", "", VtmFramework.Properties.Settings.Default.Enable);
 
         }
@@ -67,8 +65,12 @@ namespace VtmFramework.Logging {
         public void Error(Exception ex) {
             //Logging im Falle von "nur Errors" oder "Alles"
             if (_bSwitch.Enabled && (_tSwitch.TraceError || _tSwitch.TraceVerbose)) {
-                Trace.WriteLine(DateTime.Now + " " + ex.Message);
-                Trace.TraceError(ex.StackTrace);
+                if (ex != null) {
+                    Trace.WriteLine(DateTime.Now + " " + ex.Message);
+                    Trace.TraceError(ex.StackTrace);
+                } else {
+                    Trace.WriteLine("Error-Logging aufgerufen: Übergebene Exception = NULL!");
+                }
             }
         }
 
