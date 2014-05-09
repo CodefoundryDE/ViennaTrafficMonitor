@@ -12,7 +12,7 @@ using ViennaTrafficMonitor.Filter;
 namespace ViennaTrafficMonitor.ViewModel {
 
     public class AbfahrtenViewModel : AbstractViewModel {
-        private static IList<AbstractAbfahrtenFilter> _Filters = new List<AbstractAbfahrtenFilter>();
+        private static IList<AbstractAbfahrtenFilter> _Filters;
 
         public static IList< AbstractAbfahrtenFilter> Filters {
             get { return _Filters; }
@@ -55,16 +55,20 @@ namespace ViennaTrafficMonitor.ViewModel {
             : base() {
             Haltestelle = haltestelle;
             ISteigMapper sm = SteigMapperFactory.Instance;
+            IList<ISteig> steige = sm.FindByHaltestelle(_Haltestelle.Id);
             _Rbls = from steig in sm.FindByHaltestelle(_Haltestelle.Id)
                     select steig.Rbl;
             _GetResponse();
         }
 
         private async void _GetResponse() {
-            Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
+            _Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
         }
 
         public static void AddFilter(AbstractAbfahrtenFilter filter) {
+            if (_Filters == null) {
+                _Filters = new List<AbstractAbfahrtenFilter>();
+            }
             if (filter != null) {
                 _Filters.Add(filter);
             }

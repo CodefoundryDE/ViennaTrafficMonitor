@@ -16,11 +16,11 @@ namespace ViennaTrafficMonitor.ViewModel {
             return new AbfahrtenViewModel(hm.Find(haltestellenId));
         }
         private static void _InitializeFilters() {
-            //SBahn-Filter
+            //Hinzufügen aller bekannten Abfahrtsfilter zum AbfahrtenViewModel:
             AbfahrtenViewModel.AddFilter (new MetroFilter(false));
             AbfahrtenViewModel.AddFilter (new SBahnFilter(false));
             AbfahrtenViewModel.AddFilter (new TramFilter(false));
-
+            AbfahrtenViewModel.AddFilter(new BusFilter(false));
         }
     }
 }

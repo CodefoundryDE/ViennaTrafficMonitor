@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Shapes;
+using ViennaTrafficMonitor.CsvImport.Parser;
 using ViennaTrafficMonitor.Model;
 using VtmFramework.Factory;
 
@@ -13,6 +14,7 @@ namespace ViennaTrafficMonitor.Mapper {
 
     public sealed class SteigMapperFactory {
 
+        private const string CSVDIR = "Ressources\\Csv\\";
         private static volatile ISteigMapper instance = null;
         private static object syncRoot = new Object();
 
@@ -30,7 +32,8 @@ namespace ViennaTrafficMonitor.Mapper {
         }
 
         private static ISteigMapper _createInstance() {
-            return new SteigMapper(new ConcurrentDictionary<int, ISteig>());
+            ConcurrentDictionary<int, ISteig> dict = SteigeParser.ReadFile(CSVDIR + "wienerlinien-ogd-steige.csv");
+            return new SteigMapper(dict);
         }
 
     }
