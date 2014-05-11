@@ -24,10 +24,7 @@ namespace VtmTests.ViewModel {
         [TestMethod]
         public void TestFilter() {
             IHaltestelle pratersternHaltestelle = avm.Haltestelle;
-
-            //Für Martl: Hier ist die _Response Variable im ViewModel leer => Die Abfrage der Abfahrten liefert ebenfalls "Null"
             ICollection<VtmResponse> abfahrten = avm.Abfahrten;
-
         }
 
     }

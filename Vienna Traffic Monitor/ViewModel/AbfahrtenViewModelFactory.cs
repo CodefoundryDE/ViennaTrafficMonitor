@@ -9,18 +9,8 @@ using ViennaTrafficMonitor.Mapper;
 namespace ViennaTrafficMonitor.ViewModel {
     public static class AbfahrtenViewModelFactory {
         public static AbfahrtenViewModel GetInstance(int haltestellenId) {
-            if (AbfahrtenViewModel.Filters == null) {
-                _InitializeFilters();
-            }
             IHaltestellenMapper hm = HaltestellenMapperFactory.Instance;
             return new AbfahrtenViewModel(hm.Find(haltestellenId));
-        }
-        private static void _InitializeFilters() {
-            //Hinzufügen aller bekannten Abfahrtsfilter zum AbfahrtenViewModel:
-            AbfahrtenViewModel.AddFilter (new MetroFilter());
-            AbfahrtenViewModel.AddFilter (new SBahnFilter());
-            AbfahrtenViewModel.AddFilter (new TramFilter());
-            AbfahrtenViewModel.AddFilter(new BusFilter());
         }
     }
 }
