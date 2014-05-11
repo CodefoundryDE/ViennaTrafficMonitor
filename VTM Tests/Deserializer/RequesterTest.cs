@@ -48,11 +48,9 @@ namespace VtmTests.Deserializer {
             DepartureTime departureTime1 = firstDeparture.DepartureTime;
             DepartureTime departureTime2 = secondDeparture.DepartureTime;
 
-            Console.WriteLine(firstLine);
-            Console.WriteLine(firstDeparture);
-            Console.WriteLine(departureTime1);
-            Console.WriteLine(secondDeparture);
-            Console.WriteLine(departureTime2);
+            Assert.IsNotNull(_Response);
+            Assert.IsNotNull(_ResponseEnumerable);
+
 
 
         }
