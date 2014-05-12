@@ -39,9 +39,9 @@ namespace ViennaTrafficMonitor.ViewModel {
             _filterCollection = new FilterCollection<KeyValuePair<ILinie, List<IHaltestelle>>>();
 
             _ubahnFilter = new MapFilter(EVerkehrsmittel.Metro, false);
-            _filterCollection.Add(_ubahnFilter);
+            _filterCollection.Add("Metro", _ubahnFilter);
             _sbahnFilter = new MapFilter(EVerkehrsmittel.SBahn, false);
-            _filterCollection.Add(_sbahnFilter);
+            _filterCollection.Add("SBahn", _sbahnFilter);
 
             MapControl = new Map();
             // Startpunkt: Wien Stephansdom
