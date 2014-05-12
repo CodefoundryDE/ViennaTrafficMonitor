@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\AwaitableDelegateCommand.cs" />
+    <Compile Include="Converter\BoolToOpacityConverter.cs" />
     <Compile Include="Error\Error.cs" />
     <Compile Include="Library\Rectangle.cs" />
     <Compile Include="Library\StrLib.cs" />
