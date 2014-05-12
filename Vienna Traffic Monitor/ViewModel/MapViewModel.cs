@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using VtmFramework.ViewModel;
 using Microsoft.Maps.MapControl.WPF;
-using Microsoft.Maps.MapControl.WPF.Core;
 using System.Windows.Input;
-using System.Windows;
 using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Model;
 using System.Windows.Media;
 using VtmFramework.Command;
 using ViennaTrafficMonitor.Filter;
+using ViennaTrafficMonitor.Filter.MapFilter;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
@@ -22,9 +19,10 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private IDictionary<ILinie, List<IHaltestelle>> _linien;
 
-        private FilterCollection<KeyValuePair<ILinie, List<IHaltestelle>>> _linienFilter;
+        private FilterCollection<KeyValuePair<ILinie, List<IHaltestelle>>> _filterCollection;
 
         private IFilter<KeyValuePair<ILinie, List<IHaltestelle>>> _ubahnFilter;
+        private IFilter<KeyValuePair<ILinie, List<IHaltestelle>>> _sbahnFilter;
 
         private Map _map;
         public Map MapControl {
@@ -38,37 +36,43 @@ namespace ViennaTrafficMonitor.ViewModel {
         public MapViewModel(ILinienMapper linienMapper) {
             _LinienMapper = linienMapper;
             _linien = _LinienMapper.HaltestellenOrdered;
-            _linienFilter = new FilterCollection<KeyValuePair<ILinie, List<IHaltestelle>>>();
+            _filterCollection = new FilterCollection<KeyValuePair<ILinie, List<IHaltestelle>>>();
 
-            _ubahnFilter = new GenericFilter<KeyValuePair<ILinie, List<IHaltestelle>>>(
-                (ICollection<KeyValuePair<ILinie, List<IHaltestelle>>> collection) => {
-                    var query = from linie in collection
-                                where linie.Key.Verkehrsmittel != EVerkehrsmittel.Metro
-                                select linie;
-                    return query.ToDictionary(x => x.Key, x => x.Value);
-                });
-            _ubahnFilter.Active = false;
-            _linienFilter.Add("MetroFilter", _ubahnFilter);
+            _ubahnFilter = new MapFilter(EVerkehrsmittel.Metro, false);
+            _filterCollection.Add("Metro", _ubahnFilter);
+            _sbahnFilter = new MapFilter(EVerkehrsmittel.SBahn, false);
+            _filterCollection.Add("SBahn", _sbahnFilter);
 
             MapControl = new Map();
             // Startpunkt: Wien Stephansdom
             MapControl.Center = new Location(48.208333, 16.372778);
             MapControl.ZoomLevel = 13.0;
 
+            MapControl.ViewChangeEnd += _mapViewChangeEnd;
+
             _drawLinien();
         }
 
-        private void _drawHaltestelle(IHaltestelle haltestelle) {
-            Pushpin pin = new Pushpin();
-            Location location = new Location(haltestelle.Location.X, haltestelle.Location.Y);
-            pin.Tag = haltestelle.Id;
-            pin.Location = location;
-            MapControl.Children.Add(pin);
+        private void _mapViewChangeEnd(object sender, MapEventArgs e) {
+            if (MapControl.ZoomLevel < 15) {
+                MapControl.ZoomLevel = 15;
+            }
+            RaisePropertyChangedEvent("MapControl");
+        }
+
+        private void _drawHaltestellen(IEnumerable<IHaltestelle> haltestellen) {
+            foreach (IHaltestelle haltestelle in haltestellen) {
+                Pushpin pin = new Pushpin();
+                Location location = new Location(haltestelle.Location.X, haltestelle.Location.Y);
+                pin.Tag = haltestelle.Id;
+                pin.Location = location;
+                MapControl.Children.Add(pin);
+            }
         }
 
         private void _drawLinien() {
             MapControl.Children.Clear();
-            ICollection<KeyValuePair<ILinie, List<IHaltestelle>>> dict = _linienFilter.Filter(_linien);
+            ICollection<KeyValuePair<ILinie, List<IHaltestelle>>> dict = _filterCollection.Filter(_linien);
             foreach (KeyValuePair<ILinie, List<IHaltestelle>> kvp in dict) {
                 MapPolyline polyline = new MapPolyline();
                 polyline.Stroke = new SolidColorBrush(_getColorByLine(kvp.Key.Bezeichnung));
@@ -80,11 +84,17 @@ namespace ViennaTrafficMonitor.ViewModel {
                 foreach (IHaltestelle haltestelle in kvp.Value) {
                     Location location = new Location(haltestelle.Location.X, haltestelle.Location.Y);
                     locations.Add(location);
-                    _drawHaltestelle(haltestelle);
                 }
                 polyline.Locations = locations;
                 MapControl.Children.Add(polyline);
             }
+
+            var query = from kvp in dict select kvp.Value;
+            IEnumerable<IHaltestelle> haltestellen = new List<IHaltestelle>();
+            foreach (List<IHaltestelle> list in query) {
+                haltestellen = haltestellen.Union<IHaltestelle>(list);
+            }
+            _drawHaltestellen(haltestellen.Distinct());
         }
 
         private static Color _getColorByLine(string line) {
@@ -110,6 +120,21 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public double ButtonUBahnOpacity {
             get { return _ubahnFilter.Active ? 0.5 : 0.8; }
+        }
+        #endregion
+
+        #region ButtonSBahn
+        public ICommand ButtonSBahnCommand {
+            get { return new AwaitableDelegateCommand(_sbahn); }
+        }
+        private async Task _sbahn() {
+            _sbahnFilter.Active = _sbahnFilter.Active ? false : true;
+            RaisePropertyChangedEvent("ButtonSBahnOpacity");
+            _drawLinien();
+        }
+
+        public double ButtonSBahnOpacity {
+            get { return _sbahnFilter.Active ? 0.5 : 0.8; }
         }
         #endregion
     }

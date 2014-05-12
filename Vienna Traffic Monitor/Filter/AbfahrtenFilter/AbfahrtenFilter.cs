@@ -7,17 +7,19 @@ using ViennaTrafficMonitor.Deserializer;
 using ViennaTrafficMonitor.Model;
 
 namespace ViennaTrafficMonitor.Filter.AbfahrtenFilter {
-    public class SBahnFilter : AbstractAbfahrtenFilter {
 
-        public SBahnFilter()
-            : base() {
+    public class AbfahrtenFilter : GenericFilter<VtmResponse> {
+
+        public  AbfahrtenFilter(EVerkehrsmittel verkehrsmittel, bool active = true)
+            : base(active) {
             Filter = (ICollection<VtmResponse> abfahrten) => {
                 var query = from response in abfahrten
-                            where response.Typ != EVerkehrsmittel.SBahn
+                            where response.Typ != verkehrsmittel
                             select response;
-
                 return query.ToList<VtmResponse>();
             };
         }
+
     }
+
 }

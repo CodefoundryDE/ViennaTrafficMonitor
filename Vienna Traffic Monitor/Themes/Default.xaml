@@ -6,5 +6,6 @@
         <Setter Property="FontSize" Value="20" />
         <Setter Property="Padding" Value="10,10,10,10" />
         <Setter Property="Width" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="BorderThickness" Value="0" />
     </Style>
 </ResourceDictionary>
