@@ -21,9 +21,6 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private FilterCollection<KeyValuePair<ILinie, List<IHaltestelle>>> _filterCollection;
 
-        private IFilter<KeyValuePair<ILinie, List<IHaltestelle>>> _ubahnFilter;
-        private IFilter<KeyValuePair<ILinie, List<IHaltestelle>>> _sbahnFilter;
-
         private Map _map;
         public Map MapControl {
             get { return _map; }
@@ -36,12 +33,8 @@ namespace ViennaTrafficMonitor.ViewModel {
         public MapViewModel(ILinienMapper linienMapper) {
             _LinienMapper = linienMapper;
             _linien = _LinienMapper.HaltestellenOrdered;
-            _filterCollection = new FilterCollection<KeyValuePair<ILinie, List<IHaltestelle>>>();
 
-            _ubahnFilter = new MapFilter(EVerkehrsmittel.Metro, false);
-            _filterCollection.Add("Metro", _ubahnFilter);
-            _sbahnFilter = new MapFilter(EVerkehrsmittel.SBahn, false);
-            _filterCollection.Add("SBahn", _sbahnFilter);
+            _initFilters();
 
             MapControl = new Map();
             // Startpunkt: Wien Stephansdom
@@ -53,9 +46,20 @@ namespace ViennaTrafficMonitor.ViewModel {
             _drawLinien();
         }
 
+        private void _initFilters() {
+            _filterCollection = new FilterCollection<KeyValuePair<ILinie, List<IHaltestelle>>>();
+
+            _filterCollection.Add("Metro", new MapFilter(EVerkehrsmittel.Metro));
+            _filterCollection.Add("SBahn", new MapFilter(EVerkehrsmittel.SBahn));
+            _filterCollection.Add("Tram", new MapFilter(EVerkehrsmittel.Tram));
+            _filterCollection.Add("TramWlb", new MapFilter(EVerkehrsmittel.TramWlb));
+            _filterCollection.Add("CityBus", new MapFilter(EVerkehrsmittel.CityBus));
+            _filterCollection.Add("NachtBus", new MapFilter(EVerkehrsmittel.NachtBus));
+        }
+
         private void _mapViewChangeEnd(object sender, MapEventArgs e) {
             if (MapControl.ZoomLevel < 15) {
-                MapControl.ZoomLevel = 15;
+                //MapControl.ZoomLevel = 15;
             }
             RaisePropertyChangedEvent("MapControl");
         }
@@ -108,18 +112,16 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        #region ButtonUBahn
-        public ICommand ButtonUBahnCommand {
-            get { return new AwaitableDelegateCommand(_ubahn); }
+        #region ButtonMetro
+        public ICommand ButtonMetroCommand {
+            get { return new AwaitableDelegateCommand(_metro); }
         }
-        private async Task _ubahn() {
-            _ubahnFilter.Active = _ubahnFilter.Active ? false : true;
-            RaisePropertyChangedEvent("ButtonUBahnOpacity");
-            _drawLinien();
+        private async Task _metro() {
+            _filterButton("Metro");
         }
 
-        public double ButtonUBahnOpacity {
-            get { return _ubahnFilter.Active ? 0.5 : 0.8; }
+        public bool ButtonMetroActive {
+            get { return !_filterCollection["Metro"].Active; }
         }
         #endregion
 
@@ -128,15 +130,71 @@ namespace ViennaTrafficMonitor.ViewModel {
             get { return new AwaitableDelegateCommand(_sbahn); }
         }
         private async Task _sbahn() {
-            _sbahnFilter.Active = _sbahnFilter.Active ? false : true;
-            RaisePropertyChangedEvent("ButtonSBahnOpacity");
-            _drawLinien();
+            _filterButton("SBahn");
         }
 
-        public double ButtonSBahnOpacity {
-            get { return _sbahnFilter.Active ? 0.5 : 0.8; }
+        public bool ButtonSBahnActive {
+            get { return !_filterCollection["SBahn"].Active; }
         }
         #endregion
+
+        #region ButtonTram
+        public ICommand ButtonTramCommand {
+            get { return new AwaitableDelegateCommand(_tram); }
+        }
+        private async Task _tram() {
+            _filterButton("Tram");
+        }
+
+        public bool ButtonTramActive {
+            get { return !_filterCollection["Tram"].Active; }
+        }
+        #endregion
+
+        #region ButtonTramWlb
+        public ICommand ButtonTramWlbCommand {
+            get { return new AwaitableDelegateCommand(_tramwlb); }
+        }
+        private async Task _tramwlb() {
+            _filterButton("TramWlb");
+        }
+
+        public bool ButtonTramWlbActive {
+            get { return !_filterCollection["TramWlb"].Active; }
+        }
+        #endregion
+
+        #region ButtonCityBus
+        public ICommand ButtonCityBusCommand {
+            get { return new AwaitableDelegateCommand(_citybus); }
+        }
+        private async Task _citybus() {
+            _filterButton("CityBus");
+        }
+
+        public bool ButtonCityBusActive {
+            get { return !_filterCollection["CityBus"].Active; }
+        }
+        #endregion
+
+        #region ButtonNachtBus
+        public ICommand ButtonNachtBusCommand {
+            get { return new AwaitableDelegateCommand(_nachtbus); }
+        }
+        private async Task _nachtbus() {
+            _filterButton("NachtBus");
+        }
+
+        public bool ButtonNachtBusActive {
+            get { return !_filterCollection["NachtBus"].Active; }
+        }
+        #endregion
+
+        private void _filterButton(string name) {
+            _filterCollection[name].Active = _filterCollection[name].Active ? false : true;
+            RaisePropertyChangedEvent("Button" + name + "Active");
+            _drawLinien();
+        }
     }
 
 }
