@@ -93,8 +93,11 @@
     <Compile Include="CsvImport\Record\SteigRecord.cs" />
     <Compile Include="Deserializer\VtmResponse.cs" />
     <Compile Include="Filter\AbfahrtenFilter\AbstractAbfahrtenFilter.cs" />
+    <Compile Include="Filter\AbfahrtenFilter\BusFilter.cs" />
     <Compile Include="Filter\AbfahrtenFilter\MetroFilter.cs" />
     <Compile Include="Filter\MapFilter\MapFilter.cs" />
+    <Compile Include="Filter\AbfahrtenFilter\SBahnFilter.cs" />
+    <Compile Include="Filter\AbfahrtenFilter\TramFilter.cs" />
     <Compile Include="Filter\GenericFilter.cs" />
     <Compile Include="Filter\FilterCollection.cs" />
     <Compile Include="Filter\IFilter.cs" />

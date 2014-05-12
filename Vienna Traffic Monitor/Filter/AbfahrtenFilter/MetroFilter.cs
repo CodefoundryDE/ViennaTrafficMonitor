@@ -16,8 +16,8 @@ namespace ViennaTrafficMonitor.Filter.AbfahrtenFilter {
                                 where response.Typ != EVerkehrsmittel.Metro
                                 select response;
 
-                    return query.ToList<VtmResponse>();
-                };
+                return query.ToList<VtmResponse>();
+            };
         }
     }
 }
