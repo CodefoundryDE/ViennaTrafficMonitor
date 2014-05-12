@@ -61,12 +61,10 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private void _InitializeFilters() {
             _verkehrsmittelFilter = new FilterCollection<VtmResponse>();
-            _verkehrsmittelFilter.Add(new MetroFilter());
-            _verkehrsmittelFilter.Add(new BusFilter());
-            _verkehrsmittelFilter.Add(new SBahnFilter());
-            _verkehrsmittelFilter.Add(new TramFilter());
-
-
+            _verkehrsmittelFilter.Add("MetroFilter", new MetroFilter());
+            _verkehrsmittelFilter.Add("BusFilter", new BusFilter());
+            _verkehrsmittelFilter.Add("SbahnFilter", new SBahnFilter());
+            _verkehrsmittelFilter.Add("TramFilter", new TramFilter());
         }
     }
 }
