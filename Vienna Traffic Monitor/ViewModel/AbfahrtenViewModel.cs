@@ -8,30 +8,29 @@ using ViennaTrafficMonitor.Deserializer;
 using ViennaTrafficMonitor.Model;
 using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Filter;
+using ViennaTrafficMonitor.Filter.AbfahrtenFilter;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
     public class AbfahrtenViewModel : AbstractViewModel {
-        private static IDictionary<string, AbstractAbfahrtenFilter> _Filters = new Dictionary<string, AbstractAbfahrtenFilter>();
 
-        public static IDictionary<string, AbstractAbfahrtenFilter> Filters {
-            get { return _Filters; }
-        }
+        private FilterCollection<VtmResponse> _verkehrsmittelFilter;
 
-        private IList<VtmResponse> _Response;
-        private IList<VtmResponse> Response {
+        private ICollection<VtmResponse> _Response;
+        private ICollection<VtmResponse> Response {
             set {
                 _Response = value;
                 RaisePropertyChangedEvent("Abfahrten");
             }
         }
 
-        private Func<IList<VtmResponse>> _Filter = () => {
-            return new List<VtmResponse>(); ;
-        };
-        public IList<VtmResponse> Abfahrten {
-            get { return _Filter(); }
+        public ICollection<VtmResponse> Abfahrten {
+            get {
+                return _verkehrsmittelFilter.Filter(_Response);
+            }
         }
+
+
 
         private IHaltestelle _Haltestelle;
         public IHaltestelle Haltestelle {
@@ -48,19 +47,24 @@ namespace ViennaTrafficMonitor.ViewModel {
             : base() {
             Haltestelle = haltestelle;
             ISteigMapper sm = SteigMapperFactory.Instance;
+            IList<ISteig> steige = sm.FindByHaltestelle(_Haltestelle.Id);
             _Rbls = from steig in sm.FindByHaltestelle(_Haltestelle.Id)
                     select steig.Rbl;
-            _GetResponse();
+            _InitializeFilters();
+            _GetResponse().Wait();
         }
 
-        private async void _GetResponse() {
-            Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
+        private async Task<bool> _GetResponse() {
+            _Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
+            return true;
         }
 
-        public static void AddFilter(AbstractAbfahrtenFilter filter) {
-            if (filter != null) {
-                _Filters.Add("", filter);
-            }
+        private void _InitializeFilters() {
+            _verkehrsmittelFilter = new FilterCollection<VtmResponse>();
+            _verkehrsmittelFilter.Add("MetroFilter", new MetroFilter());
+            _verkehrsmittelFilter.Add("BusFilter", new BusFilter());
+            _verkehrsmittelFilter.Add("SbahnFilter", new SBahnFilter());
+            _verkehrsmittelFilter.Add("TramFilter", new TramFilter());
         }
     }
 }

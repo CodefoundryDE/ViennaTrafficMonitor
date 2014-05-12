@@ -6,35 +6,17 @@ using System.Threading.Tasks;
 
 namespace ViennaTrafficMonitor.Filter {
 
-    public class FilterCollection<T> : IFilter<T> {
-
-        private IList<IFilter<T>> _filters;
+    public class FilterCollection<T> :  Dictionary<string, IFilter<T>>, IFilter<T> {
 
         public FilterCollection() {
             Active = true;
-            Clear();
-        }
-
-        /// <summary>
-        /// Leert die FilterCollection.
-        /// </summary>
-        public void Clear() {
-            _filters = new List<IFilter<T>>();
-        }
-
-        /// <summary>
-        /// Fügt einen neuen Filter hinzu.
-        /// </summary>
-        /// <param name="filter"></param>
-        public void Add(IFilter<T> filter) {
-            _filters.Add(filter);
         }
 
         public Func<ICollection<T>, ICollection<T>> Filter {
             get {
                 return (ICollection<T> collection) => {
-                    foreach (IFilter<T> filter in _filters) {
-                        collection = filter.Filter(collection);
+                    foreach (KeyValuePair<string, IFilter<T>> kvp in this) {
+                        collection = kvp.Value.Filter(collection);
                     }
                     return collection;
                 };
@@ -45,7 +27,6 @@ namespace ViennaTrafficMonitor.Filter {
         }
 
         public bool Active { get; set; }
-
     }
 
 }

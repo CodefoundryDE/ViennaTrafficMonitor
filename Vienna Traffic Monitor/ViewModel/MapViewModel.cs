@@ -48,7 +48,7 @@ namespace ViennaTrafficMonitor.ViewModel {
                     return query.ToDictionary(x => x.Key, x => x.Value);
                 });
             _ubahnFilter.Active = false;
-            _linienFilter.Add(_ubahnFilter);
+            _linienFilter.Add("MetroFilter", _ubahnFilter);
 
             MapControl = new Map();
             // Startpunkt: Wien Stephansdom
