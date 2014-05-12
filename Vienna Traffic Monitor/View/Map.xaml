@@ -10,7 +10,7 @@
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Panel.ZIndex="100">
             <Button Opacity="{Binding ButtonUBahnOpacity}" Command="{Binding ButtonUBahnCommand}" Margin="10,0" Content="U" Style="{StaticResource MapFilterButton}" Background="Blue" />
-            <Button Margin="10,0" Content="S" Style="{StaticResource MapFilterButton}" Background="Aquamarine" />
+            <Button Opacity="{Binding ButtonSBahnOpacity}" Command="{Binding ButtonSBahnCommand}" Margin="10,0" Content="S" Style="{StaticResource MapFilterButton}" Background="LimeGreen" />
             <Button Margin="10,0" Content="T" Style="{StaticResource MapFilterButton}" Background="Red" />
         </StackPanel>
         <ContentPresenter Content="{Binding MapControl}" />

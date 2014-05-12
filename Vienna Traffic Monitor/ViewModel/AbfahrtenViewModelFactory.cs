@@ -17,7 +17,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
         private static void _InitializeFilters() {
             //SBahn-Filter
-            AbfahrtenViewModel.AddFilter(new MetroFilter(false));
+            AbfahrtenViewModel.AddFilter(new MetroFilter());
         }
     }
 }
