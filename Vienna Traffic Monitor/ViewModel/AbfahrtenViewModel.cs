@@ -47,8 +47,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             : base() {
             Haltestelle = haltestelle;
             ISteigMapper sm = SteigMapperFactory.Instance;
-            IList<ISteig> steige = sm.FindByHaltestelle(_Haltestelle.Id);
-            _Rbls = from steig in sm.FindByHaltestelle(_Haltestelle.Id)
+            _Rbls = from steig in steige
                     select steig.Rbl;
             _InitializeFilters();
             _GetResponse().Wait();
