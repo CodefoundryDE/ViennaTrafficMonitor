@@ -15,38 +15,27 @@ namespace VtmTests.Deserializer {
         private Response _ResponseEnumerable;
         private int _TestRbl;
         private IEnumerable<int> _TestRblEnumerable;
-        private IRequester _requester;
+        private IRequester _Requester;
+        private IRequester _DummyRequester;
 
         [TestInitialize]
         public void TestInitialize() {
 
             _TestRbl = 147;
             _TestRblEnumerable = new int[] { 7, 8, 9 };
-            _requester = RequesterFactory.GetInstance();
+            _Requester = new RblRequester();
+            _DummyRequester = new DummyRequester();
 
         }
 
         [TestMethod]
         public async Task TestRequest() {
 
-            Task<Response> request = _requester.GetResponseAsync(_TestRbl);
-            Task<Response> requestEnumerable = _requester.GetResponseAsync(_TestRblEnumerable);
+            Task<Response> request = _Requester.GetResponseAsync(_TestRbl);
+            Task<Response> requestEnumerable = _Requester.GetResponseAsync(_TestRblEnumerable);
 
             _Response = await request;
             _ResponseEnumerable = await requestEnumerable;
-
-
-            List<Monitor> monitors = _Response.Data.Monitors;
-            Monitor firstMonitor = monitors.First();
-            List<Line> lines = firstMonitor.Lines;
-            Line firstLine = lines.First();
-
-            Departures departures = firstLine.Departures;
-            List<Departure> departure = departures.Departure;
-            Departure firstDeparture = departure.First();
-            Departure secondDeparture = departure.ElementAt(1);
-            DepartureTime departureTime1 = firstDeparture.DepartureTime;
-            DepartureTime departureTime2 = secondDeparture.DepartureTime;
 
             Assert.IsNotNull(_Response);
             Assert.IsNotNull(_ResponseEnumerable);
@@ -54,6 +43,21 @@ namespace VtmTests.Deserializer {
 
 
         }
+
+        [TestMethod]
+        public async Task TestDummyRequest() {
+
+            Task<Response> request = _DummyRequester.GetResponseAsync(_TestRbl);
+            Task<Response> requestEnumerable = _DummyRequester.GetResponseAsync(_TestRblEnumerable);
+
+            _Response = await request;
+            _ResponseEnumerable = await requestEnumerable;
+
+            Assert.IsNotNull(_Response);
+            Assert.IsNotNull(_ResponseEnumerable);
+
+        }
+
 
 
 
