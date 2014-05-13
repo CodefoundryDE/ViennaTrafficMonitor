@@ -8,7 +8,11 @@ namespace ViennaTrafficMonitor.Filter {
 
     public class GenericFilter<T> : IFilter<T> {
 
-        public GenericFilter(bool active = true) {
+        public GenericFilter() {
+            Active = true;
+        }
+
+        public GenericFilter(bool active) {
             Active = active;
         }
 
