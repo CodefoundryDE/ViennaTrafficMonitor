@@ -9,38 +9,47 @@ namespace VtmFrameworkTests.Command {
     [TestClass]
     public class AwaitableDelegateCommandTest {
 
+        private const int SLEEPTIME = 1000;
+
         private AwaitableDelegateCommand _command;
         private int testCount;
 
         [TestInitialize]
         public void TestInitialize() {
-            _command = new AwaitableDelegateCommand(_task);
-        }
-
-        private async Task _task() {
-            await Task.Run(() => Thread.Sleep(1000));
+            _command = new AwaitableDelegateCommand(new Func<Task>(async () => { 
+                await Task.Run(() => Thread.Sleep(SLEEPTIME)); 
+            }));
         }
 
         [TestMethod]
         public async Task TestCanExecute() {
             Assert.IsTrue(_command.CanExecute(null), "CanExecute gibt nicht true zurück!");
-            // Command ausführen, sollte 1000ms laufen, währenddessen muss CanExecute false zurückgeben
+            // Command ausführen, sollte SLEEPTIME ms laufen, währenddessen muss CanExecute false zurückgeben
             _command.Execute(null);
             await Task.Run(() => Thread.Sleep(100));
             Assert.IsFalse(_command.CanExecute(null), "CanExecute sollte während der Ausführung false sein!");
-            await Task.Run(() => Thread.Sleep(1000));
-            // CanExecute sollte wieder true zurückgeben
+            await Task.Run(() => Thread.Sleep(SLEEPTIME));
+            // CanExecute sollte wieder true zurückgeben, da sicher fertig
             Assert.IsTrue(_command.CanExecute(null), "CanExecute gibt nicht true zurück!");
         }
 
-        private async Task _testIncrement() {
-            await Task.Run(() => testCount++);
+        [TestMethod]
+        public async Task TestCanExecuteChanged() {
+            int eventFired = 0;
+            _command.CanExecuteChanged += (s, e) => {
+                eventFired++;
+            };
+            _command.Execute(null);
+            await Task.Run(() => Thread.Sleep(SLEEPTIME + 100));
+            // Es sollte das Event jetzt 2mal gefeuert worden sein
+            Assert.AreEqual(2, eventFired);
         }
 
         [TestMethod]
         public async Task TestCommand() {
             testCount = 0;
-            var command = new AwaitableDelegateCommand(_testIncrement);
+            var testIncrement = new Func<Task>(async () => { await Task.Run(() => { testCount++; }); });
+            var command = new AwaitableDelegateCommand(testIncrement);
             for (int i = 0; i < 10; i++) {
                 await command.ExecuteAsync();
             }
