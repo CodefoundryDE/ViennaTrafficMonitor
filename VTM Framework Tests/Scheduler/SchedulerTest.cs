@@ -4,6 +4,7 @@ using VtmFramework.Scheduler;
 using VtmFramework.ViewModel;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace VtmFrameworkTests.Scheduler {
 
@@ -56,5 +57,22 @@ namespace VtmFrameworkTests.Scheduler {
             Assert.ReferenceEquals(_scheduler.Aktuell, vm3);
         }
 
+        [TestMethod]
+        public void TestAktuellChanged() {
+            // In dieser Liste werden die Events gesammelt, die der Scheduler raisen muss
+            List<string> list = new List<string>();
+            _scheduler.AktuellChanged += (e, s) => {
+                list.Add(s.PropertyName);
+            };
+            _scheduler.Start();
+            _scheduler.ScheduleInstant(new ConcreteViewModel());
+            _scheduler.ScheduleInstant(new ConcreteViewModel());
+            _scheduler.ScheduleInstant(new ConcreteViewModel());
+
+            Assert.AreEqual(3, list.Count);
+            for (int i = 0; i < 3; i++) {
+                Assert.AreEqual("Aktuell", list[i]);
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace VtmFramework.Logging {
         void Error(string errorMessage);
         void Info(string infoMessage);
         void Warning(string warningMessage);
+        void Dispose();
     }
 
 }

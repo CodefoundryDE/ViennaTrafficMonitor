@@ -25,8 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\Vienna Traffic Monitor\Vtm.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -66,6 +65,7 @@
     <Compile Include="Model\LinieTest.cs" />
     <Compile Include="Model\SteigTest.cs" />
     <Compile Include="CsvImport\LinienImportTest.cs" />
+    <Compile Include="ViewModel\AbfahrtenViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Vienna Traffic Monitor\Vienna Traffic Monitor.csproj">

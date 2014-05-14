@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ViennaTrafficMonitor.Model;
-using VtmFramework.Mapper;
-
 namespace ViennaTrafficMonitor.Mapper {
+    public interface ISteigMapper {
+        ISteig Find(int id);
+        List<ISteig> FindByHaltestelle(int haltestellenId);
+        List<ISteig> FindByLinie(int linienId);
+        List<ISteig> FindByRbl(int rbl);
 
-    public interface ISteigMapper : IMapper<ISteig> { }
-
+        /// <summary>
+        /// Gibt alle Steige zurück
+        /// </summary>
+        /// <returns></returns>
+        ConcurrentDictionary<int, ISteig> All { get; }
+    }
 }

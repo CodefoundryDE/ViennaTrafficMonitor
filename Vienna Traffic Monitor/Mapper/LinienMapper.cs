@@ -20,13 +20,32 @@ namespace ViennaTrafficMonitor.Mapper {
             return _data[id];
         }
 
-        public List<ILinie> FindByBezeichnung(string bezeichnung) {
+        public IList<ILinie> FindByBezeichnung(string bezeichnung) {
             var query = from linie in _data.Values
                         where linie.Bezeichnung.Contains(bezeichnung)
                         select linie;
             return new List<ILinie>(query);
         }
 
+        
+
+        public Dictionary<ILinie, List<IHaltestelle>> HaltestellenOrdered {
+            get { return _getHaltestellenOrdered(); }
+        }
+        private Dictionary<ILinie, List<IHaltestelle>> _getHaltestellenOrdered() {
+            ConcurrentDictionary<int, ISteig> steige = SteigMapperFactory.Instance.All;
+            ICollection<IHaltestelle> haltestellen = HaltestellenMapperFactory.Instance.All;
+
+            var query = (from steig in steige.Values 
+                         where steig.Richtung == ERichtung.Hin
+                         orderby steig.Reihenfolge
+                         join linie in _data.Values on steig.LinienId equals linie.Id
+                         join haltestelle in haltestellen on steig.HaltestellenId equals haltestelle.Id
+                         select new { linie, haltestelle })
+            .GroupBy(x => x.linie)
+            .ToDictionary(x => x.Key, x => x.Select(o => o.haltestelle).ToList());
+            return query;
+        }
     }
 
 }

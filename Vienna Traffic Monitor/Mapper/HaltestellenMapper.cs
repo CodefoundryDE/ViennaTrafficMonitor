@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using ViennaTrafficMonitor.Model;
 using VtmFramework.Library;
 
@@ -32,9 +33,11 @@ namespace ViennaTrafficMonitor.Mapper {
         /// <param name="name"></param>
         /// <returns></returns>
         public List<IHaltestelle> FindByName(String name) {
-
+            if (String.IsNullOrWhiteSpace(name)) {
+                return new List<IHaltestelle>();
+            }
             return (from date in _data
-                    where date.Value.Name.Contains(name)
+                    where date.Value.Name.ToLower().Contains(name.Trim().ToLower())
                     select date.Value).ToList();
         }
 
@@ -44,17 +47,34 @@ namespace ViennaTrafficMonitor.Mapper {
         /// <param name="rect"></param>
         /// <returns></returns>
         public List<IHaltestelle> FindByRectangle(Rectangle rect) {
-            double minX = rect.BottomLeft.X;
-            double minY = rect.BottomLeft.Y;
-            double maxX = rect.TopRight.X;
-            double maxY = rect.TopRight.Y;
+            if (rect != null) {
+                double minX = rect.BottomLeft.X;
+                double minY = rect.BottomLeft.Y;
+                double maxX = rect.TopRight.X;
+                double maxY = rect.TopRight.Y;
 
-            return (from date in _data
-                    where date.Value.Location.X >= minX
-                    && date.Value.Location.X <= maxX
-                    && date.Value.Location.Y >= minY
-                    && date.Value.Location.Y <= maxY
-                    select date.Value).ToList();
+
+                return (from date in _data
+                        where date.Value.Location.X >= minX
+                        && date.Value.Location.X <= maxX
+                        && date.Value.Location.Y >= minY
+                        && date.Value.Location.Y <= maxY
+                        select date.Value).ToList();
+            }
+            return null;
+        }
+
+        public IDictionary<int, Point> AllCoordinates {
+            get { return _getAllCoordinates(); }
+        }
+        private IDictionary<int, Point> _getAllCoordinates() {
+            var dict = _data.Select(t => new { t.Key, t.Value.Location })
+                .ToDictionary(t => t.Key, t => t.Location);
+            return dict;
+        }
+
+        public ICollection<IHaltestelle> All {
+            get { return _data.Values.ToList<IHaltestelle>(); }
         }
 
     }

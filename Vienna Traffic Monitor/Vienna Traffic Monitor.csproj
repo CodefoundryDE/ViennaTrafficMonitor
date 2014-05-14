@@ -62,6 +62,7 @@
       <HintPath>C:\Program Files (x86)\Bing Maps WPF Control\V1\Libraries\Microsoft.Maps.MapControl.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web" />
@@ -84,11 +85,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CsvImport\Parser\HaltestellenParser.cs" />
+    <Compile Include="Deserializer\DummyRequester.cs" />
+    <Compile Include="Deserializer\IRequester.cs" />
     <Compile Include="Deserializer\Requester.cs" />
+    <Compile Include="Deserializer\RequesterProxy.cs" />
+    <Compile Include="Deserializer\RequesterFactory.cs" />
     <Compile Include="Deserializer\Response.cs" />
     <Compile Include="CsvImport\Parser\SteigeParser.cs" />
     <Compile Include="CsvImport\Record\HaltestelleRecord.cs" />
     <Compile Include="CsvImport\Record\SteigRecord.cs" />
+    <Compile Include="Deserializer\VtmResponse.cs" />
+    <Compile Include="Filter\AbfahrtenFilter\AbfahrtenFilter.cs" />
+    <Compile Include="Filter\AbfahrtenFilter\OrderByAbfahrtenFilter.cs" />
+    <Compile Include="Filter\MapFilter\MapFilter.cs" />
+    <Compile Include="Filter\GenericFilter.cs" />
+    <Compile Include="Filter\FilterCollection.cs" />
+    <Compile Include="Filter\IFilter.cs" />
     <Compile Include="Mapper\HaltestellenMapper.cs" />
     <Compile Include="Mapper\HaltestellenMapperFactory.cs" />
     <Compile Include="CsvImport\Parser\LinienParser.cs" />
@@ -106,10 +118,43 @@
     <Compile Include="Model\ISteig.cs" />
     <Compile Include="Model\Linie.cs" />
     <Compile Include="Model\Steig.cs" />
+    <Compile Include="ViewModel\MapViewModel.cs" />
+    <Compile Include="ViewModel\MapViewModelFactory.cs" />
+    <Compile Include="ViewModel\AbfahrtenViewModel.cs" />
+    <Compile Include="ViewModel\AbfahrtenViewModelFactory.cs" />
+    <Compile Include="ViewModel\SucheViewModel.cs" />
     <Compile Include="ViewModel\UserControl1ViewModel.cs" />
+    <Compile Include="View\AbfahrtControl.xaml.cs">
+      <DependentUpon>AbfahrtControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Map.xaml.cs">
+      <DependentUpon>Map.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Abfahrten.xaml.cs">
+      <DependentUpon>Abfahrten.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Suche.xaml.cs">
+      <DependentUpon>Suche.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
+    <Page Include="Themes\Default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Light.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AbfahrtControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Abfahrten.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Hauptfenster.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,6 +176,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Map.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Suche.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,6 +207,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Ressources\Csv\wienerlinien-ogd-haltestellen.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\Csv\wienerlinien-ogd-linien.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\Csv\wienerlinien-ogd-steige.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\Csv\wienerlinien-ogd-version.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -186,6 +251,44 @@
       <Project>{78b1ca3e-47e0-4596-9881-a81461eb8776}</Project>
       <Name>VTM Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ressources\DummyResponses\DemoResponse0.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse3.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse4.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse5.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse6.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse7.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse8.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse9.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Light\appbar.magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Dark\appbar.magnify.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

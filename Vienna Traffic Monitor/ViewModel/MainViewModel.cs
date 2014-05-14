@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -14,12 +15,12 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public Scheduler<AbstractViewModel> Scheduler { get; private set; }
 
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
         public MainViewModel() {
             Scheduler = new Scheduler<AbstractViewModel>();
-            Scheduler.Start();
-            //Scheduler.Schedule(new UserControl1ViewModel());
-            Scheduler.ScheduleInstant(new HauptfensterViewModel());
+            Scheduler.Schedule(new HauptfensterViewModel());
             Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
+            Scheduler.ScheduleInstant(AbfahrtenViewModelFactory.GetInstance(214461519));
         }
 
         private void OnSchedulerAktuellChanged(object Sender, EventArgs e) {

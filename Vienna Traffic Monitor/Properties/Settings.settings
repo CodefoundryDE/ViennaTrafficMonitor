@@ -14,5 +14,8 @@
     <Setting Name="MonitorRequestEnd" Type="System.String" Scope="Application">
       <Value Profile="(Default)">&amp;activateTrafficInfo=stoerungkurz&amp;activateTrafficInfo=stoerunglang&amp;activateTrafficInfo=aufzugsinfo&amp;sender=</Value>
     </Setting>
+    <Setting Name="DummyRequester" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,5 +1,6 @@
 ﻿using FileHelpers;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace ViennaTrafficMonitor.CsvImport.Record
     [IgnoreFirst(1)]
     [IgnoreEmptyLines()]
     [DelimitedRecord(";")]
+    [GeneratedCodeAttribute("CSV to  C#", "")]
     public sealed class HaltestelleRecord
     {
 

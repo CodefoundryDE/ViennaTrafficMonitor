@@ -20,7 +20,7 @@ namespace ViennaTrafficMonitor.CsvImport.Parser
             ConcurrentDictionary<int, ILinie> linien = new ConcurrentDictionary<int, ILinie>();
 
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
-
+            engine.Encoding = Encoding.UTF8;
             LinieRecord[] res = engine.ReadFile(filePath);
 
             foreach (LinieRecord linie in res)
@@ -31,40 +31,7 @@ namespace ViennaTrafficMonitor.CsvImport.Parser
                 transport.Echtzeit = linie.Echtzeit;
                 transport.Id = linie.Id;
                 transport.Reihenfolge = linie.Reihenfolge;
-                switch (linie.Verkehrsmittel)
-                {
-                    case "ptTram":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.Tram;
-                            break;
-                        }
-                    case "ptBusCity":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.CityBus;
-                            break;
-                        }
-                    case "ptBusNight":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.NachtBus;
-                            break;
-                        }
-                    case "ptTrainS":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.SBahn;
-                            break;
-                        }
-                    case "ptMetro":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.Metro;
-                            break;
-                        }
-                    case "ptTramWLB":
-                        {
-                            transport.Verkehrsmittel = EVerkehrsmittel.TramWlb;
-                            break;
-                        }
-
-                }
+                transport.Verkehrsmittel = Linie.VerkehrsmittelConverter(linie.Verkehrsmittel);
 
                 //Schreiben des Models in Collection für den Rückgabewert:
                 linien.AddOrUpdate(transport.Id, transport, (key, oldValue) => transport);

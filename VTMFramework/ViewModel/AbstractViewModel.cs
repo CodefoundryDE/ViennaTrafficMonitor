@@ -9,7 +9,9 @@ using VtmFramework.Error;
 
 namespace VtmFramework.ViewModel {
 
-    public abstract class AbstractViewModel : IViewModel, IObserver<EErrorResult> {
+    public abstract class AbstractViewModel : IViewModel, IObserver<EErrorResult>, IDisposable {
+
+        private bool _disposed = false;
 
         private AutoResetEvent _errorCompleted;
         private EErrorResult _errorResult;
@@ -64,6 +66,27 @@ namespace VtmFramework.ViewModel {
 
         public void OnNext(EErrorResult value) {
             _errorResult = value;
+        }
+        #endregion
+
+        #region Methoden für den Garbage-Collector
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing) {
+            if (!_disposed) {
+                if (disposing) {
+                    _errorCompleted.Set();
+                    _errorCompleted.Dispose();
+                }
+                _disposed = true;
+            }
+        }
+
+        ~AbstractViewModel() {
+            Dispose(false);
         }
         #endregion
     }

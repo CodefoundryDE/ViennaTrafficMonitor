@@ -19,7 +19,7 @@ namespace ViennaTrafficMonitor.CsvImport.Parser
             ConcurrentDictionary<int, ISteig> steige = new ConcurrentDictionary<int, ISteig>();
 
             engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
-
+            engine.Encoding = Encoding.UTF8;
             SteigRecord[] res = engine.ReadFile(filePath);
 
             foreach (SteigRecord steig in res)

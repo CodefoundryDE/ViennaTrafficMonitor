@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Web.Script.Serialization;
+using System.Collections;
 
 namespace ViennaTrafficMonitor.Deserializer {
-    public class RblRequester {
+    public class RblRequester : IRequester {
 
         private const string _rblAllocator = "rbl=";
         private const string _rblConnector = "&rbl=";
+
 
         /// <summary>
         /// Erzeugt einen request string für EINE rbl, führt den request an die Wiener Linien aus
@@ -18,7 +20,7 @@ namespace ViennaTrafficMonitor.Deserializer {
         /// </summary>
         /// <param name="rbl"></param>
         /// <returns></returns>
-        public static async Task<Response> getResponseAsync(int rbl) {
+        public async Task<Response> GetResponseAsync(int rbl) {
 
             string requestString =
                 ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestBegin
@@ -45,7 +47,7 @@ namespace ViennaTrafficMonitor.Deserializer {
         /// </summary>
         /// <param name="rblEnumerable"></param>
         /// <returns></returns>
-        public static async Task<Response> getResponseAsync(IEnumerable<int> rblEnumerable) {
+        public async Task<Response> GetResponseAsync(ISet<int> rblSet) {
 
 
             StringBuilder builder = new StringBuilder();
@@ -53,8 +55,11 @@ namespace ViennaTrafficMonitor.Deserializer {
             builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestBegin);
 
             builder.Append(_rblAllocator);
-            builder.Append(rblEnumerable.First());
-            rblEnumerable = rblEnumerable.Skip(1);
+            builder.Append(rblSet.First());
+            IEnumerable rblEnumerable = rblSet.Skip(1);
+
+
+
             
             foreach (int rbl in rblEnumerable) {
                 builder.Append(_rblConnector);
