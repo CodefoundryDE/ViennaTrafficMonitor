@@ -49,7 +49,7 @@ namespace ViennaTrafficMonitor.Deserializer
         /// </summary>
         /// <param name="rblEnumerable"></param>
         /// <returns></returns>
-        public async Task<Response> GetResponseAsync(IEnumerable<int> rblEnumerable)
+        public async Task<Response> GetResponseAsync(ISet<int> rblEnumerable)
         {
             return await GetResponseAsync(0);
         }
