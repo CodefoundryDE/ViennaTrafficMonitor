@@ -22,24 +22,57 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:SplitFlapDisplay}">
                     <Grid>
+
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
+
                         <!--<Border Grid.Row="0" Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                            <TextBlock Text="Text" />
                         </Border>
                         <Border Grid.Row="1" Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                            <TextBlock Text="Text" />
                         </Border>-->
-                        <ContentPresenter Content="{TemplateBinding Content}" x:Name="Part_MainContent" />
-                        <Rectangle x:Name="Part_RectangleTop" Grid.Row="0" />
-                        <Rectangle x:Name="Part_RectangleBottom" Grid.Row="1" />
+                        <TextBlock Grid.Row="0" Grid.RowSpan="2" Text="{TemplateBinding Content}" x:Name="Part_DisplayTop" TextBlock.FontWeight="Bold" TextBlock.FontSize="50">
+                            <TextBlock.Background>
+                                <SolidColorBrush Color="Blue" />
+                            </TextBlock.Background>
+                            <TextBlock.OpacityMask>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="Black" Offset="0"/>
+                                        <GradientStop Color="Black" Offset="0.5"/>
+                                        <GradientStop Color="Transparent" Offset="0.5"/>
+                                        <GradientStop Color="Transparent" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </TextBlock.OpacityMask>
+                            </TextBlock>
+                        <ContentPresenter Grid.Row="0" Grid.RowSpan="2" Content="{TemplateBinding Content}" x:Name="Part_DisplayBottom" TextBlock.FontWeight="Bold" TextBlock.FontSize="50">
+                                <ContentPresenter.OpacityMask>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="Transparent" Offset="0"/>
+                                        <GradientStop Color="Transparent" Offset="0.5"/>
+                                        <GradientStop Color="Black" Offset="0.5" />
+                                        <GradientStop Color="Black" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </ContentPresenter.OpacityMask>
+                            </ContentPresenter>
+
+                        <Rectangle Grid.Row="0" x:Name="Part_RectangleTop">
+                            <Rectangle.OpacityMask>
+                                    <SolidColorBrush Color="Black" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <Rectangle Grid.Row="1" x:Name="Part_RectangleBottom">
+                                <Rectangle.OpacityMask>
+                                    <SolidColorBrush Color="Black" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+
                     </Grid>
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

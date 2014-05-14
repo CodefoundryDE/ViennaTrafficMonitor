@@ -29,6 +29,6 @@
         </Button>
         <Button Content="Hauptfensterbutton 2" Grid.Row="1" Grid.Column="2" Margin="10,0,10,0" Padding="10,10,10,10" />
         <!--<Button Content="Hauptfensterbutton 3" Grid.Row="1" Grid.Column="3" Margin="10,0,10,0" Padding="10,10,10,10" />-->
-        <fv:SplitFlapDisplay Content="{Binding Flap}" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="3" Width="100" />
+        <fv:SplitFlapDisplay Content="{Binding Flap}" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="3" />
     </Grid>
 </UserControl>

@@ -38,10 +38,9 @@ namespace ViennaTrafficMonitor.ViewModel {
         public HauptfensterViewModel() : base() {
             Task.Run(() => {
                 while (true) {
+                    Flap = "A";
                     Thread.Sleep(1000);
-                    Flap = "Hallo Welt!";
-                    Thread.Sleep(1000);
-                    Flap = "Teststring";
+                    Flap = "B";
                     Thread.Sleep(1000);
                 }
             });

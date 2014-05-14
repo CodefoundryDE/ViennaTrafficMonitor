@@ -19,7 +19,8 @@ namespace VtmFramework.View {
 
     public class SplitFlapDisplay : ContentControl {
 
-        private ContentPresenter _mainContent;
+        private TextBlock _displayTop;
+        private ContentPresenter _displayBottom;
         private Rectangle _rectangleTop;
         private Rectangle _rectangleBottom;
 
@@ -27,12 +28,9 @@ namespace VtmFramework.View {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(typeof(SplitFlapDisplay)));
         }
 
-        public SplitFlapDisplay() {
-
-        }
-
         public override void OnApplyTemplate() {
-            _mainContent = Template.FindName("Part_MainContent", this) as ContentPresenter;
+            _displayTop = Template.FindName("Part_DisplayTop", this) as TextBlock;
+            _displayBottom = Template.FindName("Part_DisplayBottom", this) as ContentPresenter;
             _rectangleTop = Template.FindName("Part_RectangleTop", this) as Rectangle;
             _rectangleBottom = Template.FindName("Part_RectangleBottom", this) as Rectangle;
             base.OnApplyTemplate();
@@ -40,13 +38,11 @@ namespace VtmFramework.View {
 
         protected override void OnContentChanged(object oldContent, object newContent) {
             string text = newContent.ToString();
-            if (_mainContent != null && _rectangleTop != null && _rectangleBottom != null) {
-                //_rectangleTop.Fill = _CreateBrushFromVisual(_mainContent, (int)_mainContent.ActualWidth, (int)_mainContent.ActualHeight);
-                Brush brush = _CreateBrushFromVisual(_mainContent, (int)_mainContent.ActualWidth, (int)_mainContent.ActualHeight);
-                _rectangleBottom.Fill = brush;
-
+            if (_displayTop != null && _displayBottom != null && _rectangleTop != null && _rectangleBottom != null) {
+                _rectangleTop.Fill = _CreateBrushFromVisual(_displayTop, (int)_rectangleTop.ActualWidth, (int)_rectangleTop.ActualHeight);
+                _rectangleBottom.Fill = _CreateBrushFromVisual(_displayBottom, (int)_rectangleBottom.ActualWidth, (int)_rectangleBottom.ActualHeight);
+                _BeginAnimateContentReplacement();
             }
-            _BeginAnimateContentReplacement();
             base.OnContentChanged(oldContent, newContent);
         }
 
@@ -61,41 +57,54 @@ namespace VtmFramework.View {
             RenderTargetBitmap target = new RenderTargetBitmap(Math.Max(width, 1), Math.Max(height, 1), 96, 96, PixelFormats.Pbgra32);
             target.Render(v);
             Brush brush = new ImageBrush(target);
+            brush.Opacity = 1;
             brush.Freeze();
             return brush;
         }
 
         private void _BeginAnimateContentReplacement() {
-            ScaleTransform fallTransform = new ScaleTransform();
-            SkewTransform widthTransform = new SkewTransform();
+            ScaleTransform flapTransformTop = new ScaleTransform();
+            flapTransformTop.CenterY = _rectangleTop.ActualHeight;
+            //SkewTransform widthTransform = new SkewTransform();
 
-            TransformGroup group = new TransformGroup();
-            group.Children.Add(fallTransform);
-            group.Children.Add(widthTransform);
+            ScaleTransform flapTransformBottom = new ScaleTransform();
 
-            widthTransform.CenterX = 0;
-            widthTransform.CenterY = _rectangleBottom.ActualHeight;
+            TransformGroup groupTop = new TransformGroup();
+            groupTop.Children.Add(flapTransformTop);
+            //group.Children.Add(widthTransform);
 
-            _rectangleBottom.Visibility = Visibility.Visible;
-            _rectangleBottom.RenderTransform = group;
+            TransformGroup groupBottom = new TransformGroup();
+            groupBottom.Children.Add(flapTransformBottom);
 
-            IEasingFunction ease = new CircleEase {
+            //widthTransform.CenterX = 0;
+            //widthTransform.CenterY = _rectangleBottom.ActualHeight;
+
+            _rectangleTop.Visibility = Visibility.Visible;
+            _rectangleTop.RenderTransform = groupTop;
+
+            _rectangleBottom.RenderTransform = groupBottom;
+
+            /*IEasingFunction ease = new CircleEase {
                 EasingMode = EasingMode.EaseInOut
-            };
+            };*/
 
-            fallTransform.BeginAnimation(ScaleTransform.ScaleYProperty, _CreateAnimation(-1, 1, 0.5, ease));
-
-            widthTransform.BeginAnimation(SkewTransform.AngleXProperty, _CreateAnimation(0, -10, 0.25, null, (s, e) => {
-                widthTransform.BeginAnimation(SkewTransform.AngleXProperty, _CreateAnimation(-10, 0, 0.25, null));
+            flapTransformTop.BeginAnimation(ScaleTransform.ScaleYProperty, _CreateFlapAnimation(1, 0, 0.25, (object sender, EventArgs e) => {
+                _rectangleTop.Visibility = Visibility.Hidden;
+                _rectangleBottom.Visibility = Visibility.Visible;
+                flapTransformBottom.BeginAnimation(ScaleTransform.ScaleYProperty, _CreateFlapAnimation(0, 1, 0.25, (object s, EventArgs ea) => {
+                    _rectangleBottom.Visibility = Visibility.Hidden;
+                }));
             }));
+
+            // widthTransform.BeginAnimation(SkewTransform.AngleXProperty, _CreateFlapAnimation(0, -10, 0.25, (s, e) => {
+            //     widthTransform.BeginAnimation(SkewTransform.AngleXProperty, _CreateFlapAnimation(-10, 0, 0.25));
+            // }));
         }
 
-        private static AnimationTimeline _CreateAnimation(double from, double to, double time, IEasingFunction ease = null, EventHandler completed = null) {
+        private static AnimationTimeline _CreateFlapAnimation(double from, double to, double time, EventHandler completed = null) {
             Duration duration = new Duration(TimeSpan.FromSeconds(time));
             var animation = new DoubleAnimation(from, to, duration);
-            if (ease != null) {
-                animation.EasingFunction = ease;
-            }
+            // Todo: Easing
             if (completed != null) {
                 animation.Completed += completed;
             }
