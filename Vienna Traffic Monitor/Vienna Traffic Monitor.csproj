@@ -139,6 +139,10 @@
     <Compile Include="View\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
+    <Page Include="Themes\Dark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -289,6 +293,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Ressources\Icons\Dark\appbar.magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Light\appbar.clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Dark\appbar.clock.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
