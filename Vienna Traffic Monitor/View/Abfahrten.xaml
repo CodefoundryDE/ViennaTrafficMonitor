@@ -2,14 +2,32 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ds="clr-namespace:ViennaTrafficMonitor.Deserializer"
+             xmlns:v="clr-namespace:ViennaTrafficMonitor.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.DataContext>
-        <vm:AbfahrtenViewModel />
-    </UserControl.DataContext>
+
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Name = "Header" Height="Auto"/>
+            <RowDefinition Name = "Content" Height="Auto"/>
+            <RowDefinition Name = "Footer" Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="{Binding Haltestelle.Name}" Margin="10" Grid.Row="0" />
+        <ListView ItemsSource="{Binding Abfahrten}" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <v:AbfahrtControl Abfahrt="{Binding Departure.DepartureTime.TimePlanned}"
+                                          LineName="{Binding Line.Name}" 
+                                          Towards="{Binding Line.Towards}" 
+                                          Gleis="{Binding Line.Platform}"
+                                          Verspaetung="{Binding Departure.DepartureTime.TimeReal}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>

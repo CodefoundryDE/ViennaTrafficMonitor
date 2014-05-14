@@ -13,9 +13,9 @@ namespace ViennaTrafficMonitor.Deserializer {
             return _ModifyResponse(response);
         }
 
-        public static async Task<IList<VtmResponse>> GetProxyResponseAsync(IEnumerable<int> rblEnumerbale) {
+        public static async Task<IList<VtmResponse>> GetProxyResponseAsync(ISet<int> rblSet) {
             IRequester requester = RequesterFactory.GetInstance();
-            Response response = await requester.GetResponseAsync(rblEnumerbale);
+            Response response = await requester.GetResponseAsync(rblSet);
             return _ModifyResponse(response);
             
         }

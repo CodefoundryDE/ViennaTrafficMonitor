@@ -14,7 +14,7 @@ namespace VtmTests.Deserializer {
         private Response _Response;
         private Response _ResponseEnumerable;
         private int _TestRbl;
-        private IEnumerable<int> _TestRblEnumerable;
+        private ISet<int> _TestRblSet;
         private IRequester _Requester;
         private IRequester _DummyRequester;
 
@@ -22,7 +22,7 @@ namespace VtmTests.Deserializer {
         public void TestInitialize() {
 
             _TestRbl = 147;
-            _TestRblEnumerable = new int[] { 7, 8, 9 };
+            _TestRblSet = new HashSet<int>(new int[]{7,8,9});
             _Requester = new RblRequester();
             _DummyRequester = new DummyRequester();
 
@@ -32,7 +32,7 @@ namespace VtmTests.Deserializer {
         public async Task TestRequest() {
 
             Task<Response> request = _Requester.GetResponseAsync(_TestRbl);
-            Task<Response> requestEnumerable = _Requester.GetResponseAsync(_TestRblEnumerable);
+            Task<Response> requestEnumerable = _Requester.GetResponseAsync(_TestRblSet);
 
             _Response = await request;
             _ResponseEnumerable = await requestEnumerable;
@@ -48,7 +48,7 @@ namespace VtmTests.Deserializer {
         public async Task TestDummyRequest() {
 
             Task<Response> request = _DummyRequester.GetResponseAsync(_TestRbl);
-            Task<Response> requestEnumerable = _DummyRequester.GetResponseAsync(_TestRblEnumerable);
+            Task<Response> requestEnumerable = _DummyRequester.GetResponseAsync(_TestRblSet);
 
             _Response = await request;
             _ResponseEnumerable = await requestEnumerable;

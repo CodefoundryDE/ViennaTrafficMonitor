@@ -78,6 +78,7 @@ namespace ViennaTrafficMonitor.Deserializer {
         public string Name { get; set; }
         public string Towards { get; set; }
         public string Direction { get; set; }
+        public string Platform { get; set; }
         public string RichtungsId { get; set; }
         public bool BarrierFree { get; set; }
         public bool RealtimeSupported { get; set; }
