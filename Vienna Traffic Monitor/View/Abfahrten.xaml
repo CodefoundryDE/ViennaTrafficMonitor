@@ -5,26 +5,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ds="clr-namespace:ViennaTrafficMonitor.Deserializer"
              xmlns:v="clr-namespace:ViennaTrafficMonitor.View"
+             xmlns:c="clr-namespace:VtmFramework.Converter;assembly=VtmFramework"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-
+    <UserControl.Resources>
+        <c:StringToTimeConverter x:Key="StringToTimeConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Name = "Header" Height="Auto"/>
             <RowDefinition Name = "Content" Height="Auto"/>
             <RowDefinition Name = "Footer" Height="Auto"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
-        <Label Content="{Binding Haltestelle.Name}" Margin="10" Grid.Row="0" />
-        <ListView ItemsSource="{Binding Abfahrten}" Grid.Row="1">
+        <Label Content="{Binding Haltestelle.Name}" Margin="10" Grid.Row="0" Grid.Column="0" />
+        <Label Content="{Binding CurrentTime, FallbackValue=00:00:00}" Style="{StaticResource UhrzeitLabel}" Grid.Row="0" Grid.Column="2" />
+        <ListView ItemsSource="{Binding Abfahrten}" Grid.Row="1" HorizontalContentAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="3">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <v:AbfahrtControl Abfahrt="{Binding Departure.DepartureTime.TimePlanned}"
+                        <v:AbfahrtControl Abfahrt="{Binding Departure.DepartureTime.TimePlanned, Converter={StaticResource StringToTimeConverter}}"
                                           LineName="{Binding Line.Name}" 
                                           Towards="{Binding Line.Towards}" 
                                           Gleis="{Binding Line.Platform}"
-                                          Verspaetung="{Binding Departure.DepartureTime.TimeReal}" />
+                                          Verspaetung="{Binding Departure.DepartureTime.Countdown}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

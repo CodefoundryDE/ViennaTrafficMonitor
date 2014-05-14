@@ -17,7 +17,7 @@ namespace ViennaTrafficMonitor.Filter.AbfahrtenFilter {
                     return new List<VtmResponse>();
                 }
                 var query = from response in abfahrten
-                            orderby response.Departure.DepartureTime.TimeReal                            
+                            orderby response.Departure.DepartureTime.TimePlanned                            
                             select response;
                 var result =  query.ToList<VtmResponse>().Take(35);
                 return result.ToList();
