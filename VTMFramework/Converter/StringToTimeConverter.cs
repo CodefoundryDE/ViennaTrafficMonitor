@@ -13,7 +13,6 @@ namespace VtmFramework.Converter {
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             DateTime datetime = DateTime.ParseExact(value as string, "yyyy-MM-dd'T'HH:mm:ss.fffzz'00'", CultureInfo.InvariantCulture);
-            //DateTime datetime = DateTime.Now;
             return datetime.ToString("HH:mm");
         }
 
