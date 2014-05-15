@@ -85,14 +85,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CsvImport\Parser\HaltestellenParser.cs" />
+    <Compile Include="Deserializer\DummyRequester.cs" />
+    <Compile Include="Deserializer\IRequester.cs" />
     <Compile Include="Deserializer\Requester.cs" />
     <Compile Include="Deserializer\RequesterProxy.cs" />
+    <Compile Include="Deserializer\RequesterFactory.cs" />
     <Compile Include="Deserializer\Response.cs" />
     <Compile Include="CsvImport\Parser\SteigeParser.cs" />
     <Compile Include="CsvImport\Record\HaltestelleRecord.cs" />
     <Compile Include="CsvImport\Record\SteigRecord.cs" />
     <Compile Include="Deserializer\VtmResponse.cs" />
     <Compile Include="Filter\AbfahrtenFilter\AbfahrtenFilter.cs" />
+    <Compile Include="Filter\AbfahrtenFilter\OrderByAbfahrtenFilter.cs" />
     <Compile Include="Filter\MapFilter\MapFilter.cs" />
     <Compile Include="Filter\GenericFilter.cs" />
     <Compile Include="Filter\FilterCollection.cs" />
@@ -120,6 +124,9 @@
     <Compile Include="ViewModel\AbfahrtenViewModelFactory.cs" />
     <Compile Include="ViewModel\SucheViewModel.cs" />
     <Compile Include="ViewModel\UserControl1ViewModel.cs" />
+    <Compile Include="View\AbfahrtControl.xaml.cs">
+      <DependentUpon>AbfahrtControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Map.xaml.cs">
       <DependentUpon>Map.xaml</DependentUpon>
     </Compile>
@@ -132,11 +139,19 @@
     <Compile Include="View\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
+    <Page Include="Themes\Dark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Light.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AbfahrtControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -241,12 +256,69 @@
       <Name>VTM Framework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Ressources\DummyResponses\DemoResponse0.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse5.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse6.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse7.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse8.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse9.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Ressources\Icons\Light\appbar.magnify.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Ressources\Icons\Dark\appbar.magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Light\appbar.clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Dark\appbar.clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ressources\DummyResponses\DemoResponse10.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse11.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse12.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse13.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse14.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse15.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

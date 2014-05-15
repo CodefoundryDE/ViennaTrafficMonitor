@@ -7,10 +7,9 @@ using ViennaTrafficMonitor.Deserializer;
 using ViennaTrafficMonitor.Model;
 
 namespace ViennaTrafficMonitor.Filter.AbfahrtenFilter {
+    public class OrderByTimeRealAbfahrtenFilter : GenericFilter<VtmResponse> {
 
-    public class AbfahrtenFilter : GenericFilter<VtmResponse> {
-
-        public  AbfahrtenFilter(EVerkehrsmittel verkehrsmittel, bool active = true)
+        public OrderByTimeRealAbfahrtenFilter( bool active = true)
             : base(active) {
 
             Filter = (ICollection<VtmResponse> abfahrten) => {
@@ -18,12 +17,12 @@ namespace ViennaTrafficMonitor.Filter.AbfahrtenFilter {
                     return new List<VtmResponse>();
                 }
                 var query = from response in abfahrten
-                            where response.Typ != verkehrsmittel
+                            orderby response.Departure.DepartureTime.TimePlanned                            
                             select response;
-                return query.ToList<VtmResponse>();
+                var result =  query.ToList<VtmResponse>().Take(35);
+                return result.ToList();
             };
         }
 
     }
-
 }

@@ -9,6 +9,7 @@ using ViennaTrafficMonitor.Model;
 using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Filter;
 using ViennaTrafficMonitor.Filter.AbfahrtenFilter;
+using System.Threading;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
@@ -24,11 +25,21 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
+        private Timer _Timer;
+
+        public int Intervall { get; set; }
+
+        private Timer _TimerCurrentTime;
+        public string CurrentTime { get { return DateTime.Now.ToString("HH:mm:ss"); } }
+
+
         public ICollection<VtmResponse> Abfahrten {
             get {
                 return _verkehrsmittelFilter.Filter(_Response);
             }
         }
+
+
 
 
 
@@ -41,32 +52,37 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        private readonly IEnumerable<int> _Rbls;
+        private readonly ISet<int> _Rbls;
 
         public AbfahrtenViewModel(IHaltestelle haltestelle)
             : base() {
             Haltestelle = haltestelle;
             ISteigMapper sm = SteigMapperFactory.Instance;
-            IList<ISteig> steige = sm.FindByHaltestelle(_Haltestelle.Id);
-            _Rbls = from steig in sm.FindByHaltestelle(_Haltestelle.Id)
-                    select steig.Rbl;
+            List<ISteig> steige = sm.FindByHaltestelle(_Haltestelle.Id);
+            _Rbls = new HashSet<int>(from steig in steige
+                                     where steig.Rbl > 0
+                                     select steig.Rbl);
             _InitializeFilters();
-            _GetResponse().Wait();
+            Intervall = 1000;
+            _Timer = new Timer(_GetResponse, null, 0, Intervall);
+            _TimerCurrentTime = new Timer((object state) => {
+                RaisePropertyChangedEvent("CurrentTime");
+            }, null, 0, 1000);
         }
 
-        private async Task<bool> _GetResponse() {
-            _Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
-            return true;
+        private async void _GetResponse(object state) {
+            Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
         }
 
         private void _InitializeFilters() {
             _verkehrsmittelFilter = new FilterCollection<VtmResponse>();
-            _verkehrsmittelFilter.Add("MetroFilter", new AbfahrtenFilter(EVerkehrsmittel.Metro));
-            _verkehrsmittelFilter.Add("CityBusFilter", new AbfahrtenFilter(EVerkehrsmittel.CityBus));
-            _verkehrsmittelFilter.Add("NachtBusFilter", new AbfahrtenFilter(EVerkehrsmittel.NachtBus));
-            _verkehrsmittelFilter.Add("SbahnFilter", new AbfahrtenFilter(EVerkehrsmittel.SBahn));
-            _verkehrsmittelFilter.Add("TramFilter", new AbfahrtenFilter(EVerkehrsmittel.Tram));
-            _verkehrsmittelFilter.Add("TramWlbFilter", new AbfahrtenFilter(EVerkehrsmittel.TramWlb));
+            _verkehrsmittelFilter.Add("MetroFilter", new AbfahrtenFilter(EVerkehrsmittel.Metro, false));
+            _verkehrsmittelFilter.Add("CityBusFilter", new AbfahrtenFilter(EVerkehrsmittel.CityBus, false));
+            _verkehrsmittelFilter.Add("NachtBusFilter", new AbfahrtenFilter(EVerkehrsmittel.NachtBus, false));
+            _verkehrsmittelFilter.Add("SbahnFilter", new AbfahrtenFilter(EVerkehrsmittel.SBahn, false));
+            _verkehrsmittelFilter.Add("TramFilter", new AbfahrtenFilter(EVerkehrsmittel.Tram, false));
+            _verkehrsmittelFilter.Add("TramWlbFilter", new AbfahrtenFilter(EVerkehrsmittel.TramWlb, false));
+            _verkehrsmittelFilter.Add("OrderByAbfahrt", new OrderByTimeRealAbfahrtenFilter(true));
         }
     }
 }

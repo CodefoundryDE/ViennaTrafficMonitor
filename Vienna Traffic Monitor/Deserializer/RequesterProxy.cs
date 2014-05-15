@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 namespace ViennaTrafficMonitor.Deserializer {
     public static class RblRequesterProxy {
 
-        public static async Task<IList<VtmResponse>> GetProxyResponseAsync(int rbl) {            
-            Response response = await RblRequester.GetResponseAsync(rbl);
+        public static async Task<IList<VtmResponse>> GetProxyResponseAsync(int rbl) {
+            IRequester requester = RequesterFactory.GetInstance();
+            Response response = await requester.GetResponseAsync(rbl);
             return _ModifyResponse(response);
         }
 
-        public static async Task<IList<VtmResponse>> GetProxyResponseAsync(IEnumerable<int> rblEnumerbale) {
-            Response response = await RblRequester.GetResponseAsync(rblEnumerbale);
+        public static async Task<IList<VtmResponse>> GetProxyResponseAsync(ISet<int> rblSet) {
+            IRequester requester = RequesterFactory.GetInstance();
+            Response response = await requester.GetResponseAsync(rblSet);
             return _ModifyResponse(response);
             
         }

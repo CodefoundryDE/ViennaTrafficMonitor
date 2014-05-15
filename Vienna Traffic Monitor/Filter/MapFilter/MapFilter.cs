@@ -9,9 +9,17 @@ namespace ViennaTrafficMonitor.Filter.MapFilter {
 
     public class MapFilter : GenericFilter<KeyValuePair<ILinie, List<IHaltestelle>>> {
 
-        public MapFilter(EVerkehrsmittel verkehrsmittel, bool active = true)
+        public MapFilter(EVerkehrsmittel verkehrsmittel)
+            : this(verkehrsmittel, true) {
+
+        }
+
+        public MapFilter(EVerkehrsmittel verkehrsmittel, bool active)
             : base(active) {
             this.Filter = (ICollection<KeyValuePair<ILinie, List<IHaltestelle>>> collection) => {
+                if (collection == null) {
+                    return new List<KeyValuePair<ILinie, List<IHaltestelle>>>();
+                }
                 var query = from linie in collection
                             where linie.Key.Verkehrsmittel != verkehrsmittel
                             select linie;

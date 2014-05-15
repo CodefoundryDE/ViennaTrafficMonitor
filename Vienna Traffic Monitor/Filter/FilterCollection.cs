@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ViennaTrafficMonitor.Filter {
 
+    [Serializable]
     public class FilterCollection<T> :  Dictionary<string, IFilter<T>>, IFilter<T> {
 
         public FilterCollection() {
