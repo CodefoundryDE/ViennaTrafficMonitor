@@ -29,6 +29,9 @@ namespace ViennaTrafficMonitor.Deserializer {
             TrafficInfoCategories = tic;
             TrafficInfoCategoryGroups = ticg;
             Typ = Linie.VerkehrsmittelConverter(type);
+            if (Departure.DepartureTime.TimeReal == null) {
+                Departure.DepartureTime.TimeReal = Departure.DepartureTime.TimePlanned + " *";
+            }
         }
     }
 }

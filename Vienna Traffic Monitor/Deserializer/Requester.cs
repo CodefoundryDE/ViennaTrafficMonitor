@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Web.Script.Serialization;
+using System.Collections;
 
 namespace ViennaTrafficMonitor.Deserializer {
     public class RblRequester : IRequester {
@@ -46,7 +47,7 @@ namespace ViennaTrafficMonitor.Deserializer {
         /// </summary>
         /// <param name="rblEnumerable"></param>
         /// <returns></returns>
-        public async Task<Response> GetResponseAsync(IEnumerable<int> rblEnumerable) {
+        public async Task<Response> GetResponseAsync(ISet<int> rblSet) {
 
 
             StringBuilder builder = new StringBuilder();
@@ -54,8 +55,11 @@ namespace ViennaTrafficMonitor.Deserializer {
             builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestBegin);
 
             builder.Append(_rblAllocator);
-            builder.Append(rblEnumerable.First());
-            rblEnumerable = rblEnumerable.Skip(1);
+            builder.Append(rblSet.First());
+            IEnumerable rblEnumerable = rblSet.Skip(1);
+
+
+
             
             foreach (int rbl in rblEnumerable) {
                 builder.Append(_rblConnector);
