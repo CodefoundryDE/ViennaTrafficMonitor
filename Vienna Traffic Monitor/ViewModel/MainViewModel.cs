@@ -17,6 +17,8 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         [SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
         public MainViewModel() {
+            _loadTheme();
+
             Scheduler = new Scheduler<AbstractViewModel>();
             Scheduler.Schedule(new HauptfensterViewModel());
             Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
@@ -26,6 +28,14 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private void OnSchedulerAktuellChanged(object Sender, EventArgs e) {
             RaisePropertyChangedEvent("Scheduler");
+        }
+
+        private void _loadTheme() {
+            string theme = Properties.Settings.Default.Theme.Trim();
+            var uri = new Uri("pack://siteoforigin:,,,/Themes/" + theme + ".xaml", UriKind.RelativeOrAbsolute);
+            ResourceDictionary dict = new ResourceDictionary() { Source = uri };
+            // Neues Theme hinzufügen
+            Application.Current.Resources.MergedDictionaries.Add(dict);
         }
 
     }

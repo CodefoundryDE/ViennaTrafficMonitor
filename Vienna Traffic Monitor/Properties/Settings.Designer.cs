@@ -74,9 +74,10 @@ namespace ViennaTrafficMonitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Windows.ResourceDictionary Theme {
+        [global::System.Configuration.DefaultSettingValueAttribute("Light")]
+        public string Theme {
             get {
-                return ((global::System.Windows.ResourceDictionary)(this["Theme"]));
+                return ((string)(this["Theme"]));
             }
             set {
                 this["Theme"] = value;

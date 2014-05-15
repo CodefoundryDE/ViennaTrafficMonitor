@@ -10,11 +10,12 @@ namespace ViennaTrafficMonitor.ViewModel {
 
     public class EinstellungenViewModel : AbstractViewModel {
 
-        public ResourceDictionary Theme {
+        public string Theme {
             get { return Properties.Settings.Default.Theme; }
             set {
                 Properties.Settings.Default.Theme = value;
                 Properties.Settings.Default.Save();
+                _changeDictionary();
             }
         }
 
@@ -28,19 +29,27 @@ namespace ViennaTrafficMonitor.ViewModel {
 
 
 
-        public IDictionary<string, ResourceDictionary> AvailableDictionaries {
+        public ICollection<string> AvailableDictionaries {
             get { return _getDictionaries(); }
-            //set { myVar = value; }
         }
 
 
-        private IDictionary<string, ResourceDictionary> _getDictionaries() {
-            IDictionary<string, ResourceDictionary> dict = new Dictionary<string, ResourceDictionary>();
-            var light = new Uri("pack://siteoforigin:,,,/Themes/Light.xaml", UriKind.RelativeOrAbsolute);
-            var dark = new Uri("pack://siteoforigin:,,,/Themes/Dark.xaml", UriKind.RelativeOrAbsolute);
-            dict.Add("Light", new ResourceDictionary() { Source = light });
-            dict.Add("Dark", new ResourceDictionary() { Source = dark });
+        private ICollection<string> _getDictionaries() {
+            ICollection<string> dict = new List<string>();
+            dict.Add("Light");
+            dict.Add("Dark");
             return dict;
+        }
+
+        private void _changeDictionary() {
+            var uri = new Uri("pack://siteoforigin:,,,/Themes/" + Theme + ".xaml", UriKind.RelativeOrAbsolute);
+            ResourceDictionary dict = new ResourceDictionary() { Source = uri };
+            try {
+                // Das letzte Theme (falls vorhanden) entfernen
+                Application.Current.Resources.MergedDictionaries.RemoveAt(1);
+            } catch (Exception) { }
+            // Neues Theme hinzufügen
+            Application.Current.Resources.MergedDictionaries.Add(dict);
         }
 
     }

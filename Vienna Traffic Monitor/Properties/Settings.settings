@@ -17,8 +17,8 @@
     <Setting Name="DummyRequester" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Theme" Type="System.Windows.ResourceDictionary" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="Theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Light</Value>
     </Setting>
   </Settings>
 </SettingsFile>
