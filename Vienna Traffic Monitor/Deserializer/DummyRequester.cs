@@ -12,7 +12,7 @@ namespace ViennaTrafficMonitor.Deserializer
     public class DummyRequester : IRequester
     {
         private const String folderPath = "Ressources\\DummyResponses\\DemoResponse";
-        private const int dummyElementCount = 10;
+        private const int dummyElementCount = 15;
         private const String fileExtension = ".txt";
         private Random rand = new Random();
 
