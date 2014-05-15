@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="ViennaTrafficMonitor.View.Einstellungen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="190.4" d:DesignWidth="512">
+    <UserControl.DataContext>
+        <vm:EinstellungenViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <CheckBox Grid.Row="0" HorizontalAlignment="Center" Content="Dummy-API" IsChecked="{Binding Dummy}" Style="{StaticResource OrangeSwitchStyle}" />
+        <ComboBox SelectedValuePath="Value" DisplayMemberPath="Key" SelectedValue="{Binding Theme, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" ItemsSource="{Binding AvailableDictionaries}" />
+    </Grid>
+</UserControl>

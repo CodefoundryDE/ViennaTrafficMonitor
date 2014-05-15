@@ -118,6 +118,7 @@
     <Compile Include="Model\ISteig.cs" />
     <Compile Include="Model\Linie.cs" />
     <Compile Include="Model\Steig.cs" />
+    <Compile Include="ViewModel\EinstellungenViewModel.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MapViewModelFactory.cs" />
     <Compile Include="ViewModel\AbfahrtenViewModel.cs" />
@@ -126,6 +127,9 @@
     <Compile Include="ViewModel\UserControl1ViewModel.cs" />
     <Compile Include="View\AbfahrtControl.xaml.cs">
       <DependentUpon>AbfahrtControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Einstellungen.xaml.cs">
+      <DependentUpon>Einstellungen.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Map.xaml.cs">
       <DependentUpon>Map.xaml</DependentUpon>
@@ -139,19 +143,29 @@
     <Compile Include="View\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Themes\Dark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Page Include="Themes\Default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Light.xaml">
+    <EmbeddedResource Include="Themes\Light.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Page Include="View\AbfahrtControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Abfahrten.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Einstellungen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
