@@ -23,8 +23,6 @@ namespace ViennaTrafficMonitor.ViewModel {
             Scheduler.Schedule("Abfahrten", AbfahrtenViewModelFactory.GetInstance(214461519));
             Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
             Scheduler.Start();
-            Scheduler.ScheduleInstant("Hauptfenster");
-            //;
         }
 
         private void OnSchedulerAktuellChanged(object Sender, EventArgs e) {

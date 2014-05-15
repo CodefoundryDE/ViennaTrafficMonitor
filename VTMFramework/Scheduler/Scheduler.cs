@@ -100,12 +100,12 @@ namespace VtmFramework.Scheduler {
             if (++_counter >= _dictionary.Count()) {
                 _counter = 0;
             }
-            if (_getViewByIndex(_counter, out newView)) {
-                return newView;
-            } else {
-                _counter = 0;
+            _getViewByIndex(_counter, out newView);
+            if (newView == null) {
                 return Aktuell;
             }
+            return newView;
+
         }
 
         /// <summary>
