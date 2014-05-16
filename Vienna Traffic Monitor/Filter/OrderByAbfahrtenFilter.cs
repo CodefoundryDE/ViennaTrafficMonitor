@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ViennaTrafficMonitor.Deserializer;
 using ViennaTrafficMonitor.Model;
 
-namespace ViennaTrafficMonitor.Filter.AbfahrtenFilter {
+namespace ViennaTrafficMonitor.Filter {
     public class OrderByTimeRealAbfahrtenFilter : GenericFilter<VtmResponse> {
 
         public OrderByTimeRealAbfahrtenFilter( bool active = true)

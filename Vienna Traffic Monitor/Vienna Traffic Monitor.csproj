@@ -95,9 +95,9 @@
     <Compile Include="CsvImport\Record\HaltestelleRecord.cs" />
     <Compile Include="CsvImport\Record\SteigRecord.cs" />
     <Compile Include="Deserializer\VtmResponse.cs" />
-    <Compile Include="Filter\AbfahrtenFilter\AbfahrtenFilter.cs" />
-    <Compile Include="Filter\AbfahrtenFilter\OrderByAbfahrtenFilter.cs" />
-    <Compile Include="Filter\MapFilter\MapFilter.cs" />
+    <Compile Include="Filter\AbfahrtenFilter.cs" />
+    <Compile Include="Filter\OrderByAbfahrtenFilter.cs" />
+    <Compile Include="Filter\MapFilter.cs" />
     <Compile Include="Filter\GenericFilter.cs" />
     <Compile Include="Filter\FilterCollection.cs" />
     <Compile Include="Filter\IFilter.cs" />
@@ -319,6 +319,10 @@
     <None Include="Ressources\DummyResponses\DemoResponse15.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Filter\AbfahrtenFilter\" />
+    <Folder Include="Filter\MapFilter\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
