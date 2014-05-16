@@ -10,7 +10,11 @@ namespace ViennaTrafficMonitor.Filter {
 
     public class AbfahrtenFilter : GenericFilter<VtmResponse> {
 
-        public  AbfahrtenFilter(EVerkehrsmittel verkehrsmittel, bool active = true)
+        public AbfahrtenFilter(EVerkehrsmittel verkehrsmittel)
+            : this(verkehrsmittel, true) {
+        }
+
+        public AbfahrtenFilter(EVerkehrsmittel verkehrsmittel, bool active)
             : base(active) {
 
             Filter = (ICollection<VtmResponse> abfahrten) => {
