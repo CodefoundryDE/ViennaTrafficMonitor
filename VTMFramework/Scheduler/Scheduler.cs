@@ -10,15 +10,12 @@ using System.Linq;
 
 namespace VtmFramework.Scheduler {
 
-    public class Scheduler<T> : IDisposable where T : AbstractViewModel {
+    public sealed class Scheduler<T> : IDisposable where T : AbstractViewModel {
 
         private bool _disposed = false;
 
         private ConcurrentQueue<T> _queue;
-        private ConcurrentDictionary<string, T> _dictionary;
         private Timer _timer;
-        private int _counter;
-
 
         /// <summary>
         /// Verzögerung, die der Scheduler zwischen den Auswechslungen abwartet.
@@ -28,7 +25,14 @@ namespace VtmFramework.Scheduler {
         /// <summary>
         /// Das aktuelle Element.
         /// </summary>
-        public T Aktuell { get; private set; }
+        private T _aktuell;
+        public T Aktuell {
+            get { return _aktuell; }
+            private set {
+                _aktuell = value;
+                _RaiseAktuellChangedEvent();
+            }
+        }
 
         /// <summary>
         /// Dieses Event wird ausgelöst, wenn sich der Aktuelle Inhalt des Schedulers ändert.
@@ -37,8 +41,6 @@ namespace VtmFramework.Scheduler {
 
         public Scheduler() {
             this._queue = new ConcurrentQueue<T>();
-            this._dictionary = new ConcurrentDictionary<string, T>();
-            _counter = 0;
             Delay = 1500;
             _timer = new Timer(_Tick, null, Timeout.Infinite, Delay);
         }
@@ -51,61 +53,13 @@ namespace VtmFramework.Scheduler {
             _queue.Enqueue(element);
         }
 
-        public void Schedule(string viewName, T element) {
-            _dictionary.AddOrUpdate(viewName, element, (key, oldValue) => { return element; });
-        }
-
         /// <summary>
         /// Zeigt ein Element sofort an.
         /// </summary>
         /// <param name="element"></param>
         public void ScheduleInstant(T element) {
-            _Pause();
+            _Stop();
             Aktuell = element;
-            _RaiseAktuellChangedEvent();
-        }
-
-        public void ScheduleInstant(string viewName) {
-            T newView;
-            if (_dictionary.TryGetValue(viewName, out newView)) {
-                _Pause();
-                Aktuell = newView;
-                _RaiseAktuellChangedEvent();
-            } else {
-                IVtmLogger logger = VtmLoggerFactory.GetInstance();
-                logger.Error("View \"" + viewName + "\"beim Versuch diese anzuzeigen nicht im ViewDictionary gefunden!");
-            }
-        }
-
-        public void ScheduleInstant(string viewName, T element) {
-            Schedule(viewName, element);
-            ScheduleInstant(viewName);
-        }
-
-        private bool _getViewByIndex(int index, out T newView) {
-            try {
-                _dictionary.TryGetValue(_dictionary.Keys.ElementAt(index), out newView);
-            } catch (Exception ex) {
-                if (ex is ArgumentOutOfRangeException) { }
-                IVtmLogger logger = VtmLoggerFactory.GetInstance();
-                logger.Error("View am Index \"" + index + "\" nicht gefunden" + ((ArgumentOutOfRangeException)ex).StackTrace);
-                newView = null;
-                return false;
-            }
-            return true;
-        }
-
-        private T _getNextView() {
-            T newView;
-            if (++_counter >= _dictionary.Count()) {
-                _counter = 0;
-            }
-            _getViewByIndex(_counter, out newView);
-            if (newView == null) {
-                return Aktuell;
-            }
-            return newView;
-
         }
 
         /// <summary>
@@ -118,8 +72,9 @@ namespace VtmFramework.Scheduler {
         /// <summary>
         /// Pausiert den Scheduler.
         /// </summary>
-        private void _Pause() {
+        private void _Stop() {
             _timer.Change(Timeout.Infinite, Delay);
+            _queue = new ConcurrentQueue<T>();
         }
 
         /// <summary>
@@ -127,9 +82,12 @@ namespace VtmFramework.Scheduler {
         /// Das erste Element der Warteschlange wird aktuell und anschließend wieder hinten eingereiht.
         /// </summary>
         private void _Tick(object state) {
-            if (Aktuell == null || Aktuell.CanSwitch()) {
-                Aktuell = _getNextView();
-                _RaiseAktuellChangedEvent();
+            if (Aktuell == null || Aktuell.CanSwitch) {
+                T temp;
+                if (_queue.TryDequeue(out temp)) {
+                    Aktuell = temp;
+                    _queue.Enqueue(temp);
+                }
             }
         }
 
@@ -148,7 +106,7 @@ namespace VtmFramework.Scheduler {
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool disposing) {
+        private void Dispose(bool disposing) {
             if (!_disposed) {
                 if (disposing) {
                     _timer.Dispose();

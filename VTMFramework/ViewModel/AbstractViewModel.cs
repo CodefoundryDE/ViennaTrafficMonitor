@@ -51,8 +51,8 @@ namespace VtmFramework.ViewModel {
         /// Zeigt an, ob der Scheduler das ViewModel wechseln darf.
         /// </summary>
         /// <returns></returns>
-        public bool CanSwitch() {
-            return (Error == null);
+        public bool CanSwitch {
+            get { return (Error == null); }
         }
 
         #region Observer

@@ -19,8 +19,8 @@ namespace ViennaTrafficMonitor.ViewModel {
         [SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
         public MainViewModel() {
             Scheduler = new Scheduler<AbstractViewModel>();
-            Scheduler.Schedule("Hauptfenster", new HauptfensterViewModel());
-            Scheduler.Schedule("Abfahrten", AbfahrtenViewModelFactory.GetInstance(214461519));
+            Scheduler.Schedule(new HauptfensterViewModel());
+            Scheduler.Schedule(AbfahrtenViewModelFactory.GetInstance(214461519));
             Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
             Scheduler.Start();
         }
