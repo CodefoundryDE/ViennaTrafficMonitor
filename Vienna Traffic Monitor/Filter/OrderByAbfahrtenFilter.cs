@@ -9,7 +9,11 @@ using ViennaTrafficMonitor.Model;
 namespace ViennaTrafficMonitor.Filter {
     public class OrderByTimeRealAbfahrtenFilter : GenericFilter<VtmResponse> {
 
-        public OrderByTimeRealAbfahrtenFilter( bool active = true)
+        public OrderByTimeRealAbfahrtenFilter()
+            : this(true) {
+        }
+
+        public OrderByTimeRealAbfahrtenFilter(bool active)
             : base(active) {
 
             Filter = (ICollection<VtmResponse> abfahrten) => {
@@ -17,9 +21,9 @@ namespace ViennaTrafficMonitor.Filter {
                     return new List<VtmResponse>();
                 }
                 var query = from response in abfahrten
-                            orderby response.Departure.DepartureTime.TimePlanned                            
+                            orderby response.Departure.DepartureTime.TimePlanned
                             select response;
-                var result =  query.ToList<VtmResponse>().Take(35);
+                var result = query.ToList<VtmResponse>().Take(35);
                 return result.ToList();
             };
         }
