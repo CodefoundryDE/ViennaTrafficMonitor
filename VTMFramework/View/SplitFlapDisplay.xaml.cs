@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using VtmFramework.Library;
 
 namespace VtmFramework.View {
 
@@ -37,7 +40,7 @@ namespace VtmFramework.View {
         #endregion
 
         #region DependencyProperty Text
-        public static DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(OnTextChanged, OnTextUpdated));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.RegisterAttached("Text", typeof(string), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(OnTextChanged));
 
         public string Text {
             get { return (string)this.GetValue(TextProperty); }
@@ -48,24 +51,27 @@ namespace VtmFramework.View {
 
         private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             SplitFlapDisplay display = (SplitFlapDisplay)d;
-            display.Text = (string)e.NewValue;
             display.OnTextChanged();
         }
 
-        private static object OnTextUpdated(DependencyObject d, object baseValue) {
-            SplitFlapDisplay display = (SplitFlapDisplay)d;
-            display.OnTextChanged();
-            return baseValue;
-        }
+        //private static object OnTextUpdated(DependencyObject d, object baseValue) {
+        //    SplitFlapDisplay display = (SplitFlapDisplay)d;
+        //    display.OnTextChanged();
+        //    return baseValue;
+        //}
         #endregion
 
-        public List<SplitFlapPanel> Panels;
+        private Timer _timer;
 
-        private char[] _chars;
+        public List<SplitFlapPanel> Panels { get; private set; }
+
+        private char[] _charsCurrent;
+        private char[] _charsFinal;
 
         public SplitFlapDisplay() {
             InitializeComponent();
             Panels = new List<SplitFlapPanel>();
+            _timer = new Timer(_tick);
         }
 
         private void _createPanels() {
@@ -84,10 +90,33 @@ namespace VtmFramework.View {
         private void OnTextChanged() {
             string text = Text == null ? "" : Text;
             text = text.PadRight(PanelCount, ' ');
-            _chars = text.ToCharArray(0, PanelCount);
-            for (int i = 0; i < PanelCount; i++) {
-                Panels[i].Content = _chars[i].ToString();
+            if (_charsCurrent == null) {
+                _charsCurrent = text.ToCharArray(0, PanelCount);
             }
+            _charsFinal = text.ToCharArray(0, PanelCount);
+
+            for (int i = 0; i < PanelCount; i++) {
+                Panels[i].Content = _charsCurrent[i].ToString();
+            }
+            _timer.Change(0, 200);
+        }
+
+        private void _tick(object state) {
+            bool action = false;
+            Parallel.For(0, _charsCurrent.Length, (int i) => {
+                if (_charsCurrent[i] != _charsFinal[i]) {
+                    _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], ' ', 'z');
+                    object[] parameters = new object[] { Panels[i], _charsCurrent[i] };
+                    Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);  //Content = _chars[i].ToString();
+                    action = true;
+                }
+            });
+            if (!action) _timer.Change(Timeout.Infinite, Timeout.Infinite);
+        }
+
+        private delegate void updateDelegate(SplitFlapPanel panel, char character);
+        private void updatePanel(SplitFlapPanel panel, char character) {
+            panel.Content = character.ToString();
         }
 
     }

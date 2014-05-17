@@ -18,5 +18,22 @@ namespace VtmFrameworkTests.Library {
             Assert.AreEqual("", StrLib.StrCat("", "", " / "));
         }
 
+        [TestMethod]
+        public void TestAsciiInc() {
+            Assert.AreEqual('b', StrLib.AsciiInc('a', 'a', 'z')); // a -> b
+            Assert.AreEqual('n', StrLib.AsciiInc('m', 'a', 'z')); // m -> n
+            Assert.AreEqual('z', StrLib.AsciiInc('y', 'a', 'z')); // y -> z
+            Assert.AreEqual('a', StrLib.AsciiInc('z', 'a', 'z')); // z -> a
+
+            // Auto-Korrektur
+            Assert.AreEqual('a', StrLib.AsciiInc('A', 'a', 'z')); // A -> a
+            Assert.AreEqual('z', StrLib.AsciiInc('{', 'a', 'z')); // { -> z
+        }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void TestAsciiIncArgumentException() {
+            StrLib.AsciiInc('m', 'z', 'a');
+        }
+
     }
 }

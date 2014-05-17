@@ -37,11 +37,11 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public HauptfensterViewModel() : base() {
             Task.Run(() => {
-                int delay = 2000;
+                int delay = 20000;
                 while (true) {
                     Flap = "Hallo";
                     Thread.Sleep(delay);
-                    Flap = "Welt";
+                    Flap = "Welt!";
                     Thread.Sleep(delay);
                 }
             });
