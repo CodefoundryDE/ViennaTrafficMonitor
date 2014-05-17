@@ -12,16 +12,26 @@ namespace VtmFramework.Scheduler {
 
     public sealed class Scheduler<T> : IDisposable where T : AbstractViewModel {
 
-        private bool _disposed = false;
+        private const int DEFAULT_INTERVAL = 10000;
 
         private ConcurrentQueue<T> _queue;
         private Timer _timer;
 
         /// <summary>
+        /// Default-Konstruktor
+        /// </summary>
+        public Scheduler() {
+            this._queue = new ConcurrentQueue<T>();
+            Interval = DEFAULT_INTERVAL;
+            _timer = new Timer(_Tick, null, Timeout.Infinite, Timeout.Infinite);
+        }
+
+        /// <summary>
         /// Verzögerung, die der Scheduler zwischen den Auswechslungen abwartet.
         /// </summary>
-        public int Delay { get; set; }
+        public int Interval { get; set; }
 
+        #region Aktuelles Element im Scheduler
         /// <summary>
         /// Das aktuelle Element.
         /// </summary>
@@ -39,12 +49,17 @@ namespace VtmFramework.Scheduler {
         /// </summary>
         public event PropertyChangedEventHandler AktuellChanged;
 
-        public Scheduler() {
-            this._queue = new ConcurrentQueue<T>();
-            Delay = 1500;
-            _timer = new Timer(_Tick, null, Timeout.Infinite, Delay);
+        /// <summary>
+        /// Löst das AktuellChanged-Event aus.
+        /// </summary>
+        private void _RaiseAktuellChangedEvent() {
+            var handler = AktuellChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs("Aktuell"));
         }
+        #endregion
 
+        #region Methoden zur Scheduler-Steuerung
         /// <summary>
         /// Reiht ein Element in die Warteschlange ein, so dass es periodisch angezeigt wird.
         /// </summary>
@@ -66,14 +81,15 @@ namespace VtmFramework.Scheduler {
         /// Startet den Scheduler.
         /// </summary>
         public void Start() {
-            _timer.Change(0, Delay);
+            _timer.Change(0, Interval);
         }
+        #endregion
 
         /// <summary>
         /// Pausiert den Scheduler.
         /// </summary>
         private void _Stop() {
-            _timer.Change(Timeout.Infinite, Delay);
+            _timer.Change(Timeout.Infinite, Timeout.Infinite);
             _queue = new ConcurrentQueue<T>();
         }
 
@@ -91,16 +107,8 @@ namespace VtmFramework.Scheduler {
             }
         }
 
-        /// <summary>
-        /// Löst das AktuellChanged-Event aus.
-        /// </summary>
-        private void _RaiseAktuellChangedEvent() {
-            var handler = AktuellChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs("Aktuell"));
-        }
-
         #region Methoden für den Garbage-Collector
+        private bool _disposed = false;
         public void Dispose() {
             Dispose(true);
             GC.SuppressFinalize(this);
