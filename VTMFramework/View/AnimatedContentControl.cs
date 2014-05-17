@@ -8,7 +8,7 @@ using System.Windows.Shapes;
 
 namespace VtmFramework.View {
 
-    public class AnimatedContentControl : ContentControl {
+    public class AnimatedContentControl : AbstractAnimatedContentControl {
 
         private ContentPresenter _mainContent;
         private Shape _paintArea;
@@ -44,21 +44,6 @@ namespace VtmFramework.View {
         }
 
         /// <summary>
-        /// Erzeugt einen gerenderten Brush aus einem Visual
-        /// </summary>
-        /// <param name="v"></param>
-        /// <returns></returns>
-        private static Brush _CreateBrushFromVisual(Visual v, int width, int height) {
-            if (v == null)
-                throw new ArgumentNullException("v");
-            RenderTargetBitmap target = new RenderTargetBitmap(Math.Max(width, 1), Math.Max(height, 1), 96, 96, PixelFormats.Pbgra32);
-            target.Render(v);
-            Brush brush = new ImageBrush(target);
-            brush.Freeze();
-            return brush;
-        }
-
-        /// <summary>
         /// Führt die Animation für beide Contents aus
         /// </summary>
         private void _BeginAnimateContentReplacement() {
@@ -69,32 +54,15 @@ namespace VtmFramework.View {
             _paintArea.RenderTransform = OldContentTransform;
             _mainContent.RenderTransform = NewContentTransform;
 
-            NewContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(this.ActualWidth, 0));
-            OldContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(0, -this.ActualWidth, (s, e) => {
-                _paintArea.Visibility = Visibility.Hidden;
-            }));
-        }
-
-        /// <summary>
-        /// Erstellt eine Animation
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="completed"></param>
-        /// <returns></returns>
-        private static AnimationTimeline _CreateAnimation(double from, double to, EventHandler completed = null) {
             IEasingFunction ease = new BackEase {
                 Amplitude = 0.5,
                 EasingMode = EasingMode.EaseInOut
             };
-            Duration duration = new Duration(TimeSpan.FromSeconds(1));
-            var animation = new DoubleAnimation(from, to, duration);
-            animation.EasingFunction = ease;
-            if (completed != null) {
-                animation.Completed += completed;
-            }
-            animation.Freeze();
-            return animation;
+
+            NewContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(this.ActualWidth, 0, 1, ease));
+            OldContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(0, -this.ActualWidth, 1, ease, (s, e) => {
+                _paintArea.Visibility = Visibility.Hidden;
+            }));
         }
 
     }
