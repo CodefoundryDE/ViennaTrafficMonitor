@@ -106,7 +106,7 @@ namespace VtmFramework.View {
             Parallel.For(0, _charsCurrent.Length, (int i) => {
                 if (_charsCurrent[i] != _charsFinal[i]) {
                     _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], ' ', 'z');
-                    object[] parameters = new object[] { Panels[i], _charsCurrent[i] };
+                    object[] parameters = new object[] { i, _charsCurrent[i] };
                     Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);  //Content = _chars[i].ToString();
                     action = true;
                 }
@@ -114,9 +114,9 @@ namespace VtmFramework.View {
             if (!action) _timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
-        private delegate void updateDelegate(SplitFlapPanel panel, char character);
-        private void updatePanel(SplitFlapPanel panel, char character) {
-            panel.Content = character.ToString();
+        private delegate void updateDelegate(int panel, char character);
+        private void updatePanel(int panel, char character) {
+            Panels[panel].Content = character.ToString();
         }
 
     }
