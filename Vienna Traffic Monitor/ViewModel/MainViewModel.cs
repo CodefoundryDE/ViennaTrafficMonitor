@@ -32,6 +32,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private void _loadTheme() {
             string theme = Properties.Settings.Default.Theme.Trim();
+            theme = theme.Equals("") ? "Light" : theme;
             var uri = new Uri("pack://siteoforigin:,,,/Themes/" + theme + ".xaml", UriKind.RelativeOrAbsolute);
             ResourceDictionary dict = new ResourceDictionary() { Source = uri };
             // Neues Theme hinzufügen

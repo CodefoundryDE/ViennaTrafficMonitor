@@ -15,6 +15,6 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <CheckBox Grid.Row="0" HorizontalAlignment="Center" Content="Dummy-API" IsChecked="{Binding Dummy}" Style="{StaticResource OrangeSwitchStyle}" />
-        <ComboBox SelectedValue="{Binding Theme}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" ItemsSource="{Binding AvailableDictionaries}" />
+        <ComboBox Foreground="Black" IsReadOnly="False" IsEditable="False" SelectedValue="{Binding Theme}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" ItemsSource="{Binding AvailableDictionaries}" />
     </Grid>
 </UserControl>
