@@ -12,7 +12,7 @@ namespace VtmFramework.Scheduler {
 
     public sealed class Scheduler<T> : IDisposable where T : AbstractViewModel {
 
-        private const int DEFAULT_INTERVAL = 10000;
+        private const int DEFAULT_INTERVAL = 3000;
 
         private ConcurrentQueue<T> _queue;
         private Timer _timer;

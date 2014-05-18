@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using VtmFramework.Command;
 using VtmFramework.Scheduler;
 using VtmFramework.ViewModel;
 
@@ -31,10 +32,16 @@ namespace ViennaTrafficMonitor.ViewModel {
 
 
         #region ButtonMap
-        //public ICommand ButtonMapCommand {
-            //get {Scheduler.}
-        //}
+        public ICommand ButtonMapCommand {
+            get { return new AwaitableDelegateCommand(_switchToMap); }
+        }
+
+        private async Task _switchToMap() {
+            Scheduler.ScheduleInstant(MapViewModelFactory.GetInstance());
+        }
         #endregion
+
+
 
     }
 
