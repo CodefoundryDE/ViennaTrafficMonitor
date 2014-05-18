@@ -12,6 +12,15 @@
     <!-- #### -->
 
 
+    <SolidColorBrush x:Key="BgColor" Color="YellowGreen"/>
+    <SolidColorBrush x:Key="BgSlider" Color="#FF939393"/>
+    <SolidColorBrush x:Key="ColorSlider" Color="#FF686868"/>
+    <SolidColorBrush x:Key="BorderSlider" Color="#FF8D8D8D"/>
+    <Color x:Key="SelectedColor">YellowGreen</Color>
+    <Color x:Key="NotSelectedColor">White</Color>
+
+
+
     <LinearGradientBrush x:Key="CheckedBlue" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Color="#FF285AB3" Offset="0" />
         <GradientStop Color="#FF4184EC" Offset="0.5" />
@@ -28,8 +37,6 @@
     </LinearGradientBrush>
     <SolidColorBrush x:Key="CheckedOrangeBorder" Color="#FF8E4A1B" />
     <SolidColorBrush x:Key="CheckedBlueBorder" Color="#FF143874" />
-    <SolidColorBrush x:Key="CheckedYellowGreen" Color="YellowGreen" />
-    <SolidColorBrush x:Key="CheckedGrey" Color="#FFB5B5B5"/>
     <Style x:Key="OrangeSwitchStyle" TargetType="{x:Type CheckBox}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
@@ -51,28 +58,28 @@
                     <DockPanel x:Name="dockPanel">
                         <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True" VerticalAlignment="Center" />
                         <Grid>
-                            <Border x:Name="BackgroundBorder" BorderBrush="#FF939393" BorderThickness="1" CornerRadius="0" Height="27" Width="94">
-                                <Border.Background>
-                                    <SolidColorBrush Color="#FFB5B5B5"/>
-                                    <!--<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <Border x:Name="BackgroundBorder" BorderBrush="{StaticResource BgSlider}" Background="{StaticResource BgSlider}" BorderThickness="0" CornerRadius="0" Height="27" Width="94">
+                                <!--<Border.Background ="{StaticResource BgSlider}"/>
+                                    
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Color="#FFB5B5B5" Offset="0" />
                                         <GradientStop Color="#FFDEDEDE" Offset="0.1" />
                                         <GradientStop Color="#FFEEEEEE" Offset="0.5" />
                                         <GradientStop Color="#FFFAFAFA" Offset="0.5" />
                                         <GradientStop Color="#FFFEFEFE" Offset="1" />
                                     </LinearGradientBrush>-->
-                                </Border.Background>
+
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <Ellipse x:Name="Off" Width="14" Height="14" Stroke="#FF7A7A7A" StrokeThickness="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Ellipse x:Name="Off" Width="14" Height="14" Stroke="White" StrokeThickness="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     <Line x:Name="On" X1="0" Y1="0" X2="0" Y2="14" Stroke="#FF7A7A7A" StrokeThickness="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                             </Border>
                             <!-- Tatsächlicher Slider -->
-                            <Border BorderBrush="#FF939393" HorizontalAlignment="Left" x:Name="slider" Width="41" Height="27" BorderThickness="1" CornerRadius="0" RenderTransformOrigin="0.5,0.5" Margin="0">
+                            <Border BorderBrush="{StaticResource BorderSlider}" Background="{StaticResource ColorSlider}" HorizontalAlignment="Left" x:Name="slider" Width="41" Height="28" BorderThickness="1" CornerRadius="0" RenderTransformOrigin="0.5,0.5" Margin="0">
                                 <Border.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1" ScaleY="1" />
@@ -81,14 +88,14 @@
                                         <TranslateTransform X="0" Y="0" />
                                     </TransformGroup>
                                 </Border.RenderTransform>
-                                <Border.Background>
-                                    <SolidColorBrush Color="#FFB5B5B5"/>
-                                    <!--<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <!--<Border.Background>
+                                    <SolidColorBrush Color="#FF686868"/>
+                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                         <GradientStop Color="#FFF0F0F0" Offset="0" />
                                         <GradientStop Color="#FFCDCDCD" Offset="0.1" />
                                         <GradientStop Color="#FFFBFBFB" Offset="1" />
-                                    </LinearGradientBrush>-->
-                                </Border.Background>
+                                    </LinearGradientBrush>
+                                </Border.Background>-->
                             </Border>
                         </Grid>
                     </DockPanel>
@@ -103,7 +110,7 @@
                             <Setter TargetName="On" Property="Stroke" Value="White" />
                             <Setter TargetName="Off" Property="Stroke" Value="White" />
                             <!-- Change Orange or Blue color here -->
-                            <Setter TargetName="BackgroundBorder" Property="Background" Value="{StaticResource CheckedYellowGreen}" />
+                            <Setter TargetName="BackgroundBorder" Property="Background" Value="{StaticResource BgColor}" />
                             <!--<Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="{StaticResource CheckedOrangeBorder}" />-->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
@@ -156,7 +163,7 @@
             </VisualStateManager.VisualStateGroups>
             <Border x:Name="Border" SnapsToDevicePixels="True" Grid.ColumnSpan="2" Background="{DynamicResource BackgroundGrayDark}" BorderBrush="{DynamicResource BorderDarkMainBrush}" BorderThickness="1"  />
             <Border x:Name="Border2" Grid.Column="0" SnapsToDevicePixels="True" Margin="1" Background="{StaticResource WindowBackgroundBrush}" BorderBrush="{DynamicResource BorderDarkMainBrush}" BorderThickness="0,0,1,0" />
-            <Path x:Name="Arrow" Grid.Column="1" Data="M 0 0 L 4 4 L 8 0 Z" Fill="DimGray" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Path x:Name="Arrow" Grid.Column="1" Data="M 0 0 L 4 4 L 8 0 Z" Fill="#FF3E3E42" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsMouseOver" Value="true">
@@ -193,7 +200,7 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="Margin" Value="2" />
-        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="MinHeight" Value="28" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
@@ -246,6 +253,66 @@
         </Setter>
         <Style.Triggers>
         </Style.Triggers>
+    </Style>
+
+
+    <Style x:Key="{x:Type ComboBoxItem}"
+       TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="SnapsToDevicePixels"
+          Value="true" />
+        <Setter Property="OverridesDefaultStyle"
+          Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border x:Name="Border"
+                Padding="2"
+                SnapsToDevicePixels="true"
+                Background="Transparent">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">   
+                                </VisualState>
+                                <VisualState x:Name="SelectedUnfocused">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource NotSelectedColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource SelectedColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource NotSelectedColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>
