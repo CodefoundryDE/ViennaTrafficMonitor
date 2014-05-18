@@ -17,7 +17,11 @@ namespace ViennaTrafficMonitor.ViewModel {
 
     public class AbfahrtenViewModel : AbstractViewModel {
 
+        #region Properties/Variablen
+
         private FilterCollection<VtmResponse> _verkehrsmittelFilter;
+
+        private ISet<EVerkehrsmittel> _verkehrsmittel;
 
         private ICollection<VtmResponse> _Response;
         private ICollection<VtmResponse> Response {
@@ -34,16 +38,11 @@ namespace ViennaTrafficMonitor.ViewModel {
         private Timer _TimerCurrentTime;
         public string CurrentTime { get { return DateTime.Now.ToString("HH:mm:ss"); } }
 
-
         public ICollection<VtmResponse> Abfahrten {
             get {
                 return _verkehrsmittelFilter.Filter(_Response);
             }
         }
-
-
-
-
 
         private IHaltestelle _Haltestelle;
         public IHaltestelle Haltestelle {
@@ -54,26 +53,43 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        private readonly ISet<int> _Rbls;
+        private ISet<int> _Rbls;
+
+        #endregion
 
         public AbfahrtenViewModel(IHaltestelle haltestelle)
             : base() {
             Haltestelle = haltestelle;
-            ISteigMapper sm = SteigMapperFactory.Instance;
-            List<ISteig> steige = sm.FindByHaltestelle(_Haltestelle.Id);
-            _Rbls = new HashSet<int>(from steig in steige
-                                     where steig.Rbl > 0
-                                     select steig.Rbl);
+            _InitializeRbls();
+            _InitializeVerkehrsmittel();
             _InitializeFilters();
-            Intervall = 1000;
+            _StartRequestIntervall();
+        }
+
+        #region Initialisierung
+        private void _StartRequestIntervall() {
+            Intervall = 2000;
             _Timer = new Timer(_GetResponse, null, 0, Intervall);
             _TimerCurrentTime = new Timer((object state) => {
                 RaisePropertyChangedEvent("CurrentTime");
             }, null, 0, 1000);
         }
 
-        private async void _GetResponse(object state) {
-            Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
+        private void _InitializeRbls() {
+            ISteigMapper sm = SteigMapperFactory.Instance;
+            List<ISteig> steige = sm.FindByHaltestelle(_Haltestelle.Id);
+            _Rbls = new HashSet<int>(from steig in steige
+                                     where steig.Rbl > 0
+                                     select steig.Rbl);
+        }
+
+        private void _InitializeVerkehrsmittel() {
+            ILinienMapper lm = LinienMapperFactory.Instance;
+            ISet<ILinie> linien = lm.FindByHaltestelle(Haltestelle.Id);
+            _verkehrsmittel = new HashSet<EVerkehrsmittel>();
+            foreach (ILinie linie in linien) {
+                _verkehrsmittel.Add(linie.Verkehrsmittel);
+            }
         }
 
         private void _InitializeFilters() {
@@ -86,18 +102,10 @@ namespace ViennaTrafficMonitor.ViewModel {
             _verkehrsmittelFilter.Add("TramWlbFilter", new AbfahrtenFilter(EVerkehrsmittel.TramWlb, false));
             _verkehrsmittelFilter.Add("OrderByAbfahrt", new OrderByTimeRealAbfahrtenFilter(true));
         }
+        #endregion
 
-        private void _switchFilterActive(string filterName) {
-            IFilter<VtmResponse> filter;
-            _verkehrsmittelFilter.TryGetValue(filterName, out filter);
-            filter.Active = filter.Active ? false : true;
-            RaisePropertyChangedEvent("Abfahrten");
-        }
-
-        private double _getOpacity(string filterName) {
-            IFilter<VtmResponse> filter;
-            _verkehrsmittelFilter.TryGetValue(filterName, out filter);
-            return filter.ButtonOpacity;
+        private async void _GetResponse(object state) {
+            Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
         }
 
         #region ButtonUbahn
@@ -144,5 +152,18 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         #endregion
+
+        private void _switchFilterActive(string filterName) {
+            IFilter<VtmResponse> filter;
+            _verkehrsmittelFilter.TryGetValue(filterName, out filter);
+            filter.Active = filter.Active ? false : true;
+            RaisePropertyChangedEvent("Abfahrten");
+        }
+
+        private double _getOpacity(string filterName) {
+            IFilter<VtmResponse> filter;
+            _verkehrsmittelFilter.TryGetValue(filterName, out filter);
+            return filter.ButtonOpacity;
+        }
     }
 }
