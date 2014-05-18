@@ -10,6 +10,8 @@ using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Filter;
 using ViennaTrafficMonitor.Filter.AbfahrtenFilter;
 using System.Threading;
+using VtmFramework.Command;
+using System.Windows.Input;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
@@ -84,5 +86,63 @@ namespace ViennaTrafficMonitor.ViewModel {
             _verkehrsmittelFilter.Add("TramWlbFilter", new AbfahrtenFilter(EVerkehrsmittel.TramWlb, false));
             _verkehrsmittelFilter.Add("OrderByAbfahrt", new OrderByTimeRealAbfahrtenFilter(true));
         }
+
+        private void _switchFilterActive(string filterName) {
+            IFilter<VtmResponse> filter;
+            _verkehrsmittelFilter.TryGetValue(filterName, out filter);
+            filter.Active = filter.Active ? false : true;
+            RaisePropertyChangedEvent("Abfahrten");
+        }
+
+        private double _getOpacity(string filterName) {
+            IFilter<VtmResponse> filter;
+            _verkehrsmittelFilter.TryGetValue(filterName, out filter);
+            return filter.ButtonOpacity;
+        }
+
+        #region ButtonUbahn
+
+        public ICommand ButtonUBahnCommand {
+            get { return new AwaitableDelegateCommand(_ubahn); }
+        }
+
+        private async Task _ubahn() {
+            _switchFilterActive("MetroFilter");
+        }
+        public double ButtonUbahnOpacity {
+            get {return _getOpacity("MetroFilter");}
+        }
+
+        #endregion
+
+        #region ButtonSBahn
+
+        public ICommand ButtonSBahnCommand {
+            get { return new AwaitableDelegateCommand(_sbahn); }
+        }
+
+        private async Task _sbahn() {
+            _switchFilterActive("SbahnFilter");
+        }
+        public double ButtonSBahnOpacity {
+            get { return _getOpacity("SbahnFilter"); }
+        }
+
+        #endregion
+
+        #region ButtonTram
+
+        public ICommand ButtonTramCommand {
+            get { return new AwaitableDelegateCommand(_tram); }
+        }
+
+        private async Task _tram() {
+            _switchFilterActive("TramFilter");
+        }
+        public double ButtonTramOpacity {
+            get { return _getOpacity("TramFilter"); }
+        }
+
+        #endregion
     }
 }

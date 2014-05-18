@@ -28,6 +28,11 @@ namespace ViennaTrafficMonitor.Filter {
         }
 
         public bool Active { get; set; }
+
+
+        public double ButtonOpacity {
+            get { throw new NotSupportedException("Die Opacity-Eigentschaft kann nur für einzelne Filter, nicht für die Collection abgefragt werden."); }
+        }
     }
 
 }
