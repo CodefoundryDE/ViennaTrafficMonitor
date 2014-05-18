@@ -24,6 +24,8 @@ namespace VtmFramework.View {
         private Rectangle _rectangleTop;
         private Rectangle _rectangleBottom;
 
+        private Rectangle _rectangleBottomStatic;
+
         static SplitFlapPanel() {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SplitFlapPanel), new FrameworkPropertyMetadata(typeof(SplitFlapPanel)));
         }
@@ -33,47 +35,52 @@ namespace VtmFramework.View {
             _displayBottom = Template.FindName("Part_DisplayBottom", this) as TextBlock;
             _rectangleTop = Template.FindName("Part_RectangleTop", this) as Rectangle;
             _rectangleBottom = Template.FindName("Part_RectangleBottom", this) as Rectangle;
+
+            _rectangleBottomStatic = Template.FindName("Part_RectangleBottomStatic", this) as Rectangle;
+
             base.OnApplyTemplate();
         }
 
         protected override void OnContentChanged(object oldContent, object newContent) {
             if (_displayTop != null && _displayBottom != null && _rectangleTop != null && _rectangleBottom != null) {
                 _rectangleTop.Fill = _CreateBrushFromVisual(_displayTop, (int)_rectangleTop.ActualWidth, (int)_rectangleTop.ActualHeight);
+                _rectangleBottomStatic.Fill = _CreateBrushFromVisual(_displayBottom, (int)_rectangleBottomStatic.ActualWidth, (int)_rectangleBottomStatic.ActualHeight);
                 _BeginAnimateContentReplacement();
             }
             base.OnContentChanged(oldContent, newContent);
         }
 
         private void _BeginAnimateContentReplacement() {
-            ScaleTransform flapTransformTop = new ScaleTransform();   
-            flapTransformTop.CenterY = _rectangleTop.ActualHeight;    
-            TransformGroup groupTop = new TransformGroup();           
-            groupTop.Children.Add(flapTransformTop);                  
-            _rectangleTop.RenderTransform = groupTop;                 
-
+            ScaleTransform flapTransformTop = new ScaleTransform();
+            flapTransformTop.CenterY = _rectangleTop.ActualHeight / 2;
+            _rectangleTop.RenderTransform = flapTransformTop;
 
             ScaleTransform flapTransformBottom = new ScaleTransform();
             flapTransformBottom.CenterY = _rectangleBottom.ActualHeight / 2;
-            TransformGroup groupBottom = new TransformGroup();
-            groupBottom.Children.Add(flapTransformBottom);
-            _rectangleBottom.RenderTransform = groupBottom;
+            _rectangleBottom.RenderTransform = flapTransformBottom;
 
             _rectangleTop.Visibility = Visibility.Visible;
             _rectangleBottom.Visibility = Visibility.Visible;
+            _rectangleBottomStatic.Visibility = Visibility.Visible;
 
-            IEasingFunction ease = new BackEase() { EasingMode = EasingMode.EaseOut };
+            IEasingFunction ease = null;// new BackEase() { EasingMode = EasingMode.EaseOut };
 
-            flapTransformTop.BeginAnimation(ScaleTransform.ScaleYProperty, _CreateAnimation(1, 0, 0.1, null, (object sender, EventArgs e) => {
+            Storyboard board = new Storyboard();
+
+            AnimationTimeline animationTop = _CreateAnimation(1, 0, 0, 0.1, null, (object s, EventArgs e) => {
                 _rectangleTop.Visibility = Visibility.Hidden;
                 _rectangleBottom.Visibility = Visibility.Visible;
                 _rectangleBottom.Fill = _CreateBrushFromVisual(_displayBottom, (int)_rectangleBottom.ActualWidth, (int)_rectangleBottom.ActualHeight);
-                flapTransformBottom.BeginAnimation(ScaleTransform.ScaleYProperty, _CreateAnimation(0, 1, 0.1, ease, (object s, EventArgs ea) => {
-                    _rectangleBottom.Visibility = Visibility.Hidden;
-                }));
-            }));
-        }
+            });
 
-        
+            AnimationTimeline animationBottom = _CreateAnimation(0, 1, 0.1, 0.1, ease, (object s, EventArgs e) => {
+                _rectangleBottom.Visibility = Visibility.Hidden;
+                _rectangleBottomStatic.Visibility = Visibility.Hidden;
+            });
+
+            flapTransformTop.BeginAnimation(ScaleTransform.ScaleYProperty, animationTop, HandoffBehavior.SnapshotAndReplace);
+            flapTransformBottom.BeginAnimation(ScaleTransform.ScaleYProperty, animationBottom, HandoffBehavior.SnapshotAndReplace);
+        }
 
     }
 }

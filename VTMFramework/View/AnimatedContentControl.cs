@@ -59,8 +59,8 @@ namespace VtmFramework.View {
                 EasingMode = EasingMode.EaseInOut
             };
 
-            NewContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(this.ActualWidth, 0, 1, ease));
-            OldContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(0, -this.ActualWidth, 1, ease, (s, e) => {
+            NewContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(this.ActualWidth, 0, 0, 1, ease));
+            OldContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(0, -this.ActualWidth, 0, 1, ease, (s, e) => {
                 _paintArea.Visibility = Visibility.Hidden;
             }));
         }

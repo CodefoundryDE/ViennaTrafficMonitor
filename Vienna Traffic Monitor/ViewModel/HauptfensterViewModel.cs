@@ -37,7 +37,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public HauptfensterViewModel() : base() {
             Task.Run(() => {
-                int delay = 20000;
+                int delay = 5000;
                 while (true) {
                     Flap = "Hallo";
                     Thread.Sleep(delay);

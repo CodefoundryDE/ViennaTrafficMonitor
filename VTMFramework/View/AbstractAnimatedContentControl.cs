@@ -35,16 +35,11 @@ namespace VtmFramework.View {
         /// <param name="ease"></param>
         /// <param name="completed"></param>
         /// <returns></returns>
-        protected static DoubleAnimation _CreateAnimation(double from, double to, double time, IEasingFunction ease = null, EventHandler completed = null) {
-            Duration duration = new Duration(TimeSpan.FromSeconds(time));
-            var animation = new DoubleAnimation(from, to, duration);
-
-            if (ease != null) {
-                animation.EasingFunction = ease;
-            }
-            if (completed != null) {
-                animation.Completed += completed;
-            }
+        protected static DoubleAnimation _CreateAnimation(double from, double to, double beginTime, double time, IEasingFunction ease = null, EventHandler completed = null) {
+            DoubleAnimation animation = new DoubleAnimation(from, to, new Duration(TimeSpan.FromSeconds(time)));
+            animation.BeginTime = TimeSpan.FromSeconds(beginTime);
+            if (ease != null) animation.EasingFunction = ease;
+            if (completed != null) animation.Completed += completed;
             animation.Freeze();
             return animation;
         }

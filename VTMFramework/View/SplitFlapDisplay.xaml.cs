@@ -30,12 +30,11 @@ namespace VtmFramework.View {
             get { return (int)this.GetValue(PanelCountProperty); }
             set {
                 this.SetValue(PanelCountProperty, value);
-                _createPanels();
             }
         }
 
         private static void OnPanelCountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            ((SplitFlapDisplay)d).PanelCount = (int)e.NewValue;
+            ((SplitFlapDisplay)d).OnPanelCountChanged();
         }
         #endregion
 
@@ -53,12 +52,6 @@ namespace VtmFramework.View {
             SplitFlapDisplay display = (SplitFlapDisplay)d;
             display.OnTextChanged();
         }
-
-        //private static object OnTextUpdated(DependencyObject d, object baseValue) {
-        //    SplitFlapDisplay display = (SplitFlapDisplay)d;
-        //    display.OnTextChanged();
-        //    return baseValue;
-        //}
         #endregion
 
         private Timer _timer;
@@ -74,7 +67,11 @@ namespace VtmFramework.View {
             _timer = new Timer(_tick);
         }
 
-        private void _createPanels() {
+        /// <summary>
+        /// Wird ausgeführt wenn sich die Anzahl der Panels ändert.
+        /// Erstellt eine Anzahl an Panels und legt sie auf das StackPanel.
+        /// </summary>
+        private void OnPanelCountChanged() {
             for (int i = 0; i < 5; i++) {
                 SplitFlapPanel panel = new SplitFlapPanel();
                 panel.Content = "A";
@@ -87,6 +84,9 @@ namespace VtmFramework.View {
             MainPanel.UpdateLayout();
         }
 
+        /// <summary>
+        /// Wird aufgerufen wenn sich der Text ändert.
+        /// </summary>
         private void OnTextChanged() {
             string text = Text == null ? "" : Text;
             text = text.PadRight(PanelCount, ' ');
@@ -95,10 +95,11 @@ namespace VtmFramework.View {
             }
             _charsFinal = text.ToCharArray(0, PanelCount);
 
-            for (int i = 0; i < PanelCount; i++) {
-                Panels[i].Content = _charsCurrent[i].ToString();
-            }
-            _timer.Change(0, 200);
+            Parallel.For(0, PanelCount, (int i) => {
+                object[] parameters = new object[] { i, _charsCurrent[i] };
+                Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
+            });
+            _timer.Change(0, 250);
         }
 
         private void _tick(object state) {
