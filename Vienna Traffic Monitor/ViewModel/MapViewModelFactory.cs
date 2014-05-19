@@ -10,8 +10,13 @@ namespace ViennaTrafficMonitor.ViewModel {
 
     static class MapViewModelFactory {
 
+        public static MapViewModel Instance {
+            get { return _createInstance(); }
+        }
+        
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
-        public static MapViewModel GetInstance() {
+        public static MapViewModel _createInstance() {
             MapViewModel vm = new MapViewModel(LinienMapperFactory.Instance);
             // API-Key
             vm.MapControl.CredentialsProvider = new ApplicationIdCredentialsProvider(ViennaTrafficMonitor.Properties.Resources.BingApplicationId);
