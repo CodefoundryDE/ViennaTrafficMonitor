@@ -66,8 +66,6 @@ namespace VtmFramework.View {
 
             IEasingFunction ease = new BackEase() { EasingMode = EasingMode.EaseOut };
 
-            Storyboard board = new Storyboard();
-
             AnimationTimeline animationTop = AnimateLib.CreateAnimation(1, 0, 0, 0.1, null, (object s, EventArgs e) => {
                 _rectangleTop.Visibility = Visibility.Hidden;
                 _rectangleBottom.Visibility = Visibility.Visible;

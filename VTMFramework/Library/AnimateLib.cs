@@ -36,6 +36,7 @@ namespace VtmFramework.Library {
         /// <param name="ease"></param>
         /// <param name="completed"></param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         public static DoubleAnimation CreateAnimation(double from, double to, double beginTime, double time, IEasingFunction ease = null, EventHandler completed = null) {
             DoubleAnimation animation = new DoubleAnimation(from, to, new Duration(TimeSpan.FromSeconds(time)));
             animation.BeginTime = TimeSpan.FromSeconds(beginTime);
