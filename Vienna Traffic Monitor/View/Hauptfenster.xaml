@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fv="clr-namespace:VtmFramework.View;assembly=VtmFramework"
-             Width="542.692" Height="331.592">
+             mc:Ignorable="d" 
+             d:DesignHeight="301.694" d:DesignWidth="661.835">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

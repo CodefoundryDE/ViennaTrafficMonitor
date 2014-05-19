@@ -63,7 +63,7 @@ namespace VtmFramework.View {
             _rectangleBottom.Visibility = Visibility.Visible;
             _rectangleBottomStatic.Visibility = Visibility.Visible;
 
-            IEasingFunction ease = null;// new BackEase() { EasingMode = EasingMode.EaseOut };
+            IEasingFunction ease = new BackEase() { EasingMode = EasingMode.EaseOut };
 
             Storyboard board = new Storyboard();
 
