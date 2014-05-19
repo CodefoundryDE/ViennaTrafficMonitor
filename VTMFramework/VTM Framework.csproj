@@ -52,7 +52,7 @@
     <Compile Include="Command\AwaitableDelegateCommand.cs" />
     <Compile Include="Converter\StringToTimeConverter.cs" />
     <Compile Include="Error\Error.cs" />
-    <Compile Include="Library\Rectangle.cs" />
+    <Compile Include="Library\VtmRectangle.cs" />
     <Compile Include="Library\StrLib.cs" />
     <Compile Include="Logging\IVTMLogger.cs" />
     <Compile Include="Logging\VTMLogger.cs" />
@@ -68,7 +68,7 @@
     </Compile>
     <Compile Include="Scheduler\Scheduler.cs" />
     <Compile Include="ViewModel\AbstractViewModel.cs" />
-    <Compile Include="View\AbstractAnimatedContentControl.cs" />
+    <Compile Include="Library\AnimateLib.cs" />
     <Compile Include="View\ErrorView.xaml.cs">
       <DependentUpon>ErrorView.xaml</DependentUpon>
     </Compile>
