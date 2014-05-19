@@ -14,9 +14,6 @@
         <DataTemplate DataType="{x:Type vm:HauptfensterViewModel}">
             <v:Hauptfenster />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:UserControl1ViewModel}">
-            <v:UserControl1 />
-        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:MapViewModel}">
             <v:Map />
         </DataTemplate>
