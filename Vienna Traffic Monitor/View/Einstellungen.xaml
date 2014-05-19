@@ -9,12 +9,24 @@
     <UserControl.DataContext>
         <vm:EinstellungenViewModel />
     </UserControl.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <CheckBox Grid.Row="0" HorizontalAlignment="Center" Content="Dummy-API" IsChecked="{Binding Dummy}" Style="{StaticResource OrangeSwitchStyle}" />
-        <ComboBox Foreground="Black" IsReadOnly="False" IsEditable="False" SelectedValue="{Binding Theme}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" ItemsSource="{Binding AvailableDictionaries}" />
-    </Grid>
+    <UserControl.Background>
+        <SolidColorBrush Color="Gray" />
+    </UserControl.Background>
+    <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+        <Button Style="{StaticResource ButtonEinstellungen}" VerticalAlignment="Top" HorizontalAlignment="Center" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                <Label Content="Dummy-API" />
+                <CheckBox IsChecked="{Binding Dummy}" Style="{StaticResource OrangeSwitchStyle}" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                <Label Content="Style" />
+                <ComboBox SelectedValue="{Binding Theme}" Width="120" ItemsSource="{Binding AvailableDictionaries}" />
+            </StackPanel>
+        </Grid>
+    </StackPanel>
 </UserControl>
