@@ -88,6 +88,7 @@ namespace VtmFramework.View {
         /// <summary>
         /// Wird aufgerufen wenn sich der Text ändert.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
         private void OnTextChanged() {
             string text = Text == null ? "" : Text;
             text = text.PadRight(PanelCount, ' ');
