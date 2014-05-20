@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <c:StringToTimeConverter x:Key="StringToTimeConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Name = "Header" Height="Auto"/>
             <RowDefinition Name = "Content" Height="Auto"/>
@@ -25,7 +25,7 @@
 
         <Label Content="{Binding Haltestelle.Name}" Margin="10" Grid.Row="0" Grid.Column="0" />
         <Label Content="{Binding CurrentTime, FallbackValue=00:00:00}" Grid.Row="0" Grid.Column="2" />
-        <ListView ItemsSource="{Binding Abfahrten}" Grid.Row="1" HorizontalContentAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="3">
+        <ListView Background="Transparent" ItemsSource="{Binding Abfahrten}" Grid.Row="1" HorizontalContentAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="3">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
