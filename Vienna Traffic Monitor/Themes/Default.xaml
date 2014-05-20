@@ -59,16 +59,6 @@
                         <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True" VerticalAlignment="Center" />
                         <Grid>
                             <Border x:Name="BackgroundBorder" BorderBrush="{StaticResource BgSlider}" Background="{StaticResource BgSlider}" BorderThickness="0" CornerRadius="0" Height="27" Width="94">
-                                <!--<Border.Background ="{StaticResource BgSlider}"/>
-                                    
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Color="#FFB5B5B5" Offset="0" />
-                                        <GradientStop Color="#FFDEDEDE" Offset="0.1" />
-                                        <GradientStop Color="#FFEEEEEE" Offset="0.5" />
-                                        <GradientStop Color="#FFFAFAFA" Offset="0.5" />
-                                        <GradientStop Color="#FFFEFEFE" Offset="1" />
-                                    </LinearGradientBrush>-->
-
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
@@ -88,14 +78,6 @@
                                         <TranslateTransform X="0" Y="0" />
                                     </TransformGroup>
                                 </Border.RenderTransform>
-                                <!--<Border.Background>
-                                    <SolidColorBrush Color="#FF686868"/>
-                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                        <GradientStop Color="#FFF0F0F0" Offset="0" />
-                                        <GradientStop Color="#FFCDCDCD" Offset="0.1" />
-                                        <GradientStop Color="#FFFBFBFB" Offset="1" />
-                                    </LinearGradientBrush>
-                                </Border.Background>-->
                             </Border>
                         </Grid>
                     </DockPanel>
@@ -167,12 +149,10 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                <!--<Setter Property="Background" TargetName="Border" Value="{DynamicResource MainColor}" />
-                <Setter Property="Fill" TargetName="Arrow" Value="White" />-->
+
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="true">
-                <!--<Setter Property="Background" TargetName="Border" Value="{DynamicResource MainColorDark}" />
-                <Setter Property="Fill" TargetName="Arrow" Value="White" />-->
+
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Background" TargetName="Border" Value="{DynamicResource BackgroundGrayLight}" />
@@ -180,8 +160,7 @@
                 <Setter Property="Foreground" Value="{StaticResource ForegroundDisabledBrush}" />
             </Trigger>
             <DataTrigger Binding="{Binding IsKeyboardFocusWithin, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" Value="True">
-                <!--<Setter Property="Background" TargetName="Border" Value="{DynamicResource MainColorLight}" />
-                <Setter Property="Fill" TargetName="Arrow" Value="White" />-->
+
             </DataTrigger >
         </ControlTemplate.Triggers>
     </ControlTemplate>
