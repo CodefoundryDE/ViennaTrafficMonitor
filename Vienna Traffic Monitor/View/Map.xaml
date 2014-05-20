@@ -20,6 +20,10 @@
             <Button Opacity="{Binding ButtonCityBusActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonCityBusCommand}" Margin="10,0" Content="B" Style="{StaticResource MapFilterButton}" Background="Purple" />
             <Button Opacity="{Binding ButtonNachtBusActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonNachtBusCommand}" Margin="10,0" Content="NB" Style="{StaticResource MapFilterButton}" Background="Red" />
         </StackPanel>
-        <ContentPresenter Content="{Binding MapControl}" />
+        <!--<ContentPresenter Content="{Binding MapControl}" />-->
+        <m:Map Name="MapControl" Background="Transparent" CredentialsProvider="{Binding CredentialsProvider}" Center="{Binding Center}" ZoomLevel="{Binding ZoomLevel}">
+            <m:MapItemsControl ItemsSource="{Binding PolyLines}" />
+            <m:MapItemsControl ItemsSource="{Binding Pushpins}" />
+        </m:Map>
     </Grid>
 </UserControl>

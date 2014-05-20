@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VtmFramework.ViewModel;
 using Microsoft.Maps.MapControl.WPF;
+using Microsoft.Maps.MapControl.WPF.Core;
 using System.Windows.Input;
 using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Model;
@@ -10,6 +11,7 @@ using System.Windows.Media;
 using VtmFramework.Command;
 using ViennaTrafficMonitor.Filter;
 using ViennaTrafficMonitor.Filter.MapFilter;
+using System;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
@@ -21,27 +23,77 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private FilterCollection<KeyValuePair<ILinie, List<IHaltestelle>>> _filterCollection;
 
-        private Map _map;
-        public Map MapControl {
-            get { return _map; }
-            set {
-                _map = value;
-                RaisePropertyChangedEvent("MapControl");
+        private CredentialsProvider _credentialsProvider;
+        public CredentialsProvider CredentialsProvider {
+            get { return _credentialsProvider; }
+            private set {
+                _credentialsProvider = value;
+                RaisePropertyChangedEvent("CredentialsProvider");
             }
         }
 
-        public MapViewModel(ILinienMapper linienMapper) {
+        private Location _center;
+        public Location Center {
+            get { return _center; }
+            set {
+                _center = value;
+                RaisePropertyChangedEvent("Center");
+            }
+        }
+
+        private double _zoomLevel;
+        public double ZoomLevel {
+            get { return _zoomLevel; }
+            set {
+                _zoomLevel = value;
+                RaisePropertyChangedEvent("ZoomLevel");
+            }
+        }
+
+        private ICollection<Pushpin> _pushpins;
+        public ICollection<Pushpin> Pushpins {
+            get { return _pushpins; }
+            private set {
+                _pushpins = value;
+                RaisePropertyChangedEvent("Pushpins");
+            }
+        }
+
+        private ICollection<MapPolyline> _polylines;
+        public ICollection<MapPolyline> PolyLines {
+            get { return _polylines; }
+            private set {
+                _polylines = value;
+                RaisePropertyChangedEvent("Polylines");
+            }
+        }
+
+
+
+        public MapViewModel(CredentialsProvider credentialsProvider, ILinienMapper linienMapper) {
+            if (credentialsProvider == null)
+                throw new ArgumentNullException("credentialsProvider");
+            if (linienMapper == null)
+                throw new ArgumentNullException("linienMapper");
+
+            CredentialsProvider = credentialsProvider;
             _LinienMapper = linienMapper;
+
+            Pushpins = new List<Pushpin>();
+            PolyLines = new List<MapPolyline>();
+
+
+
             _linien = _LinienMapper.HaltestellenOrdered;
 
             _initFilters();
 
-            MapControl = new Map();
             // Startpunkt: Wien Stephansdom
-            MapControl.Center = new Location(48.208333, 16.372778);
-            MapControl.ZoomLevel = 13.0;
+            Center = new Location(48.208333, 16.372778);
+            ZoomLevel = 13.0;
 
-            MapControl.ViewChangeEnd += _mapViewChangeEnd;
+            // TODO
+            //MapControl.ViewChangeEnd += _mapViewChangeEnd;
 
             _drawLinien();
         }
@@ -58,24 +110,26 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         private void _mapViewChangeEnd(object sender, MapEventArgs e) {
-            if (MapControl.ZoomLevel < 15) {
+            if (ZoomLevel < 15) {
                 //MapControl.ZoomLevel = 15;
             }
-            RaisePropertyChangedEvent("MapControl");
         }
 
         private void _drawHaltestellen(IEnumerable<IHaltestelle> haltestellen) {
+            Pushpins.Clear();
             foreach (IHaltestelle haltestelle in haltestellen) {
                 Pushpin pin = new Pushpin();
                 Location location = new Location(haltestelle.Location.X, haltestelle.Location.Y);
                 pin.Tag = haltestelle.Id;
                 pin.Location = location;
-                MapControl.Children.Add(pin);
+                pin.CommandBindings.Add(new CommandBinding());
+                Pushpins.Add(pin);
             }
+            RaisePropertyChangedEvent("Pushpins");
         }
 
         private void _drawLinien() {
-            MapControl.Children.Clear();
+            PolyLines.Clear();
             ICollection<KeyValuePair<ILinie, List<IHaltestelle>>> dict = _filterCollection.Filter(_linien);
             foreach (KeyValuePair<ILinie, List<IHaltestelle>> kvp in dict) {
                 MapPolyline polyline = new MapPolyline();
@@ -90,7 +144,7 @@ namespace ViennaTrafficMonitor.ViewModel {
                     locations.Add(location);
                 }
                 polyline.Locations = locations;
-                MapControl.Children.Add(polyline);
+                PolyLines.Add(polyline);
             }
 
             var query = from kvp in dict select kvp.Value;
@@ -99,6 +153,7 @@ namespace ViennaTrafficMonitor.ViewModel {
                 haltestellen = haltestellen.Union<IHaltestelle>(list);
             }
             _drawHaltestellen(haltestellen.Distinct());
+            RaisePropertyChangedEvent("Polylines");
         }
 
         private static Color _getColorByLine(string line) {
