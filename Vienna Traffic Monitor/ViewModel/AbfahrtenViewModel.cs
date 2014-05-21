@@ -10,6 +10,7 @@ using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Filter;
 using ViennaTrafficMonitor.Filter;
 using System.Threading;
+using System.Net.Http;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
@@ -63,15 +64,24 @@ namespace ViennaTrafficMonitor.ViewModel {
                                      where steig.Rbl > 0
                                      select steig.Rbl);
             _InitializeFilters();
-            Intervall = 1000;
+            Intervall = 60000;
             _Timer = new Timer(_GetResponse, null, 0, Intervall);
             _TimerCurrentTime = new Timer((object state) => {
                 RaisePropertyChangedEvent("CurrentTime");
-            }, null, 0, 1000);
+            }, null, 0, 60000);
         }
 
         private async void _GetResponse(object state) {
-            Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
+            bool error = false;
+            try {
+                Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
+            } catch (HttpRequestException e) {
+                // Im catch-Block ist kein await erlaubt - das kommt erst mit C# 6.0
+                error = true;
+            } catch (Exception e) {
+                error = false;
+            }
+            if (error) await RaiseError("Fehler", "Es konnte keine Anfrage an die API der Wiener Linien gestellt werden.", VtmFramework.Error.EErrorButtons.RetryCancel);
         }
 
         private void _InitializeFilters() {
