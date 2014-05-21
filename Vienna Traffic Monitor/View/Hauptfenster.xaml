@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             Width="542.692" Height="331.592">
+             xmlns:fv="clr-namespace:VtmFramework.View;assembly=VtmFramework"
+             mc:Ignorable="d" 
+             d:DesignHeight="301.694" d:DesignWidth="661.835">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -13,6 +15,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -27,6 +30,8 @@
             </Button.BorderBrush>
         </Button>
         <Button Content="Hauptfensterbutton 2" Grid.Row="1" Grid.Column="2" Margin="10,0,10,0" Padding="10,10,10,10" />
-        <Button Content="Hauptfensterbutton 3" Grid.Row="1" Grid.Column="3" Margin="10,0,10,0" Padding="10,10,10,10" />
+        <!--<Button Content="Hauptfensterbutton 3" Grid.Row="1" Grid.Column="3" Margin="10,0,10,0" Padding="10,10,10,10" />-->
+        <!--<fv:SplitFlapPanel Content="{Binding Flap}" BorderThickness="1" Width="50" BorderBrush="Black" Grid.Row="1" Grid.Column="3" />-->
+        <fv:SplitFlapDisplay PanelCount="5" Text="{Binding Flap}" Grid.Row="1" Grid.Column="4" />
     </Grid>
 </UserControl>

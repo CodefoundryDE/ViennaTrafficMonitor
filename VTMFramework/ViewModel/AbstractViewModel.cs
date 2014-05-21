@@ -12,6 +12,7 @@ namespace VtmFramework.ViewModel {
     public abstract class AbstractViewModel : IViewModel, IObserver<EErrorResult>, IDisposable {
 
         private bool _disposed = false;
+        private object syncRoot = new object();
 
         private AutoResetEvent _errorCompleted;
         private EErrorResult _errorResult;
@@ -20,6 +21,7 @@ namespace VtmFramework.ViewModel {
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected AbstractViewModel() {
+            _canSwitch = true;
             _errorCompleted = new AutoResetEvent(false);
         }
 
@@ -51,8 +53,18 @@ namespace VtmFramework.ViewModel {
         /// Zeigt an, ob der Scheduler das ViewModel wechseln darf.
         /// </summary>
         /// <returns></returns>
-        public bool CanSwitch() {
-            return (Error == null);
+        private bool _canSwitch;
+        public bool CanSwitch {
+            get {
+                lock (syncRoot) {
+                    return (Error == null) && _canSwitch;
+                }
+            }
+            set {
+                lock (syncRoot) {
+                    _canSwitch = value;
+                }
+            }
         }
 
         #region Observer
