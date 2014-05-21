@@ -31,6 +31,7 @@ namespace ViennaTrafficMonitor.Filter {
 
         public bool Active { get; set; }
 
+
         #region Serialisierung
         /// <summary>
         /// Konstruktor zur Serialisierung, wird von der Codeanalyse erwartet

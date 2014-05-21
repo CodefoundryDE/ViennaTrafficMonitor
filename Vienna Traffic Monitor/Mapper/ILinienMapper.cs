@@ -23,6 +23,11 @@ namespace ViennaTrafficMonitor.Mapper {
         /// </summary>
         /// <returns></returns>
         Dictionary<ILinie, List<IHaltestelle>> HaltestellenOrdered { get; }
+
+        /// <summary>
+        /// Gibt alle Linien welche eine bestimmte Haltestelle bedienen zurück
+        /// </summary>
+        ISet<ILinie> FindByHaltestelle(int haltestellenId);
     }
 
 }

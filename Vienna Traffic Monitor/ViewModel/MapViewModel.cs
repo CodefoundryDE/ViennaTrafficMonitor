@@ -118,7 +118,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         public double ButtonUBahnOpacity {
-            get { return _ubahnFilter.Active ? 0.5 : 0.8; }
+            get { return _ubahnFilter.ButtonOpacity; }
         }
         #endregion
 
@@ -133,7 +133,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         public double ButtonSBahnOpacity {
-            get { return _sbahnFilter.Active ? 0.5 : 0.8; }
+            get { return _sbahnFilter.ButtonOpacity; }
         }
         #endregion
     }
