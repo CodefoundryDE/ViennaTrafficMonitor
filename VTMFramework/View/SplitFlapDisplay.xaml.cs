@@ -73,7 +73,7 @@ namespace VtmFramework.View {
         /// </summary>
         private void OnPanelCountChanged() {
             Panels.Clear();
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < PanelCount; i++) {
                 SplitFlapPanel panel = new SplitFlapPanel();
                 panel.Content = "A";
                 panel.Width = 50;

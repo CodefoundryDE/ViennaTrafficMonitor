@@ -69,11 +69,11 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         #region Initialisierung
         private void _StartRequestIntervall() {
-            Intervall = 30000;
+            Intervall = 10000;
             _Timer = new Timer(_GetResponse, null, 0, Intervall);
             _TimerCurrentTime = new Timer((object state) => {
                 RaisePropertyChangedEvent("CurrentTime");
-            }, null, 0, 60000);
+            }, null, 0, Intervall);
         }
 
         private void _InitializeRbls() {

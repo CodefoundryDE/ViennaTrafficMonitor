@@ -59,7 +59,7 @@ namespace ViennaTrafficMonitor.View {
             control.OnTowardsPropertyChanged();
         }
         private void OnTowardsPropertyChanged() {
-            LRichtung.Content = Towards;
+            SFDRichtung.Text = Towards;
         }
 
         public static readonly DependencyProperty GleisProperty = DependencyProperty.Register("Gleis", typeof(string), typeof(AbfahrtControl), new FrameworkPropertyMetadata("", OnGleisPropertyChanged));
