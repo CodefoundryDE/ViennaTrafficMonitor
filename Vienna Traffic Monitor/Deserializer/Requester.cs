@@ -54,16 +54,15 @@ namespace ViennaTrafficMonitor.Deserializer {
 
             builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestBegin);
 
-            builder.Append(_rblAllocator);
-            builder.Append(rblSet.First());
-            IEnumerable rblEnumerable = rblSet.Skip(1);
+            if (rblSet.Count > 0) {
+                builder.Append(_rblAllocator);
+                builder.Append(rblSet.First());
+                IEnumerable rblEnumerable = rblSet.Skip(1);
 
-
-
-            
-            foreach (int rbl in rblEnumerable) {
-                builder.Append(_rblConnector);
-                builder.Append(rbl);
+                foreach (int rbl in rblEnumerable) {
+                    builder.Append(_rblConnector);
+                    builder.Append(rbl);
+                }
             }
 
             builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestEnd);

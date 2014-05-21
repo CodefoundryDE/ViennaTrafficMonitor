@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ViennaTrafficMonitor.Model;
 
-namespace ViennaTrafficMonitor.Filter.MapFilter {
+namespace ViennaTrafficMonitor.Filter {
 
     public class MapFilter : GenericFilter<KeyValuePair<ILinie, List<IHaltestelle>>> {
 
