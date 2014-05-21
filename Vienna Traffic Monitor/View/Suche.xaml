@@ -16,12 +16,8 @@
             <ListBox Name="ListBox" DockPanel.Dock="Bottom" ItemsSource="{Binding Matches}" MaxHeight="100"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" PreviewKeyDown="ListBox_PreviewKeyDown" />
         </Popup>
-        <!--<Button DockPanel.Dock="Right" Command="{Binding ButtonSearchClickCommand}" Content="Suche" Padding="10,10,10,10" />-->
         <TextBox DockPanel.Dock="Top" Name="SearchField" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
                  Padding="10,10,10,10" FontWeight="Bold" PreviewKeyDown="SearchField_PreviewKeyDown">
-            <!--<TextBox.Background">
-                <ImageBrush ImageSource="/Ressources/Icons/Light/appbar.magnify.png" AlignmentX="Right" AlignmentY="Center" Stretch="Uniform" />
-            </TextBox.Background>-->
         </TextBox>
     </DockPanel>
 </UserControl>

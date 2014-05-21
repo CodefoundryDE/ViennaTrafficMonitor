@@ -1,13 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <BitmapImage x:Key="IconMagnifyBitmap" UriSource="../Ressources/Icons/Light/appbar.magnify.png" />
-    <ImageBrush x:Key="IconMagnify" ImageSource="{StaticResource IconMagnifyBitmap}" Stretch="Uniform" />
-
-    <Style TargetType="TextBox">
-        <Setter Property="Background" Value="{StaticResource IconMagnify}" />
-    </Style>
-
     <Style TargetType="UserControl">
         <Setter Property="Background" Value="MintCream" />
     </Style>
