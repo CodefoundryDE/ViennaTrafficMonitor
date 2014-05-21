@@ -95,6 +95,7 @@
     <Compile Include="CsvImport\Record\HaltestelleRecord.cs" />
     <Compile Include="CsvImport\Record\SteigRecord.cs" />
     <Compile Include="Deserializer\VtmResponse.cs" />
+    <Compile Include="Events\SucheEventArgs.cs" />
     <Compile Include="Filter\AbfahrtenFilter.cs" />
     <Compile Include="Filter\OrderByAbfahrtenFilter.cs" />
     <Compile Include="Filter\MapFilter.cs" />

@@ -8,6 +8,10 @@ namespace ViennaTrafficMonitor.Events {
 
     public class SucheEventArgs : EventArgs {
 
+        public SucheEventArgs(int haltestelleSelected) {
+            HaltestelleSelected = haltestelleSelected;
+        }
+
         /// <summary>
         /// Die ausgewählte Haltestelle
         /// </summary>
