@@ -19,6 +19,8 @@ namespace ViennaTrafficMonitor.ViewModel {
         public MainViewModel() {
             _loadTheme();
 
+            Einstellungen = new EinstellungenViewModel();
+            Einstellungen.Beenden += OnBeenden;
             Scheduler = new Scheduler<AbstractViewModel>();
             Scheduler.Schedule(new HauptfensterViewModel());
             Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
@@ -37,6 +39,12 @@ namespace ViennaTrafficMonitor.ViewModel {
             ResourceDictionary dict = new ResourceDictionary() { Source = uri };
             // Neues Theme hinzufügen
             Application.Current.Resources.MergedDictionaries.Add(dict);
+        }
+
+        public EinstellungenViewModel Einstellungen { get; private set; }
+
+        private void OnBeenden(object sender, EventArgs e) {
+            Application.Current.Shutdown();
         }
 
     }

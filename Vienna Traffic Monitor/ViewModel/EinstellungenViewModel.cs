@@ -4,11 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using VtmFramework.Command;
 using VtmFramework.ViewModel;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
     public class EinstellungenViewModel : AbstractViewModel {
+
+        public event EventHandler Beenden;
+
+        private void OnBeenden() {
+            EventHandler handler = Beenden;
+            if (handler != null) {
+                handler(this, new EventArgs());
+            }
+        }
+
+        public ICommand BeendenCommand {
+            get { return new DelegateCommand(OnBeenden); }
+        }
+
 
         public string Theme {
             get { return Properties.Settings.Default.Theme; }

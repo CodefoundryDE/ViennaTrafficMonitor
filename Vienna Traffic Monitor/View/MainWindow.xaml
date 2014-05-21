@@ -42,6 +42,6 @@
         <fv:AnimatedContentControl Grid.Row="1" Grid.ColumnSpan="3">
             <fv:ErrorView DataContext="{Binding Scheduler.Aktuell.Error}" Grid.Row="1" VerticalAlignment="Center" />
         </fv:AnimatedContentControl>
-        <v:Einstellungen Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
+        <v:Einstellungen DataContext="{Binding Einstellungen}" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
     </Grid>
 </Window>

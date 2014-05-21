@@ -4,29 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:c="clr-namespace:VtmFramework.Converter;assembly=VtmFramework"
              mc:Ignorable="d" 
              d:DesignHeight="190.4" d:DesignWidth="512">
-    <UserControl.DataContext>
-        <vm:EinstellungenViewModel />
-    </UserControl.DataContext>
-    <UserControl.Background>
+    <UserControl.Resources>
+        <c:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <!--<UserControl.Background>
         <SolidColorBrush Color="Gray" />
-    </UserControl.Background>
+    </UserControl.Background>-->
     <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
-        <Button Style="{StaticResource ButtonEinstellungen}" VerticalAlignment="Top" HorizontalAlignment="Center" />
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
-                <Label Content="Dummy-API" />
-                <CheckBox IsChecked="{Binding Dummy}" Style="{StaticResource OrangeSwitchStyle}" />
+        <CheckBox x:Name="CheckboxEinstellungen" Style="{StaticResource CheckboxEinstellungen}" VerticalAlignment="Top" HorizontalAlignment="Center" />
+        <DockPanel Background="Gray" Visibility="{Binding ElementName=CheckboxEinstellungen, Converter={StaticResource BooleanToVisibilityConverter}, Path=IsChecked}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                <Label Content="Dummy-API" VerticalAlignment="Center" />
+                <CheckBox IsChecked="{Binding Dummy}" Style="{StaticResource OrangeSwitchStyle}" VerticalAlignment="Center" />
             </StackPanel>
-            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
-                <Label Content="Style" />
-                <ComboBox SelectedValue="{Binding Theme}" Width="120" ItemsSource="{Binding AvailableDictionaries}" />
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                <Label Content="Style" VerticalAlignment="Center" />
+                <ComboBox SelectedValue="{Binding Theme}" Width="120" ItemsSource="{Binding AvailableDictionaries}" IsEditable="False" VerticalAlignment="Center" />
             </StackPanel>
-        </Grid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="20">
+                <Button Style="{StaticResource BeendenButton}" Command="{Binding BeendenCommand}"/>
+            </StackPanel>
+        </DockPanel>
     </StackPanel>
 </UserControl>
