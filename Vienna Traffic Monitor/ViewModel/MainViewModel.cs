@@ -44,11 +44,9 @@ namespace ViennaTrafficMonitor.ViewModel {
             get { return new DelegateCommand(_switchToMap); }
         }
         private void _switchToMap() {
-            Scheduler.ScheduleInstant(MapViewModelFactory.GetInstance());
+            Scheduler.ScheduleInstant(MapViewModelFactory.Instance);
         }
         #endregion
-
-
 
     }
 
