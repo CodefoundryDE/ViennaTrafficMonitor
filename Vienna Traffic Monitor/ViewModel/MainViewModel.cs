@@ -43,10 +43,9 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         #region ButtonMap
         public ICommand ButtonMapCommand {
-            get { return new AwaitableDelegateCommand(_switchToMap); }
+            get { return new DelegateCommand(_switchToMap); }
         }
-
-        private async Task _switchToMap() {
+        private void _switchToMap() {
             Scheduler.ScheduleInstant(MapViewModelFactory.GetInstance());
         }
         #endregion
