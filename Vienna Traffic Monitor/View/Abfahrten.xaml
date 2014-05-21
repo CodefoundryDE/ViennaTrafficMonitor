@@ -26,10 +26,13 @@
 
         <Label Content="{Binding Haltestelle.Name}" Margin="10" Grid.Row="0" Grid.Column="0" />
         <Label Content="{Binding CurrentTime, FallbackValue=00:00:00}" Grid.Row="0" Grid.Column="2" />
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4">
-            <Button Opacity="{Binding ButtonUBahnOpacity}" Command="{Binding ButtonUBahnCommand}" Margin="10,0" Content="U" Style="{StaticResource MapFilterButton}" Background="Blue" />
-            <Button Opacity="{Binding ButtonSBahnOpacity}" Command="{Binding ButtonSBahnCommand}" Margin="10,0" Content="S" Style="{StaticResource MapFilterButton}" Background="LimeGreen" />
-            <Button Opacity="{Binding ButtonTramOpacity}" Command="{Binding ButtonTramCommand}" Margin="10,0" Content="T" Style="{StaticResource MapFilterButton}" Background="Red" />
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4" Panel.ZIndex="100">
+            <Button Opacity="{Binding ButtonUBahnOpacity}" Command="{Binding ButtonUBahnCommand}" Margin="10,0" Content="U" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonUBahnVisibility}" Background="Blue" />
+            <Button Opacity="{Binding ButtonSBahnOpacity}" Command="{Binding ButtonSBahnCommand}" Margin="10,0" Content="S" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonSBahnVisibility}" Background="LimeGreen" />
+            <Button Opacity="{Binding ButtonTramOpacity}" Command="{Binding ButtonTramCommand}" Margin="10,0" Content="T" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonTramVisibility}" Background="Red" />
+            <Button Opacity="{Binding ButtonTramWlbOpacity}" Command="{Binding ButtonTramWlbCommand}" Margin="10,0" Content="WLB" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonTramWlbVisibility}" Background="CornflowerBlue" />
+            <Button Opacity="{Binding ButtonCityBusOpacity}" Command="{Binding ButtonCityBusCommand}" Margin="10,0" Content="B" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonCityBusVisibility}" Background="Purple" />
+            <Button Opacity="{Binding ButtonNachtBusOpacity}" Command="{Binding ButtonNachtBusCommand}" Margin="10,0" Content="NB" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonNachtBusVisibility}" Background="Red" />
         </StackPanel>
         <ListView ItemsSource="{Binding Abfahrten}" Grid.Row="2" HorizontalContentAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="3">
             <ListView.ItemTemplate>
