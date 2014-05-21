@@ -10,6 +10,7 @@ using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Filter;
 using ViennaTrafficMonitor.Filter;
 using System.Threading;
+using System.Net.Http;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
@@ -71,7 +72,14 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         private async void _GetResponse(object state) {
-            Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
+            bool error = false;
+            try {
+                Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
+            } catch (HttpRequestException e) {
+                // Im catch-Block ist kein await erlaubt - das kommt erst mit C# 6.0
+                error = true;
+            }
+            if (error) await RaiseError("Fehler", "Es konnte keine Anfrage an die API der Wiener Linien gestellt werden.", VtmFramework.Error.EErrorButtons.RetryCancel);
         }
 
         private void _InitializeFilters() {
