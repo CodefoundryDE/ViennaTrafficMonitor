@@ -8,11 +8,11 @@ using ViennaTrafficMonitor.Deserializer;
 using ViennaTrafficMonitor.Model;
 using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Filter;
-using ViennaTrafficMonitor.Filter;
 using System.Threading;
 using VtmFramework.Command;
 using System.Windows.Input;
 using System.Windows;
+using System.Net.Http;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
@@ -69,11 +69,11 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         #region Initialisierung
         private void _StartRequestIntervall() {
-            Intervall = 2000;
+            Intervall = 30000;
             _Timer = new Timer(_GetResponse, null, 0, Intervall);
             _TimerCurrentTime = new Timer((object state) => {
                 RaisePropertyChangedEvent("CurrentTime");
-            }, null, 0, 1000);
+            }, null, 0, 60000);
         }
 
         private void _InitializeRbls() {
@@ -82,6 +82,19 @@ namespace ViennaTrafficMonitor.ViewModel {
             _Rbls = new HashSet<int>(from steig in steige
                                      where steig.Rbl > 0
                                      select steig.Rbl);
+        }
+
+        private async void _GetResponse(object state) {
+            bool error = false;
+            try {
+                Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
+            } catch (HttpRequestException e) {
+                // Im catch-Block ist kein await erlaubt - das kommt erst mit C# 6.0
+                error = true;
+            } catch (Exception e) {
+                error = false;
+            }
+            if (error) await RaiseError("Fehler", "Es konnte keine Anfrage an die API der Wiener Linien gestellt werden.", VtmFramework.Error.EErrorButtons.RetryCancel);
         }
 
         private void _InitializeVerkehrsmittel() {
@@ -105,10 +118,6 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
         #endregion
 
-        private async void _GetResponse(object state) {
-            Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
-        }
-
         #region ButtonUbahn
 
         public ICommand ButtonUBahnCommand {
@@ -119,7 +128,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             _switchFilterActive("MetroFilter");
         }
         public double ButtonUbahnOpacity {
-            get {return _getOpacity("MetroFilter");}
+            get { return _getOpacity("MetroFilter"); }
         }
         public Visibility ButtonUBahnVisibility {
             get { return _verkehrsmittel.Contains(EVerkehrsmittel.Metro) ? Visibility.Visible : Visibility.Collapsed; }

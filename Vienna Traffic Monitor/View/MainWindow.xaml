@@ -35,7 +35,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Button Grid.Row="0" Content="Map" Command="{Binding ButtonMapCommand}" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75" Grid.Column="0"/>
-        <v:Suche Grid.Row="0" Grid.Column="1" />
+        <v:Suche Grid.Row="0" Grid.Column="1" DataContext="{Binding Suche}" />
         <Button Grid.Row="0" Content="Home" Command="{Binding ButtonHomeCommand}" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" Grid.Column="2" />
         <fv:AnimatedContentControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Scheduler.Aktuell}" />
         <fv:AnimatedContentControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">

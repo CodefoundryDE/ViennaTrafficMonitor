@@ -31,6 +31,7 @@ namespace ViennaTrafficMonitor.Filter {
 
         public bool Active { get; set; }
 
+
         #region Serialisierung
         /// <summary>
         /// Konstruktor zur Serialisierung, wird von der Codeanalyse erwartet
@@ -49,11 +50,6 @@ namespace ViennaTrafficMonitor.Filter {
             base.OnDeserialization(sender);
         }
         #endregion
-
-
-        public double ButtonOpacity {
-            get { throw new NotSupportedException("Die Opacity-Eigentschaft kann nur für einzelne Filter, nicht für die Collection abgefragt werden."); }
-        }
     }
 
 }
