@@ -12,6 +12,7 @@ using VtmFramework.Command;
 using ViennaTrafficMonitor.Filter;
 using ViennaTrafficMonitor.Filter.MapFilter;
 using System;
+using System.Collections.ObjectModel;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
@@ -50,8 +51,8 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        private ICollection<Pushpin> _pushpins;
-        public ICollection<Pushpin> Pushpins {
+        private ICollection<Location> _pushpins;
+        public ICollection<Location> Pushpins {
             get { return _pushpins; }
             private set {
                 _pushpins = value;
@@ -68,8 +69,6 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-
-
         public MapViewModel(CredentialsProvider credentialsProvider, ILinienMapper linienMapper) {
             if (credentialsProvider == null)
                 throw new ArgumentNullException("credentialsProvider");
@@ -79,8 +78,8 @@ namespace ViennaTrafficMonitor.ViewModel {
             CredentialsProvider = credentialsProvider;
             _LinienMapper = linienMapper;
 
-            Pushpins = new List<Pushpin>();
-            PolyLines = new List<MapPolyline>();
+            Pushpins = new ObservableCollection<Location>();
+            PolyLines = new ObservableCollection<MapPolyline>();
 
 
 
@@ -123,7 +122,7 @@ namespace ViennaTrafficMonitor.ViewModel {
                 pin.Tag = haltestelle.Id;
                 pin.Location = location;
                 pin.CommandBindings.Add(new CommandBinding());
-                Pushpins.Add(pin);
+                Pushpins.Add(location);
             }
             RaisePropertyChangedEvent("Pushpins");
         }
