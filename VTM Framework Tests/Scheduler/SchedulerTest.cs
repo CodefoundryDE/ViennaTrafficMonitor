@@ -18,7 +18,7 @@ namespace VtmFrameworkTests.Scheduler {
         [TestInitialize]
         public void TestInitialize() {
             _scheduler = new Scheduler<AbstractViewModel>();
-            _scheduler.Delay = 1000;
+            _scheduler.Interval = 1000;
         }
 
         [TestMethod]

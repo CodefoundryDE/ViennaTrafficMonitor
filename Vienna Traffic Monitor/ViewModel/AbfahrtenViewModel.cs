@@ -8,7 +8,7 @@ using ViennaTrafficMonitor.Deserializer;
 using ViennaTrafficMonitor.Model;
 using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Filter;
-using ViennaTrafficMonitor.Filter.AbfahrtenFilter;
+using ViennaTrafficMonitor.Filter;
 using System.Threading;
 using VtmFramework.Command;
 using System.Windows.Input;

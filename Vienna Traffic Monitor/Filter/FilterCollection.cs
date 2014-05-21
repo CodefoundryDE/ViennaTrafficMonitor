@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ViennaTrafficMonitor.Filter {
 
     [Serializable]
-    public class FilterCollection<T> :  Dictionary<string, IFilter<T>>, IFilter<T> {
+    public class FilterCollection<T> : Dictionary<string, IFilter<T>>, IFilter<T> {
 
-        public FilterCollection() {
+        public FilterCollection()
+            : base() {
             Active = true;
         }
 
@@ -28,6 +30,25 @@ namespace ViennaTrafficMonitor.Filter {
         }
 
         public bool Active { get; set; }
+
+        #region Serialisierung
+        /// <summary>
+        /// Konstruktor zur Serialisierung, wird von der Codeanalyse erwartet
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        protected FilterCollection(SerializationInfo info, StreamingContext context)
+            : base(info, context) {
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context) {
+            base.GetObjectData(info, context);
+        }
+
+        public override void OnDeserialization(object sender) {
+            base.OnDeserialization(sender);
+        }
+        #endregion
 
 
         public double ButtonOpacity {

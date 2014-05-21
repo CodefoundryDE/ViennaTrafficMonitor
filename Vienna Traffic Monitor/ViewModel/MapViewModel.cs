@@ -9,7 +9,6 @@ using ViennaTrafficMonitor.Model;
 using System.Windows.Media;
 using VtmFramework.Command;
 using ViennaTrafficMonitor.Filter;
-using ViennaTrafficMonitor.Filter.MapFilter;
 
 namespace ViennaTrafficMonitor.ViewModel {
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ViennaTrafficMonitor.Filter.AbfahrtenFilter;
+using ViennaTrafficMonitor.Filter;
 using ViennaTrafficMonitor.Mapper;
 
 namespace ViennaTrafficMonitor.ViewModel {
