@@ -64,6 +64,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -119,6 +120,7 @@
     <Compile Include="Model\ISteig.cs" />
     <Compile Include="Model\Linie.cs" />
     <Compile Include="Model\Steig.cs" />
+    <Compile Include="ViewModel\EinstellungenViewModel.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MapViewModelFactory.cs" />
     <Compile Include="ViewModel\AbfahrtenViewModel.cs" />
@@ -127,6 +129,9 @@
     <Compile Include="ViewModel\UserControl1ViewModel.cs" />
     <Compile Include="View\AbfahrtControl.xaml.cs">
       <DependentUpon>AbfahrtControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Einstellungen.xaml.cs">
+      <DependentUpon>Einstellungen.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Map.xaml.cs">
       <DependentUpon>Map.xaml</DependentUpon>
@@ -140,23 +145,29 @@
     <Compile Include="View\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
-    <Page Include="Themes\Dark.xaml">
+    <EmbeddedResource Include="Themes\Dark.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Page Include="Themes\Default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Light.xaml">
+    <EmbeddedResource Include="Themes\Light.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Page Include="View\AbfahrtControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Abfahrten.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Einstellungen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -288,12 +299,6 @@
     <None Include="Ressources\DummyResponses\DemoResponse9.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Ressources\Icons\Light\appbar.magnify.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Ressources\Icons\Dark\appbar.magnify.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Ressources\Icons\Light\appbar.clock.png" />

@@ -22,6 +22,10 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         [SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
         public MainViewModel() {
+            _loadTheme();
+
+            Einstellungen = new EinstellungenViewModel();
+            Einstellungen.Beenden += OnBeenden;
             Suche = new SucheViewModel();
             Suche.SucheSubmitted += _sucheSubmitted;
 
@@ -32,6 +36,21 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private void OnSchedulerAktuellChanged(object Sender, EventArgs e) {
             RaisePropertyChangedEvent("Scheduler");
+        }
+
+        private void _loadTheme() {
+            string theme = Properties.Settings.Default.Theme.Trim();
+            theme = theme.Equals("") ? "Light" : theme;
+            var uri = new Uri("pack://siteoforigin:,,,/Themes/" + theme + ".xaml", UriKind.RelativeOrAbsolute);
+            ResourceDictionary dict = new ResourceDictionary() { Source = uri };
+            // Neues Theme hinzufügen
+            Application.Current.Resources.MergedDictionaries.Add(dict);
+        }
+
+        public EinstellungenViewModel Einstellungen { get; private set; }
+
+        private void OnBeenden(object sender, EventArgs e) {
+            Application.Current.Shutdown();
         }
 
         private void _sucheSubmitted(SucheEventArgs e) {

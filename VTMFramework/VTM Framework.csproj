@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\AwaitableDelegateCommand.cs" />
+    <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converter\BoolToOpacityConverter.cs" />
     <Compile Include="Converter\StringToTimeConverter.cs" />
     <Compile Include="Error\Error.cs" />
