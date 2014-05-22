@@ -10,14 +10,21 @@ namespace VtmFramework.Command {
 
     public class DelegateCommand : ICommand {
 
-        private readonly Action _action;
+        private readonly Action<object> _action;
 
-        public DelegateCommand(Action action) {
+        public DelegateCommand(Action<object> action) {
             _action = action;
         }
 
+        public DelegateCommand(Action action) {
+            // Hack, weil jetzt Actions mit Parametern benötigt werden
+            _action = new Action<object>((object parameter) => {
+                action();
+            });
+        }
+
         public void Execute(object parameter) {
-            _action();
+            _action(parameter);
         }
 
         public bool CanExecute(object parameter) {

@@ -96,9 +96,10 @@
     <Compile Include="CsvImport\Record\HaltestelleRecord.cs" />
     <Compile Include="CsvImport\Record\SteigRecord.cs" />
     <Compile Include="Deserializer\VtmResponse.cs" />
-    <Compile Include="Filter\AbfahrtenFilter\AbfahrtenFilter.cs" />
-    <Compile Include="Filter\AbfahrtenFilter\OrderByAbfahrtenFilter.cs" />
-    <Compile Include="Filter\MapFilter\MapFilter.cs" />
+    <Compile Include="Events\SucheEventArgs.cs" />
+    <Compile Include="Filter\AbfahrtenFilter.cs" />
+    <Compile Include="Filter\OrderByAbfahrtenFilter.cs" />
+    <Compile Include="Filter\MapFilter.cs" />
     <Compile Include="Filter\GenericFilter.cs" />
     <Compile Include="Filter\FilterCollection.cs" />
     <Compile Include="Filter\IFilter.cs" />
@@ -269,36 +270,63 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Ressources\DummyResponses\DemoResponse0.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Ressources\DummyResponses\DemoResponse1.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Ressources\DummyResponses\DemoResponse2.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Ressources\DummyResponses\DemoResponse3.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Ressources\DummyResponses\DemoResponse4.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Ressources\DummyResponses\DemoResponse5.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Ressources\DummyResponses\DemoResponse6.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Ressources\DummyResponses\DemoResponse7.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Ressources\DummyResponses\DemoResponse8.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Ressources\DummyResponses\DemoResponse9.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Light\appbar.clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\Dark\appbar.clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ressources\DummyResponses\DemoResponse10.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse11.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse12.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse13.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse14.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ressources\DummyResponses\DemoResponse15.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

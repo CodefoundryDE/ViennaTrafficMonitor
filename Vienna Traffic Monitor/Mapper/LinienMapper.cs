@@ -27,7 +27,7 @@ namespace ViennaTrafficMonitor.Mapper {
             return new List<ILinie>(query);
         }
 
-        
+
 
         public Dictionary<ILinie, List<IHaltestelle>> HaltestellenOrdered {
             get { return _getHaltestellenOrdered(); }
@@ -36,7 +36,7 @@ namespace ViennaTrafficMonitor.Mapper {
             ConcurrentDictionary<int, ISteig> steige = SteigMapperFactory.Instance.All;
             ICollection<IHaltestelle> haltestellen = HaltestellenMapperFactory.Instance.All;
 
-            var query = (from steig in steige.Values 
+            var query = (from steig in steige.Values
                          where steig.Richtung == ERichtung.Hin
                          orderby steig.Reihenfolge
                          join linie in _data.Values on steig.LinienId equals linie.Id
@@ -45,6 +45,19 @@ namespace ViennaTrafficMonitor.Mapper {
             .GroupBy(x => x.linie)
             .ToDictionary(x => x.Key, x => x.Select(o => o.haltestelle).ToList());
             return query;
+        }
+
+
+        public ISet<ILinie> FindByHaltestelle(int haltestellenId) {
+            ISteigMapper sm = SteigMapperFactory.Instance;
+            var query = sm.FindByHaltestelle(haltestellenId);
+            var idSet = (from steig in query
+                    select steig.LinienId).Distinct();
+            HashSet<ILinie> linienSet = new HashSet<ILinie>();
+            foreach (int i in idSet) {
+                linienSet.Add(Find(i));
+            }
+            return linienSet;
         }
     }
 

@@ -6,12 +6,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using ViennaTrafficMonitor.Events;
+using VtmFramework.Command;
 using VtmFramework.Scheduler;
 using VtmFramework.ViewModel;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
     public class MainViewModel : AbstractViewModel {
+
+        public SucheViewModel Suche { get; private set; }
 
         public Scheduler<AbstractViewModel> Scheduler { get; private set; }
 
@@ -21,11 +26,12 @@ namespace ViennaTrafficMonitor.ViewModel {
 
             Einstellungen = new EinstellungenViewModel();
             Einstellungen.Beenden += OnBeenden;
+            Suche = new SucheViewModel();
+            Suche.SucheSubmitted += _sucheSubmitted;
+
             Scheduler = new Scheduler<AbstractViewModel>();
-            Scheduler.Schedule(new HauptfensterViewModel());
             Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
-            Scheduler.Start();
-            Scheduler.ScheduleInstant(AbfahrtenViewModelFactory.GetInstance(214461519));
+            Scheduler.ScheduleInstant(new HauptfensterViewModel());
         }
 
         private void OnSchedulerAktuellChanged(object Sender, EventArgs e) {
@@ -46,6 +52,20 @@ namespace ViennaTrafficMonitor.ViewModel {
         private void OnBeenden(object sender, EventArgs e) {
             Application.Current.Shutdown();
         }
+
+        private void _sucheSubmitted(SucheEventArgs e) {
+            Scheduler.ScheduleInstant(AbfahrtenViewModelFactory.GetInstance(e.HaltestelleSelected));
+        }
+
+
+        #region ButtonMap
+        public ICommand ButtonMapCommand {
+            get { return new DelegateCommand(_switchToMap); }
+        }
+        private void _switchToMap() {
+            Scheduler.ScheduleInstant(MapViewModelFactory.Instance);
+        }
+        #endregion
 
     }
 

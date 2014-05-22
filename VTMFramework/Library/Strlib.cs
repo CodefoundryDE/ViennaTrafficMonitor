@@ -30,6 +30,25 @@ namespace VtmFramework.Library {
             return result.ToString();
         }
 
+        /// <summary>
+        /// Diese Methode zählt einen Buchstaben nach oben. Angebbar sind Ober- und Untergrenze.
+        /// </summary>
+        /// <param name="character">Char, der hochgezählt werden soll.</param>
+        /// <param name="min">Untergrenze</param>
+        /// <param name="max">Obergrenze</param>
+        /// <exception cref="ArgumentException">Wird geworfen wenn min > max</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Wird geworfen wenn character nicht zwischen min und max</exception>
+        /// <returns>Char um 1 inkrementiert</returns>
+        public static char AsciiInc(char character, char min, char max) {
+            if (min > max) throw new
+                ArgumentException("Der Parameter 'min' ist größer als der Parameter 'max'.");
+            if (character < min) return min;
+            if (character > max) return max;
+
+            int diff = max - min + 1;
+            return (char)(min + ((character - min + 1) % diff));
+        }
+
     }
 
 }

@@ -1,8 +1,10 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <Style TargetType="Window">
-        <Setter Property="Background" Value="Black" />
+    <Style x:Key="UhrzeitLabel" TargetType="Label" BasedOn="{StaticResource UhrzeitLabel}">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="/Ressources/Icons/Dark/appbar.clock.png" AlignmentX="Left" Stretch="Uniform" />
+            </Setter.Value>
+        </Setter>
     </Style>
-
 </ResourceDictionary>
