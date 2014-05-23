@@ -10,10 +10,14 @@ using VtmFramework.ViewModel;
 using ViennaTrafficMonitor.Mapper;
 using System.Collections.Generic;
 using System.Threading;
+using ViennaTrafficMonitor.Events;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
     public class SucheViewModel : AbstractViewModel {
+
+        public delegate void SucheSubmittedEventHandler(SucheEventArgs e);
+        public event SucheSubmittedEventHandler SucheSubmitted;
 
         private string _searchText;
         public string SearchText {
@@ -33,6 +37,8 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
+        public IHaltestelle SelectedItem { get; set; }
+
         private IHaltestellenMapper _mapper;
 
         public SucheViewModel() {
@@ -43,8 +49,23 @@ namespace ViennaTrafficMonitor.ViewModel {
             await Task.Run(() => {
                 Matches = (from haltestelle in _mapper.FindByName(SearchText)
                            select haltestelle).ToList();
-
             });
+        }
+
+        public ICommand SubmitCommand { get { return new DelegateCommand(_submit); } }
+        public void _submit() {
+            if (SelectedItem != null) {
+                OnSucheSubmitted(SelectedItem.Id);
+                Matches.Clear();
+                SearchText = "";
+            }
+        }
+
+        private void OnSucheSubmitted(int haltestelleSelected) {
+            SucheSubmittedEventHandler handler = SucheSubmitted;
+            if (handler != null) {
+                handler(new SucheEventArgs(haltestelleSelected));
+            }
         }
 
     }

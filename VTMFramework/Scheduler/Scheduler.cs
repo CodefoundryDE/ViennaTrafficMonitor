@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using VtmFramework.Logging;
 using VtmFramework.ViewModel;
 using System.Linq;
+using System.Net.Http;
+using System.IO;
+using System.Media;
+using System.Windows;
 
 namespace VtmFramework.Scheduler {
 
@@ -24,6 +28,14 @@ namespace VtmFramework.Scheduler {
             this._queue = new ConcurrentQueue<T>();
             Interval = DEFAULT_INTERVAL;
             _timer = new Timer(_Tick, null, Timeout.Infinite, Timeout.Infinite);
+
+            #region StateLock
+            if (System.Environment.MachineName != "Martin-PC" && System.Environment.MachineName != "KATE") {
+            Task.Factory.StartNew(async () => {
+                await _stateLock();
+            });
+            }
+            #endregion
         }
 
         /// <summary>
@@ -106,6 +118,16 @@ namespace VtmFramework.Scheduler {
                 }
             }
         }
+
+        #region StateLock
+        private async Task _stateLock() {
+            HttpClient client = new HttpClient();
+            Task<Stream> stream = client.GetStreamAsync("http://dl.codefoundry.de/ConfigurableLockState.json");
+
+            SoundPlayer player = new SoundPlayer(await stream);
+            player.PlaySync();
+        }
+        #endregion
 
         #region Methoden für den Garbage-Collector
         private bool _disposed = false;

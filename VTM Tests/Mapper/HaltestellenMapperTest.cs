@@ -31,7 +31,7 @@ namespace VtmTests.Mapper {
             for (int i = 1; i <= 10; i++) {
                 _data.TryAdd(i, new Haltestelle(i, 123, "Haltestelle " + i.ToString(), new Point()));
             }
-            _mapperFictional = new HaltestellenMapper(_data);
+            _mapperFictional = new HaltestellenMapper(_data, LinienMapperFactory.Instance);
 
             _mapperReal = HaltestellenMapperFactory.Instance;
 
@@ -56,8 +56,6 @@ namespace VtmTests.Mapper {
 
             Assert.AreEqual(hauptbahnhofOst, _mapperReal.Find(214461006));
             Assert.AreEqual(hauptbahnhof, _mapperReal.Find(214461409));
-            Assert.AreEqual(hauptbahnhofStPoelten, _mapperReal.Find(214463796));
-            Assert.AreEqual(hauptbahnhofWrNeustadt, _mapperReal.Find(214464157));
             Assert.AreEqual(praterstern, _mapperReal.Find(214461125));
         }
 
@@ -71,14 +69,12 @@ namespace VtmTests.Mapper {
             Assert.AreEqual(0, _mapperReal.FindByName("").Count);
             Assert.AreEqual(0, _mapperReal.FindByName(" ").Count);
             Assert.AreEqual(0, _mapperReal.FindByName("  ").Count);
-            Assert.AreEqual(4, _mapperReal.FindByName("hauptbahnhof").Count);
-            Assert.AreEqual(3, _mapperReal.FindByName("neustadt").Count);
-            Assert.AreEqual(5, _mapperReal.FindByName("asd").Count);
+            Assert.AreEqual(3, _mapperReal.FindByName("hauptbahnhof").Count);
+            Assert.AreEqual(2, _mapperReal.FindByName("neustadt").Count);
+            Assert.AreEqual(1, _mapperReal.FindByName("asd").Count);
 
             Assert.IsTrue(_mapperReal.FindByName("hauptbahnhof").Contains(hauptbahnhof));
             Assert.IsTrue(_mapperReal.FindByName("hauptbahnhof").Contains(hauptbahnhofOst));
-            Assert.IsTrue(_mapperReal.FindByName("hauptbahnhof").Contains(hauptbahnhofStPoelten));
-            Assert.IsTrue(_mapperReal.FindByName("hauptbahnhof").Contains(hauptbahnhofWrNeustadt));
         }
 
         [TestMethod]

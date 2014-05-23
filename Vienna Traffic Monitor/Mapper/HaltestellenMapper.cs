@@ -14,8 +14,13 @@ namespace ViennaTrafficMonitor.Mapper {
 
         private ConcurrentDictionary<int, IHaltestelle> _data;
 
-        public HaltestellenMapper(ConcurrentDictionary<int, IHaltestelle> data) {
-            this._data = data;
+        public HaltestellenMapper(ConcurrentDictionary<int, IHaltestelle> data, ILinienMapper linienMappper) {
+            var query = from haltestelle in data
+                        let linien = linienMappper.FindByHaltestelle(haltestelle.Value.Id)
+                        where !((linien.Count == 1) && (linien.First().Verkehrsmittel == EVerkehrsmittel.SBahn))
+                        select haltestelle;
+
+            this._data = new ConcurrentDictionary<int, IHaltestelle>(query);
         }
 
         /// <summary>

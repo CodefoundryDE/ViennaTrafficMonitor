@@ -16,7 +16,8 @@ namespace ViennaTrafficMonitor.Filter {
             Active = active;
         }
 
-        public GenericFilter(Func<ICollection<T>, ICollection<T>> filter) : this() {
+        public GenericFilter(Func<ICollection<T>, ICollection<T>> filter)
+            : this() {
             Filter = filter;
         }
 
@@ -32,5 +33,10 @@ namespace ViennaTrafficMonitor.Filter {
         }
 
         public bool Active { get; set; }
+
+
+        public double ButtonOpacity {
+            get { return this.Active ? 0.3 : 1; }
+        }
     }
 }
