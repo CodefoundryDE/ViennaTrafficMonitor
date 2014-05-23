@@ -76,7 +76,7 @@ namespace VtmFramework.View {
             for (int i = 0; i < PanelCount; i++) {
                 SplitFlapPanel panel = new SplitFlapPanel();
                 panel.Content = "A";
-                panel.Width = 50;
+                panel.Width = 40;
                 panel.BorderThickness = new Thickness(1);
                 panel.BorderBrush = new SolidColorBrush(Colors.Black);
                 Panels.Add(panel);
@@ -90,29 +90,51 @@ namespace VtmFramework.View {
         /// </summary>
         private void OnTextChanged() {
             string text = Text == null ? "" : Text;
-            text = text.PadRight(PanelCount, ' ');
+            text = text
+                .ToUpper()
+                .Replace("Ä", "AE")
+                .Replace("Ö", "OE")
+                .Replace("Ü", "UE")
+                .Replace("ß", "SS")
+                .PadRight(PanelCount, ' ');
             if (_charsCurrent == null) {
                 _charsCurrent = text.ToCharArray(0, PanelCount);
             }
             _charsFinal = text.ToCharArray(0, PanelCount);
 
-            Parallel.For(0, PanelCount, (int i) => {
+            //Parallel.For(0, PanelCount, (int i) => {
+            //    object[] parameters = new object[] { i, _charsCurrent[i] };
+            //    Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
+            //});
+
+            for (int i = 0; i < PanelCount; i++) {
                 object[] parameters = new object[] { i, _charsCurrent[i] };
-                Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
-            });
-            _timer.Change(0, 250);
+                Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Send, parameters);
+            }
+
+            _timer.Change(0, 125);
         }
 
         private void _tick(object state) {
             bool action = false;
-            Parallel.For(0, _charsCurrent.Length, (int i) => {
+
+            for (int i = 0; i < _charsCurrent.Length; i++) {
                 if (_charsCurrent[i] != _charsFinal[i]) {
-                    _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], ' ', 'z');
+                    _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], ' ', 'Z');
                     object[] parameters = new object[] { i, _charsCurrent[i] };
-                    Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);  //Content = _chars[i].ToString();
+                    Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Send, parameters);  //Content = _chars[i].ToString();
                     action = true;
                 }
-            });
+            }
+
+            //Parallel.For(0, _charsCurrent.Length, (int i) => {
+            //    if (_charsCurrent[i] != _charsFinal[i]) {
+            //        _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], ' ', 'Z');
+            //        object[] parameters = new object[] { i, _charsCurrent[i] };
+            //        Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);  //Content = _chars[i].ToString();
+            //        action = true;
+            //    }
+            //});
             if (!action) _timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
 

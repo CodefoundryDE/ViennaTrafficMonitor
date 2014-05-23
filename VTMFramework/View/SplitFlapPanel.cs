@@ -63,17 +63,17 @@ namespace VtmFramework.View {
             _rectangleBottom.Visibility = Visibility.Visible;
             _rectangleBottomStatic.Visibility = Visibility.Visible;
 
-            IEasingFunction ease = new BackEase() { EasingMode = EasingMode.EaseOut };
+            IEasingFunction ease = null;//new BackEase() { EasingMode = EasingMode.EaseOut };
 
             Storyboard board = new Storyboard();
 
-            AnimationTimeline animationTop = _CreateAnimation(1, 0, 0, 0.1, null, (object s, EventArgs e) => {
+            AnimationTimeline animationTop = _CreateAnimation(1, 0, 0, 0.05, null, (object s, EventArgs e) => {
                 _rectangleTop.Visibility = Visibility.Hidden;
                 _rectangleBottom.Visibility = Visibility.Visible;
                 _rectangleBottom.Fill = _CreateBrushFromVisual(_displayBottom, (int)_rectangleBottom.ActualWidth, (int)_rectangleBottom.ActualHeight);
             });
 
-            AnimationTimeline animationBottom = _CreateAnimation(0, 1, 0.1, 0.1, ease, (object s, EventArgs e) => {
+            AnimationTimeline animationBottom = _CreateAnimation(0, 1, 0.05, 0.05, ease, (object s, EventArgs e) => {
                 _rectangleBottom.Visibility = Visibility.Hidden;
                 _rectangleBottomStatic.Visibility = Visibility.Hidden;
             });
