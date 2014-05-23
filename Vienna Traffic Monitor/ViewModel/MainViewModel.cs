@@ -22,7 +22,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         [SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
         public MainViewModel() {
-            _loadTheme();
+            //_loadTheme();
 
             Einstellungen = new EinstellungenViewModel();
             Einstellungen.Beenden += OnBeenden;
