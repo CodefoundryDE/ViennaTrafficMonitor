@@ -73,7 +73,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             _Timer = new Timer(_GetResponse, null, 0, Intervall);
             _TimerCurrentTime = new Timer((object state) => {
                 RaisePropertyChangedEvent("CurrentTime");
-            }, null, 0, Intervall);
+            }, null, 0, 1000);
         }
 
         private void _InitializeRbls() {

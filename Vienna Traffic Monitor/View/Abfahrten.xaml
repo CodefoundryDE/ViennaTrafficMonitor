@@ -7,7 +7,7 @@
              xmlns:v ="clr-namespace:ViennaTrafficMonitor.View"
              xmlns:c="clr-namespace:VtmFramework.Converter;assembly=VtmFramework"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="299.2" d:DesignWidth="587.2">
     <UserControl.Resources>
         <c:StringToTimeConverter x:Key="StringToTimeConverter" />
     </UserControl.Resources>
@@ -34,18 +34,12 @@
             <Button Opacity="{Binding ButtonCityBusOpacity}" Command="{Binding ButtonCityBusCommand}" Margin="10,0" Content="B" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonCityBusVisibility}" Background="Purple" />
             <Button Opacity="{Binding ButtonNachtBusOpacity}" Command="{Binding ButtonNachtBusCommand}" Margin="10,0" Content="NB" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonNachtBusVisibility}" Background="Red" />
         </StackPanel>
-        <ListView ItemsSource="{Binding Abfahrten}" Grid.Row="2" HorizontalContentAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="3">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <v:AbfahrtControl Abfahrt="{Binding Departure.DepartureTime.TimePlanned, Converter={StaticResource StringToTimeConverter}}"
-                                          LineName="{Binding Line.Name}" 
-                                          Towards="{Binding Line.Towards}" 
-                                          Gleis="{Binding Line.Platform}"
-                                          Verspaetung="{Binding Departure.DepartureTime.Countdown}" />
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackPanel Name="AbfahrtPanel" Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Stretch">
+            <!--<v:AbfahrtControl Abfahrt="{Binding Abfahrten[0].Departure.DepartureTime.TimePlanned, Converter={StaticResource StringToTimeConverter}}"
+                                          LineName="{Binding Abfahrten[0].Line.Name}" 
+                                          Towards="{Binding Abfahrten[0].Line.Towards}" 
+                                          Gleis="{Binding Abfahrten[0].Line.Platform}"
+                                          Verspaetung="{Binding Abfahrten[0].Departure.DepartureTime.Countdown}" />-->
+        </StackPanel>
     </Grid>
 </UserControl>
