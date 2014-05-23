@@ -51,10 +51,9 @@ namespace ViennaTrafficMonitor.Filter {
         }
         #endregion
 
+
         public double ButtonOpacity {
-            get {
-                throw new NotImplementedException("ButtonOpacitiy kann nur von einzelnen Filtern errechnet werden, nicht von der Collection!");
-            }
+            get { throw new NotImplementedException("Die Funktion ButtonOpacity steht für die FilterCollection nicht zur Verfügung, lediglich auf einzelnen, instanzierten Filtern!"); }
         }
     }
 

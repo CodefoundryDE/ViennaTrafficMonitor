@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <c:StringToTimeConverter x:Key="StringToTimeConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Name = "Header" Height="Auto"/>
             <RowDefinition Name = "Filter" Height="Auto"/>

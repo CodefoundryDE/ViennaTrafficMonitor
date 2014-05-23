@@ -31,7 +31,7 @@ namespace ViennaTrafficMonitor.Mapper {
 
         private static IHaltestellenMapper _createInstance() {
             ConcurrentDictionary<int, IHaltestelle> dict = HaltestellenParser.ReadFile(CSVDIR + "wienerlinien-ogd-haltestellen.csv");
-            return new HaltestellenMapper(dict);
+            return new HaltestellenMapper(dict, LinienMapperFactory.Instance);
         }
 
     }

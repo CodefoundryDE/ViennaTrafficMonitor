@@ -5,14 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
+             xmlns:c="clr-namespace:VtmFramework.Converter;assembly=VtmFramework"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="500">
+    <UserControl.Resources>
+        <c:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
+        <DataTemplate x:Key="PushpinsTemplate">
+            <m:Pushpin Background="Green" Location="{Binding}" />
+        </DataTemplate>
+        <DataTemplate x:Key="PolylinesTemplate">
+            <m:MapPolyline />
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Panel.ZIndex="100">
-            <Button Opacity="{Binding ButtonUBahnOpacity}" Command="{Binding ButtonUBahnCommand}" Margin="10,0" Content="U" Style="{StaticResource MapFilterButton}" Background="Blue" />
-            <Button Opacity="{Binding ButtonSBahnOpacity}" Command="{Binding ButtonSBahnCommand}" Margin="10,0" Content="S" Style="{StaticResource MapFilterButton}" Background="LimeGreen" />
-            <Button Margin="10,0" Content="T" Style="{StaticResource MapFilterButton}" Background="Red" />
+            <Button Opacity="{Binding ButtonMetroActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonMetroCommand}" Margin="10,0" Content="U" Style="{StaticResource MapFilterButton}" Background="Blue" />
+            <Button Opacity="{Binding ButtonSBahnActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonSBahnCommand}" Margin="10,0" Content="S" Style="{StaticResource MapFilterButton}" Background="LimeGreen" />
+            <Button Opacity="{Binding ButtonTramActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonTramCommand}" Margin="10,0" Content="T" Style="{StaticResource MapFilterButton}" Background="Red" />
+            <Button Opacity="{Binding ButtonTramWlbActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonTramWlbCommand}" Margin="10,0" Content="WLB" Style="{StaticResource MapFilterButton}" Background="CornflowerBlue" />
+            <Button Opacity="{Binding ButtonCityBusActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonCityBusCommand}" Margin="10,0" Content="B" Style="{StaticResource MapFilterButton}" Background="Purple" />
+            <Button Opacity="{Binding ButtonNachtBusActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonNachtBusCommand}" Margin="10,0" Content="NB" Style="{StaticResource MapFilterButton}" Background="Red" />
         </StackPanel>
-        <ContentPresenter Content="{Binding MapControl}" />
+        <m:Map Name="MapControl" Background="Transparent" CredentialsProvider="{Binding CredentialsProvider}" Center="{Binding Center, Mode=TwoWay}" ZoomLevel="{Binding ZoomLevel, Mode=TwoWay}">
+            <m:MapItemsControl ItemsSource="{Binding PolyLines, Mode=TwoWay}" ItemTemplate="{StaticResource PolylinesTemplate}" />
+            <m:MapItemsControl ItemsSource="{Binding Pushpins, Mode=TwoWay}" ItemTemplate="{StaticResource PushpinsTemplate}" />
+        </m:Map>
     </Grid>
 </UserControl>
