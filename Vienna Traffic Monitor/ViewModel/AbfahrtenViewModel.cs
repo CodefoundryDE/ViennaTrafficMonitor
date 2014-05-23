@@ -41,7 +41,22 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public ICollection<VtmResponse> Abfahrten {
             get {
-                return _verkehrsmittelFilter.Filter(_Response);
+                ICollection<VtmResponse> response =  _verkehrsmittelFilter.Filter(_Response);
+                if (response.Count == 6) {
+                    return response;
+                } else {
+                    DateTime dummyDate = DateTime.Now.AddDays(1);
+                   while (response.Count < 6) {
+                        response.Add(new VtmResponse(
+                            new Line(),
+                            new Departure(new DepartureTime(dummyDate,dummyDate)),
+                            new LocationStop(),
+                            new List<TrafficInfoCategory>(),
+                            new List<TrafficInfoCategoryGroup>(),
+                            "noType"));
+                    }
+                    return response;
+                }
             }
         }
 
