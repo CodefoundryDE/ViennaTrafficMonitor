@@ -22,8 +22,8 @@ namespace VtmTests.Mapper {
         private IHaltestelle praterstern;
         private Point pointHauptbhfOst;
         private Point pointPraterstern;
-        private Rectangle rectHbfPrater;
-        private Rectangle rectHbfHbf;
+        private VtmRectangle rectHbfPrater;
+        private VtmRectangle rectHbfHbf;
 
         [TestInitialize]
         public void TestInitialize() {
@@ -38,8 +38,8 @@ namespace VtmTests.Mapper {
             pointHauptbhfOst = new Point(48.1844162175681, 16.3803748315515);
             pointPraterstern = new Point(48.2185133276323, 16.3923272266447);
 
-            rectHbfPrater = new Rectangle(pointPraterstern, pointHauptbhfOst);
-            rectHbfHbf = new Rectangle(pointHauptbhfOst, pointHauptbhfOst);
+            rectHbfPrater = new VtmRectangle(pointPraterstern, pointHauptbhfOst);
+            rectHbfHbf = new VtmRectangle(pointHauptbhfOst, pointHauptbhfOst);
 
             hauptbahnhof = new Haltestelle(214461409, 60201349, "Hauptbahnhof", new Point(48.1844162175681, 16.3803748315515));
             hauptbahnhofOst = new Haltestelle(214461006, 60200905, "Hauptbahnhof Ost", pointHauptbhfOst);
