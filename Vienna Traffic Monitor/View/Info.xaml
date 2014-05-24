@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="ViennaTrafficMonitor.View.Info"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="293.6" d:DesignWidth="826">
+    <UserControl.Resources>
+        <Style x:Key="h1" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="32" />
+        </Style>
+        <Style x:Key="h2" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Text="Info" Style="{StaticResource h1}" />
+        <Separator VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" />
+
+        <!-- Echtzeitdaten -->
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Echtzeitdaten" Style="{StaticResource h2}" />
+        <TextBlock Grid.Row="3" Grid.Column="3">
+            Diese Applikation benutzt Echtzeitdaten der Wiener Linien.
+            <LineBreak />
+            Datenquelle: 
+            <Hyperlink NavigateUri="http://www.data.gv.at/datensatz/?id=add66f20-d033-4eee-b9a0-47019828e698">
+                data.wien.gv.at
+            </Hyperlink>
+        </TextBlock>
+        
+        <!-- Lizenz -->
+        <TextBlock Grid.Row="5" Grid.Column="1" Text="Lizenz" Style="{StaticResource h2}" />
+        <TextBlock Grid.Row="5" Grid.Column="3" Text="[Hier Lizenz einfügen]" />
+        
+    </Grid>
+</UserControl>
