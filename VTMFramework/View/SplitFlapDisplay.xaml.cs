@@ -90,13 +90,7 @@ namespace VtmFramework.View {
         /// </summary>
         private void OnTextChanged() {
             string text = Text == null ? "" : Text;
-            text = text
-                .ToUpper()
-                .Replace("Ä", "AE")
-                .Replace("Ö", "OE")
-                .Replace("Ü", "UE")
-                .Replace("ß", "SS")
-                .PadRight(PanelCount, ' ');
+            text = StrLib.UmlautFilter(text).ToUpper().PadRight(PanelCount, ' ');
             if (_charsCurrent == null) {
                 _charsCurrent = text.ToCharArray(0, PanelCount);
             }
@@ -109,10 +103,10 @@ namespace VtmFramework.View {
 
             for (int i = 0; i < PanelCount; i++) {
                 object[] parameters = new object[] { i, _charsCurrent[i] };
-                Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Send, parameters);
+                Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
             }
 
-            _timer.Change(0, 125);
+            _timer.Change(0, 550);
         }
 
         private void _tick(object state) {
@@ -122,7 +116,7 @@ namespace VtmFramework.View {
                 if (_charsCurrent[i] != _charsFinal[i]) {
                     _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], ' ', 'Z');
                     object[] parameters = new object[] { i, _charsCurrent[i] };
-                    Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Send, parameters);  //Content = _chars[i].ToString();
+                    Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
                     action = true;
                 }
             }
@@ -131,7 +125,7 @@ namespace VtmFramework.View {
             //    if (_charsCurrent[i] != _charsFinal[i]) {
             //        _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], ' ', 'Z');
             //        object[] parameters = new object[] { i, _charsCurrent[i] };
-            //        Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);  //Content = _chars[i].ToString();
+            //        Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
             //        action = true;
             //    }
             //});
