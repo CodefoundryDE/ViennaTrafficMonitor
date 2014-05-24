@@ -20,6 +20,9 @@
         <DataTemplate DataType="{x:Type vm:AbfahrtenViewModel}">
             <v:Abfahrten />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:InfoViewModel}">
+            <v:Info />
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
