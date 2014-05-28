@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace VtmFramework.Library {
-    public class Rectangle {
+    public class VtmRectangle {
 
         public Point TopRight { get; set; }
         public Point BottomLeft { get; set; }
 
-        public Rectangle(Point topRight, Point bottomLeft) {
+        public VtmRectangle(Point topRight, Point bottomLeft) {
             this.TopRight = topRight;
             this.BottomLeft = bottomLeft;
         }
