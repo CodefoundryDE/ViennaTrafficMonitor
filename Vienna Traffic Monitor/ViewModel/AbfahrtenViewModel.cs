@@ -45,11 +45,10 @@ namespace ViennaTrafficMonitor.ViewModel {
                 if (response.Count == 6) {
                     return response;
                 } else {
-                    DateTime dummyDate = DateTime.Now.AddDays(1);
                    while (response.Count < 6) {
                         response.Add(new VtmResponse(
                             new Line(),
-                            new Departure(new DepartureTime(dummyDate,dummyDate)),
+                            new Departure(new DepartureTime()),
                             new LocationStop(),
                             new List<TrafficInfoCategory>(),
                             new List<TrafficInfoCategoryGroup>(),
@@ -84,11 +83,11 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         #region Initialisierung
         private void _StartRequestIntervall() {
-            Intervall = 30000;
+            Intervall = 10000;
             _Timer = new Timer(_GetResponse, null, 0, Intervall);
             _TimerCurrentTime = new Timer((object state) => {
                 RaisePropertyChangedEvent("CurrentTime");
-            }, null, 0, 60000);
+            }, null, 0, 1000);
         }
 
         private void _InitializeRbls() {
@@ -147,24 +146,6 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
         public Visibility ButtonUBahnVisibility {
             get { return _verkehrsmittel.Contains(EVerkehrsmittel.Metro) ? Visibility.Visible : Visibility.Collapsed; }
-        }
-
-        #endregion
-
-        #region ButtonSBahn
-
-        public ICommand ButtonSBahnCommand {
-            get { return new AwaitableDelegateCommand(_sbahn); }
-        }
-
-        private async Task _sbahn() {
-            _switchFilterActive("SbahnFilter");
-        }
-        public double ButtonSBahnOpacity {
-            get { return _getOpacity("SbahnFilter"); }
-        }
-        public Visibility ButtonSBahnVisibility {
-            get { return _verkehrsmittel.Contains(EVerkehrsmittel.SBahn) ? Visibility.Visible : Visibility.Collapsed; }
         }
 
         #endregion
