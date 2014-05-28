@@ -126,7 +126,6 @@
     <Compile Include="ViewModel\AbfahrtenViewModel.cs" />
     <Compile Include="ViewModel\AbfahrtenViewModelFactory.cs" />
     <Compile Include="ViewModel\SucheViewModel.cs" />
-    <Compile Include="ViewModel\UserControl1ViewModel.cs" />
     <Compile Include="View\AbfahrtControl.xaml.cs">
       <DependentUpon>AbfahrtControl.xaml</DependentUpon>
     </Compile>
@@ -141,9 +140,6 @@
     </Compile>
     <Compile Include="View\Suche.xaml.cs">
       <DependentUpon>Suche.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Themes\Dark.xaml">
       <SubType>Designer</SubType>
@@ -197,10 +193,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Suche.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

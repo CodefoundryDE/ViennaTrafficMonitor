@@ -5,10 +5,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VtmFramework.Library;
 
 namespace VtmFramework.View {
 
-    public class AnimatedContentControl : AbstractAnimatedContentControl {
+    public class AnimatedContentControl : ContentControl {
 
         private ContentPresenter _mainContent;
         private Shape _paintArea;
@@ -37,7 +38,7 @@ namespace VtmFramework.View {
         /// <param name="newContent"></param>
         protected override void OnContentChanged(object oldContent, object newContent) {
             if (_paintArea != null && _mainContent != null) {
-                _paintArea.Fill = _CreateBrushFromVisual(_mainContent, (int)this.ActualWidth, (int)this.ActualHeight);
+                _paintArea.Fill = AnimateLib.CreateBrushFromVisual(_mainContent, (int)this.ActualWidth, (int)this.ActualHeight);
                 _BeginAnimateContentReplacement();
             }
             base.OnContentChanged(oldContent, newContent);
@@ -59,8 +60,8 @@ namespace VtmFramework.View {
                 EasingMode = EasingMode.EaseInOut
             };
 
-            NewContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(this.ActualWidth, 0, 0, 1, ease));
-            OldContentTransform.BeginAnimation(TranslateTransform.XProperty, _CreateAnimation(0, -this.ActualWidth, 0, 1, ease, (s, e) => {
+            NewContentTransform.BeginAnimation(TranslateTransform.XProperty, AnimateLib.CreateAnimation(this.ActualWidth, 0, 0, 1, ease));
+            OldContentTransform.BeginAnimation(TranslateTransform.XProperty, AnimateLib.CreateAnimation(0, -this.ActualWidth, 0, 1, ease, (s, e) => {
                 _paintArea.Visibility = Visibility.Hidden;
             }));
         }

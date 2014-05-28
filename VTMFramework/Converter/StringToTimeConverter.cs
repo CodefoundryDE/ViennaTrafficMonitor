@@ -12,7 +12,6 @@ namespace VtmFramework.Converter {
     public class StringToTimeConverter : IValueConverter {
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            if (value == null) { return "00:00"; }
             if (String.IsNullOrEmpty((string)value)) {
                 return "";
             }

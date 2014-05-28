@@ -16,8 +16,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
     public class SucheViewModel : AbstractViewModel {
 
-        public delegate void SucheSubmittedEventHandler(SucheEventArgs e);
-        public event SucheSubmittedEventHandler SucheSubmitted;
+        public event EventHandler<SucheEventArgs> SucheSubmitted;
 
         private string _searchText;
         public string SearchText {
@@ -53,7 +52,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         public ICommand SubmitCommand { get { return new DelegateCommand(_submit); } }
-        public void _submit() {
+        private void _submit() {
             if (SelectedItem != null) {
                 OnSucheSubmitted(SelectedItem.Id);
                 Matches.Clear();
@@ -62,9 +61,9 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         private void OnSucheSubmitted(int haltestelleSelected) {
-            SucheSubmittedEventHandler handler = SucheSubmitted;
+            EventHandler<SucheEventArgs> handler = SucheSubmitted;
             if (handler != null) {
-                handler(new SucheEventArgs(haltestelleSelected));
+                handler(this, new SucheEventArgs(haltestelleSelected));
             }
         }
 

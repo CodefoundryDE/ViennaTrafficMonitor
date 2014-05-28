@@ -51,7 +51,7 @@ namespace ViennaTrafficMonitor.Mapper {
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
-        public List<IHaltestelle> FindByRectangle(Rectangle rect) {
+        public List<IHaltestelle> FindByRectangle(VtmRectangle rect) {
             if (rect != null) {
                 double minX = rect.BottomLeft.X;
                 double minY = rect.BottomLeft.Y;
