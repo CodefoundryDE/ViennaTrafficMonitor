@@ -49,6 +49,26 @@ namespace VtmFramework.Library {
             return (char)(min + ((character - min + 1) % diff));
         }
 
+        /// <summary>
+        /// Filtert alle Umlaute aus einem Text und ersetzt sie, z.B. 'Ä' => 'Ae'
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string UmlautFilter(string text) {
+            if (text == null || String.IsNullOrWhiteSpace(text)) {
+                return "";
+            } else {
+                return text
+                    .Replace("Ä", "Ae")
+                    .Replace("Ö", "Oe")
+                    .Replace("Ü", "Ue")
+                    .Replace("ä", "ae")
+                    .Replace("ö", "oe")
+                    .Replace("ü", "ue")
+                    .Replace("ß", "ss");
+            }
+        }
+
     }
 
 }

@@ -7,7 +7,7 @@
              xmlns:v ="clr-namespace:ViennaTrafficMonitor.View"
              xmlns:c="clr-namespace:VtmFramework.Converter;assembly=VtmFramework"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="299.2" d:DesignWidth="587.2">
     <UserControl.Resources>
         <c:StringToTimeConverter x:Key="StringToTimeConverter" />
     </UserControl.Resources>
@@ -24,28 +24,16 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Label Content="{Binding Haltestelle.Name}" Margin="10" Grid.Row="0" Grid.Column="0" />
-        <Label Content="{Binding CurrentTime, FallbackValue=00:00:00}" Grid.Row="0" Grid.Column="2" />
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4" Panel.ZIndex="100">
+        <Label Content="{Binding Haltestelle.Name}" Margin="25" Grid.Row="0" Grid.Column="0"/>
+        <Label Content="{Binding CurrentTime, FallbackValue=00:00:00}" Margin="25" Grid.Row="0" Grid.Column="2"/>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4" Panel.ZIndex="100">
             <Button Opacity="{Binding ButtonUBahnOpacity}" Command="{Binding ButtonUBahnCommand}" Margin="10,0" Content="U" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonUBahnVisibility}" Background="Blue" />
-            <Button Opacity="{Binding ButtonSBahnOpacity}" Command="{Binding ButtonSBahnCommand}" Margin="10,0" Content="S" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonSBahnVisibility}" Background="LimeGreen" />
             <Button Opacity="{Binding ButtonTramOpacity}" Command="{Binding ButtonTramCommand}" Margin="10,0" Content="T" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonTramVisibility}" Background="Red" />
             <Button Opacity="{Binding ButtonTramWlbOpacity}" Command="{Binding ButtonTramWlbCommand}" Margin="10,0" Content="WLB" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonTramWlbVisibility}" Background="CornflowerBlue" />
             <Button Opacity="{Binding ButtonCityBusOpacity}" Command="{Binding ButtonCityBusCommand}" Margin="10,0" Content="B" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonCityBusVisibility}" Background="Purple" />
             <Button Opacity="{Binding ButtonNachtBusOpacity}" Command="{Binding ButtonNachtBusCommand}" Margin="10,0" Content="NB" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonNachtBusVisibility}" Background="Red" />
         </StackPanel>
-        <ListView ItemsSource="{Binding Abfahrten}" Grid.Row="2" HorizontalContentAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="3">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <v:AbfahrtControl Abfahrt="{Binding Departure.DepartureTime.TimePlanned, Converter={StaticResource StringToTimeConverter}}"
-                                          LineName="{Binding Line.Name}" 
-                                          Towards="{Binding Line.Towards}" 
-                                          Gleis="{Binding Line.Platform}"
-                                          Verspaetung="{Binding Departure.DepartureTime.Countdown}" />
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackPanel Name="AbfahrtPanel" Grid.Row="2" Orientation="Vertical" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+        </StackPanel>
     </Grid>
 </UserControl>

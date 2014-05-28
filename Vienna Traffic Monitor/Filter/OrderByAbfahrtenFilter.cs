@@ -9,6 +9,8 @@ using ViennaTrafficMonitor.Model;
 namespace ViennaTrafficMonitor.Filter {
     public class OrderByTimeRealAbfahrtenFilter : GenericFilter<VtmResponse> {
 
+        private const int COUNT = 6;
+
         public OrderByTimeRealAbfahrtenFilter()
             : this(true) {
         }
@@ -21,9 +23,9 @@ namespace ViennaTrafficMonitor.Filter {
                     return new List<VtmResponse>();
                 }
                 var query = from response in abfahrten
-                            orderby response.Departure.DepartureTime.TimePlanned
+                            orderby response.Departure.DepartureTime.TimeReal
                             select response;
-                var result = query.ToList<VtmResponse>().Take(35);
+                var result = query.ToList<VtmResponse>().Take(COUNT);
                 return result.ToList();
             };
         }

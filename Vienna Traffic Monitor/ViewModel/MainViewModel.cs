@@ -26,6 +26,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
             Einstellungen = new EinstellungenViewModel();
             Einstellungen.Beenden += OnBeenden;
+            Einstellungen.Info += OnInfo;
             Suche = new SucheViewModel();
             Suche.SucheSubmitted += _sucheSubmitted;
 
@@ -51,6 +52,10 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private void OnBeenden(object sender, EventArgs e) {
             Application.Current.Shutdown();
+        }
+
+        private void OnInfo(object sender, EventArgs e) {
+            Scheduler.ScheduleInstant(new InfoViewModel());
         }
 
         private void _sucheSubmitted(object sender, SucheEventArgs e) {

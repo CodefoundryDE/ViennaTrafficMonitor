@@ -12,6 +12,28 @@ namespace ViennaTrafficMonitor.ViewModel {
 
     public class EinstellungenViewModel : AbstractViewModel {
 
+        public EinstellungenViewModel() {
+            IsChecked = false;
+        }
+
+        #region Info
+        public event EventHandler Info;
+
+        private void OnInfo() {
+            EventHandler handler = Info;
+            if (handler != null) {
+                handler(this, new EventArgs());
+            }
+            // Einstellungen schließen
+            IsChecked = false;
+        }
+
+        public ICommand InfoCommand {
+            get { return new DelegateCommand(OnInfo); }
+        }
+        #endregion
+
+        #region Beenden
         public event EventHandler Beenden;
 
         private void OnBeenden() {
@@ -24,7 +46,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         public ICommand BeendenCommand {
             get { return new DelegateCommand(OnBeenden); }
         }
-
+        #endregion
 
         public string Theme {
             get { return Properties.Settings.Default.Theme; }
@@ -43,7 +65,14 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-
+        private bool _isChecked;
+        public bool IsChecked {
+            get { return _isChecked; }
+            set {
+                _isChecked = value;
+                RaisePropertyChangedEvent("IsChecked");
+            }
+        }
 
         public ICollection<string> AvailableDictionaries {
             get { return _getDictionaries(); }
