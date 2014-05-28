@@ -9,11 +9,57 @@
              d:DesignHeight="190.4" d:DesignWidth="700.8">
     <UserControl.Resources>
         <c:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <c:BoolToOpacityConverter x:Key="BoolToOpacityConverter"/>
     </UserControl.Resources>
-    <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+    <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Opacity="{Binding ElementName=CheckboxEinstellungen, Converter={StaticResource BoolToOpacityConverter}, Path=IsChecked}">
+        <StackPanel.Style>
+            <Style TargetType="StackPanel">
+                <Setter Property="Background" Value="Transparent" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=CheckboxEinstellungen, Path=IsChecked}" Value="True">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard HandoffBehavior="Compose">
+                                <Storyboard>
+                                    <ColorAnimation Duration="0:0:1" To="White" Storyboard.TargetProperty="(StackPanel.Background).(SolidColorBrush.Color)" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <BeginStoryboard HandoffBehavior="Compose">
+                                <Storyboard>
+                                    <ColorAnimation Duration="0:0:1" To="Transparent" Storyboard.TargetProperty="(StackPanel.Background).(SolidColorBrush.Color)" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </StackPanel.Style>
         <Border BorderThickness="0,1,0,0" BorderBrush="Black" x:Name="PanelBorder" Visibility="{Binding ElementName= CheckboxEinstellungen, Converter={StaticResource BooleanToVisibilityConverter}, Path=IsChecked}"/>
         <CheckBox x:Name="CheckboxEinstellungen" Margin="0 5 0 0" IsChecked="{Binding IsChecked}" Style="{StaticResource CheckboxEinstellungen}" VerticalAlignment="Top" HorizontalAlignment="Center" />
-        <DockPanel Background="Transparent" Style="{StaticResource EinstellungenBg}" Visibility="{Binding ElementName=CheckboxEinstellungen, Converter={StaticResource BooleanToVisibilityConverter}, Path=IsChecked}">
+        <DockPanel Name="DockPanel">
+            <DockPanel.Style>
+                <Style TargetType="DockPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=CheckboxEinstellungen, Path=IsChecked}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard HandoffBehavior="Compose">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.5" From="0" Storyboard.TargetProperty="Height" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard HandoffBehavior="Compose">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.5" To="0" Storyboard.TargetProperty="Height" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Style>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
                 <Label Content="Dummy-API" VerticalAlignment="Center" />
                 <CheckBox IsChecked="{Binding Dummy}" Style="{StaticResource OrangeSwitchStyle}" VerticalAlignment="Center" />
