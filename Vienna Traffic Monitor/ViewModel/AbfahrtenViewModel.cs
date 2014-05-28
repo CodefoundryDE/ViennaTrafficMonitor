@@ -140,9 +140,11 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private async Task _ubahn() {
             _switchFilterActive("MetroFilter");
+            RaisePropertyChangedEvent("ButtonUBahnOpacity");
         }
-        public double ButtonUbahnOpacity {
-            get { return _getOpacity("MetroFilter"); }
+        public double ButtonUBahnOpacity {
+            get { return _getOpacity("MetroFilter");
+            }
         }
         public Visibility ButtonUBahnVisibility {
             get { return _verkehrsmittel.Contains(EVerkehrsmittel.Metro) ? Visibility.Visible : Visibility.Collapsed; }
@@ -158,6 +160,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private async Task _tram() {
             _switchFilterActive("TramFilter");
+            RaisePropertyChangedEvent("ButtonTramOpacity");
         }
         public double ButtonTramOpacity {
             get { return _getOpacity("TramFilter"); }
@@ -176,6 +179,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private async Task _tramWlb() {
             _switchFilterActive("TramWlbFilter");
+            RaisePropertyChangedEvent("ButtonTramWlbOpacity");
         }
         public double ButtonTramWlbOpacity {
             get { return _getOpacity("TramWlbFilter"); }
@@ -194,6 +198,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private async Task _cityBus() {
             _switchFilterActive("CityBusFilter");
+            RaisePropertyChangedEvent("ButtonCityBusOpacity");
         }
         public double ButtonCityBusOpacity {
             get { return _getOpacity("CityBusFilter"); }
@@ -212,6 +217,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private async Task _nachtBus() {
             _switchFilterActive("NachtBusFilter");
+            RaisePropertyChangedEvent("ButtonNachtBusOpacity");
         }
         public double ButtonNachtBusOpacity {
             get { return _getOpacity("NachtBusFilter"); }
