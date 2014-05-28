@@ -12,8 +12,10 @@ namespace VtmFramework.Converter {
     public class StringToTimeConverter : IValueConverter {
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            if (value == null) return "00:00";
-            else if ((string)value == "") return "";
+            if (value == null) { return "00:00"; }
+            if (String.IsNullOrEmpty((string)value)) {
+                return "";
+            }
             DateTime datetime = DateTime.ParseExact((string)value, "yyyy-MM-dd'T'HH:mm:ss.fffzz'00'", CultureInfo.InvariantCulture);
             return datetime.ToString("HH:mm");
         }
