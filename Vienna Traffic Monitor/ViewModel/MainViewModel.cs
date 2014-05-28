@@ -53,7 +53,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             Application.Current.Shutdown();
         }
 
-        private void _sucheSubmitted(SucheEventArgs e) {
+        private void _sucheSubmitted(object sender, SucheEventArgs e) {
             Scheduler.ScheduleInstant(AbfahrtenViewModelFactory.GetInstance(e.HaltestelleSelected));
         }
 
