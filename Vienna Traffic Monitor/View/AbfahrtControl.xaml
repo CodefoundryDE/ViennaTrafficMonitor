@@ -14,17 +14,16 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="12*" />
+            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="52*"/>
+            <ColumnDefinition Width="6*" />
         </Grid.ColumnDefinitions>
         <fv:SplitFlapDisplay Name="LAbfahrt" PanelCount="5" Grid.Column="0" />
         <fv:SplitFlapDisplay Name="LGleis" PanelCount="2" Grid.Column="1" />
         <fv:SplitFlapDisplay Name="LLinie" PanelCount="3" Grid.Column="2" />
-        <!--<Label Name="LRichtung" Grid.Column="3" />-->
-        <fv:SplitFlapDisplay Name="SFDRichtung" PanelCount="20" Grid.Column="3" />
+        <fv:SplitFlapDisplay Name="SFDRichtung" PanelCount="25" Grid.Column="3" />
         <fv:SplitFlapDisplay Name="LVerspaetung" PanelCount="2" Grid.Column="4" />
     </Grid>
 </UserControl>
