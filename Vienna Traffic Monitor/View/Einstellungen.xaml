@@ -6,23 +6,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:c="clr-namespace:VtmFramework.Converter;assembly=VtmFramework"
              mc:Ignorable="d" 
-             d:DesignHeight="190.4" d:DesignWidth="512">
+             d:DesignHeight="190.4" d:DesignWidth="512"
+             >
     <UserControl.Resources>
         <c:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
-    <!--<UserControl.Background>
-        <SolidColorBrush Color="Gray" />
-    </UserControl.Background>-->
     <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
         <CheckBox x:Name="CheckboxEinstellungen" Style="{StaticResource CheckboxEinstellungen}" VerticalAlignment="Top" HorizontalAlignment="Center" />
-        <DockPanel Background="Gray" Visibility="{Binding ElementName=CheckboxEinstellungen, Converter={StaticResource BooleanToVisibilityConverter}, Path=IsChecked}">
+        <DockPanel Style="{StaticResource EinstellungenBg}" Visibility="{Binding ElementName=CheckboxEinstellungen, Converter={StaticResource BooleanToVisibilityConverter}, Path=IsChecked}">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
                 <Label Content="Dummy-API" VerticalAlignment="Center" />
                 <CheckBox IsChecked="{Binding Dummy}" Style="{StaticResource OrangeSwitchStyle}" VerticalAlignment="Center" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
                 <Label Content="Style" VerticalAlignment="Center" />
-                <ComboBox SelectedValue="{Binding Theme}" Width="120" ItemsSource="{Binding AvailableDictionaries}" IsEditable="False" VerticalAlignment="Center" />
+                <ComboBox Style="{StaticResource StandardComboBox}" SelectedValue="{Binding Theme}" Width="120" ItemsSource="{Binding AvailableDictionaries}" IsEditable="False" VerticalAlignment="Center" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="20">
                 <Button Style="{StaticResource BeendenButton}" Command="{Binding BeendenCommand}"/>
