@@ -15,6 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Name = "Header" Height="Auto"/>
             <RowDefinition Name = "Filter" Height="Auto"/>
+            <RowDefinition Name = "Labels" Height="Auto"/>
             <RowDefinition Name = "Content" Height="Auto"/>
             <RowDefinition Name = "Footer" Height="Auto"/>
         </Grid.RowDefinitions>
@@ -33,7 +34,21 @@
             <Button Opacity="{Binding ButtonCityBusOpacity}" Command="{Binding ButtonCityBusCommand}" Margin="10,0" Content="B" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonCityBusVisibility}" Background="Purple" />
             <Button Opacity="{Binding ButtonNachtBusOpacity}" Command="{Binding ButtonNachtBusCommand}" Margin="10,0" Content="NB" Style="{StaticResource MapFilterButton}" Visibility="{Binding ButtonNachtBusVisibility}" Background="Red" />
         </StackPanel>
-        <StackPanel Name="AbfahrtPanel" Grid.Row="2" Orientation="Vertical" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+        <Grid Grid.Row="2" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12*" />
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="52*"/>
+                <ColumnDefinition Width="6*" />
+            </Grid.ColumnDefinitions>
+            <Label Content="Abfahrt" Grid.Column="0" Margin="5" />
+            <Label Content="Linie" Grid.Column="1" Margin="5"/>
+            <Label Content="Steig" Grid.Column="2" Margin="5"/>
+            <Label Content="Richtung" Grid.Column="3" Margin="5"/>
+            <Label Content="Abfahrt" Grid.Column="4" Margin="5"/>
+        </Grid>
+        <StackPanel Name="AbfahrtPanel" Grid.Row="3" Orientation="Vertical" Grid.ColumnSpan="3" HorizontalAlignment="Stretch">
         </StackPanel>
     </Grid>
 </UserControl>
