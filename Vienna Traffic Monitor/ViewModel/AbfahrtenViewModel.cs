@@ -34,6 +34,8 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private Timer _Timer;
 
+        private int _resultCount = 6;
+
         public int Intervall { get; set; }
 
         private Timer _TimerCurrentTime;
@@ -42,10 +44,10 @@ namespace ViennaTrafficMonitor.ViewModel {
         public ICollection<VtmResponse> Abfahrten {
             get {
                 ICollection<VtmResponse> response =  _verkehrsmittelFilter.Filter(_Response);
-                if (response.Count == 6) {
+                if (response.Count == _resultCount) {
                     return response;
                 } else {
-                   while (response.Count < 6) {
+                   while (response.Count < _resultCount) {
                         response.Add(new VtmResponse(
                             new Line(),
                             new Departure(new DepartureTime()),
@@ -128,7 +130,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             _verkehrsmittelFilter.Add("SbahnFilter", new AbfahrtenFilter(EVerkehrsmittel.SBahn, false));
             _verkehrsmittelFilter.Add("TramFilter", new AbfahrtenFilter(EVerkehrsmittel.Tram, false));
             _verkehrsmittelFilter.Add("TramWlbFilter", new AbfahrtenFilter(EVerkehrsmittel.TramWlb, false));
-            _verkehrsmittelFilter.Add("OrderByAbfahrt", new OrderByTimeRealAbfahrtenFilter(true));
+            _verkehrsmittelFilter.Add("OrderByAbfahrt", new OrderAbfahrtenFilter(EAbfahrtenOrder.TimePlannedAsc, _resultCount, true));
         }
         #endregion
 
