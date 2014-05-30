@@ -26,21 +26,6 @@
         <DataTemplate x:Key="PolylinesTemplate">
             <m:MapPolyline />
         </DataTemplate>
-        <Style TargetType="StackPanel" x:Key="FilterStackPanel">
-            <!--<Setter Property="Margin" Value="10" />-->
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect />
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style TargetType="Label" x:Key="FilterLabel">
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="Padding" Value="10,0,10,0" />
-            <Setter Property="Margin" Value="10,0,10,0" />
-        </Style>
     </UserControl.Resources>
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Panel.ZIndex="100">
