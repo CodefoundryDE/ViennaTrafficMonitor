@@ -10,15 +10,12 @@
     <UserControl.Resources>
         <c:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
-    <!--<UserControl.Background>
-        <SolidColorBrush Color="Gray" />
-    </UserControl.Background>-->
     <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
         <CheckBox x:Name="CheckboxEinstellungen" IsChecked="{Binding IsChecked}" Style="{StaticResource CheckboxEinstellungen}" VerticalAlignment="Top" HorizontalAlignment="Center" />
         <DockPanel Background="Gray" Visibility="{Binding ElementName=CheckboxEinstellungen, Converter={StaticResource BooleanToVisibilityConverter}, Path=IsChecked}">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
                 <Label Content="Dummy-API" VerticalAlignment="Center" />
-                <CheckBox IsChecked="{Binding Dummy}" Style="{StaticResource OrangeSwitchStyle}" VerticalAlignment="Center" />
+                <CheckBox IsChecked="{Binding Dummy}" Style="{StaticResource Slider}" VerticalAlignment="Center" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
                 <Label Content="Style" VerticalAlignment="Center" />
