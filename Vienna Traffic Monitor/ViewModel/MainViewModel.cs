@@ -17,6 +17,7 @@ namespace ViennaTrafficMonitor.ViewModel {
     public class MainViewModel : AbstractViewModel {
 
         public SucheViewModel Suche { get; private set; }
+        public MapViewModel Map { get; private set; }
 
         public Scheduler<AbstractViewModel> Scheduler { get; private set; }
 
@@ -27,7 +28,9 @@ namespace ViennaTrafficMonitor.ViewModel {
             Einstellungen = new EinstellungenViewModel();
             Einstellungen.Beenden += OnBeenden;
             Suche = new SucheViewModel();
-            Suche.SucheSubmitted += _sucheSubmitted;
+            Suche.SucheSubmitted += OnSucheSubmitted;
+            Map = MapViewModelFactory.Instance;
+            Map.HaltestelleSelected += OnSucheSubmitted;
 
             Scheduler = new Scheduler<AbstractViewModel>();
             Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
@@ -53,7 +56,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             Application.Current.Shutdown();
         }
 
-        private void _sucheSubmitted(object sender, SucheEventArgs e) {
+        private void OnSucheSubmitted(object sender, SucheEventArgs e) {
             Scheduler.ScheduleInstant(AbfahrtenViewModelFactory.GetInstance(e.HaltestelleSelected));
         }
 
@@ -63,7 +66,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             get { return new DelegateCommand(_switchToMap); }
         }
         private void _switchToMap() {
-            Scheduler.ScheduleInstant(MapViewModelFactory.Instance);
+            Scheduler.ScheduleInstant(Map);
         }
         #endregion
 
