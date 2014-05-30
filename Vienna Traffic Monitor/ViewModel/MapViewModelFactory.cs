@@ -18,7 +18,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
-        public static MapViewModel _createInstance() {
+        private static MapViewModel _createInstance() {
             CredentialsProvider credentialsProvider = new ApplicationIdCredentialsProvider(Resources.BingApplicationId);
             MapViewModel vm = new MapViewModel(credentialsProvider, LinienMapperFactory.Instance);
             return vm;
