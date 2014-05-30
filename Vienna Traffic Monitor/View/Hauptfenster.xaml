@@ -6,32 +6,21 @@
              xmlns:fv="clr-namespace:VtmFramework.View;assembly=VtmFramework"
              mc:Ignorable="d" 
              d:DesignHeight="301.694" d:DesignWidth="661.835">
+    <UserControl.Resources>
+        <Style TargetType="fv:SplitFlapDisplay" x:Key="SfdStyle">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="StartChar" Value="A" />
+            <Setter Property="EndChar" Value="Z" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <Button Command="{Binding BErrorCommand}" Content="Hauptfensterbutton 1" Grid.Row="1" Grid.Column="1" Margin="10,0,10,0" Padding="10,10,10,10" BorderThickness="2,0,0,2" Background="{x:Null}" >
-            <Button.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="#FFFF8800" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.BorderBrush>
-        </Button>
-        <Button Content="Hauptfensterbutton 2" Grid.Row="1" Grid.Column="2" Margin="10,0,10,0" Padding="10,10,10,10" />
-        <!--<Button Content="Hauptfensterbutton 3" Grid.Row="1" Grid.Column="3" Margin="10,0,10,0" Padding="10,10,10,10" />-->
-        <!--<fv:SplitFlapPanel Content="{Binding Flap}" BorderThickness="1" Width="50" BorderBrush="Black" Grid.Row="1" Grid.Column="3" />-->
-        <fv:SplitFlapDisplay PanelCount="5" Text="{Binding Flap}" Grid.Row="1" Grid.Column="4" />
+        <Image Source="/Ressources/Images/Graph.png" HorizontalAlignment="Left" VerticalAlignment="Stretch" />
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <fv:SplitFlapDisplay PanelCount="6" Text="{Binding Flap[0]}" Style="{StaticResource SfdStyle}" />
+            <Separator />
+            <fv:SplitFlapDisplay PanelCount="7" Text="{Binding Flap[1]}" Style="{StaticResource SfdStyle}" />
+            <Separator />
+            <fv:SplitFlapDisplay PanelCount="7" Text="{Binding Flap[2]}" Style="{StaticResource SfdStyle}" />
+        </StackPanel>
     </Grid>
 </UserControl>

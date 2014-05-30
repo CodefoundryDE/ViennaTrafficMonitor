@@ -32,7 +32,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
             Scheduler = new Scheduler<AbstractViewModel>();
             Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
-            Scheduler.ScheduleInstant(new HauptfensterViewModel());
+            Scheduler.ScheduleInstant(HauptfensterViewModelFactory.Instance);
         }
 
         private void OnSchedulerAktuellChanged(object Sender, EventArgs e) {

@@ -39,18 +39,52 @@ namespace VtmFramework.View {
         #endregion
 
         #region DependencyProperty Text
-        public static readonly DependencyProperty TextProperty = DependencyProperty.RegisterAttached("Text", typeof(string), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(OnTextChanged));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(OnTextChanged));
 
         public string Text {
             get { return (string)this.GetValue(TextProperty); }
-            set {
-                this.SetValue(TextProperty, value);
-            }
+            set { this.SetValue(TextProperty, value); }
         }
 
         private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             SplitFlapDisplay display = (SplitFlapDisplay)d;
             display.OnTextChanged();
+        }
+        #endregion
+
+        #region StartChar
+        public static readonly DependencyProperty StartCharProperty = DependencyProperty.Register("StartChar", typeof(char), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(' '));
+
+        public char StartChar {
+            get { // Dieser Getter ist Threadsafe.
+                try {
+                    return (char)this.Dispatcher.Invoke(
+                       System.Windows.Threading.DispatcherPriority.Normal,
+                       (DispatcherOperationCallback)delegate { return this.GetValue(StartCharProperty); },
+                       StartCharProperty);
+                } catch {
+                    return (char)StartCharProperty.DefaultMetadata.DefaultValue;
+                }
+            }
+            set { this.SetValue(StartCharProperty, value); }
+        }
+        #endregion
+
+        #region EndChar
+        public static readonly DependencyProperty EndCharProperty = DependencyProperty.Register("EndChar", typeof(char), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata('Z'));
+
+        public char EndChar {
+            get { // Dieser Getter ist Threadsafe.
+                try {
+                    return (char)this.Dispatcher.Invoke(
+                       System.Windows.Threading.DispatcherPriority.Normal,
+                       (DispatcherOperationCallback)delegate { return GetValue(EndCharProperty); },
+                       EndCharProperty);
+                } catch {
+                    return (char)EndCharProperty.DefaultMetadata.DefaultValue;
+                }
+            }
+            set { this.SetValue(EndCharProperty, value); }
         }
         #endregion
 
@@ -107,7 +141,7 @@ namespace VtmFramework.View {
                 Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
             }
 
-            _timer.Change(0, 550);
+            _timer.Change(0, 150);
         }
 
         private void _tick(object state) {
@@ -115,7 +149,7 @@ namespace VtmFramework.View {
 
             for (int i = 0; i < _charsCurrent.Length; i++) {
                 if (_charsCurrent[i] != _charsFinal[i]) {
-                    _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], ' ', 'Z');
+                    _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], StartChar, EndChar);
                     object[] parameters = new object[] { i, _charsCurrent[i] };
                     Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
                     action = true;

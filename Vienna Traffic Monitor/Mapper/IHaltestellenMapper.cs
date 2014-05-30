@@ -25,6 +25,13 @@ namespace ViennaTrafficMonitor.Mapper {
         IDictionary<int, Point> AllCoordinates { get; }
 
         /// <summary>
+        /// Gibt alle Haltestellen zurück, deren Name eine gewisse Länge hat.
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        ICollection<IHaltestelle> GetByNameLength(int length);
+
+        /// <summary>
         /// Gibt alle Haltestellen zurück.
         /// </summary>
         /// <returns></returns>
