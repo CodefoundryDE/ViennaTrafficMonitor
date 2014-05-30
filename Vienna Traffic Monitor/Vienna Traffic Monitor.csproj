@@ -121,6 +121,7 @@
     <Compile Include="Model\Linie.cs" />
     <Compile Include="Model\Steig.cs" />
     <Compile Include="ViewModel\EinstellungenViewModel.cs" />
+    <Compile Include="ViewModel\HauptfensterViewModelFactory.cs" />
     <Compile Include="ViewModel\InfoViewModel.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MapViewModelFactory.cs" />
@@ -326,7 +327,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Ressources\Images\Graph.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
