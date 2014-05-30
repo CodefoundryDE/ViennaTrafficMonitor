@@ -35,5 +35,10 @@ namespace VtmFrameworkTests.Library {
             StrLib.AsciiInc('m', 'z', 'a');
         }
 
+        [TestMethod]
+        public void TestUmlautFilter() {
+            Assert.AreEqual("AeOeUeaeoeuess", StrLib.UmlautFilter("ÄÖÜäöüß"));
+        }
+
     }
 }

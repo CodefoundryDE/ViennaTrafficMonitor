@@ -62,18 +62,6 @@ namespace ViennaTrafficMonitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DummyRequester {
-            get {
-                return ((bool)(this["DummyRequester"]));
-            }
-            set {
-                this["DummyRequester"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Light")]
         public string Theme {
             get {
@@ -81,6 +69,18 @@ namespace ViennaTrafficMonitor.Properties {
             }
             set {
                 this["Theme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DummyRequester {
+            get {
+                return ((bool)(this["DummyRequester"]));
+            }
+            set {
+                this["DummyRequester"] = value;
             }
         }
     }

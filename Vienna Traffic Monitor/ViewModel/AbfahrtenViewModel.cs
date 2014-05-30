@@ -45,11 +45,10 @@ namespace ViennaTrafficMonitor.ViewModel {
                 if (response.Count == 6) {
                     return response;
                 } else {
-                    DateTime dummyDate = DateTime.Now.AddDays(1);
                    while (response.Count < 6) {
                         response.Add(new VtmResponse(
                             new Line(),
-                            new Departure(new DepartureTime(dummyDate,dummyDate)),
+                            new Departure(new DepartureTime()),
                             new LocationStop(),
                             new List<TrafficInfoCategory>(),
                             new List<TrafficInfoCategoryGroup>(),
@@ -84,11 +83,11 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         #region Initialisierung
         private void _StartRequestIntervall() {
-            Intervall = 30000;
+            Intervall = 10000;
             _Timer = new Timer(_GetResponse, null, 0, Intervall);
             _TimerCurrentTime = new Timer((object state) => {
                 RaisePropertyChangedEvent("CurrentTime");
-            }, null, 0, 60000);
+            }, null, 0, 1000);
         }
 
         private void _InitializeRbls() {
@@ -141,17 +140,6 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public bool ButtonMetroVisible {
             get { return _verkehrsmittel.Contains(EVerkehrsmittel.Metro); }
-        }
-        #endregion
-
-        #region ButtonSBahn
-        public bool ButtonSBahnActive {
-            get { return !_verkehrsmittelFilter["SbahnFilter"].Active; }
-            set { _verkehrsmittelFilter["SbahnFilter"].Active = !value; }
-        }
-
-        public bool ButtonSBahnVisible {
-            get { return _verkehrsmittel.Contains(EVerkehrsmittel.SBahn); }
         }
         #endregion
 

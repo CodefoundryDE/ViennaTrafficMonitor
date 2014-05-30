@@ -130,6 +130,35 @@
         </Style.Triggers>
     </Style>
 
+    <!-- MouseOverButton -->
+
+    <Style x:Key="MouseOverEffect" TargetType="Control">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- InfoButton -->
+
+    <Style x:Key="ButtonInfo" TargetType="Button" BasedOn="{StaticResource MouseOverEffect}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <StackPanel Name="Info" Orientation="Horizontal" Background="Transparent">
+                        <Label Content="{TemplateBinding Content}" VerticalAlignment="Center" />
+                        <Path Data="M8,0 L8,10 M8,12 L8,16" Stroke="GreenYellow" StrokeThickness="5" StrokeLineJoin="Round" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- Einstellungspfeil -->
 
     <Style x:Key="CheckboxEinstellungen" TargetType="CheckBox">
@@ -154,12 +183,12 @@
 
     <!-- Beenden Button -->
 
-    <Style x:Key="BeendenButton" TargetType="Button">
+    <Style x:Key="BeendenButton" TargetType="Button" BasedOn="{StaticResource MouseOverEffect}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}" >
-                    <StackPanel Orientation="Horizontal" Background="Transparent">
-                        <Label Content="Beenden" VerticalAlignment="Center" />
+                    <StackPanel Name="Beenden" Orientation="Horizontal" Background="Transparent">
+                        <Label Content="{TemplateBinding Content}" VerticalAlignment="Center" />
                         <Path Data="M0,0 L16,16 M0,16 L16,0" Stroke="GreenYellow" StrokeThickness="5" StrokeLineJoin="Round" VerticalAlignment="Center"/>
                     </StackPanel>
                 </ControlTemplate>

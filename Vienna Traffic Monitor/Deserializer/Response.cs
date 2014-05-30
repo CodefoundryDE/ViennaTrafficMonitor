@@ -48,11 +48,10 @@ namespace ViennaTrafficMonitor.Deserializer {
         public string TimeReal { get; set; }
         public int Countdown { get; set; }
 
-        public DepartureTime(DateTime timePlanned, DateTime timeReal) {
+        public DepartureTime() {
             TimePlanned = "";
             TimeReal = "";
         }
-        public DepartureTime() { }
     }
 
     [GeneratedCodeAttribute("JSON to C#", "1.0")]

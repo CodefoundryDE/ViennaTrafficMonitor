@@ -32,7 +32,7 @@ namespace ViennaTrafficMonitor.View {
             control.OnAbfahrtPropertyChanged();
         }
         private void OnAbfahrtPropertyChanged() {
-            LAbfahrt.Content = Abfahrt;
+            LAbfahrt.Text = Abfahrt;
         }
 
         public static readonly DependencyProperty LineNameProperty = DependencyProperty.Register("LineName", typeof(string), typeof(AbfahrtControl), new FrameworkPropertyMetadata("", OnLinePropertyChanged));
@@ -46,7 +46,7 @@ namespace ViennaTrafficMonitor.View {
             control.OnLinePropertyChanged();
         }
         private void OnLinePropertyChanged() {
-            LLinie.Content = LineName;
+            LLinie.Text = LineName;
         }
 
         public static readonly DependencyProperty TowardsProperty = DependencyProperty.Register("Towards", typeof(string), typeof(AbfahrtControl), new FrameworkPropertyMetadata("", OnTowardsPropertyChanged));
@@ -59,7 +59,7 @@ namespace ViennaTrafficMonitor.View {
             control.OnTowardsPropertyChanged();
         }
         private void OnTowardsPropertyChanged() {
-            LRichtung.Content = Towards;
+            SFDRichtung.Text = Towards;
         }
 
         public static readonly DependencyProperty GleisProperty = DependencyProperty.Register("Gleis", typeof(string), typeof(AbfahrtControl), new FrameworkPropertyMetadata("", OnGleisPropertyChanged));
@@ -73,7 +73,7 @@ namespace ViennaTrafficMonitor.View {
             control.OnGleisPropertyChanged();
         }
         private void OnGleisPropertyChanged() {
-            LGleis.Content = Gleis;
+            LGleis.Text = Gleis;
         }
 
         public static readonly DependencyProperty VerspaetungProperty = DependencyProperty.Register("Verspaetung", typeof(string), typeof(AbfahrtControl), new FrameworkPropertyMetadata("", OnVerspaetungPropertyChanged));
@@ -86,7 +86,7 @@ namespace ViennaTrafficMonitor.View {
             control.OnVerspaetungPropertyChanged();
         }
         private void OnVerspaetungPropertyChanged() {
-            LVerspaetung.Content = Verspaetung;
+            LVerspaetung.Text = Verspaetung;
         }
         #endregion
 

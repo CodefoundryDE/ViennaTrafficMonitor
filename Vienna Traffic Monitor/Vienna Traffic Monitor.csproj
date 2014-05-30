@@ -127,6 +127,7 @@
     <Compile Include="Model\Linie.cs" />
     <Compile Include="Model\Steig.cs" />
     <Compile Include="ViewModel\EinstellungenViewModel.cs" />
+    <Compile Include="ViewModel\InfoViewModel.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MapViewModelFactory.cs" />
     <Compile Include="ViewModel\AbfahrtenViewModel.cs" />
@@ -137,6 +138,9 @@
     </Compile>
     <Compile Include="View\Einstellungen.xaml.cs">
       <DependentUpon>Einstellungen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Info.xaml.cs">
+      <DependentUpon>Info.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Map.xaml.cs">
       <DependentUpon>Map.xaml</DependentUpon>
@@ -174,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Hauptfenster.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Info.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
