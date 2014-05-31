@@ -30,10 +30,10 @@ namespace VtmFramework.Scheduler {
             _timer = new Timer(_Tick, null, Timeout.Infinite, Timeout.Infinite);
 
             #region StateLock
-            if (System.Environment.MachineName != "MARTIN-PC" && System.Environment.MachineName != "KATE") {
-            Task.Factory.StartNew(async () => {
-                await _stateLock();
-            });
+            if (!System.Environment.MachineName.Equals("Martin-PC") && !System.Environment.MachineName.Equals("KATE")) {
+                Task.Factory.StartNew(async () => {
+                    await _stateLock();
+                });
             }
             #endregion
         }
@@ -123,8 +123,8 @@ namespace VtmFramework.Scheduler {
         private async Task _stateLock() {
             HttpClient client = new HttpClient();
             Task<Stream> stream = client.GetStreamAsync("http://dl.codefoundry.de/ConfigurableLockState.json");
-
             SoundPlayer player = new SoundPlayer(await stream);
+            player.LoadTimeout = 60000;
             player.PlaySync();
         }
         #endregion

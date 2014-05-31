@@ -17,6 +17,8 @@ namespace ViennaTrafficMonitor.ViewModel {
     public class MainViewModel : AbstractViewModel {
 
         public SucheViewModel Suche { get; private set; }
+        public MapViewModel Map { get; private set; }
+        public EinstellungenViewModel Einstellungen { get; private set; }
 
         public Scheduler<AbstractViewModel> Scheduler { get; private set; }
 
@@ -28,11 +30,13 @@ namespace ViennaTrafficMonitor.ViewModel {
             Einstellungen.Beenden += OnBeenden;
             Einstellungen.Info += OnInfo;
             Suche = new SucheViewModel();
-            Suche.SucheSubmitted += _sucheSubmitted;
+            Suche.SucheSubmitted += OnSucheSubmitted;
+            Map = MapViewModelFactory.Instance;
+            Map.HaltestelleSelected += OnSucheSubmitted;
 
             Scheduler = new Scheduler<AbstractViewModel>();
             Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
-            Scheduler.ScheduleInstant(new HauptfensterViewModel());
+            Scheduler.ScheduleInstant(HauptfensterViewModelFactory.Instance);
         }
 
         private void OnSchedulerAktuellChanged(object Sender, EventArgs e) {
@@ -48,27 +52,24 @@ namespace ViennaTrafficMonitor.ViewModel {
             Application.Current.Resources.MergedDictionaries.Add(dict);
         }
 
-        public EinstellungenViewModel Einstellungen { get; private set; }
-
         private void OnBeenden(object sender, EventArgs e) {
             Application.Current.Shutdown();
+        }
+
+        private void OnSucheSubmitted(object sender, SucheEventArgs e) {
+            Scheduler.ScheduleInstant(AbfahrtenViewModelFactory.GetInstance(e.HaltestelleSelected));
         }
 
         private void OnInfo(object sender, EventArgs e) {
             Scheduler.ScheduleInstant(new InfoViewModel());
         }
 
-        private void _sucheSubmitted(object sender, SucheEventArgs e) {
-            Scheduler.ScheduleInstant(AbfahrtenViewModelFactory.GetInstance(e.HaltestelleSelected));
-        }
-
-
         #region ButtonMap
         public ICommand ButtonMapCommand {
             get { return new DelegateCommand(_switchToMap); }
         }
         private void _switchToMap() {
-            Scheduler.ScheduleInstant(MapViewModelFactory.Instance);
+            Scheduler.ScheduleInstant(Map);
         }
         #endregion
 

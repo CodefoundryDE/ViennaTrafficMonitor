@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF">
 
     <Color x:Key="SelectedColor">YellowGreen</Color>
     <SolidColorBrush x:Key="MainColor" Color="{StaticResource SelectedColor}"/>
@@ -10,14 +11,122 @@
 
     <Color x:Key="NotSelectedColor">White</Color>
 
+    <Style TargetType="m:Pushpin" x:Key="MapPushpin">
+        <Setter Property="Background" Value="Green" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Background="Transparent">
+                        <Popup Name="PopupGrid" IsOpen="False" Placement="Top" AllowsTransparency="True">
+                            <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Background="Transparent">
 
-    <Style x:Key="MapFilterButton" TargetType="Button">
-        <Setter Property="Foreground" Value="White" />
+                                <Grid Background="Green" Opacity="0.8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Label Opacity="1" Grid.Row="0" Content="{Binding Haltestelle.Name}" />
+                                </Grid>
+                            </Border>
+                        </Popup>
+                        <m:Pushpin Background="{TemplateBinding Background}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Red" />
+                            <Setter TargetName="PopupGrid" Property="IsOpen" Value="True" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <Style x:Key="MapFilterButton" TargetType="ToggleButton">
+        <!--<Setter Property="Foreground" Value="White" />
         <Setter Property="FontWeight" Value="ExtraBold" />
         <Setter Property="FontSize" Value="20" />
         <Setter Property="Padding" Value="10,10,10,10" />
         <Setter Property="Width" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />-->
+    </Style>
+
+    <Style TargetType="StackPanel" x:Key="FilterStackPanel">
+        <!--<Setter Property="Margin" Value="10" />-->
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Label" x:Key="FilterLabel">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="10,0,10,0" />
+        <Setter Property="Margin" Value="10,0,10,0" />
+    </Style>
+
+    <Style x:Key="DiscreteCheckBoxStyle" TargetType="{x:Type CheckBox}">
+        <Setter Property="Height" Value="0" />
+        <Setter Property="Padding" Value="10,0,10,0" />
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource CheckBoxFocusVisual}"/>
+        <Setter Property="Background" Value="{DynamicResource NormalBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource NormalBorderBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Border>
+                        <Grid>
+                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                              Margin="{TemplateBinding Padding}"  />
+                            <Border>
+                                <Border.Background>
+                                    <VisualBrush Opacity="1.0" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Path Name="path" Opacity="0.1" Data="M 0 5 L 3 10 10 0" Stroke="#FF3838BA" StrokeThickness="1.5" 
+                                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Border.Background>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="path" Property="Opacity" Value="1.0" />
+                            <Setter TargetName="path" Property="Stroke" Value="#FF70A16F" />
+                            <Setter TargetName="path" Property="StrokeThickness" Value="2.5" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource GrayTextBrushKey}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Panel}}, Path=IsMouseOver}" Value="True">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard HandoffBehavior="Compose">
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.5" Storyboard.TargetProperty="Height" To="30" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard HandoffBehavior="Compose">
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.5" Storyboard.TargetProperty="Height" To="0" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.ExitActions>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
 
@@ -112,23 +221,9 @@
 
     <!-- Slider -->
 
-    <LinearGradientBrush x:Key="CheckedBlue" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="#FF285AB3" Offset="0" />
-        <GradientStop Color="#FF4184EC" Offset="0.5" />
-        <GradientStop Color="#FF558BED" Offset="0.5" />
-        <GradientStop Color="#FF7DACF0" Offset="1" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="CheckedOrange" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="#FFCA6A13" Offset="0" />
-        <GradientStop Color="#FFF67D0C" Offset="0.2" />
-        <GradientStop Color="#FFFE7F0C" Offset="0.2" />
-        <GradientStop Color="#FFFA8E12" Offset="0.5" />
-        <GradientStop Color="#FFFF981D" Offset="0.5" />
-        <GradientStop Color="#FFFCBC5A" Offset="1" />
-    </LinearGradientBrush>
     <SolidColorBrush x:Key="CheckedOrangeBorder" Color="#FF8E4A1B" />
     <SolidColorBrush x:Key="CheckedBlueBorder" Color="#FF143874" />
-    <Style x:Key="OrangeSwitchStyle" TargetType="{x:Type CheckBox}">
+    <Style x:Key="Slider" TargetType="{x:Type CheckBox}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
         <Setter Property="Template">

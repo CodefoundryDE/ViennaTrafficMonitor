@@ -33,10 +33,5 @@ namespace ViennaTrafficMonitor.Filter {
         }
 
         public bool Active { get; set; }
-
-
-        public double ButtonOpacity {
-            get { return this.Active ? 0.3 : 1; }
-        }
     }
 }

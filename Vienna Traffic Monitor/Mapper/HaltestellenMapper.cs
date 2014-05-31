@@ -78,6 +78,13 @@ namespace ViennaTrafficMonitor.Mapper {
             return dict;
         }
 
+        public ICollection<IHaltestelle> GetByNameLength(int length) {
+            var query = from haltestelle in _data.Values
+                        where haltestelle.Name.Length == length
+                        select haltestelle;
+            return query.ToList<IHaltestelle>();
+        }
+
         public ICollection<IHaltestelle> All {
             get { return _data.Values.ToList<IHaltestelle>(); }
         }
