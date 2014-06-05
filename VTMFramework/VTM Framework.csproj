@@ -55,6 +55,7 @@
     <Compile Include="Converter\BoolToOpacityConverter.cs" />
     <Compile Include="Converter\StringToTimeConverter.cs" />
     <Compile Include="Error\Error.cs" />
+    <Compile Include="Error\Exceptions\VtmParsingException.cs" />
     <Compile Include="Library\VtmRectangle.cs" />
     <Compile Include="Library\StrLib.cs" />
     <Compile Include="Logging\IVTMLogger.cs" />

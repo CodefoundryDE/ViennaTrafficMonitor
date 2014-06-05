@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using ViennaTrafficMonitor.Events;
+using ViennaTrafficMonitor.Mapper;
 using VtmFramework.Command;
+using VtmFramework.Error;
+using VtmFramework.Error.Exceptions;
 using VtmFramework.Scheduler;
 using VtmFramework.ViewModel;
 
@@ -24,8 +27,43 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         [SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
         public MainViewModel() {
-            //_loadTheme();
 
+            _initializeMapper();
+
+            _initializeView();
+
+        }
+
+        private void _initializeMapper() {
+            try {
+                IHaltestellenMapper hm = HaltestellenMapperFactory.Instance;
+                ISteigMapper sm = SteigMapperFactory.Instance;
+                ILinienMapper lm = LinienMapperFactory.Instance;
+            } catch (InvalidOperationException ex) {
+                Task<EErrorResult> task = _handleParsingError(ex);
+                //task.Start();
+                task.Wait();
+                EErrorResult result = task.Result;
+                switch (result) {
+                    case EErrorResult.Retry: {
+                            _initializeMapper();
+                            break;
+                        }
+                    default: {
+                            OnBeenden(this, new EventArgs());
+                            break;
+                        }
+                }
+            }
+        }
+
+        private async Task<EErrorResult> _handleParsingError(InvalidOperationException ex) {
+            EErrorResult result = await RaiseError("Parsing-Fehler", ex.Message, EErrorButtons.RetryCancel, ex);
+
+            return result;
+        }
+
+        private void _initializeView() {
             Einstellungen = new EinstellungenViewModel();
             Einstellungen.Beenden += OnBeenden;
             Einstellungen.Info += OnInfo;

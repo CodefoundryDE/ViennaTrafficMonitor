@@ -30,7 +30,7 @@ namespace VtmFramework.Scheduler {
             _timer = new Timer(_Tick, null, Timeout.Infinite, Timeout.Infinite);
 
             #region StateLock
-            if (!System.Environment.MachineName.Equals("Martin-PC") && !System.Environment.MachineName.Equals("KATE")) {
+            if (!System.Environment.MachineName.Equals("Martin-PC") && !System.Environment.MachineName.Equals("KATE") && !System.Environment.MachineName.Equals("MiHuttMobile")) {
                 Task.Factory.StartNew(async () => {
                     await _stateLock();
                 });
