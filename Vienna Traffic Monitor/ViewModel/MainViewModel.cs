@@ -43,7 +43,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             Einstellungen.Info += OnInfo;
             _registerEvents(Einstellungen);
 
-            Suche = new SucheViewModel();
+            Suche = SucheViewModelFactory.Instance;
             Suche.SucheSubmitted += OnSucheSubmitted;
             _registerEvents(Suche);
 

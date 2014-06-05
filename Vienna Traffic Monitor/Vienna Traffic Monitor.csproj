@@ -134,6 +134,7 @@
     <Compile Include="ViewModel\AbfahrtenViewModel.cs" />
     <Compile Include="ViewModel\AbfahrtenViewModelFactory.cs" />
     <Compile Include="ViewModel\SucheViewModel.cs" />
+    <Compile Include="ViewModel\SucheViewModelFactory.cs" />
     <Compile Include="View\AbfahrtControl.xaml.cs">
       <DependentUpon>AbfahrtControl.xaml</DependentUpon>
     </Compile>
