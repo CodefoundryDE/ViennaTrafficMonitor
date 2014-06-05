@@ -92,7 +92,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private void _InitializeRbls() {
             ISteigMapper sm = SteigMapperFactory.Instance;
-            List<ISteig> steige = sm.FindByHaltestelle(_Haltestelle.Id);
+            ICollection<ISteig> steige = sm.FindByHaltestelle(_Haltestelle.Id);
             _Rbls = new HashSet<int>(from steig in steige
                                      where steig.Rbl > 0
                                      select steig.Rbl);

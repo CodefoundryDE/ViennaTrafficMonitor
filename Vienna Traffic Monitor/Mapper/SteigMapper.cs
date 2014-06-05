@@ -22,21 +22,21 @@ namespace ViennaTrafficMonitor.Mapper {
             return _data[id];
         }
 
-        public List<ISteig> FindByHaltestelle(int haltestellenId) {
+        public IList<ISteig> FindByHaltestelle(int haltestellenId) {
             var query = from steig in _data.Values
                         where steig.HaltestellenId.Equals(haltestellenId)
                         select steig;
             return new List<ISteig>(query);
         }
 
-        public List<ISteig> FindByRbl(int rbl) {
+        public IList<ISteig> FindByRbl(int rbl) {
             var query = from steig in _data.Values
                         where steig.Rbl.Equals(rbl)
                         select steig;
             return new List<ISteig>(query);
         }
 
-        public List<ISteig> FindByLinie(int linienId) {
+        public IList<ISteig> FindByLinie(int linienId) {
             var query = from steig in _data.Values
                         where steig.LinienId.Equals(linienId)
                         orderby steig.Reihenfolge ascending

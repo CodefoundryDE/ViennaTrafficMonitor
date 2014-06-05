@@ -37,7 +37,7 @@ namespace ViennaTrafficMonitor.Mapper {
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public List<IHaltestelle> FindByName(String name) {
+        public ICollection<IHaltestelle> FindByName(String name) {
             if (String.IsNullOrWhiteSpace(name)) {
                 return new List<IHaltestelle>();
             }
@@ -51,13 +51,12 @@ namespace ViennaTrafficMonitor.Mapper {
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
-        public List<IHaltestelle> FindByRectangle(VtmRectangle rect) {
+        public ICollection<IHaltestelle> FindByRectangle(VtmRectangle rect) {
             if (rect != null) {
                 double minX = rect.BottomLeft.X;
                 double minY = rect.BottomLeft.Y;
                 double maxX = rect.TopRight.X;
                 double maxY = rect.TopRight.Y;
-
 
                 return (from date in _data
                         where date.Value.Location.X >= minX
@@ -66,7 +65,7 @@ namespace ViennaTrafficMonitor.Mapper {
                         && date.Value.Location.Y <= maxY
                         select date.Value).ToList();
             }
-            return null;
+            return new List<IHaltestelle>();
         }
 
         public IDictionary<int, Point> AllCoordinates {
