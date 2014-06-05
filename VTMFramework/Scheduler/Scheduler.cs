@@ -21,6 +21,8 @@ namespace VtmFramework.Scheduler {
         private ConcurrentQueue<T> _queue;
         private Timer _timer;
 
+        public event EventHandler Scheduled;
+
         /// <summary>
         /// Default-Konstruktor
         /// </summary>
@@ -69,7 +71,13 @@ namespace VtmFramework.Scheduler {
         /// </summary>
         /// <param name="element"></param>
         public void Schedule(T element) {
+            Scheduled += element.OnScheduled;
             _queue.Enqueue(element);
+            EventHandler handler = Scheduled;
+            if (handler != null) {
+                handler(this, new EventArgs());
+            }
+            Scheduled -= element.OnScheduled;
         }
 
         /// <summary>
@@ -77,8 +85,14 @@ namespace VtmFramework.Scheduler {
         /// </summary>
         /// <param name="element"></param>
         public void ScheduleInstant(T element) {
+            Scheduled += element.OnScheduled;
             _Stop();
             Aktuell = element;
+            EventHandler handler = Scheduled;
+            if (handler != null) {
+                handler(this, new EventArgs());
+            }
+            Scheduled = null;
         }
 
         /// <summary>

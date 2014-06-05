@@ -32,46 +32,19 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public Scheduler<AbstractViewModel> Scheduler { get; private set; }
 
-        [SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
+        
         public MainViewModel() {
             _errors = new Dictionary<AbstractViewModel, ErrorViewModel>();
+            Scheduler = new Scheduler<AbstractViewModel>();
+            Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
 
-            Hauptfenster = HauptfensterViewModelFactory.Instance;
-            _initializeMapper();
-            _registerEvents(Hauptfenster);
-            _initializeView();
-
+            InitializationViewModel Ivm = new InitializationViewModel();
+            Ivm.Beenden += OnBeenden;
+            Ivm.Initialized += OnInitialized;
+            Scheduler.ScheduleInstant(Ivm);
         }
 
-        private void _initializeMapper() {
-            try {
-                IHaltestellenMapper hm = HaltestellenMapperFactory.Instance;
-                ISteigMapper sm = SteigMapperFactory.Instance;
-                ILinienMapper lm = LinienMapperFactory.Instance;
-            } catch (InvalidOperationException ex) {
-                Task<EErrorResult> task = _handleParsingError(ex);
-                //task.Start();
-                task.Wait();
-                EErrorResult result = task.Result;
-                switch (result) {
-                    case EErrorResult.Retry: {
-                            _initializeMapper();
-                            break;
-                        }
-                    default: {
-                            OnBeenden(this, new EventArgs());
-                            break;
-                        }
-                }
-            }
-        }
-
-        private async Task<EErrorResult> _handleParsingError(InvalidOperationException ex) {
-            EErrorResult result = await RaiseError("Parsing-Fehler", ex.Message, EErrorButtons.RetryCancel, ex);
-
-            return result;
-        }
-
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
         private void _initializeView() {
             Einstellungen = new EinstellungenViewModel();
             Einstellungen.Beenden += OnBeenden;
@@ -86,8 +59,11 @@ namespace ViennaTrafficMonitor.ViewModel {
             Map.HaltestelleSelected += OnSucheSubmitted;
             _registerEvents(Map);
 
-            Scheduler = new Scheduler<AbstractViewModel>();
-            Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
+            Hauptfenster = HauptfensterViewModelFactory.Instance;
+            _registerEvents(Hauptfenster);
+
+            
+            
             Scheduler.ScheduleInstant(Hauptfenster);
         }
 
@@ -138,6 +114,10 @@ namespace ViennaTrafficMonitor.ViewModel {
             vm.ErrorCleared += OnErrorCleared;
         }
 
+        private void OnInitialized(object sender, EventArgs e) {
+            _initializeView();
+        }
+
         #region ButtonMap
         public ICommand ButtonMapCommand {
             get { return new DelegateCommand(_switchToMap); }
@@ -146,7 +126,6 @@ namespace ViennaTrafficMonitor.ViewModel {
             Scheduler.ScheduleInstant(Map);
         }
         #endregion
-
     }
 
 }

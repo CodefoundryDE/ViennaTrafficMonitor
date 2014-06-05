@@ -56,6 +56,7 @@ namespace VtmFramework.ViewModel {
             return new Unsubscriber();
         }
 
+        #region ButtonOk
         public ICommand ButtonOkCommand {
             get { return new DelegateCommand(_ButtonOk); }
         }
@@ -64,5 +65,12 @@ namespace VtmFramework.ViewModel {
             _observer.OnNext(EErrorResult.Ok);
             _observer.OnCompleted();
         }
+
+        #endregion
+
+        #region ButtonCancel
+
+        #endregion
+
     }
 }
