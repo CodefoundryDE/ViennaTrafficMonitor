@@ -9,7 +9,7 @@ using VtmFramework.Error;
 
 namespace VtmFramework.ViewModel {
 
-    public abstract class AbstractViewModel : IViewModel, IObserver<EErrorResult>, IDisposable {
+    public abstract class AbstractViewModel : IObserver<EErrorResult>, IDisposable, INotifyPropertyChanged {
 
         private bool _disposed = false;
         private object syncRoot = new object();
