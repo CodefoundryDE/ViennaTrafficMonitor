@@ -27,8 +27,8 @@ namespace ViennaTrafficMonitor.ViewModel {
         private ICollection<IHaltestelle> _haltestellen7;
         private Random _randomNumber;
 
-        private string[] _flap;
-        public string[] Flap {
+        private IList<String> _flap;
+        public IList<String> Flap {
             get { return _flap; }
             private set {
                 _flap = value;
@@ -36,16 +36,19 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         Timer FlapTimer;
 
         public HauptfensterViewModel(IHaltestellenMapper haltestellenMapper)
             : base() {
-            _randomNumber = new Random();
-            _haltestellenMapper = haltestellenMapper;
-            _haltestellen6 = _haltestellenMapper.GetByNameLength(6);
-            _haltestellen7 = _haltestellenMapper.GetByNameLength(7);
-            Flap = new string[3] { "VIENNA", "TRAFFIC", "MONITOR" };
-            FlapTimer = new Timer(_flapTick, null, 5000, 5000);
+            if (haltestellenMapper != null) {
+                _randomNumber = new Random();
+                _haltestellenMapper = haltestellenMapper;
+                _haltestellen6 = _haltestellenMapper.GetByNameLength(6);
+                _haltestellen7 = _haltestellenMapper.GetByNameLength(7);
+                Flap = new List<String> { "VIENNA", "TRAFFIC", "MONITOR" };
+                FlapTimer = new Timer(_flapTick, null, 5000, 5000);
+            }
         }
 
         private void _flapTick(object state) {
