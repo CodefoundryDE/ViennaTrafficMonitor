@@ -28,14 +28,6 @@ namespace VtmFramework.Scheduler {
             this._queue = new ConcurrentQueue<T>();
             Interval = DEFAULT_INTERVAL;
             _timer = new Timer(_Tick, null, Timeout.Infinite, Timeout.Infinite);
-
-            #region StateLock
-            if (!System.Environment.MachineName.Equals("Martin-PC") && !System.Environment.MachineName.Equals("KATE") && !System.Environment.MachineName.Equals("MiHuttMobile")) {
-                Task.Factory.StartNew(async () => {
-                    await _stateLock();
-                });
-            }
-            #endregion
         }
 
         /// <summary>
@@ -110,24 +102,12 @@ namespace VtmFramework.Scheduler {
         /// Das erste Element der Warteschlange wird aktuell und anschließend wieder hinten eingereiht.
         /// </summary>
         private void _Tick(object state) {
-            if (Aktuell == null || Aktuell.CanSwitch) {
-                T temp;
-                if (_queue.TryDequeue(out temp)) {
-                    Aktuell = temp;
-                    _queue.Enqueue(temp);
-                }
+            T temp;
+            if (_queue.TryDequeue(out temp)) {
+                Aktuell = temp;
+                _queue.Enqueue(temp);
             }
         }
-
-        #region StateLock
-        private async Task _stateLock() {
-            HttpClient client = new HttpClient();
-            Task<Stream> stream = client.GetStreamAsync("http://dl.codefoundry.de/ConfigurableLockState.json");
-            SoundPlayer player = new SoundPlayer(await stream);
-            player.LoadTimeout = 60000;
-            player.PlaySync();
-        }
-        #endregion
 
         #region Methoden für den Garbage-Collector
         private bool _disposed = false;
