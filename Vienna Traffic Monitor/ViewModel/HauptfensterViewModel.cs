@@ -27,17 +27,6 @@ namespace ViennaTrafficMonitor.ViewModel {
         private ICollection<IHaltestelle> _haltestellen7;
         private Random _randomNumber;
 
-        public ICommand BErrorCommand {
-            get { return new AwaitableDelegateCommand(_berror); }
-        }
-
-        private async Task _berror() {
-            Task<EErrorResult> result;
-            //result = RaiseError("Hallo Welt!", "Ganz strenge Fehlermeldung!", EErrorButtons.OkCancel);
-            result = RaiseError("Exception", "Ganz toll geloggte Exception", EErrorButtons.OkCancel, new Exception("Logging-Exception zum Test2"));
-            string text = (await result).ToString();
-        }
-
         private string[] _flap;
         public string[] Flap {
             get { return _flap; }

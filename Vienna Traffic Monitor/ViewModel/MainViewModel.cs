@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using ViennaTrafficMonitor.Events;
 using VtmFramework.Command;
+using VtmFramework.Error;
 using VtmFramework.Scheduler;
 using VtmFramework.ViewModel;
 
@@ -16,27 +17,43 @@ namespace ViennaTrafficMonitor.ViewModel {
 
     public class MainViewModel : AbstractViewModel {
 
+        public HauptfensterViewModel Hauptfenster { get; private set; }
         public SucheViewModel Suche { get; private set; }
         public MapViewModel Map { get; private set; }
         public EinstellungenViewModel Einstellungen { get; private set; }
+
+        private IDictionary<AbstractViewModel, ErrorViewModel> _errors;
+        public ErrorViewModel Error {
+            get { return _errors.ElementAtOrDefault(0).Value; }
+        }
+
 
         public Scheduler<AbstractViewModel> Scheduler { get; private set; }
 
         [SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
         public MainViewModel() {
             //_loadTheme();
+            _errors = new Dictionary<AbstractViewModel, ErrorViewModel>();
+
+            Hauptfenster = HauptfensterViewModelFactory.Instance;
+            _registerEvents(Hauptfenster);
 
             Einstellungen = new EinstellungenViewModel();
             Einstellungen.Beenden += OnBeenden;
             Einstellungen.Info += OnInfo;
+            _registerEvents(Einstellungen);
+
             Suche = new SucheViewModel();
             Suche.SucheSubmitted += OnSucheSubmitted;
+            _registerEvents(Suche);
+
             Map = MapViewModelFactory.Instance;
             Map.HaltestelleSelected += OnSucheSubmitted;
+            _registerEvents(Map);
 
             Scheduler = new Scheduler<AbstractViewModel>();
             Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
-            Scheduler.ScheduleInstant(HauptfensterViewModelFactory.Instance);
+            Scheduler.ScheduleInstant(Hauptfenster);
         }
 
         private void OnSchedulerAktuellChanged(object Sender, EventArgs e) {
@@ -57,11 +74,33 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         private void OnSucheSubmitted(object sender, SucheEventArgs e) {
-            Scheduler.ScheduleInstant(AbfahrtenViewModelFactory.GetInstance(e.HaltestelleSelected));
+            AbstractViewModel vm = AbfahrtenViewModelFactory.GetInstance(e.HaltestelleSelected);
+            _registerEvents(vm);
+            Scheduler.ScheduleInstant(vm);
         }
 
         private void OnInfo(object sender, EventArgs e) {
-            Scheduler.ScheduleInstant(new InfoViewModel());
+            AbstractViewModel vm = new InfoViewModel();
+            _registerEvents(vm);
+            Scheduler.ScheduleInstant(vm);
+        }
+
+        private void OnErrorRaised(object sender, ErrorEventArgs e) {
+            ErrorViewModel vm = e.Error;
+            if (vm != null) {
+                _errors.Add((AbstractViewModel)sender, vm);
+                RaisePropertyChangedEvent("Error");
+            }
+        }
+
+        private void OnErrorCleared(object sender, EventArgs e) {
+            _errors.Remove((AbstractViewModel)sender);
+            RaisePropertyChangedEvent("Error");
+        }
+
+        private void _registerEvents(AbstractViewModel vm) {
+            vm.ErrorRaised += OnErrorRaised;
+            vm.ErrorCleared += OnErrorCleared;
         }
 
         #region ButtonMap
