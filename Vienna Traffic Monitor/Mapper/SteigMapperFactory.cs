@@ -8,7 +8,6 @@ using System.Windows;
 using System.Windows.Shapes;
 using ViennaTrafficMonitor.CsvImport.Parser;
 using ViennaTrafficMonitor.Model;
-using VtmFramework.Factory;
 
 namespace ViennaTrafficMonitor.Mapper {
 

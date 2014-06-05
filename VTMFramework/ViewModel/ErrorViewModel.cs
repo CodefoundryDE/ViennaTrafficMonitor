@@ -13,7 +13,7 @@ using VtmFramework.Logging;
 
 namespace VtmFramework.ViewModel {
 
-    public class ErrorViewModel : IViewModel, IObservable<EErrorResult> {
+    public class ErrorViewModel : INotifyPropertyChanged, IObservable<EErrorResult> {
 
         private class Unsubscriber : IDisposable {
             public void Dispose() {

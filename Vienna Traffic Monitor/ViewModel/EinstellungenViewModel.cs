@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VtmFramework.Command;
+using VtmFramework.Logging;
 using VtmFramework.ViewModel;
 
 namespace ViennaTrafficMonitor.ViewModel {
@@ -57,7 +58,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        public bool Dummy {
+        public static bool Dummy {
             get { return Properties.Settings.Default.DummyRequester; }
             set {
                 Properties.Settings.Default.DummyRequester = value;
@@ -74,12 +75,12 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        public ICollection<string> AvailableDictionaries {
+        public static ICollection<string> AvailableDictionaries {
             get { return _getDictionaries(); }
         }
 
 
-        private ICollection<string> _getDictionaries() {
+        private static ICollection<string> _getDictionaries() {
             ICollection<string> dict = new List<string>();
             dict.Add("Light");
             dict.Add("Dark");
@@ -92,7 +93,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             try {
                 // Das letzte Theme (falls vorhanden) entfernen
                 Application.Current.Resources.MergedDictionaries.RemoveAt(1);
-            } catch (Exception) { }
+            } catch (ArgumentOutOfRangeException) { }
             // Neues Theme hinzufügen
             Application.Current.Resources.MergedDictionaries.Add(dict);
         }

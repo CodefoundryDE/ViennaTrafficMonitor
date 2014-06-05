@@ -16,6 +16,11 @@ using ViennaTrafficMonitor.Events;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
+    public class VtmPushpin {
+        public IHaltestelle Haltestelle { get; set; }
+        public Location Location { get; set; }
+    }
+
     public class MapViewModel : AbstractViewModel {
 
         private ILinienMapper _LinienMapper;
@@ -51,10 +56,6 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        public struct VtmPushpin {
-            public IHaltestelle Haltestelle { get; set; }
-            public Location Location { get; set; }
-        };
         private ICollection<VtmPushpin> _pushpins;
         public ICollection<VtmPushpin> Pushpins {
             get { return _pushpins; }
@@ -95,9 +96,6 @@ namespace ViennaTrafficMonitor.ViewModel {
             Center = new Location(48.208333, 16.372778);
             ZoomLevel = 13.0;
 
-            // TODO
-            //MapControl.ViewChangeEnd += _mapViewChangeEnd;
-
             _drawLinien();
         }
 
@@ -110,12 +108,6 @@ namespace ViennaTrafficMonitor.ViewModel {
             _filterCollection.Add("TramWlb", new MapFilter(EVerkehrsmittel.TramWlb));
             _filterCollection.Add("CityBus", new MapFilter(EVerkehrsmittel.CityBus));
             _filterCollection.Add("NachtBus", new MapFilter(EVerkehrsmittel.NachtBus));
-        }
-
-        private void _mapViewChangeEnd(object sender, MapEventArgs e) {
-            if (ZoomLevel < 15) {
-                //MapControl.ZoomLevel = 15;
-            }
         }
 
         private void _drawHaltestellen(IEnumerable<IHaltestelle> haltestellen) {

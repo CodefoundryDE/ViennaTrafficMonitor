@@ -29,10 +29,10 @@ namespace ViennaTrafficMonitor.Mapper {
 
 
 
-        public Dictionary<ILinie, List<IHaltestelle>> HaltestellenOrdered {
+        public IDictionary<ILinie, List<IHaltestelle>> HaltestellenOrdered {
             get { return _getHaltestellenOrdered(); }
         }
-        private Dictionary<ILinie, List<IHaltestelle>> _getHaltestellenOrdered() {
+        private IDictionary<ILinie, List<IHaltestelle>> _getHaltestellenOrdered() {
             ConcurrentDictionary<int, ISteig> steige = SteigMapperFactory.Instance.All;
             ICollection<IHaltestelle> haltestellen = HaltestellenMapperFactory.Instance.All;
 

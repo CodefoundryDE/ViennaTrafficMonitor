@@ -40,8 +40,8 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private IHaltestellenMapper _mapper;
 
-        public SucheViewModel() {
-            _mapper = HaltestellenMapperFactory.Instance;
+        public SucheViewModel(IHaltestellenMapper haltestellenMapper) {
+            _mapper = haltestellenMapper;
         }
 
         private async void _textChangedAsync() {
