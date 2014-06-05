@@ -14,33 +14,52 @@ namespace VtmFramework.ViewModel {
         private bool _disposed = false;
         private object syncRoot = new object();
 
+        public event EventHandler<ErrorEventArgs> ErrorRaised;
+        public event EventHandler ErrorCleared;
         private AutoResetEvent _errorCompleted;
         private EErrorResult _errorResult;
 
-        public ErrorViewModel Error { get; private set; }
+        //public ErrorViewModel Error { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected AbstractViewModel() {
-            _canSwitch = true;
+            //_canSwitch = true;
             _errorCompleted = new AutoResetEvent(false);
         }
 
         private async Task<EErrorResult> _raiseError() {
-            RaisePropertyChangedEvent("Error");
             await Task.Run(() => _errorCompleted.WaitOne());
-            this.Error = null;
-            RaisePropertyChangedEvent("Error");
             return _errorResult;
         }
 
         protected async Task<EErrorResult> RaiseError(string title, string message, EErrorButtons buttonSet) {
-            this.Error = ErrorViewModelFactory.GetInstance(title, message, buttonSet, this);
-            return await _raiseError();
+            ErrorViewModel Error = ErrorViewModelFactory.GetInstance(title, message, buttonSet, this);
+            RaiseErrorEvent(Error);
+            EErrorResult result = await _raiseError();
+            ClearErrorEvent();
+            return result;
         }
 
         protected async Task<EErrorResult> RaiseError(string title, string message, EErrorButtons buttonSet, Exception ex) {
-            this.Error = ErrorViewModelFactory.GetInstance(title, message, buttonSet, this, ex);
-            return await _raiseError();
+            ErrorViewModel Error = ErrorViewModelFactory.GetInstance(title, message, buttonSet, this, ex);
+            RaiseErrorEvent(Error);
+            EErrorResult result = await _raiseError();
+            ClearErrorEvent();
+            return result;
+        }
+
+        private void RaiseErrorEvent(ErrorViewModel error) {
+            EventHandler<ErrorEventArgs> handler = ErrorRaised;
+            if (handler != null) {
+                handler(this, new ErrorEventArgs(error));
+            }
+        }
+
+        private void ClearErrorEvent() {
+            EventHandler handler = ErrorCleared;
+            if (handler != null) {
+                handler(this, new EventArgs());
+            }
         }
 
         protected void RaisePropertyChangedEvent(string propertyName) {
@@ -49,23 +68,23 @@ namespace VtmFramework.ViewModel {
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        /// <summary>
-        /// Zeigt an, ob der Scheduler das ViewModel wechseln darf.
-        /// </summary>
-        /// <returns></returns>
-        private bool _canSwitch;
-        public bool CanSwitch {
-            get {
-                lock (syncRoot) {
-                    return (Error == null) && _canSwitch;
-                }
-            }
-            set {
-                lock (syncRoot) {
-                    _canSwitch = value;
-                }
-            }
-        }
+        ///// <summary>
+        ///// Zeigt an, ob der Scheduler das ViewModel wechseln darf.
+        ///// </summary>
+        ///// <returns></returns>
+        //private bool _canSwitch;
+        //public bool CanSwitch {
+        //    get {
+        //        lock (syncRoot) {
+        //            return (Error == null) && _canSwitch;
+        //        }
+        //    }
+        //    set {
+        //        lock (syncRoot) {
+        //            _canSwitch = value;
+        //        }
+        //    }
+        //}
 
         #region Observer
         public void OnCompleted() {
