@@ -9,9 +9,8 @@
              d:DesignHeight="190.4" d:DesignWidth="700.8">
     <UserControl.Resources>
         <c:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <c:BoolToOpacityConverter x:Key="BoolToOpacityConverter"/>
     </UserControl.Resources>
-    <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" Opacity="{Binding ElementName=CheckboxEinstellungen, Converter={StaticResource BoolToOpacityConverter}, Path=IsChecked}">
+    <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
         <StackPanel.Style>
             <Style TargetType="StackPanel">
                 <Setter Property="Background" Value="Transparent" />
@@ -66,7 +65,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
                 <Label Content="Style" VerticalAlignment="Center" />
-                <ComboBox Style="{StaticResource StandardComboBox}" SelectedValue="{Binding Theme}" Width="120" ItemsSource="{Binding AvailableDictionaries}" IsEditable="False" VerticalAlignment="Center" />
+                <ComboBox SelectedValue="{Binding Theme}" Width="120" ItemsSource="{Binding AvailableDictionaries}" IsEditable="False" VerticalAlignment="Center" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="20">
                 <Button Content="Info" Margin="0,0,10,0" Style="{StaticResource ButtonInfo}" Command="{Binding InfoCommand}" />
