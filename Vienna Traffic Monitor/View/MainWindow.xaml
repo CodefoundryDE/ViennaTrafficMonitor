@@ -24,7 +24,7 @@
             <v:Info />
         </DataTemplate>
     </Window.Resources>
-    <Grid Style="{StaticResource HauptfensterBg}" Background="Transparent">
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

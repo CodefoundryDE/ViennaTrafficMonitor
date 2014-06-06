@@ -10,9 +10,7 @@
     <SolidColorBrush x:Key="BorderSlider" Color="#FF8D8D8D"/>
     <SolidColorBrush x:Key="BackgroundPushpin" Color="#1C1C1C"/>
 
-    <Color x:Key="NotSelectedColor">White</Color>
-    
-    
+
     <!-- Pushpins -->
     <Style TargetType="m:Pushpin" x:Key="MapPushpin">
         <Setter Property="Background" Value="{DynamicResource BackgroundPushpin}" />
@@ -42,16 +40,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-    </Style>
-
-    <Style x:Key="MapFilterButton" TargetType="ToggleButton">
-        <!--<Setter Property="Foreground" Value="White" />
-        <Setter Property="FontWeight" Value="ExtraBold" />
-        <Setter Property="FontSize" Value="20" />
-        <Setter Property="Padding" Value="10,10,10,10" />
-        <Setter Property="Width" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" />
-        <Setter Property="BorderThickness" Value="0" />-->
     </Style>
 
     <Style TargetType="StackPanel" x:Key="FilterStackPanel">
@@ -107,7 +95,6 @@
                             <Setter Property="Foreground" Value="{DynamicResource GrayTextBrushKey}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -131,55 +118,6 @@
         </Style.Triggers>
     </Style>
 
-
-    <!-- MouseOverButton -->
-
-    <Style x:Key="MouseOverEffect" TargetType="Control">
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect />
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-
-    <!-- InfoButton -->
-
-    <Style x:Key="ButtonInfo" TargetType="Button" BasedOn="{StaticResource MouseOverEffect}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}" >
-                    <StackPanel Name="Info" Orientation="Horizontal" Background="Transparent">
-                        <Label Content="{TemplateBinding Content}" VerticalAlignment="Center" />
-                        <Path Data="M8,0 L8,10 M8,12 L8,16" Stroke="{DynamicResource MainColor}" StrokeThickness="5" StrokeLineJoin="Round" VerticalAlignment="Center" />
-                    </StackPanel>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-
-
-
-    <Style x:Key="EinstellungenPfeilBg" TargetType="StackPanel">
-        
-        
-    </Style>
-
-    <!-- Hintergrund des Einstellungenfensters -->
-    <Style x:Key="EinstellungenBg" TargetType="DockPanel">
-        <!--<Setter Property="Background" Value="{StaticResource Background}"/>-->
-    </Style>
-
-    <!-- Hintergrund des Hauptfensters -->
-    <Style x:Key="HauptfensterBg" TargetType="Grid">
-        <Setter Property="Background" Value="{StaticResource Background}"/>
-    </Style>
-
     <!-- Einstellungspfeil -->
 
     <Style x:Key="CheckboxEinstellungen" TargetType="CheckBox">
@@ -200,23 +138,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
-    <!-- Beenden Button -->
-
-    <Style x:Key="BeendenButton" TargetType="Button" BasedOn="{StaticResource MouseOverEffect}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}" >
-                    <StackPanel Orientation="Horizontal" Background="Transparent">
-                        <Label Content="Beenden" VerticalAlignment="Center" />
-                        <Path Data="M0,0 L16,16 M0,16 L16,0" Stroke="{DynamicResource MainColor}" StrokeThickness="5" StrokeLineJoin="Round" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
 
     <!-- Slider -->
 
@@ -279,6 +200,50 @@
                             <Setter TargetName="BackgroundBorder" Property="Background" Value="{DynamicResource MainColor}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- MouseOverEffekt für Buttons -->
+
+    <Style x:Key="MouseOverEffect" TargetType="Control">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- InfoButton -->
+
+    <Style x:Key="ButtonInfo" TargetType="Button" BasedOn="{StaticResource MouseOverEffect}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <StackPanel Name="Info" Orientation="Horizontal" Background="Transparent">
+                        <Label Content="{TemplateBinding Content}" VerticalAlignment="Center" />
+                        <Path Data="M8,0 L8,10 M8,12 L8,16" Stroke="{DynamicResource MainColor}" StrokeThickness="5" StrokeLineJoin="Round" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Beenden Button -->
+
+    <Style x:Key="BeendenButton" TargetType="Button" BasedOn="{StaticResource MouseOverEffect}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <StackPanel Orientation="Horizontal" Background="Transparent">
+                        <Label Content="Beenden" VerticalAlignment="Center" />
+                        <Path Data="M0,0 L16,16 M0,16 L16,0" Stroke="{DynamicResource MainColor}" StrokeThickness="5" StrokeLineJoin="Round" VerticalAlignment="Center"/>
+                    </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -636,7 +601,7 @@
         <Setter Property="Background" Value="{DynamicResource LightBackground}"/>
     </Style>
 
-    <!-- ComboBox -->
+    <!-- ComboBoxToggleButton -->
 
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
         <Grid>
@@ -659,9 +624,13 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <!-- ComboBoxTextBox -->
+
     <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
         <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
     </ControlTemplate>
+
+    <!-- ComboBox -->
 
     <Style TargetType="ComboBox">
         <Setter Property="Foreground" Value="{DynamicResource Foreground}"/>
