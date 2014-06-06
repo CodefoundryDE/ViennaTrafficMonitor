@@ -1,6 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    
-    
+    <SolidColorBrush x:Key="MainColor" Color="YellowGreen"/>
+    <SolidColorBrush x:Key="BackgroundSelected" Color="YellowGreen"/>
+    <SolidColorBrush x:Key="BorderBrushSelected" Color="#AED75b"/>
+    <SolidColorBrush x:Key="MainColorDark" Color="#6C9023"/>
+    <SolidColorBrush x:Key="LightBackground" Color="#e0f0c0"/>
+    <SolidColorBrush x:Key="BackgroundNormal" Color="White"/>
+    <SolidColorBrush x:Key="Foreground" Color="Black"/>
+    <SolidColorBrush x:Key="BorderBrushNormal" Color="#54545C"/>
+    <SolidColorBrush x:Key="BackgroundHighlighted" Color="YellowGreen"/>
+
+
 </ResourceDictionary>

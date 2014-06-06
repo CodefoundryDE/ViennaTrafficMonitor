@@ -75,7 +75,7 @@ namespace ViennaTrafficMonitor.Deserializer {
         public Departure(DepartureTime depTime) {
             DepartureTime = depTime;
         }
-        public Departure() {}
+        public Departure() { }
     }
 
     [GeneratedCodeAttribute("JSON to C#", "1.0")]
@@ -122,6 +122,7 @@ namespace ViennaTrafficMonitor.Deserializer {
     [GeneratedCodeAttribute("JSON to C#", "1.0")]
     public class Data {
         public List<Monitor> Monitors { get; set; }
+        public List<TrafficInfo> trafficInfos { get; set; }
         public List<TrafficInfoCategory> TrafficInfoCategories { get; set; }
         public List<TrafficInfoCategoryGroup> TrafficInfoCategoryGroups { get; set; }
     }
@@ -132,5 +133,26 @@ namespace ViennaTrafficMonitor.Deserializer {
         public int MessageCode { get; set; }
         public string ServerTime { get; set; }
     }
+
+    [GeneratedCodeAttribute("JSON to C#", "1.0")]
+    public class TrafficInfo {
+        public int refTrafficInfoCategoryId { get; set; }
+        public string name { get; set; }
+        public string priority { get; set; }
+        public string owner { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+        public Time time { get; set; }
+        public List<string> relatedLines { get; set; }
+        public List<int> relatedStops { get; set; }
+    }
+
+    [GeneratedCodeAttribute("JSON to C#", "1.0")]
+    public class Time {
+        public string start { get; set; }
+        public string end { get; set; }
+        public string resume { get; set; }
+    }
+
 
 }

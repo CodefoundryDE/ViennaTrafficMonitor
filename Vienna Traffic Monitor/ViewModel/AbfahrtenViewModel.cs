@@ -54,7 +54,8 @@ namespace ViennaTrafficMonitor.ViewModel {
                             new LocationStop(),
                             new List<TrafficInfoCategory>(),
                             new List<TrafficInfoCategoryGroup>(),
-                            "noType"));
+                            "noType",
+                            new List<TrafficInfo>()));
                     }
                     return response;
                 }

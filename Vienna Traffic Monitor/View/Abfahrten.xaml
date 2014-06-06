@@ -54,7 +54,6 @@
                 <Label Content="Nachtbus" Style="{StaticResource FilterLabel}" Background="Aquamarine" />
             </StackPanel>
         </StackPanel>
-        <StackPanel Name="AbfahrtPanel" Grid.Row="2" Orientation="Vertical" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-        </StackPanel>
+        <StackPanel Name="AbfahrtPanel" Grid.Row="2" Orientation="Vertical" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
     </Grid>
 </UserControl>
