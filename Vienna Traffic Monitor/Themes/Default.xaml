@@ -162,6 +162,24 @@
         </Setter>
     </Style>
 
+
+
+
+    <Style x:Key="EinstellungenPfeilBg" TargetType="StackPanel">
+        
+        
+    </Style>
+
+    <!-- Hintergrund des Einstellungenfensters -->
+    <Style x:Key="EinstellungenBg" TargetType="DockPanel">
+        <!--<Setter Property="Background" Value="{StaticResource Background}"/>-->
+    </Style>
+
+    <!-- Hintergrund des Hauptfensters -->
+    <Style x:Key="HauptfensterBg" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource Background}"/>
+    </Style>
+
     <!-- Einstellungspfeil -->
 
     <Style x:Key="CheckboxEinstellungen" TargetType="CheckBox">
@@ -259,9 +277,6 @@
                             <Setter TargetName="On" Property="Stroke" Value="White" />
                             <Setter TargetName="Off" Property="Stroke" Value="White" />
                             <Setter TargetName="BackgroundBorder" Property="Background" Value="{DynamicResource MainColor}" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <!-- ToDo: Add Style for Isenabled == False -->
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
