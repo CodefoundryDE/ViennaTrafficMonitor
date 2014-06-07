@@ -15,18 +15,18 @@
             <Style TargetType="StackPanel">
                 <Setter Property="Background" Value="Transparent" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=CheckboxEinstellungen, Path=IsChecked}" Value="True">
+                    <DataTrigger Binding="{Binding ElementName=CheckboxEinstellungen, Path=IsChecked}" Value="False">
                         <DataTrigger.EnterActions>
                             <BeginStoryboard HandoffBehavior="Compose">
                                 <Storyboard>
-                                    <ColorAnimation Duration="0:0:1" To="White" Storyboard.TargetProperty="(StackPanel.Background).(SolidColorBrush.Color)" />
+                                    <ColorAnimation Duration="0:0:1" To="Transparent" Storyboard.TargetProperty="(StackPanel.Background).(SolidColorBrush.Color)" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </DataTrigger.EnterActions>
                         <DataTrigger.ExitActions>
                             <BeginStoryboard HandoffBehavior="Compose">
                                 <Storyboard>
-                                    <ColorAnimation Duration="0:0:1" To="Transparent" Storyboard.TargetProperty="(StackPanel.Background).(SolidColorBrush.Color)" />
+                                    <ColorAnimation Duration="0:0:1" To="White" Storyboard.TargetProperty="(StackPanel.Background).(SolidColorBrush.Color)" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </DataTrigger.ExitActions>
@@ -40,18 +40,18 @@
             <DockPanel.Style>
                 <Style TargetType="DockPanel">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=CheckboxEinstellungen, Path=IsChecked}" Value="True">
+                        <DataTrigger Binding="{Binding ElementName=CheckboxEinstellungen, Path=IsChecked}" Value="False">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard HandoffBehavior="Compose">
                                     <Storyboard>
-                                        <DoubleAnimation Duration="0:0:0.5" From="0" Storyboard.TargetProperty="Height" />
+                                        <DoubleAnimation Duration="0:0:0.5" To="0" Storyboard.TargetProperty="Height" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
                                 <BeginStoryboard HandoffBehavior="Compose">
                                     <Storyboard>
-                                        <DoubleAnimation Duration="0:0:0.5" To="0" Storyboard.TargetProperty="Height" />
+                                        <DoubleAnimation Duration="0:0:0.5" From="0" Storyboard.TargetProperty="Height" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>

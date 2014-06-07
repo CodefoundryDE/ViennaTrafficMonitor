@@ -21,8 +21,6 @@ namespace ViennaTrafficMonitor.View {
         public Einstellungen() {
             InitializeComponent();
             DockPanel.Height = SystemParameters.FullPrimaryScreenHeight / 8;
-            CheckboxEinstellungen.IsChecked = true;
-            CheckboxEinstellungen.IsChecked = false;
         }
     }
 }
