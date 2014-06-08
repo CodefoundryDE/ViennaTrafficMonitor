@@ -449,11 +449,14 @@
     <SolidColorBrush x:Key="ScrollBarPageButtonBackgroundHighlighted" Color="#05FFFFFF"/>
 
     <!-- Buttons -->
+    <SolidColorBrush x:Key="ButtonBackgroundHighlighted" Color="#54545C"/>
+
     <Style TargetType="Button">
         <Setter Property="Visibility" Value="Visible"/>
         <Setter Property="Foreground" Value="{DynamicResource Foreground}"/>
         <Setter Property="Background" Value="{DynamicResource BackgroundNormal}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushNormal}"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -468,7 +471,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushHighlighted}" />
-                            <Setter Property="Background" Value="{DynamicResource BackgroundHighlighted}" />
+                            <Setter Property="Background" Value="{DynamicResource ButtonBackgroundHighlighted}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="{DynamicResource BackgroundSelected}"/>
@@ -563,16 +566,14 @@
         <Setter Property="Foreground" Value="{DynamicResource Foreground}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Style.Resources>
-            <Style TargetType="{x:Type ListBoxItem}">
+            <Style TargetType="{x:Type ListViewItem}">
                 <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                <Setter Property="Background" Value="{DynamicResource BackgroundNormal}"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <ControlTemplate TargetType="{x:Type ListViewItem}">
                             <Grid Margin="4,0,4,4">
                                 <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" SnapsToDevicePixels="True"/>
-                                <ContentPresenter Margin="8,5"/>
+                                <ContentPresenter Margin="4,2"/>
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <MultiTrigger>
@@ -586,6 +587,9 @@
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Background" Value="{DynamicResource BackgroundSelected}" />
                                     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushSelected}" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource BackgroundHighlighted}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
