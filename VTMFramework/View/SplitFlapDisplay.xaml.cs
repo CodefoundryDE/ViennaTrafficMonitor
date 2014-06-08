@@ -52,8 +52,17 @@ namespace VtmFramework.View {
         }
         #endregion
 
+        #region DependencyProperty Animated
+        public static readonly DependencyProperty AnimatedProperty = DependencyProperty.Register("Animated", typeof(bool), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(true));
+
+        public bool Animated {
+            get { return (bool)this.GetValue(AnimatedProperty); }
+            set { this.SetValue(AnimatedProperty, value); }
+        }
+        #endregion
+
         #region StartChar
-        public static readonly DependencyProperty StartCharProperty = DependencyProperty.Register("StartChar", typeof(char), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(' '));
+        public static readonly DependencyProperty StartCharProperty = DependencyProperty.Register("StartChar", typeof(char), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata('0'));
 
         public char StartChar {
             get { // Dieser Getter ist Threadsafe.
@@ -109,7 +118,7 @@ namespace VtmFramework.View {
             Panels.Clear();
             for (int i = 0; i < PanelCount; i++) {
                 SplitFlapPanel panel = new SplitFlapPanel();
-                panel.Content = "A";
+                panel.Content = ' ';
                 panel.Width = 40;
                 panel.BorderThickness = new Thickness(1);
                 panel.BorderBrush = new SolidColorBrush(Colors.Black);
@@ -124,17 +133,13 @@ namespace VtmFramework.View {
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
         private void OnTextChanged() {
-            string text = Text == null ? "" : Text;
+            string text = String.IsNullOrWhiteSpace(Text) ? "" : Text;
             text = StrLib.UmlautFilter(text).ToUpper().PadRight(PanelCount, ' ');
-            if (_charsCurrent == null) {
-                _charsCurrent = text.ToCharArray(0, PanelCount);
-            }
-            _charsFinal = text.ToCharArray(0, PanelCount);
 
-            //Parallel.For(0, PanelCount, (int i) => {
-            //    object[] parameters = new object[] { i, _charsCurrent[i] };
-            //    Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
-            //});
+            _charsFinal = text.ToCharArray(0, PanelCount);
+            if (_charsCurrent == null || !Animated) {
+                _charsCurrent = (char[])_charsFinal.Clone(); //text.ToCharArray(0, PanelCount);
+            }
 
             for (int i = 0; i < PanelCount; i++) {
                 object[] parameters = new object[] { i, _charsCurrent[i] };
@@ -146,24 +151,18 @@ namespace VtmFramework.View {
 
         private void _tick(object state) {
             bool action = false;
-
             for (int i = 0; i < _charsCurrent.Length; i++) {
                 if (_charsCurrent[i] != _charsFinal[i]) {
-                    _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], StartChar, EndChar);
+                    // Wenn das Zeichen außerhalb des animierten Bereichs liegt, sofort hinspringen
+                    if (_charsFinal[i] < StartChar || _charsFinal[i] > EndChar) 
+                        _charsCurrent[i] = _charsFinal[i];
+                    else
+                        _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], StartChar, EndChar);
                     object[] parameters = new object[] { i, _charsCurrent[i] };
                     Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
                     action = true;
                 }
             }
-
-            //Parallel.For(0, _charsCurrent.Length, (int i) => {
-            //    if (_charsCurrent[i] != _charsFinal[i]) {
-            //        _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], ' ', 'Z');
-            //        object[] parameters = new object[] { i, _charsCurrent[i] };
-            //        Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
-            //        action = true;
-            //    }
-            //});
             if (!action) _timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
