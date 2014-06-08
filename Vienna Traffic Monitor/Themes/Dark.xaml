@@ -6,7 +6,7 @@
     <SolidColorBrush x:Key="BorderBrushSelected" Color="#0099FF"/>
     <SolidColorBrush x:Key="MainColorDark" Color="#004C80"/>
     <SolidColorBrush x:Key="LightBackground" Color="Gray"/>
-    
+    <SolidColorBrush x:Key="ButtonBackgroundHighlighted" Color="#54545C"/>
 
     
 </ResourceDictionary>
