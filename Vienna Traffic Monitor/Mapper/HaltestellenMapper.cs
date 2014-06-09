@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,9 +42,17 @@ namespace ViennaTrafficMonitor.Mapper {
             if (String.IsNullOrWhiteSpace(name)) {
                 return new List<IHaltestelle>();
             }
-            return (from date in _data
-                    where date.Value.Name.ToLower().Contains(name.Trim().ToLower())
-                    select date.Value).ToList();
+            // Damit die Suche etwas intuitiver wird, werden die Ergebnisse, 
+            // bei denen der Suchtext im Wort vorne steht, bevorzugt.
+            var firstMatches = from haltestelle in _data.Values
+                               where haltestelle.Name.StartsWith(name.Trim(), true, CultureInfo.CurrentCulture)
+                               orderby haltestelle.Name.Length
+                               select haltestelle;
+            var allMatches = from haltestelle in _data.Values
+                             where haltestelle.Name.ToLower().Contains(name.Trim().ToLower())
+                             orderby haltestelle.Name.Length
+                             select haltestelle;
+            return firstMatches.Union(allMatches).ToList();
         }
 
         /// <summary>
