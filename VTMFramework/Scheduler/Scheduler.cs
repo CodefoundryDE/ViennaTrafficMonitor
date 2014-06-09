@@ -85,6 +85,7 @@ namespace VtmFramework.Scheduler {
         /// </summary>
         /// <param name="element"></param>
         public void ScheduleInstant(T element) {
+            Scheduled = null;
             Scheduled += element.OnScheduled;
             _Stop();
             Aktuell = element;
@@ -92,7 +93,6 @@ namespace VtmFramework.Scheduler {
             if (handler != null) {
                 handler(this, new EventArgs());
             }
-            Scheduled = null;
         }
 
         /// <summary>

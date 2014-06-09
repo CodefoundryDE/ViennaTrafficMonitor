@@ -16,40 +16,44 @@ namespace ViennaTrafficMonitor.ViewModel {
         public event EventHandler Initialized;
 
         public InitializationViewModel() {
-
         }
 
-        protected override void Init() {
-            _testMapperInitialization();
-            RaiseInitializedEvent();
+        protected async override void Init() {
+            bool success = await _testMapperInitialization();
+            if (success) {
+                RaiseInitializedEvent();
+            }
         }
 
         #region TestMapper
-        private void _testMapperInitialization() {
+        private async Task<bool> _testMapperInitialization() {
+            Task<EErrorResult> task = null;
             try {
                 IHaltestellenMapper hm = HaltestellenMapperFactory.Instance;
                 ISteigMapper sm = SteigMapperFactory.Instance;
                 ILinienMapper lm = LinienMapperFactory.Instance;
             } catch (InvalidOperationException ex) {
-                Task<EErrorResult> task = _handleParsingError(ex);
-                task.Wait();
-                EErrorResult result = task.Result;
+                task = _handleParsingError(ex);                
+            }
+            if (task != null) {
+                EErrorResult result = await task;
                 switch (result) {
                     case EErrorResult.Retry: {
-                            //_testMapperInitialization();
-                        MessageBox.Show("Habe Retry als Antwort erhalten!!!!");
-                            break;
+                            await _testMapperInitialization();
+                            return true;
                         }
                     default: {
                             RaiseBeendenEvent();
-                            break;
+                            return false;
                         }
                 }
             }
+            return true;
         }
-        private async Task<EErrorResult> _handleParsingError(InvalidOperationException ex) {
-            EErrorResult result = await RaiseError("Parsing-Fehler", ex.Message, EErrorButtons.RetryCancel, ex);
-            return result;
+        private Task<EErrorResult> _handleParsingError(InvalidOperationException ex) {
+            //EErrorResult result = await RaiseError("Parsing-Fehler", ex.Message, EErrorButtons.RetryCancel, ex);
+            //return result;
+            return RaiseError("Parsing-Fehler", ex.Message, EErrorButtons.RetryCancel, ex);
         }
         #endregion
 

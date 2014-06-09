@@ -22,7 +22,14 @@ namespace ViennaTrafficMonitor.View {
 
         public MainWindow() {
             InitializeComponent();
-        }        
+
+            this.Loaded += new RoutedEventHandler(OnGuiLoaded);
+
+        }
+
+        private void OnGuiLoaded(object sender, RoutedEventArgs e) {
+            ((MainViewModel)this.DataContext).initializeApp();
+        }
 
     }
 }

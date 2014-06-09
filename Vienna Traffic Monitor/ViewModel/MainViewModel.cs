@@ -36,12 +36,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         public MainViewModel() {
             _errors = new Dictionary<AbstractViewModel, ErrorViewModel>();
             Scheduler = new Scheduler<AbstractViewModel>();
-            Scheduler.AktuellChanged += OnSchedulerAktuellChanged;
-
-            InitializationViewModel Ivm = new InitializationViewModel();
-            Ivm.Beenden += OnBeenden;
-            Ivm.Initialized += OnInitialized;
-            Scheduler.ScheduleInstant(Ivm);
+            Scheduler.AktuellChanged += OnSchedulerAktuellChanged;            
         }
 
         [SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
@@ -60,11 +55,17 @@ namespace ViennaTrafficMonitor.ViewModel {
             _registerEvents(Map);
 
             Hauptfenster = HauptfensterViewModelFactory.Instance;
-            _registerEvents(Hauptfenster);
-
-            
+            _registerEvents(Hauptfenster);            
             
             Scheduler.ScheduleInstant(Hauptfenster);
+        }
+
+        public void initializeApp() {
+            InitializationViewModel Ivm = new InitializationViewModel();
+            Ivm.Beenden += OnBeenden;
+            Ivm.Initialized += OnInitialized;
+            _registerEvents(Ivm);
+            Scheduler.ScheduleInstant(Ivm);
         }
 
         private void OnSchedulerAktuellChanged(object Sender, EventArgs e) {
