@@ -16,6 +16,7 @@
                      PreviewKeyDown="ListBox_PreviewKeyDown" SelectedItem="{Binding SelectedItem}">
                 <ListView.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding SubmitCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Self}}" />
+                    <MouseBinding MouseAction="WheelClick" Command="{Binding SubmitCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Self}}" />
                 </ListView.InputBindings>
             </ListView>
         </Popup>
