@@ -5,8 +5,6 @@
     <SolidColorBrush x:Key="BackgroundSelected" Color="YellowGreen"/>
     <SolidColorBrush x:Key="BorderBrushSelected" Color="#AED75B"/>
     <SolidColorBrush x:Key="MainColorDark" Color="#6C9023"/>
-    <!--Alternative Hintergrundfarbe
-    <SolidColorBrush x:Key="LightBackground" Color="#E0F0C0"/>-->
     <SolidColorBrush x:Key="LightBackground" Color="White"/>
     <SolidColorBrush x:Key="BackgroundNormal" Color="White"/>
     <SolidColorBrush x:Key="Foreground" Color="Black"/>
@@ -14,10 +12,10 @@
     <SolidColorBrush x:Key="BorderBrushNormal" Color="#797984"/>
     <SolidColorBrush x:Key="BackgroundHighlighted" Color="YellowGreen"/>
     <SolidColorBrush x:Key="ButtonBackgroundHighlighted" Color="#AED75B"/>
-
-    <SolidColorBrush x:Key="TextBoxBackground" Color="White"/>
-    <SolidColorBrush x:Key="TextBoxBackgroundSelected" Color="#AED75B"/>
+    <SolidColorBrush x:Key="TextBoxBackground" Color="#AED75B"/>
+    <SolidColorBrush x:Key="TextBoxBackgroundSelected" Color="#E0F0C0"/>
     <SolidColorBrush x:Key="SearchTextForeground" Color="Black"/>
+    <SolidColorBrush x:Key="BackgroundPushpin" Color="#797984"/>
     
 
 </ResourceDictionary>
