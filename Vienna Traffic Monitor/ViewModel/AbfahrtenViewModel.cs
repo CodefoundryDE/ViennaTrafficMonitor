@@ -39,7 +39,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public int Intervall { get; set; }
 
-        public static string CurrentTime { get { return DateTime.Now.ToString("HH:mm:ss"); } }
+        public string CurrentTime { get { return DateTime.Now.ToString("HH:mm:ss"); } }
 
         public ICollection<VtmResponse> Abfahrten {
             get {
@@ -90,7 +90,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             _Timer = new Timer(_GetResponse, null, 0, Intervall);
             _TimerCurrentTime = new Timer((object state) => {
                 RaisePropertyChangedEvent("CurrentTime");
-            }, null, 0, 1000);
+            }, null, 0, 500);
         }
 
         private void _InitializeRbls() {
