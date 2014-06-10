@@ -9,7 +9,6 @@ using System.Windows.Shapes;
 using ViennaTrafficMonitor.CsvImport.Parser;
 using ViennaTrafficMonitor.Model;
 using VtmFramework.Error.Exceptions;
-using VtmFramework.Factory;
 
 namespace ViennaTrafficMonitor.Mapper {
 

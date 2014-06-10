@@ -86,7 +86,7 @@ namespace VtmTests.Mapper {
 
         [TestMethod]
         public void TestFindByRectangle() {
-            List<IHaltestelle> result = _mapperReal.FindByRectangle(rectHbfPrater);
+            ICollection<IHaltestelle> result = _mapperReal.FindByRectangle(rectHbfPrater);
             Assert.IsTrue(result.Contains(praterstern));
             Assert.IsTrue(result.Contains(hauptbahnhofOst));
 

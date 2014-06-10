@@ -32,11 +32,13 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         private Timer _Timer;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        private Timer _TimerCurrentTime;
 
         public int Intervall { get; set; }
 
-        private Timer _TimerCurrentTime;
         public string CurrentTime { get { return DateTime.Now.ToString("HH:mm:ss"); } }
 
         public ICollection<VtmResponse> Abfahrten {
@@ -52,7 +54,8 @@ namespace ViennaTrafficMonitor.ViewModel {
                             new LocationStop(),
                             new List<TrafficInfoCategory>(),
                             new List<TrafficInfoCategoryGroup>(),
-                            "noType"));
+                            "noType",
+                            new List<TrafficInfo>()));
                     }
                     return response;
                 }
@@ -87,12 +90,12 @@ namespace ViennaTrafficMonitor.ViewModel {
             _Timer = new Timer(_GetResponse, null, 0, Intervall);
             _TimerCurrentTime = new Timer((object state) => {
                 RaisePropertyChangedEvent("CurrentTime");
-            }, null, 0, 1000);
+            }, null, 0, 500);
         }
 
         private void _InitializeRbls() {
             ISteigMapper sm = SteigMapperFactory.Instance;
-            List<ISteig> steige = sm.FindByHaltestelle(_Haltestelle.Id);
+            ICollection<ISteig> steige = sm.FindByHaltestelle(_Haltestelle.Id);
             _Rbls = new HashSet<int>(from steig in steige
                                      where steig.Rbl > 0
                                      select steig.Rbl);
@@ -102,10 +105,10 @@ namespace ViennaTrafficMonitor.ViewModel {
             bool error = false;
             try {
                 Response = await RblRequesterProxy.GetProxyResponseAsync(_Rbls);
-            } catch (HttpRequestException e) {
+            } catch (HttpRequestException) {
                 // Im catch-Block ist kein await erlaubt - das kommt erst mit C# 6.0
                 error = true;
-            } catch (Exception e) {
+            } catch (Exception) {
                 error = false;
             }
             if (error) await RaiseError("Fehler", "Es konnte keine Anfrage an die API der Wiener Linien gestellt werden.", VtmFramework.Error.EErrorButtons.RetryCancel);

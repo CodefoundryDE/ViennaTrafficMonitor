@@ -20,24 +20,8 @@ namespace ViennaTrafficMonitor.View {
     /// </summary>
     public partial class Map : UserControl {
 
-        #region Dependency Properties
-        public static readonly DependencyProperty PushpinsProperty = DependencyProperty.Register("Pushpins", typeof(IEnumerable<Pushpin>), typeof(Map), new FrameworkPropertyMetadata(null, OnPushpinsChanged));
-        public IEnumerable<Pushpin> Pushpins {
-            get { return (IEnumerable<Pushpin>)this.GetValue(PushpinsProperty); }
-            set { this.SetValue(PushpinsProperty, value); }
-        }
-        private static void OnPushpinsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            Map map = (Map)d;
-            map.OnChildrenChanged();
-        }
-        #endregion
-
         public Map() {
             InitializeComponent();
-        }
-
-        private void OnChildrenChanged() {
-
         }
 
     }

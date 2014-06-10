@@ -20,6 +20,7 @@ namespace ViennaTrafficMonitor.View {
     public partial class Einstellungen : UserControl {
         public Einstellungen() {
             InitializeComponent();
+            DockPanel.Height = SystemParameters.FullPrimaryScreenHeight / 8;
         }
     }
 }
