@@ -29,6 +29,8 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Text="Info" Style="{StaticResource h1}" />
         <Separator VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" />
@@ -47,6 +49,10 @@
         <!-- Lizenz -->
         <TextBlock Grid.Row="5" Grid.Column="1" Text="Lizenz" Style="{StaticResource h2}" />
         <TextBlock Grid.Row="5" Grid.Column="3" Text="[Hier Lizenz einfügen]" />
+        
+        <!-- Icon -->
+        <TextBlock Grid.Row="7" Grid.Column="1" Text="Icon" Style="{StaticResource h2}" />
+        <TextBlock Grid.Row="7" Grid.Column="3">Icon made by <Hyperlink NavigateUri="http://www.freepik.com">Freepik</Hyperlink> from <Hyperlink NavigateUri="http://www.flaticon.com/free-icon/train-front_45857">www.flaticon.com</Hyperlink></TextBlock>
         
     </Grid>
 </UserControl>

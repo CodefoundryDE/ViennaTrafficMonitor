@@ -6,7 +6,7 @@
         xmlns:v="clr-namespace:ViennaTrafficMonitor.View"
         xmlns:fv="clr-namespace:VtmFramework.View;assembly=VtmFramework"
         xmlns:fvm="clr-namespace:VtmFramework.ViewModel;assembly=VtmFramework"
-        Title="MainWindow" WindowState="Maximized" WindowStyle="None">
+        Title="MainWindow" WindowState="Maximized" WindowStyle="None" Style="{StaticResource StandardWindow}">
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
@@ -24,7 +24,7 @@
             <v:Info />
         </DataTemplate>
     </Window.Resources>
-    <Grid>
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -36,7 +36,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Button Grid.Row="0" Content="Map" Command="{Binding ButtonMapCommand}" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75" Grid.Column="0"/>
-        <v:Suche Grid.Row="0" Grid.Column="1" DataContext="{Binding Suche}" />
+        <v:Suche Grid.Row="0" Grid.Column="1" DataContext="{Binding Suche}" Margin="10,10,10,10"/>
         <Button Grid.Row="0" Content="Home" Command="{Binding ButtonHomeCommand}" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" Grid.Column="2" />
         <fv:AnimatedContentControl Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2" Content="{Binding Scheduler.Aktuell}" />
         <fv:AnimatedContentControl Grid.Row="1" Grid.ColumnSpan="3">

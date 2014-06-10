@@ -11,16 +11,17 @@
                IsOpen="{Binding ElementName=ListBox, Path=Items.Count, Mode=OneWay}" PlacementTarget="{Binding ElementName=SearchField}"
                PopupAnimation="Slide" AllowsTransparency="True" HorizontalAlignment="Stretch"
                Width="{Binding ActualWidth, ElementName=SearchField}">
-            <ListView Name="ListBox" DockPanel.Dock="Bottom" ItemsSource="{Binding Matches}" MaxHeight="100"
+            <ListView Style="{StaticResource StandardListBox}" Name="ListBox" DockPanel.Dock="Bottom" ItemsSource="{Binding Matches}" MaxHeight="100"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                      PreviewKeyDown="ListBox_PreviewKeyDown" SelectedItem="{Binding SelectedItem}">
                 <ListView.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding SubmitCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Self}}" />
+                    <MouseBinding MouseAction="WheelClick" Command="{Binding SubmitCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Self}}" />
                 </ListView.InputBindings>
             </ListView>
         </Popup>
-        <TextBox DockPanel.Dock="Top" Name="SearchField" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
-                 Padding="10,10,10,10" FontWeight="Bold" PreviewKeyDown="SearchField_PreviewKeyDown">
+        <TextBox Style="{StaticResource SearchTextBox}" DockPanel.Dock="Top" Name="SearchField" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                 Padding="10,10,10,10" FontWeight="Normal" PreviewKeyDown="SearchField_PreviewKeyDown">
         </TextBox>
     </DockPanel>
 </UserControl>
