@@ -15,6 +15,40 @@ namespace VtmFramework.ViewModel {
 
     public class ErrorViewModel : IViewModel, IObservable<EErrorResult> {
 
+        private EErrorButtons _buttonSet;
+
+        #region ButtonProperties
+        public bool ButtonOk {
+            get {
+                return ((_buttonSet == EErrorButtons.Ok) || (_buttonSet == EErrorButtons.OkCancel)) ? true : false;
+            }
+        }
+
+        public bool ButtonNo {
+            get {
+                return (_buttonSet == EErrorButtons.YesNo) ? true : false;
+            }
+        }
+
+        public bool ButtonCancel {
+            get {
+                return ((_buttonSet == EErrorButtons.OkCancel) || (_buttonSet == EErrorButtons.RetryCancel)) ? true : false;
+            }
+        }
+
+        public bool ButtonRetry {
+            get {
+                return _buttonSet == EErrorButtons.RetryCancel ? true : false;
+            }
+        }
+
+        public bool ButtonYes {
+            get {
+                return _buttonSet == EErrorButtons.YesNo ? true : false;
+            }
+        }
+        #endregion
+
         private class Unsubscriber : IDisposable {
             public void Dispose() {
                 throw new NotSupportedException("Dispose on ErrorViewHandler not Supported!");
@@ -24,10 +58,17 @@ namespace VtmFramework.ViewModel {
         public ErrorViewModel()
             : base() {
             Visible = Visibility.Visible;
+            _buttonSet = EErrorButtons.OkCancel;
         }
 
-        public ErrorViewModel(Exception ex, IVtmLogger logger)
-            : this() {
+        public ErrorViewModel(EErrorButtons buttonSet)
+            : base() {
+            Visible = Visibility.Visible;
+            _buttonSet = buttonSet;
+        }
+
+        public ErrorViewModel(Exception ex, IVtmLogger logger, EErrorButtons buttonSet)
+            : this(buttonSet) {
             if (logger != null) logger.Error(ex);
         }
 
@@ -69,8 +110,47 @@ namespace VtmFramework.ViewModel {
         #endregion
 
         #region ButtonCancel
+        public ICommand ButtonCancelCommand {
+            get { return new DelegateCommand(_ButtonCancel); }
+        }
 
+        private void _ButtonCancel() {
+            _observer.OnNext(EErrorResult.Cancel);
+            _observer.OnCompleted();
+        }
         #endregion
 
+        #region ButtonYes
+        public ICommand ButtonYesCommand {
+            get { return new DelegateCommand(_ButtonYes); }
+        }
+
+        private void _ButtonYes() {
+            _observer.OnNext(EErrorResult.Yes);
+            _observer.OnCompleted();
+        }
+        #endregion
+
+        #region ButtonNo
+        public ICommand ButtonNoCommand {
+            get { return new DelegateCommand(_ButtonNo); }
+        }
+
+        private void _ButtonNo() {
+            _observer.OnNext(EErrorResult.No);
+            _observer.OnCompleted();
+        }
+        #endregion
+
+        #region ButtonRetry
+        public ICommand ButtonRetryCommand {
+            get { return new DelegateCommand(_ButtonRetry); }
+        }
+
+        private void _ButtonRetry() {
+            _observer.OnNext(EErrorResult.Retry);
+            _observer.OnCompleted();
+        }
+        #endregion
     }
 }

@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Shapes;
 using ViennaTrafficMonitor.CsvImport.Parser;
 using ViennaTrafficMonitor.Model;
+using VtmFramework.Error.Exceptions;
 using VtmFramework.Factory;
 
 namespace ViennaTrafficMonitor.Mapper {
@@ -24,8 +25,14 @@ namespace ViennaTrafficMonitor.Mapper {
         public static ISteigMapper Instance {
             get {
                 if (instance == null) {
-                    lock (syncRoot) {
-                        if (instance == null) instance = _createInstance();
+                    try {
+                        lock (syncRoot) {
+                            if (instance == null) instance = _createInstance();
+                        }
+                    } catch (VtmParsingException ex) {
+                        throw new InvalidOperationException("Bei dem Versuch, die benötigten Daten aus den CSV-Dateien der Wiener Linien zu initialisieren trat ein Fehler auf" +
+                   " Die Datei " + ex.Path + " ist möglicherweise nicht vorhanden oder in Bearbeitung." +
+                   "Bitte stellen Sie sicher, dass die Datei vorhanden und in keinem anderen Programm geöffnet ist!", ex);
                     }
                 }
                 return instance;
@@ -33,8 +40,12 @@ namespace ViennaTrafficMonitor.Mapper {
         }
 
         private static ISteigMapper _createInstance() {
-            ConcurrentDictionary<int, ISteig> dict = SteigeParser.ReadFile(CSVDIR + "wienerlinien-ogd-steige.csv");
-            return new SteigMapper(dict);
+            try {
+                ConcurrentDictionary<int, ISteig> dict = SteigeParser.ReadFile(CSVDIR + "wienerlinien-ogd-steige.csv");
+                return new SteigMapper(dict);
+            } catch (VtmParsingException ex) {
+                throw ex;
+            }
         }
 
     }

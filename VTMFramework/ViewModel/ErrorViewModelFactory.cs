@@ -13,7 +13,7 @@ namespace VtmFramework.ViewModel {
         private static IVtmLogger _logger = VtmLoggerFactory.GetInstance();
 
         public static ErrorViewModel GetInstance(string title, string message, EErrorButtons buttonSet, IObserver<EErrorResult> observer) {
-            ErrorViewModel evm = new ErrorViewModel();
+            ErrorViewModel evm = new ErrorViewModel(buttonSet);
             evm.Title = title;
             evm.Message = message;
             evm.ButtonSet = buttonSet;
@@ -23,7 +23,7 @@ namespace VtmFramework.ViewModel {
         }
 
         public static ErrorViewModel GetInstance(string title, string message, EErrorButtons buttonSet, IObserver<EErrorResult> observer, Exception ex) {
-            ErrorViewModel evm = new ErrorViewModel(ex, _logger);
+            ErrorViewModel evm = new ErrorViewModel(ex, _logger, buttonSet);
             evm.Title = title;
             evm.Message = message;
             evm.ButtonSet = buttonSet;
