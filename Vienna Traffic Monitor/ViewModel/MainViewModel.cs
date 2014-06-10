@@ -45,10 +45,12 @@ namespace ViennaTrafficMonitor.ViewModel {
             Einstellungen.Beenden += OnBeenden;
             Einstellungen.Info += OnInfo;
             _registerEvents(Einstellungen);
+            RaisePropertyChangedEvent("Einstellungen");
 
             Suche = new SucheViewModel();
             Suche.SucheSubmitted += OnSucheSubmitted;
             _registerEvents(Suche);
+            RaisePropertyChangedEvent("Suche");
 
             Map = MapViewModelFactory.Instance;
             Map.HaltestelleSelected += OnSucheSubmitted;
