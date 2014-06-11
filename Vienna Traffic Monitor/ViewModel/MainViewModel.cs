@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         public MapViewModel Map { get; private set; }
         public EinstellungenViewModel Einstellungen { get; private set; }
 
-        private IDictionary<AbstractViewModel, ErrorViewModel> _errors;
+        private ConcurrentDictionary <AbstractViewModel, ErrorViewModel> _errors;
         public ErrorViewModel Error {
             get { return _errors.ElementAtOrDefault(0).Value; }
         }
@@ -35,7 +36,7 @@ namespace ViennaTrafficMonitor.ViewModel {
         
         public MainViewModel() {
             _loadTheme();
-            _errors = new Dictionary<AbstractViewModel, ErrorViewModel>();
+            _errors = new ConcurrentDictionary<AbstractViewModel, ErrorViewModel>();
             Scheduler = new Scheduler<AbstractViewModel>();
             Scheduler.AktuellChanged += OnSchedulerAktuellChanged;            
         }
@@ -89,9 +90,14 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         private void OnSucheSubmitted(object sender, SucheEventArgs e) {
-            AbstractViewModel vm = AbfahrtenViewModelFactory.GetInstance(e.HaltestelleSelected);
+            AbfahrtenViewModel vm = AbfahrtenViewModelFactory.GetInstance(e.HaltestelleSelected);
             _registerEvents(vm);
+            vm.ConnectionLost += OnConnectionLost;
             Scheduler.ScheduleInstant(vm);
+        }
+
+        private void OnConnectionLost(object sender, EventArgs e) {
+            _switchToHome();
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
@@ -104,13 +110,18 @@ namespace ViennaTrafficMonitor.ViewModel {
         private void OnErrorRaised(object sender, ErrorEventArgs e) {
             ErrorViewModel vm = e.Error;
             if (vm != null) {
-                _errors.Add((AbstractViewModel)sender, vm);
+                try {
+                    _errors.AddOrUpdate((AbstractViewModel)sender, vm, (key, oldValue) => vm);
+                } catch (ArgumentException ex) {
+                    //Exception bereits vorhanden, wird wohl schon bearbeitet!
+                }
                 RaisePropertyChangedEvent("Error");
             }
         }
 
         private void OnErrorCleared(object sender, EventArgs e) {
-            _errors.Remove((AbstractViewModel)sender);
+            ErrorViewModel evm;
+            _errors.TryRemove((AbstractViewModel)sender, out evm);
             RaisePropertyChangedEvent("Error");
         }
 
@@ -131,6 +142,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             Scheduler.ScheduleInstant(Map);
         }
         #endregion
+
         #region ButtonHome
         public ICommand ButtonHomeCommand {
             get { return new DelegateCommand(_switchToHome); }

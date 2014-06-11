@@ -13,12 +13,15 @@ using VtmFramework.Command;
 using System.Windows.Input;
 using System.Windows;
 using System.Net.Http;
+using VtmFramework.Error;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
     public class AbfahrtenViewModel : AbstractViewModel {
 
         #region Properties/Variablen
+
+        public event EventHandler ConnectionLost;
 
         private FilterCollection<VtmResponse> _verkehrsmittelFilter;
 
@@ -50,7 +53,7 @@ namespace ViennaTrafficMonitor.ViewModel {
                 if (response.Count == _resultCount) {
                     return response;
                 } else {
-                   while (response.Count < _resultCount) {
+                    while (response.Count < _resultCount) {
                         response.Add(new VtmResponse(
                             new Line(),
                             new Departure(new DepartureTime()),
@@ -114,8 +117,26 @@ namespace ViennaTrafficMonitor.ViewModel {
             } catch (Exception) {
                 error = false;
             }
-            if (error) await RaiseError("Fehler", "Es konnte keine Anfrage an die API der Wiener Linien gestellt werden.", VtmFramework.Error.EErrorButtons.RetryCancel);
+            if (error) {
+                _Timer.Change(Timeout.Infinite, Timeout.Infinite);
+                EErrorResult result = await RaiseError("Fehler", "Es konnte keine Anfrage an die API der Wiener Linien gestellt werden.", VtmFramework.Error.EErrorButtons.RetryCancel);                
+                switch (result) {
+                    case EErrorResult.Retry: {
+                        _GetResponse(state);
+                        _Timer.Change(0, Intervall);
+                        break;
+                        }
+                    default: {
+                        EventHandler handler = ConnectionLost;
+                        if (handler != null) {
+                            handler(this, new EventArgs());
+                        }
+                        break;
+                        }
+                }
+            }
         }
+
 
         private void _InitializeVerkehrsmittel() {
             ILinienMapper lm = LinienMapperFactory.Instance;

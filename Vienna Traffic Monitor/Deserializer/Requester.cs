@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Web.Script.Serialization;
 using System.Collections;
+using System.Threading;
 
 namespace ViennaTrafficMonitor.Deserializer {
     public class RblRequester : IRequester {
@@ -48,8 +49,15 @@ namespace ViennaTrafficMonitor.Deserializer {
         }
 
         private async Task<string> requestAndAwaitResponse(string requestString) {
-            Task<string> request = new HttpClient().GetStringAsync(requestString);
-            return await request;
+            HttpClient httpClient = new HttpClient();
+            CancellationTokenSource cancelToken =  new CancellationTokenSource();            
+            try {
+                HttpResponseMessage response = await httpClient.GetAsync(requestString, HttpCompletionOption.ResponseContentRead, cancelToken.Token);
+                return await response.Content.ReadAsStringAsync();
+            } catch (HttpRequestException ex) {
+                cancelToken.Cancel();
+                throw ex;
+            }
         }
 
         private static Response deserializeRespondedString(string responded) {

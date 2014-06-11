@@ -33,6 +33,8 @@ namespace ViennaTrafficMonitor.View {
             for (int i = 0; i < CONTROLCOUNT; i++) {
                 AbfahrtControl control = new AbfahrtControl();
 
+                if (i == 0) control.Headline = true;
+
                 string index = "Abfahrten[" + i.ToString() + "]";
 
                 // Abfahrtszeit

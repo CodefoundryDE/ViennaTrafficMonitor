@@ -22,9 +22,11 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Grid.Row" Value="0" />
         <Setter Property="Grid.RowSpan" Value="2" />
-        <Setter Property="Background" Value="White" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="ExtraBold" />
         <Setter Property="FontSize" Value="50" />
+        <Setter Property="FontFamily" Value="Ressources/Font/#Droid Sans Mono"/>
     </Style>
     
     <Style TargetType="{x:Type local:SplitFlapPanel}">

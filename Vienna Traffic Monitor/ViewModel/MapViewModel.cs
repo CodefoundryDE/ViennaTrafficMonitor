@@ -21,6 +21,8 @@ namespace ViennaTrafficMonitor.ViewModel {
 
     public class MapViewModel : AbstractViewModel {
 
+        public event EventHandler ConnectionLost;
+
         private ILinienMapper _LinienMapper;
 
         private IDictionary<ILinie, List<IHaltestelle>> _linien;
