@@ -26,6 +26,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private ICollection<VtmResponse> _Response;
         private ICollection<VtmResponse> Response {
+            get { return _Response; }
             set {
                 _Response = value;
                 RaisePropertyChangedEvent("Abfahrten");
@@ -45,7 +46,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public ICollection<VtmResponse> Abfahrten {
             get {
-                ICollection<VtmResponse> response =  _verkehrsmittelFilter.Filter(_Response);
+                ICollection<VtmResponse> response =  _verkehrsmittelFilter.Filter(Response);
                 if (response.Count == _resultCount) {
                     return response;
                 } else {
