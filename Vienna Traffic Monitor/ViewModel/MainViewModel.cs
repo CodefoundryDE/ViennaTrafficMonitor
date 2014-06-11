@@ -113,6 +113,14 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
         #endregion
 
+        #region ButtonHome
+        public ICommand ButtonHomeCommand {
+            get { return new DelegateCommand(_switchToHome); }
+        }
+        private void _switchToHome() {
+            Scheduler.ScheduleInstant(Hauptfenster);
+        }
+        #endregion
     }
 
 }
