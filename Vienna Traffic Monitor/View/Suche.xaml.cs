@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViennaTrafficMonitor.ViewModel;
 
 namespace ViennaTrafficMonitor.View {
     /// <summary>
@@ -35,6 +36,14 @@ namespace ViennaTrafficMonitor.View {
                 SearchField.Focus();
                 e.Handled = true;
             }
+        }
+
+        private void ListBox_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+            SucheViewModel vm = (SucheViewModel)this.DataContext;
+            if (vm.SubmitCommand.CanExecute(null)) {
+                vm.SubmitCommand.Execute(ListBox.SelectedItem);
+            }
+            e.Handled = true;
         }
 
     }
