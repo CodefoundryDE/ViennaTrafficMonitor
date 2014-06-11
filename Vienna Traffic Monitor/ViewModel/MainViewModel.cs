@@ -2,12 +2,14 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Markup;
 using ViennaTrafficMonitor.Events;
 using ViennaTrafficMonitor.Mapper;
 using VtmFramework.Command;
@@ -85,10 +87,12 @@ namespace ViennaTrafficMonitor.ViewModel {
         private static void _loadTheme() {
             string theme = Properties.Settings.Default.Theme;
             theme = String.IsNullOrWhiteSpace(theme) ? "Light" : theme;
-            var uri = new Uri("pack://siteoforigin:,,,/Themes/" + theme + ".xaml", UriKind.RelativeOrAbsolute);
-            ResourceDictionary dict = new ResourceDictionary() { Source = uri };
-            // Neues Theme hinzufügen
-            Application.Current.Resources.MergedDictionaries.Add(dict);
+            //var uri = new Uri("pack://siteoforigin:,,,/Themes/" + theme + ".xaml", UriKind.RelativeOrAbsolute);
+            using (var fs = new FileStream("Themes/" + theme + ".xaml", FileMode.Open, FileAccess.Read, FileShare.Read)) {
+                var dict = (ResourceDictionary)XamlReader.Load(fs);
+                // Neues Theme hinzufügen
+                Application.Current.Resources.MergedDictionaries.Add(dict);
+            }
         }
 
         private void OnBeenden(object sender, EventArgs e) {
@@ -113,7 +117,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             Scheduler.ScheduleInstant(vm);
         }
 
-        private void OnErrorRaised(object sender, ErrorEventArgs e) {
+        private void OnErrorRaised(object sender, VtmFramework.Error.ErrorEventArgs e) {
             ErrorViewModel vm = e.Error;
             if (vm != null) {
                 try {

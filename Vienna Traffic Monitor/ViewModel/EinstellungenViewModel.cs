@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Markup;
 using VtmFramework.Command;
 using VtmFramework.Logging;
 using VtmFramework.ViewModel;
@@ -88,12 +90,17 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         private void _changeDictionary() {
-            var uri = new Uri("pack://siteoforigin:,,,/Themes/" + Theme + ".xaml", UriKind.RelativeOrAbsolute);
-            ResourceDictionary dict = new ResourceDictionary() { Source = uri };
+            //var uri = new Uri("pack://siteoforigin:,,,/Themes/" + Theme + ".xaml", UriKind.RelativeOrAbsolute);
+            //ResourceDictionary dict = new ResourceDictionary() { Source = uri };
+            ResourceDictionary dict;
             try {
                 // Das letzte Theme (falls vorhanden) entfernen
                 Application.Current.Resources.MergedDictionaries.RemoveAt(1);
             } catch (ArgumentOutOfRangeException) { }
+            using (var fs = new FileStream("Themes/" + Theme + ".xaml", FileMode.Open, FileAccess.Read, FileShare.Read)) {
+                dict = (ResourceDictionary)XamlReader.Load(fs);
+                // Neues Theme hinzufügen
+            }
             // Neues Theme hinzufügen
             Application.Current.Resources.MergedDictionaries.Add(dict);
         }
