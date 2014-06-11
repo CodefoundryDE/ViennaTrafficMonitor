@@ -133,7 +133,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             _verkehrsmittelFilter.Add("SbahnFilter", new AbfahrtenFilter(EVerkehrsmittel.SBahn, false));
             _verkehrsmittelFilter.Add("TramFilter", new AbfahrtenFilter(EVerkehrsmittel.Tram, false));
             _verkehrsmittelFilter.Add("TramWlbFilter", new AbfahrtenFilter(EVerkehrsmittel.TramWlb, false));
-            _verkehrsmittelFilter.Add("OrderByAbfahrt", new OrderAbfahrtenFilter(EAbfahrtenOrder.TimePlannedAsc, _resultCount, true));
+            _verkehrsmittelFilter.Add("OrderByAbfahrt", new OrderAbfahrtenFilter(EAbfahrtenOrder.TimeRealAsc, _resultCount, true));
         }
         #endregion
 

@@ -16,7 +16,7 @@
             <Setter Property="EndChar" Value="9" />
         </Style>
     </UserControl.Resources>
-
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="12*" />
             <ColumnDefinition Width="6*" />
