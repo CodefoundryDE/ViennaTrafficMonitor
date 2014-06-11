@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" d:DesignHeight="38.876" d:DesignWidth="637.337">
     <DockPanel LastChildFill="True">
         <Popup DockPanel.Dock="Bottom" Placement="Relative" VerticalOffset="{Binding ActualHeight, ElementName=SearchField}" 
@@ -13,10 +12,10 @@
                Width="{Binding ActualWidth, ElementName=SearchField}">
             <ListView Style="{StaticResource StandardListBox}" Name="ListBox" DockPanel.Dock="Bottom" ItemsSource="{Binding Matches}" MaxHeight="100"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                     PreviewKeyDown="ListBox_PreviewKeyDown" SelectedItem="{Binding SelectedItem}">
+                     PreviewKeyDown="ListBox_PreviewKeyDown" SelectedItem="{Binding SelectedItem}" PreviewMouseLeftButtonUp="ListBox_PreviewMouseLeftButtonUp
+                      ">
                 <ListView.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding SubmitCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Self}}" />
-                    <MouseBinding MouseAction="WheelClick" Command="{Binding SubmitCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Self}}" />
                 </ListView.InputBindings>
             </ListView>
         </Popup>
@@ -25,3 +24,4 @@
         </TextBox>
     </DockPanel>
 </UserControl>
+    
