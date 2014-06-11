@@ -57,13 +57,13 @@ namespace VtmFramework.ViewModel {
 
         public ErrorViewModel()
             : base() {
-            Visible = Visibility.Visible;
+            Visible = false;
             _buttonSet = EErrorButtons.OkCancel;
         }
 
         public ErrorViewModel(EErrorButtons buttonSet)
             : base() {
-            Visible = Visibility.Visible;
+            Visible = true;
             _buttonSet = buttonSet;
         }
 
@@ -76,7 +76,11 @@ namespace VtmFramework.ViewModel {
 
         public string Title { get; set; }
         public string Message { get; set; }
-        public Visibility Visible { get; private set; }
+        private bool _visible;
+        public bool Visible {
+            get { return _visible; }
+            set { _visible = value; RaisePropertyChangedEvent("Visible"); }
+        }
         public EErrorButtons ButtonSet { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -105,6 +109,7 @@ namespace VtmFramework.ViewModel {
         private void _ButtonOk() {
             _observer.OnNext(EErrorResult.Ok);
             _observer.OnCompleted();
+            Visible = false;
         }
 
         #endregion
@@ -117,6 +122,7 @@ namespace VtmFramework.ViewModel {
         private void _ButtonCancel() {
             _observer.OnNext(EErrorResult.Cancel);
             _observer.OnCompleted();
+            Visible = false;
         }
         #endregion
 
@@ -128,6 +134,7 @@ namespace VtmFramework.ViewModel {
         private void _ButtonYes() {
             _observer.OnNext(EErrorResult.Yes);
             _observer.OnCompleted();
+            Visible = false;
         }
         #endregion
 
@@ -139,6 +146,7 @@ namespace VtmFramework.ViewModel {
         private void _ButtonNo() {
             _observer.OnNext(EErrorResult.No);
             _observer.OnCompleted();
+            Visible = false;
         }
         #endregion
 
@@ -150,6 +158,7 @@ namespace VtmFramework.ViewModel {
         private void _ButtonRetry() {
             _observer.OnNext(EErrorResult.Retry);
             _observer.OnCompleted();
+            Visible = false;
         }
         #endregion
     }

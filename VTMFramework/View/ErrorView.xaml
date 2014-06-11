@@ -6,8 +6,7 @@
              xmlns:vm="clr-namespace:VtmFramework.ViewModel"
              xmlns:c="clr-namespace:VtmFramework.Converter"
              mc:Ignorable="d"
-             d:DesignHeight="292" d:DesignWidth="579.872" VerticalAlignment="Center" HorizontalAlignment="Center"
-             Visibility="{Binding Visible, FallbackValue=Collapsed}" BorderThickness="2">
+             d:DesignHeight="292" d:DesignWidth="579.872" VerticalAlignment="Center" HorizontalAlignment="Center">
     <UserControl.DataContext>
         <vm:ErrorViewModel />
     </UserControl.DataContext>
@@ -23,7 +22,29 @@
             <GradientStop Color="Red" Offset="1"/>
         </LinearGradientBrush>
     </UserControl.BorderBrush>
-    <Grid>
+    <Grid Name="Grid">
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Visible}" Value="true">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard HandoffBehavior="Compose">
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:1" From="0" Storyboard.TargetProperty="Height" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <BeginStoryboard HandoffBehavior="Compose">
+                                <Storyboard>                                    
+                                    <DoubleAnimation Duration="0:0:1" To="0" Storyboard.TargetProperty="Height" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="Auto" />
@@ -39,16 +60,15 @@
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
 
-        <Image Grid.Row="1" Grid.Column="1" Width="32" Height="32" Source="D:\Franzi Wimmer\Downloads\warning_shield_grey.png" />
         <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Content="{Binding Title, FallbackValue=Titel}" FontWeight="Bold" BorderThickness="0,0,0,1" BorderBrush="Black" VerticalContentAlignment="Center" Margin="1,0,19,0" />
         <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Content="{Binding Message, FallbackValue=Nachricht}" />
 
         <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Background="{x:Null}" BorderBrush="Lime" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonYesCommand}" Visibility="{Binding ButtonYes, Converter={StaticResource BooleanToVisibilityConverter}}">Ja</Button>
-            <Button Background="{x:Null}" BorderBrush="Red" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonNoCommand}" Visibility="{Binding ButtonNo, Converter={StaticResource BooleanToVisibilityConverter}}">Nein</Button>
-            <Button Background="{x:Null}" BorderBrush="Yellow" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonRetryCommand}" Visibility="{Binding ButtonRetry, Converter={StaticResource BooleanToVisibilityConverter}}">Wiederholen</Button>
-            <Button Background="{x:Null}" BorderBrush="Lime" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonOkCommand}" Visibility="{Binding ButtonOk, Converter={StaticResource BooleanToVisibilityConverter}}">Ok</Button>
-            <Button Background="{x:Null}" BorderBrush="Red" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonCancelCommand}" Visibility="{Binding ButtonCancel, Converter={StaticResource BooleanToVisibilityConverter}}">Abbrechen</Button>
+            <Button Margin="10,0,10,0" Command="{Binding ButtonOkCommand}" Visibility="{Binding ButtonOk, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Ok"/>
+            <Button Margin="10,0,10,0" Command="{Binding ButtonYesCommand}" Visibility="{Binding ButtonYes, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Ja"/>
+            <Button Margin="10,0,10,0" Command="{Binding ButtonNoCommand}" Visibility="{Binding ButtonNo, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Nein"/>
+            <Button Margin="10,0,10,0" Command="{Binding ButtonRetryCommand}" Visibility="{Binding ButtonRetry, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Wiederholen"/>
+            <Button Margin="10,0,10,0" Command="{Binding ButtonCancelCommand}" Visibility="{Binding ButtonCancel, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Abbrechen"/>
         </StackPanel>
     </Grid>
 </UserControl>

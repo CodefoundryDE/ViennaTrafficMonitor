@@ -27,7 +27,13 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         private ConcurrentDictionary <AbstractViewModel, ErrorViewModel> _errors;
         public ErrorViewModel Error {
-            get { return _errors.ElementAtOrDefault(0).Value; }
+            get {
+                ErrorViewModel evm = _errors.ElementAtOrDefault(0).Value;
+                if (evm == null) {
+                    evm = new ErrorViewModel();
+                }
+                return evm;
+            }
         }
 
 
@@ -59,7 +65,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             _registerEvents(Map);
 
             Hauptfenster = HauptfensterViewModelFactory.Instance;
-            _registerEvents(Hauptfenster);            
+            _registerEvents(Hauptfenster);     
             
             Scheduler.ScheduleInstant(Hauptfenster);
         }

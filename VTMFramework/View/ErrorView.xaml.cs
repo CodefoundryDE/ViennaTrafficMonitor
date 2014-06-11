@@ -20,6 +20,7 @@ namespace VtmFramework.View {
     public partial class ErrorView : UserControl {
         public ErrorView() {
             InitializeComponent();
+            Grid.Height = SystemParameters.FullPrimaryScreenHeight / 8;            
         }
     }
 }
