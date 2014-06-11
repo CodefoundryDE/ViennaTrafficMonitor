@@ -90,8 +90,29 @@ namespace ViennaTrafficMonitor.View {
         }
         #endregion
 
+        public static readonly DependencyProperty HeadlineProperty = DependencyProperty.Register("Headline", typeof(bool), typeof(AbfahrtControl), new FrameworkPropertyMetadata(false, OnRowIsHeadlineChanged));
+
+        private static void OnRowIsHeadlineChanged(DependencyObject source, DependencyPropertyChangedEventArgs e) {
+            AbfahrtControl control = source as AbfahrtControl;
+            control.OnRowIsHeadlineChanged();
+        }
+        private void OnRowIsHeadlineChanged() {
+            lblAbfahrt.Visibility = Headline ? Visibility.Visible : Visibility.Collapsed;
+            lblLinie.Visibility = Headline ? Visibility.Visible : Visibility.Collapsed;
+            lblSteig.Visibility = Headline ? Visibility.Visible : Visibility.Collapsed;
+            lblRichtung.Visibility = Headline ? Visibility.Visible : Visibility.Collapsed;
+            lblRealTime.Visibility = Headline ? Visibility.Visible : Visibility.Collapsed;
+        }
+        public bool Headline {
+            get { return (bool)base.GetValue(HeadlineProperty); }
+            set { base.SetValue(HeadlineProperty, value); }
+        }
+
         public AbfahrtControl() {
             InitializeComponent();
+            Headline = false;
         }
+
+
     }
 }

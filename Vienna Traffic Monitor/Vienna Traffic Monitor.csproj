@@ -258,6 +258,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Ressources\Font\Droid Sans Mono.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
