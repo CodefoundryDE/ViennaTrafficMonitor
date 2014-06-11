@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VtmFramework.ViewModel;
 
 namespace VtmFramework.View {
     /// <summary>
@@ -20,6 +21,11 @@ namespace VtmFramework.View {
     public partial class ErrorView : UserControl {
         public ErrorView() {
             InitializeComponent();
+            Grid.Height = SystemParameters.FullPrimaryScreenHeight / 8;
+            if (((ErrorViewModel)DataContext).Visible == false) {
+                ((ErrorViewModel)DataContext).Visible = true;
+                ((ErrorViewModel)DataContext).Visible = false;
+            }
         }
     }
 }
