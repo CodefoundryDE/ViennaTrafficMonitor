@@ -48,7 +48,7 @@ namespace ViennaTrafficMonitor.View {
                 // Verspätung
                 control.SetBinding(AbfahrtControl.VerspaetungProperty, new Binding(index + ".Departure.DepartureTime.Countdown"));
 
-                AbfahrtPanel.Children.Add(control);
+                AbfahrtPanel.Children.Add(control);                
             }
         }
 

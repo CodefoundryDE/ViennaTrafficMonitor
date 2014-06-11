@@ -4,12 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:VtmFramework.ViewModel"
+             xmlns:c="clr-namespace:VtmFramework.Converter"
              mc:Ignorable="d"
              d:DesignHeight="292" d:DesignWidth="579.872" VerticalAlignment="Center" HorizontalAlignment="Center"
              Visibility="{Binding Visible, FallbackValue=Collapsed}" BorderThickness="2">
     <UserControl.DataContext>
         <vm:ErrorViewModel />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <c:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
     <UserControl.Background>
         <SolidColorBrush Color="White" Opacity="0.75"/>
     </UserControl.Background>
@@ -40,11 +44,11 @@
         <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Content="{Binding Message, FallbackValue=Nachricht}" />
 
         <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Background="{x:Null}" BorderBrush="Lime" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonYesCommand}">Ja</Button>
-            <Button Background="{x:Null}" BorderBrush="Red" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonNoCommand}">Nein</Button>
-            <Button Background="{x:Null}" BorderBrush="Yellow" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonRetryCommand}">Wiederholen</Button>
-            <Button Background="{x:Null}" BorderBrush="Lime" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonOkCommand}">Ok</Button>
-            <Button Background="{x:Null}" BorderBrush="Red" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonCancelCommand}">Abbrechen</Button>
+            <Button Background="{x:Null}" BorderBrush="Lime" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonYesCommand}" Visibility="{Binding ButtonYes, Converter={StaticResource BooleanToVisibilityConverter}}">Ja</Button>
+            <Button Background="{x:Null}" BorderBrush="Red" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonNoCommand}" Visibility="{Binding ButtonNo, Converter={StaticResource BooleanToVisibilityConverter}}">Nein</Button>
+            <Button Background="{x:Null}" BorderBrush="Yellow" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonRetryCommand}" Visibility="{Binding ButtonRetry, Converter={StaticResource BooleanToVisibilityConverter}}">Wiederholen</Button>
+            <Button Background="{x:Null}" BorderBrush="Lime" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonOkCommand}" Visibility="{Binding ButtonOk, Converter={StaticResource BooleanToVisibilityConverter}}">Ok</Button>
+            <Button Background="{x:Null}" BorderBrush="Red" BorderThickness="2,0,0,2" Margin="5,5,5,5" Padding="10,0,10,0" Command="{Binding ButtonCancelCommand}" Visibility="{Binding ButtonCancel, Converter={StaticResource BooleanToVisibilityConverter}}">Abbrechen</Button>
         </StackPanel>
     </Grid>
 </UserControl>

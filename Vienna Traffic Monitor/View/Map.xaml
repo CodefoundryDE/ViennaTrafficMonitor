@@ -21,9 +21,6 @@
                 </i:Interaction.Triggers>
             </m:Pushpin>
         </DataTemplate>
-        <DataTemplate x:Key="PolylinesTemplate">
-            <m:MapPolyline />
-        </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Panel.ZIndex="100">
@@ -49,8 +46,8 @@
             </StackPanel>
         </StackPanel>
         <m:Map Name="MapControl" Background="Transparent" CredentialsProvider="{Binding CredentialsProvider}" Center="{Binding Center, Mode=TwoWay}" ZoomLevel="{Binding ZoomLevel, Mode=TwoWay}">
-            <m:MapItemsControl ItemsSource="{Binding PolyLines, Mode=TwoWay}" ItemTemplate="{StaticResource PolylinesTemplate}" />
-            <m:MapItemsControl ItemsSource="{Binding Pushpins, Mode=TwoWay}" ItemTemplate="{StaticResource PushpinsTemplate}" />
+            <m:MapItemsControl ItemsSource="{Binding PolyLines}" />
+            <m:MapItemsControl ItemsSource="{Binding Pushpins}" ItemTemplate="{StaticResource PushpinsTemplate}" />
         </m:Map>
     </Grid>
 </UserControl>

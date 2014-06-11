@@ -22,7 +22,6 @@ namespace VtmFramework.ViewModel {
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected AbstractViewModel() {
-            //_canSwitch = true;
             _errorCompleted = new AutoResetEvent(false);
         }
 
@@ -59,6 +58,14 @@ namespace VtmFramework.ViewModel {
             if (handler != null) {
                 handler(this, new EventArgs());
             }
+        }
+
+        public void OnScheduled(object sender, EventArgs e) {
+            Init();
+        }
+
+        protected virtual void Init() {
+
         }
 
         protected void RaisePropertyChangedEvent(string propertyName) {

@@ -111,7 +111,7 @@
     <Compile Include="Deserializer\VtmResponse.cs" />
     <Compile Include="Events\SucheEventArgs.cs" />
     <Compile Include="Filter\AbfahrtenFilter.cs" />
-    <Compile Include="Filter\OrderByAbfahrtenFilter.cs" />
+    <Compile Include="Filter\OrderAbfahrtenFilter.cs" />
     <Compile Include="Filter\MapFilter.cs" />
     <Compile Include="Filter\GenericFilter.cs" />
     <Compile Include="Filter\FilterCollection.cs" />
@@ -136,6 +136,7 @@
     <Compile Include="ViewModel\EinstellungenViewModel.cs" />
     <Compile Include="ViewModel\HauptfensterViewModelFactory.cs" />
     <Compile Include="ViewModel\InfoViewModel.cs" />
+    <Compile Include="ViewModel\InitializationViewModel.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MapViewModelFactory.cs" />
     <Compile Include="ViewModel\AbfahrtenViewModel.cs" />

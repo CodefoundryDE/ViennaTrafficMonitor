@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ViennaTrafficMonitor.CsvImport.Parser;
 using ViennaTrafficMonitor.Model;
+using VtmFramework.Error.Exceptions;
 
 namespace ViennaTrafficMonitor.Mapper {
 
@@ -21,17 +22,28 @@ namespace ViennaTrafficMonitor.Mapper {
         public static ILinienMapper Instance {
             get {
                 if (instance == null) {
-                    lock (syncRoot) {
-                        if (instance == null) instance = _createInstance();
+                    try {
+                        lock (syncRoot) {
+                            if (instance == null) instance = _createInstance();
+                        }
+                    } catch (VtmParsingException ex) {
+                        throw new InvalidOperationException("Bei dem Versuch, die benötigten Daten aus den CSV-Dateien der Wiener Linien zu initialisieren trat ein Fehler auf" +
+                       " Die Datei " + ex.Path + " ist möglicherweise nicht vorhanden oder in Bearbeitung." +
+                       "Bitte stellen Sie sicher, dass die Datei vorhanden und in keinem anderen Programm geöffnet ist!", ex);
                     }
                 }
                 return instance;
             }
+
         }
 
         private static ILinienMapper _createInstance() {
-            ConcurrentDictionary<int, ILinie> dict = LinienParser.ReadFile(CSVDIR + "wienerlinien-ogd-linien.csv");
-            return new LinienMapper(dict);
+            try {
+                ConcurrentDictionary<int, ILinie> dict = LinienParser.ReadFile(CSVDIR + "wienerlinien-ogd-linien.csv");
+                return new LinienMapper(dict);
+            } catch (VtmParsingException ex) {
+                throw ex;
+            }
         }
     }
 
