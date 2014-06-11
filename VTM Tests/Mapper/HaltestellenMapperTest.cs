@@ -78,8 +78,15 @@ namespace VtmTests.Mapper {
         }
 
         [TestMethod]
+        public void TestGetByNameLength() {
+            Assert.AreEqual(0, _mapperFictional.GetByNameLength(0).Count);
+            Assert.AreEqual(0, _mapperFictional.GetByNameLength(10).Count);
+            Assert.AreEqual(9, _mapperFictional.GetByNameLength(13).Count);
+        }
+
+        [TestMethod]
         public void TestFindByRectangle() {
-            List<IHaltestelle> result = _mapperReal.FindByRectangle(rectHbfPrater);
+            ICollection<IHaltestelle> result = _mapperReal.FindByRectangle(rectHbfPrater);
             Assert.IsTrue(result.Contains(praterstern));
             Assert.IsTrue(result.Contains(hauptbahnhofOst));
 

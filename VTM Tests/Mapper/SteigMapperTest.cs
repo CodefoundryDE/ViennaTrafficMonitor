@@ -41,7 +41,7 @@ namespace VtmTests.Mapper {
 
         [TestMethod]
         public void TestSteig_FindByLinie() {
-            List<ISteig> result = _mapper.FindByLinie(123);
+            IList<ISteig> result = _mapper.FindByLinie(123);
             int rhf = 6;
             for (int i = 0; i < 10; i++) {
                 Assert.AreEqual(result[i].LinienId, 123, "Linien ID (123) in Result-Liste nicht korrekt");
@@ -58,7 +58,7 @@ namespace VtmTests.Mapper {
 
         [TestMethod]
         public void TestSteig_FindByRbl() {
-            List<ISteig> result = _mapper.FindByRbl(1234);
+            IList<ISteig> result = _mapper.FindByRbl(1234);
             for (int i = 0; i < 10; i++) {
                 Assert.AreEqual(result[i].Rbl, 1234, "RBL(1234) nicht korrekt!");
             }
@@ -69,7 +69,7 @@ namespace VtmTests.Mapper {
 
         [TestMethod]
         public void TestSteig_FindByHaltestelle() {
-            List<ISteig> result = _mapper.FindByHaltestelle(987);
+            IList<ISteig> result = _mapper.FindByHaltestelle(987);
             for (int i = 0; i < 10; i++) {
                 Assert.AreEqual(i + 11, result[i].Id,"SteigId bei FindByHaltestelle nicht korrekt!");
                 Assert.AreEqual(987, result[i].HaltestellenId, "Haltestelle bei FindByHaltestelle nicht korrekt!");

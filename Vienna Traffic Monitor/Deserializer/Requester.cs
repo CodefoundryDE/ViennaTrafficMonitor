@@ -13,76 +13,48 @@ namespace ViennaTrafficMonitor.Deserializer {
         private const string _rblAllocator = "rbl=";
         private const string _rblConnector = "&rbl=";
 
-
-        /// <summary>
-        /// Erzeugt einen request string für EINE rbl, führt den request an die Wiener Linien aus
-        /// und parst das Ergebnis in eine Instanz der Klasse Response
-        /// </summary>
-        /// <param name="rbl"></param>
-        /// <returns></returns>
         public async Task<Response> GetResponseAsync(int rbl) {
-
-            string requestString =
-                ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestBegin
-                + _rblAllocator
-                + rbl.ToString()
-                + ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestEnd
-                + ViennaTrafficMonitor.Properties.Settings.Default.SenderIdDev;
-
-            Task<string> request = new HttpClient().GetStringAsync(requestString);
-
-            JavaScriptSerializer deserializer = new JavaScriptSerializer();
-
-            Response response = deserializer.Deserialize<Response>(await request);
-
-            return response;
-
-
+            return await GetResponseAsync(new SortedSet<int> { rbl });
         }
-
 
         /// <summary>
         /// Erzeugt einen request string für ein IEnumerable rbl, führt den request an die Wiener 
         /// Linien aus und parst das Ergebnis in eine Instanz der Klasse Response
         /// </summary>
-        /// <param name="rblEnumerable"></param>
-        /// <returns></returns>
-        public async Task<Response> GetResponseAsync(ISet<int> rblSet) {
-
-
-            StringBuilder builder = new StringBuilder();
-
-            builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestBegin);
-
-            if (rblSet.Count > 0) {
-                builder.Append(_rblAllocator);
-                builder.Append(rblSet.First());
-                IEnumerable rblEnumerable = rblSet.Skip(1);
-
-                foreach (int rbl in rblEnumerable) {
-                    builder.Append(_rblConnector);
-                    builder.Append(rbl);
-                }
-            }
-
-            builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestEnd);
-            builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.SenderIdDev);
-
-            string requestString = builder.ToString();
-                 
-
-
-            Task<string> request = new HttpClient().GetStringAsync(requestString);
-
-            JavaScriptSerializer deserializer = new JavaScriptSerializer();
-
-            String responseString = await request;
-
-            Response response = deserializer.Deserialize<Response>(responseString);
-
+        public async Task<Response> GetResponseAsync(ISet<int> rblEnumerable) {
+            string requestString = buildRequestString(rblEnumerable);
+            string responded = await requestAndAwaitResponse(requestString);
+            Response response = deserializeRespondedString(responded);
             return response;
         }
 
+        private static string buildRequestString(ISet<int> setOfRbls) {
+            if (setOfRbls.Count <= 0) {
+                throw new ArgumentOutOfRangeException("setOfRbls", setOfRbls.Count, "Leeres Set von Rbls an den Requester übergeben");
+            }
+            StringBuilder builder = new StringBuilder();
+            builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestBegin);
+            builder.Append(_rblAllocator);
+            builder.Append(setOfRbls.First());
+            IEnumerable rblEnumerable = setOfRbls.Skip(1);
 
+            foreach (int rbl in rblEnumerable) {
+                builder.Append(_rblConnector);
+                builder.Append(rbl);
+            }
+            builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestEnd);
+            builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.SenderIdDev);
+            return builder.ToString();
+        }
+
+        private async Task<string> requestAndAwaitResponse(string requestString) {
+            Task<string> request = new HttpClient().GetStringAsync(requestString);
+            return await request;
+        }
+
+        private static Response deserializeRespondedString(string responded) {
+            JavaScriptSerializer deserializer = new JavaScriptSerializer();
+            return deserializer.Deserialize<Response>(responded);
+        }
     }
 }

@@ -12,8 +12,14 @@ using VtmFramework.Command;
 using ViennaTrafficMonitor.Filter;
 using System;
 using System.Collections.ObjectModel;
+using ViennaTrafficMonitor.Events;
 
 namespace ViennaTrafficMonitor.ViewModel {
+
+    public class VtmPushpin {
+        public IHaltestelle Haltestelle { get; set; }
+        public Location Location { get; set; }
+    }
 
     public class MapViewModel : AbstractViewModel {
 
@@ -50,8 +56,8 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        private ICollection<Location> _pushpins;
-        public ICollection<Location> Pushpins {
+        private ICollection<VtmPushpin> _pushpins;
+        public ICollection<VtmPushpin> Pushpins {
             get { return _pushpins; }
             private set {
                 _pushpins = value;
@@ -77,7 +83,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             CredentialsProvider = credentialsProvider;
             _LinienMapper = linienMapper;
 
-            Pushpins = new ObservableCollection<Location>();
+            Pushpins = new ObservableCollection<VtmPushpin>();
             PolyLines = new ObservableCollection<MapPolyline>();
 
 
@@ -89,9 +95,6 @@ namespace ViennaTrafficMonitor.ViewModel {
             // Startpunkt: Wien Stephansdom
             Center = new Location(48.208333, 16.372778);
             ZoomLevel = 13.0;
-
-            // TODO
-            //MapControl.ViewChangeEnd += _mapViewChangeEnd;
 
             _drawLinien();
         }
@@ -107,21 +110,11 @@ namespace ViennaTrafficMonitor.ViewModel {
             _filterCollection.Add("NachtBus", new MapFilter(EVerkehrsmittel.NachtBus));
         }
 
-        private void _mapViewChangeEnd(object sender, MapEventArgs e) {
-            if (ZoomLevel < 15) {
-                //MapControl.ZoomLevel = 15;
-            }
-        }
-
         private void _drawHaltestellen(IEnumerable<IHaltestelle> haltestellen) {
             Pushpins.Clear();
             foreach (IHaltestelle haltestelle in haltestellen) {
-                Pushpin pin = new Pushpin();
                 Location location = new Location(haltestelle.Location.X, haltestelle.Location.Y);
-                pin.Tag = haltestelle.Id;
-                pin.Location = location;
-                pin.CommandBindings.Add(new CommandBinding());
-                Pushpins.Add(location);
+                Pushpins.Add(new VtmPushpin() { Haltestelle = haltestelle, Location = location });
             }
             RaisePropertyChangedEvent("Pushpins");
         }
@@ -166,88 +159,110 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         #region ButtonMetro
-        public ICommand ButtonMetroCommand {
-            get { return new AwaitableDelegateCommand(_metro); }
-        }
-        private async Task _metro() {
-            _filterButton("Metro");
-        }
+        //public ICommand ButtonMetroCommand {
+        //    get { return new AwaitableDelegateCommand(_metro); }
+        //}
+        //private async Task _metro() {
+        //    _filterButton("Metro");
+        //}
 
         public bool ButtonMetroActive {
             get { return !_filterCollection["Metro"].Active; }
+            set { _filterButton("Metro", !value); }
         }
         #endregion
 
         #region ButtonSBahn
-        public ICommand ButtonSBahnCommand {
-            get { return new AwaitableDelegateCommand(_sbahn); }
-        }
-        private async Task _sbahn() {
-            _filterButton("SBahn");
-        }
-
-        public bool ButtonSBahnActive {
-            get { return !_filterCollection["SBahn"].Active; }
-        }
+        //public ICommand ButtonSBahnCommand {
+        //    get { return new AwaitableDelegateCommand(_sbahn); }
+        //}
+        //private async Task _sbahn() {
+        //    _filterButton("SBahn");
+        //}
+        //public bool ButtonSBahnActive {
+        //    get { return !_filterCollection["SBahn"].Active; }
+        //}
         #endregion
 
         #region ButtonTram
-        public ICommand ButtonTramCommand {
-            get { return new AwaitableDelegateCommand(_tram); }
-        }
-        private async Task _tram() {
-            _filterButton("Tram");
-        }
+        //public ICommand ButtonTramCommand {
+        //    get { return new AwaitableDelegateCommand(_tram); }
+        //}
+        //private async Task _tram() {
+        //    _filterButton("Tram");
+        //}
 
         public bool ButtonTramActive {
             get { return !_filterCollection["Tram"].Active; }
+            set { _filterButton("Tram", !value); }
         }
         #endregion
 
         #region ButtonTramWlb
-        public ICommand ButtonTramWlbCommand {
-            get { return new AwaitableDelegateCommand(_tramwlb); }
-        }
-        private async Task _tramwlb() {
-            _filterButton("TramWlb");
-        }
+        //public ICommand ButtonTramWlbCommand {
+        //    get { return new AwaitableDelegateCommand(_tramwlb); }
+        //}
+        //private async Task _tramwlb() {
+        //    _filterButton("TramWlb");
+        //}
 
         public bool ButtonTramWlbActive {
             get { return !_filterCollection["TramWlb"].Active; }
+            set { _filterButton("TramWlb", !value); }
         }
         #endregion
 
         #region ButtonCityBus
-        public ICommand ButtonCityBusCommand {
-            get { return new AwaitableDelegateCommand(_citybus); }
-        }
-        private async Task _citybus() {
-            _filterButton("CityBus");
-        }
+        //public ICommand ButtonCityBusCommand {
+        //    get { return new AwaitableDelegateCommand(_citybus); }
+        //}
+        //private async Task _citybus() {
+        //    _filterButton("CityBus");
+        //}
 
         public bool ButtonCityBusActive {
             get { return !_filterCollection["CityBus"].Active; }
+            set { _filterButton("CityBus", !value); }
         }
         #endregion
 
         #region ButtonNachtBus
-        public ICommand ButtonNachtBusCommand {
-            get { return new AwaitableDelegateCommand(_nachtbus); }
-        }
-        private async Task _nachtbus() {
-            _filterButton("NachtBus");
-        }
+        //public ICommand ButtonNachtBusCommand {
+        //    get { return new AwaitableDelegateCommand(_nachtbus); }
+        //}
+        //private async Task _nachtbus() {
+        //    _filterButton("NachtBus");
+        //}
 
         public bool ButtonNachtBusActive {
             get { return !_filterCollection["NachtBus"].Active; }
+            set { _filterButton("NachtBus", !value); }
         }
         #endregion
 
-        private void _filterButton(string name) {
-            _filterCollection[name].Active = _filterCollection[name].Active ? false : true;
+        private void _filterButton(string name, bool active) {
+            _filterCollection[name].Active = active;
             RaisePropertyChangedEvent("Button" + name + "Active");
             _drawLinien();
         }
+
+        #region Pushpin-Click
+        public DelegateCommand PushpinClickCommand {
+            get { return new DelegateCommand(_pushpinClick); }
+        }
+
+        private void _pushpinClick(object parameter) {
+            if (parameter != null) {
+                int haltestelle = (int)parameter;
+                EventHandler<SucheEventArgs> handler = HaltestelleSelected;
+                if (handler != null) {
+                    handler(this, new SucheEventArgs(haltestelle));
+                }
+            }
+        }
+        public event EventHandler<SucheEventArgs> HaltestelleSelected;
+        #endregion
+
     }
 
 }

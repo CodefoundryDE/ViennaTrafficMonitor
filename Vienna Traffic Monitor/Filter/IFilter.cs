@@ -17,7 +17,6 @@ namespace ViennaTrafficMonitor.Filter {
         /// Status des Filters
         /// </summary>
         bool Active { get; set; }
-        double ButtonOpacity { get; }
     }
 
 }

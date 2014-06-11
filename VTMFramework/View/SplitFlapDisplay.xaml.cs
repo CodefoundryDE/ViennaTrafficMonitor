@@ -24,7 +24,7 @@ namespace VtmFramework.View {
     public partial class SplitFlapDisplay : UserControl {
 
         #region DependencyProperty PanelCount
-        public static readonly DependencyProperty PanelCountProperty = DependencyProperty.Register("PanelCount", typeof(int), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(1, OnPanelCountChanged));
+        public static readonly DependencyProperty PanelCountProperty = DependencyProperty.Register("PanelCount", typeof(int), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(0, OnPanelCountChanged));
 
         public int PanelCount {
             get { return (int)this.GetValue(PanelCountProperty); }
@@ -39,18 +39,70 @@ namespace VtmFramework.View {
         #endregion
 
         #region DependencyProperty Text
-        public static readonly DependencyProperty TextProperty = DependencyProperty.RegisterAttached("Text", typeof(string), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(OnTextChanged));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(OnTextChanged));
 
         public string Text {
             get { return (string)this.GetValue(TextProperty); }
-            set {
-                this.SetValue(TextProperty, value);
-            }
+            set { this.SetValue(TextProperty, value); }
         }
 
         private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             SplitFlapDisplay display = (SplitFlapDisplay)d;
             display.OnTextChanged();
+        }
+        #endregion
+
+        #region DependencyProperty Animated
+        public static readonly DependencyProperty AnimatedProperty = DependencyProperty.Register("Animated", typeof(bool), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata(true));
+
+        public bool Animated {
+            get { // Dieser Getter ist Threadsafe.
+                try {
+                    return (bool)this.Dispatcher.Invoke(
+                        DispatcherPriority.Normal,
+                        (DispatcherOperationCallback)delegate { return GetValue(AnimatedProperty); },
+                        AnimatedProperty);
+                } catch {
+                    return (bool)AnimatedProperty.DefaultMetadata.DefaultValue;
+                }
+            }
+            set { this.SetValue(AnimatedProperty, value); }
+        }
+        #endregion
+
+        #region StartChar
+        public static readonly DependencyProperty StartCharProperty = DependencyProperty.Register("StartChar", typeof(char), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata('0'));
+
+        public char StartChar {
+            get { // Dieser Getter ist Threadsafe.
+                try {
+                    return (char)this.Dispatcher.Invoke(
+                       System.Windows.Threading.DispatcherPriority.Normal,
+                       (DispatcherOperationCallback)delegate { return this.GetValue(StartCharProperty); },
+                       StartCharProperty);
+                } catch {
+                    return (char)StartCharProperty.DefaultMetadata.DefaultValue;
+                }
+            }
+            set { this.SetValue(StartCharProperty, value); }
+        }
+        #endregion
+
+        #region EndChar
+        public static readonly DependencyProperty EndCharProperty = DependencyProperty.Register("EndChar", typeof(char), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata('Z'));
+
+        public char EndChar {
+            get { // Dieser Getter ist Threadsafe.
+                try {
+                    return (char)this.Dispatcher.Invoke(
+                       System.Windows.Threading.DispatcherPriority.Normal,
+                       (DispatcherOperationCallback)delegate { return GetValue(EndCharProperty); },
+                       EndCharProperty);
+                } catch {
+                    return (char)EndCharProperty.DefaultMetadata.DefaultValue;
+                }
+            }
+            set { this.SetValue(EndCharProperty, value); }
         }
         #endregion
 
@@ -75,13 +127,20 @@ namespace VtmFramework.View {
             Panels.Clear();
             for (int i = 0; i < PanelCount; i++) {
                 SplitFlapPanel panel = new SplitFlapPanel();
-                panel.Content = "A";
+                panel.Content = ' ';
                 panel.Width = 40;
                 panel.BorderThickness = new Thickness(1);
                 panel.BorderBrush = new SolidColorBrush(Colors.Black);
                 Panels.Add(panel);
                 MainPanel.Children.Add(panel);
             }
+
+            // Das Char-Array mit Leerzeichen füllen
+            _charsCurrent = (new String(' ', PanelCount)).ToCharArray(0, PanelCount);
+            for (int i = 0; i < PanelCount; i++) {
+                _display(i, _charsCurrent[i]);
+            }
+
             MainPanel.UpdateLayout();
         }
 
@@ -90,47 +149,33 @@ namespace VtmFramework.View {
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
         private void OnTextChanged() {
-            string text = Text == null ? "" : Text;
+            string text = String.IsNullOrWhiteSpace(Text) ? "" : Text;
             text = StrLib.UmlautFilter(text).ToUpper().PadRight(PanelCount, ' ');
-            if (_charsCurrent == null) {
-                _charsCurrent = text.ToCharArray(0, PanelCount);
-            }
+
             _charsFinal = text.ToCharArray(0, PanelCount);
 
-            //Parallel.For(0, PanelCount, (int i) => {
-            //    object[] parameters = new object[] { i, _charsCurrent[i] };
-            //    Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
-            //});
-
-            for (int i = 0; i < PanelCount; i++) {
-                object[] parameters = new object[] { i, _charsCurrent[i] };
-                Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
-            }
-
-            _timer.Change(0, 550);
+            _timer.Change(0, 150);
         }
 
         private void _tick(object state) {
             bool action = false;
-
             for (int i = 0; i < _charsCurrent.Length; i++) {
                 if (_charsCurrent[i] != _charsFinal[i]) {
-                    _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], ' ', 'Z');
-                    object[] parameters = new object[] { i, _charsCurrent[i] };
-                    Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
+                    // Wenn das Zeichen außerhalb des animierten Bereichs liegt, sofort hinspringen
+                    // Oder, wenn das Panel nicht das Alphabet durchspringen soll
+                    if (_charsFinal[i] < StartChar || _charsFinal[i] > EndChar || !Animated)
+                        _charsCurrent[i] = _charsFinal[i];
+                    else
+                        _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], StartChar, EndChar);
+                    _display(i, _charsCurrent[i]);
                     action = true;
                 }
             }
-
-            //Parallel.For(0, _charsCurrent.Length, (int i) => {
-            //    if (_charsCurrent[i] != _charsFinal[i]) {
-            //        _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], ' ', 'Z');
-            //        object[] parameters = new object[] { i, _charsCurrent[i] };
-            //        Panels[i].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, parameters);
-            //        action = true;
-            //    }
-            //});
             if (!action) _timer.Change(Timeout.Infinite, Timeout.Infinite);
+        }
+
+        private void _display(int panel, char character) {
+            Panels[panel].Dispatcher.BeginInvoke(new updateDelegate(updatePanel), DispatcherPriority.Normal, new object[] { panel, character });
         }
 
         private delegate void updateDelegate(int panel, char character);

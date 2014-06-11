@@ -6,12 +6,20 @@
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
              xmlns:c="clr-namespace:VtmFramework.Converter;assembly=VtmFramework"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="500">
+             d:DesignHeight="403.2" d:DesignWidth="593.6">
     <UserControl.Resources>
-        <c:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
-        <DataTemplate x:Key="PushpinsTemplate">
-            <m:Pushpin Background="Green" Location="{Binding}" />
+        <c:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <DataTemplate x:Key="PushpinsTemplate" DataType="m:Pushpin">
+            <m:Pushpin Location="{Binding Location}" Tag="{Binding Haltestelle.Id}" Cursor="Hand" Style="{StaticResource MapPushpin}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding DataContext.PushpinClickCommand, RelativeSource={RelativeSource AncestorType=m:MapItemsControl}}" 
+                                               CommandParameter="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=m:Pushpin}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </m:Pushpin>
         </DataTemplate>
         <DataTemplate x:Key="PolylinesTemplate">
             <m:MapPolyline />
@@ -19,12 +27,26 @@
     </UserControl.Resources>
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Panel.ZIndex="100">
-            <Button Opacity="{Binding ButtonMetroActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonMetroCommand}" Margin="10,0" Content="U" Style="{StaticResource MapFilterButton}" Background="Blue" />
-            <Button Opacity="{Binding ButtonSBahnActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonSBahnCommand}" Margin="10,0" Content="S" Style="{StaticResource MapFilterButton}" Background="LimeGreen" />
-            <Button Opacity="{Binding ButtonTramActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonTramCommand}" Margin="10,0" Content="T" Style="{StaticResource MapFilterButton}" Background="Red" />
-            <Button Opacity="{Binding ButtonTramWlbActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonTramWlbCommand}" Margin="10,0" Content="WLB" Style="{StaticResource MapFilterButton}" Background="CornflowerBlue" />
-            <Button Opacity="{Binding ButtonCityBusActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonCityBusCommand}" Margin="10,0" Content="B" Style="{StaticResource MapFilterButton}" Background="Purple" />
-            <Button Opacity="{Binding ButtonNachtBusActive, Converter={StaticResource BoolToOpacityConverter}}" Command="{Binding ButtonNachtBusCommand}" Margin="10,0" Content="NB" Style="{StaticResource MapFilterButton}" Background="Red" />
+            <StackPanel Name="PanelMetro" Style="{StaticResource FilterStackPanel}">
+                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonMetroActive}" />
+                <Label Content="Metro" Style="{StaticResource FilterLabel}" Background="Blue" />
+            </StackPanel>
+            <StackPanel Name="PanelTram" Style="{StaticResource FilterStackPanel}">
+                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonTramActive}"  />
+                <Label Content="Tram" Style="{StaticResource FilterLabel}" Background="Red" />
+            </StackPanel>
+            <StackPanel Name="PanelTramWlb" Style="{StaticResource FilterStackPanel}">
+                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonTramWlbActive}" />
+                <Label Content="WLB" Style="{StaticResource FilterLabel}" Background="BlueViolet" />
+            </StackPanel>
+            <StackPanel Name="PanelCityBus" Style="{StaticResource FilterStackPanel}">
+                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonCityBusActive}" />
+                <Label Content="Bus" Style="{StaticResource FilterLabel}" Background="Green" />
+            </StackPanel>
+            <StackPanel Name="PanelNachtBus" Style="{StaticResource FilterStackPanel}">
+                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonNachtBusActive}" />
+                <Label Content="Nachtbus" Style="{StaticResource FilterLabel}" Background="Aquamarine" />
+            </StackPanel>
         </StackPanel>
         <m:Map Name="MapControl" Background="Transparent" CredentialsProvider="{Binding CredentialsProvider}" Center="{Binding Center, Mode=TwoWay}" ZoomLevel="{Binding ZoomLevel, Mode=TwoWay}">
             <m:MapItemsControl ItemsSource="{Binding PolyLines, Mode=TwoWay}" ItemTemplate="{StaticResource PolylinesTemplate}" />

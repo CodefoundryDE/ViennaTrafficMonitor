@@ -12,17 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Maps.MapControl.WPF;
 
 namespace ViennaTrafficMonitor.View {
     /// <summary>
-    /// Interaktionslogik für Map.xaml
+    /// Interaktionslogik für Info.xaml
     /// </summary>
-    public partial class Map : UserControl {
-
-        public Map() {
+    public partial class Info : UserControl {
+        public Info() {
             InitializeComponent();
         }
-
     }
 }

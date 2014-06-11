@@ -14,7 +14,6 @@ namespace VtmFramework.Mapper {
         /// <param name="id">Id</param>
         /// <returns>T</returns>
         T Find(int id);
-
     }
 
 }

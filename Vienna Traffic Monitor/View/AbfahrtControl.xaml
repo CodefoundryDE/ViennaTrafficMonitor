@@ -7,12 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="284" d:DesignWidth="925.6">
     <UserControl.Resources>
-        <Style TargetType="fv:SplitFlapDisplay">
+        <Style TargetType="fv:SplitFlapDisplay" x:Key="SfdStyle">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Margin" Value="10" />
         </Style>
+        <Style x:Key="NumbersOnly" TargetType="fv:SplitFlapDisplay" BasedOn="{StaticResource SfdStyle}">
+            <Setter Property="StartChar" Value="0" />
+            <Setter Property="EndChar" Value="9" />
+        </Style>
     </UserControl.Resources>
-    <Grid Name="ControlsGrid">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="12*" />
             <ColumnDefinition Width="6*" />
@@ -20,10 +24,10 @@
             <ColumnDefinition Width="52*"/>
             <ColumnDefinition Width="6*" />
         </Grid.ColumnDefinitions>
-        <fv:SplitFlapDisplay Name="LAbfahrt" PanelCount="5" Grid.Column="0" />
-        <fv:SplitFlapDisplay Name="LGleis" PanelCount="2" Grid.Column="1" />
-        <fv:SplitFlapDisplay Name="LLinie" PanelCount="3" Grid.Column="2" />
-        <fv:SplitFlapDisplay Name="SFDRichtung" PanelCount="28" Grid.Column="3" />
-        <fv:SplitFlapDisplay Name="LVerspaetung" PanelCount="2" Grid.Column="4" />
+        <fv:SplitFlapDisplay Name="LAbfahrt" StartChar="0" EndChar="9" PanelCount="5" Grid.Column="0" Style="{StaticResource NumbersOnly}" />
+        <fv:SplitFlapDisplay Name="LGleis" PanelCount="2" Grid.Column="1" Style="{StaticResource SfdStyle}" />
+        <fv:SplitFlapDisplay Name="LLinie" PanelCount="3" Grid.Column="2" Style="{StaticResource SfdStyle}" />
+        <fv:SplitFlapDisplay Name="SFDRichtung" Animated="False" PanelCount="25" Grid.Column="3" Style="{StaticResource SfdStyle}" />
+        <fv:SplitFlapDisplay Name="LVerspaetung" PanelCount="2" Grid.Column="4" Style="{StaticResource NumbersOnly}" />
     </Grid>
 </UserControl>

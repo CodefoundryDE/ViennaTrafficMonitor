@@ -1,12 +1,21 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style x:Key="UhrzeitLabel" TargetType="Label" BasedOn="{StaticResource UhrzeitLabel}">
-        <Setter Property="Background">
-            <Setter.Value>
-                <ImageBrush ImageSource="/Ressources/Icons/Light/appbar.clock.png" AlignmentX="Left" Stretch="Uniform" />
-            </Setter.Value>
-        </Setter>
-    </Style>
+    <SolidColorBrush x:Key="MainColor" Color="YellowGreen"/>
+    <SolidColorBrush x:Key="BackgroundSelected" Color="YellowGreen"/>
+    <SolidColorBrush x:Key="BorderBrushSelected" Color="#AED75B"/>
+    <SolidColorBrush x:Key="MainColorDark" Color="#6C9023"/>
+    <SolidColorBrush x:Key="LightBackground" Color="White"/>
+    <SolidColorBrush x:Key="BackgroundNormal" Color="White"/>
+    <SolidColorBrush x:Key="Foreground" Color="Black"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="#797984"/>
+    <SolidColorBrush x:Key="BorderBrushNormal" Color="#797984"/>
+    <SolidColorBrush x:Key="BackgroundHighlighted" Color="YellowGreen"/>
+    <SolidColorBrush x:Key="ButtonBackgroundHighlighted" Color="#AED75B"/>
+    <SolidColorBrush x:Key="TextBoxBackground" Color="#AED75B"/>
+    <SolidColorBrush x:Key="TextBoxBackgroundSelected" Color="#E0F0C0"/>
+    <SolidColorBrush x:Key="SearchTextForeground" Color="Black"/>
+    <SolidColorBrush x:Key="BackgroundPushpin" Color="#797984"/>
     
+
 </ResourceDictionary>

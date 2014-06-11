@@ -23,12 +23,9 @@ namespace ViennaTrafficMonitor.View {
 
         private const int CONTROLCOUNT = 6;
 
-        private UIElementCollection _abfahrtControls;
-
         public Abfahrten() {
             InitializeComponent();
 
-            _abfahrtControls = new UIElementCollection(this, this);
             _createAbfahrtControls();
         }
 
