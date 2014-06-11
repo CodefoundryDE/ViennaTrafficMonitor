@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using VtmFramework.ViewModel;
 using Microsoft.Maps.MapControl.WPF;
 using Microsoft.Maps.MapControl.WPF.Core;
-using System.Windows.Input;
 using ViennaTrafficMonitor.Mapper;
 using ViennaTrafficMonitor.Model;
 using System.Windows.Media;
@@ -56,23 +54,8 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        private ICollection<VtmPushpin> _pushpins;
-        public ICollection<VtmPushpin> Pushpins {
-            get { return _pushpins; }
-            private set {
-                _pushpins = value;
-                RaisePropertyChangedEvent("Pushpins");
-            }
-        }
-
-        private ICollection<MapPolyline> _polylines;
-        public ICollection<MapPolyline> PolyLines {
-            get { return _polylines; }
-            private set {
-                _polylines = value;
-                RaisePropertyChangedEvent("Polylines");
-            }
-        }
+        public ICollection<VtmPushpin> Pushpins { get; private set; }
+        public ICollection<MapPolyline> PolyLines { get; private set; }
 
         public MapViewModel(CredentialsProvider credentialsProvider, ILinienMapper linienMapper) {
             if (credentialsProvider == null)
@@ -86,8 +69,6 @@ namespace ViennaTrafficMonitor.ViewModel {
             Pushpins = new ObservableCollection<VtmPushpin>();
             PolyLines = new ObservableCollection<MapPolyline>();
 
-
-
             _linien = _LinienMapper.HaltestellenOrdered;
 
             _initFilters();
@@ -95,8 +76,6 @@ namespace ViennaTrafficMonitor.ViewModel {
             // Startpunkt: Wien Stephansdom
             Center = new Location(48.208333, 16.372778);
             ZoomLevel = 13.0;
-
-            _drawLinien();
         }
 
         private void _initFilters() {
@@ -116,7 +95,6 @@ namespace ViennaTrafficMonitor.ViewModel {
                 Location location = new Location(haltestelle.Location.X, haltestelle.Location.Y);
                 Pushpins.Add(new VtmPushpin() { Haltestelle = haltestelle, Location = location });
             }
-            RaisePropertyChangedEvent("Pushpins");
         }
 
         private void _drawLinien() {
@@ -127,8 +105,8 @@ namespace ViennaTrafficMonitor.ViewModel {
                 polyline.Stroke = new SolidColorBrush(_getColorByLine(kvp.Key.Bezeichnung));
                 polyline.StrokeThickness = 5;
                 polyline.StrokeLineJoin = PenLineJoin.Round;
+                polyline.StrokeStartLineCap = PenLineCap.Round;
                 polyline.StrokeEndLineCap = PenLineCap.Round;
-                polyline.StrokeMiterLimit = 0.5;
                 LocationCollection locations = new LocationCollection();
                 foreach (IHaltestelle haltestelle in kvp.Value) {
                     Location location = new Location(haltestelle.Location.X, haltestelle.Location.Y);
@@ -140,11 +118,10 @@ namespace ViennaTrafficMonitor.ViewModel {
 
             var query = from kvp in dict select kvp.Value;
             IEnumerable<IHaltestelle> haltestellen = new List<IHaltestelle>();
-            foreach (List<IHaltestelle> list in query) {
+            foreach (ICollection<IHaltestelle> list in query) {
                 haltestellen = haltestellen.Union<IHaltestelle>(list);
             }
             _drawHaltestellen(haltestellen.Distinct());
-            RaisePropertyChangedEvent("Polylines");
         }
 
         private static Color _getColorByLine(string line) {
@@ -158,81 +135,26 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        #region ButtonMetro
-        //public ICommand ButtonMetroCommand {
-        //    get { return new AwaitableDelegateCommand(_metro); }
-        //}
-        //private async Task _metro() {
-        //    _filterButton("Metro");
-        //}
-
+        #region Filter
         public bool ButtonMetroActive {
             get { return !_filterCollection["Metro"].Active; }
             set { _filterButton("Metro", !value); }
         }
-        #endregion
-
-        #region ButtonSBahn
-        //public ICommand ButtonSBahnCommand {
-        //    get { return new AwaitableDelegateCommand(_sbahn); }
-        //}
-        //private async Task _sbahn() {
-        //    _filterButton("SBahn");
-        //}
-        //public bool ButtonSBahnActive {
-        //    get { return !_filterCollection["SBahn"].Active; }
-        //}
-        #endregion
-
-        #region ButtonTram
-        //public ICommand ButtonTramCommand {
-        //    get { return new AwaitableDelegateCommand(_tram); }
-        //}
-        //private async Task _tram() {
-        //    _filterButton("Tram");
-        //}
 
         public bool ButtonTramActive {
             get { return !_filterCollection["Tram"].Active; }
             set { _filterButton("Tram", !value); }
         }
-        #endregion
-
-        #region ButtonTramWlb
-        //public ICommand ButtonTramWlbCommand {
-        //    get { return new AwaitableDelegateCommand(_tramwlb); }
-        //}
-        //private async Task _tramwlb() {
-        //    _filterButton("TramWlb");
-        //}
 
         public bool ButtonTramWlbActive {
             get { return !_filterCollection["TramWlb"].Active; }
             set { _filterButton("TramWlb", !value); }
         }
-        #endregion
-
-        #region ButtonCityBus
-        //public ICommand ButtonCityBusCommand {
-        //    get { return new AwaitableDelegateCommand(_citybus); }
-        //}
-        //private async Task _citybus() {
-        //    _filterButton("CityBus");
-        //}
 
         public bool ButtonCityBusActive {
             get { return !_filterCollection["CityBus"].Active; }
             set { _filterButton("CityBus", !value); }
         }
-        #endregion
-
-        #region ButtonNachtBus
-        //public ICommand ButtonNachtBusCommand {
-        //    get { return new AwaitableDelegateCommand(_nachtbus); }
-        //}
-        //private async Task _nachtbus() {
-        //    _filterButton("NachtBus");
-        //}
 
         public bool ButtonNachtBusActive {
             get { return !_filterCollection["NachtBus"].Active; }
