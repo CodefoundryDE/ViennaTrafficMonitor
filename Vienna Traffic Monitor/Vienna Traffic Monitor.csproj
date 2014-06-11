@@ -111,7 +111,7 @@
     <Compile Include="Deserializer\VtmResponse.cs" />
     <Compile Include="Events\SucheEventArgs.cs" />
     <Compile Include="Filter\AbfahrtenFilter.cs" />
-    <Compile Include="Filter\OrderByAbfahrtenFilter.cs" />
+    <Compile Include="Filter\OrderAbfahrtenFilter.cs" />
     <Compile Include="Filter\MapFilter.cs" />
     <Compile Include="Filter\GenericFilter.cs" />
     <Compile Include="Filter\FilterCollection.cs" />
