@@ -136,6 +136,7 @@
     <Compile Include="ViewModel\EinstellungenViewModel.cs" />
     <Compile Include="ViewModel\HauptfensterViewModelFactory.cs" />
     <Compile Include="ViewModel\InfoViewModel.cs" />
+    <Compile Include="ViewModel\InitializationViewModel.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MapViewModelFactory.cs" />
     <Compile Include="ViewModel\AbfahrtenViewModel.cs" />
