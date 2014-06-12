@@ -35,9 +35,9 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Content="Map" Command="{Binding ButtonMapCommand}" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75" Grid.Column="0"/>
+        <Button Grid.Row="0" Content="Map" Command="{Binding ButtonMapCommand}" HorizontalAlignment="Left" Margin="10,10,10,10" MinWidth="75" Grid.Column="0"/>
         <v:Suche Grid.Row="0" Grid.Column="1" DataContext="{Binding Suche}" Margin="10,10,10,10"/>
-        <Button Grid.Row="0" Content="Home" Command="{Binding ButtonHomeCommand}" HorizontalAlignment="Right" Margin="10,10,10,10" Width="75" Grid.Column="2" />
+        <Button Grid.Row="0" Content="Home" Command="{Binding ButtonHomeCommand}" HorizontalAlignment="Right" Margin="10,10,10,10" MinWidth="75" Grid.Column="2" />
         <fv:AnimatedContentControl Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2" Content="{Binding Scheduler.Aktuell}" />
         <fv:ErrorView DataContext="{Binding Error}"  Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
         <v:Einstellungen DataContext="{Binding Einstellungen}" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />

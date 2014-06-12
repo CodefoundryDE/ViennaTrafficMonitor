@@ -64,11 +64,11 @@
         <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Content="{Binding Message, FallbackValue=Nachricht}" />
 
         <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="10,0,10,0" Command="{Binding ButtonOkCommand}" Visibility="{Binding ButtonOk, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Ok"/>
-            <Button Margin="10,0,10,0" Command="{Binding ButtonYesCommand}" Visibility="{Binding ButtonYes, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Ja"/>
-            <Button Margin="10,0,10,0" Command="{Binding ButtonNoCommand}" Visibility="{Binding ButtonNo, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Nein"/>
-            <Button Margin="10,0,10,0" Command="{Binding ButtonRetryCommand}" Visibility="{Binding ButtonRetry, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Wiederholen"/>
-            <Button Margin="10,0,10,0" Command="{Binding ButtonCancelCommand}" Visibility="{Binding ButtonCancel, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Abbrechen"/>
+            <Button Margin="10,0,10,0" Command="{Binding ButtonOkCommand}" Visibility="{Binding ButtonOk, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Ok" MinWidth="75"/>
+            <Button Margin="10,0,10,0" Command="{Binding ButtonYesCommand}" Visibility="{Binding ButtonYes, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Ja" MinWidth="75"/>
+            <Button Margin="10,0,10,0" Command="{Binding ButtonNoCommand}" Visibility="{Binding ButtonNo, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Nein" MinWidth="75"/>
+            <Button Margin="10,0,10,0" Command="{Binding ButtonRetryCommand}" Visibility="{Binding ButtonRetry, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Wiederholen" MinWidth="75"/>
+            <Button Margin="10,0,10,0" Command="{Binding ButtonCancelCommand}" Visibility="{Binding ButtonCancel, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Abbrechen" MinWidth="75"/>
         </StackPanel>
     </Grid>
 </UserControl>
