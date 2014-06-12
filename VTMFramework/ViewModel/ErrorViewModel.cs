@@ -58,7 +58,7 @@ namespace VtmFramework.ViewModel {
         public ErrorViewModel()
             : base() {
             Visible = false;
-            _buttonSet = EErrorButtons.OkCancel;
+            _buttonSet = EErrorButtons.Empty;
         }
 
         public ErrorViewModel(EErrorButtons buttonSet)
