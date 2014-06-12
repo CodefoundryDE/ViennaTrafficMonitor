@@ -49,7 +49,7 @@ namespace ViennaTrafficMonitor.ViewModel {
 
         public ICollection<VtmResponse> Abfahrten {
             get {
-                ICollection<VtmResponse> response =  _verkehrsmittelFilter.Filter(Response);
+                ICollection<VtmResponse> response = _verkehrsmittelFilter.Filter(Response);
                 if (response.Count == _resultCount) {
                     return response;
                 } else {
@@ -119,19 +119,19 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
             if (error) {
                 _Timer.Change(Timeout.Infinite, Timeout.Infinite);
-                EErrorResult result = await RaiseError("Fehler", "Es konnte keine Anfrage an die API der Wiener Linien gestellt werden.", VtmFramework.Error.EErrorButtons.RetryCancel);                
+                EErrorResult result = await RaiseError("Fehler", "Es konnte keine Anfrage an die API der Wiener Linien gestellt werden.", VtmFramework.Error.EErrorButtons.RetryCancel);
                 switch (result) {
                     case EErrorResult.Retry: {
-                        _GetResponse(state);
-                        _Timer.Change(0, Intervall);
-                        break;
+                            _GetResponse(state);
+                            _Timer.Change(0, Intervall);
+                            break;
                         }
                     default: {
-                        EventHandler handler = ConnectionLost;
-                        if (handler != null) {
-                            handler(this, new EventArgs());
-                        }
-                        break;
+                            EventHandler handler = ConnectionLost;
+                            if (handler != null) {
+                                handler(this, new EventArgs());
+                            }
+                            break;
                         }
                 }
             }
@@ -162,7 +162,10 @@ namespace ViennaTrafficMonitor.ViewModel {
         #region ButtonUbahn
         public bool ButtonMetroActive {
             get { return !_verkehrsmittelFilter["MetroFilter"].Active; }
-            set { _verkehrsmittelFilter["MetroFilter"].Active = !value; }
+            set {
+                _verkehrsmittelFilter["MetroFilter"].Active = !value;
+                RaisePropertyChangedEvent("Abfahrten");
+            }
         }
 
         public bool ButtonMetroVisible {
@@ -173,7 +176,10 @@ namespace ViennaTrafficMonitor.ViewModel {
         #region ButtonTram
         public bool ButtonTramActive {
             get { return !_verkehrsmittelFilter["TramFilter"].Active; }
-            set { _verkehrsmittelFilter["TramFilter"].Active = !value; }
+            set {
+                _verkehrsmittelFilter["TramFilter"].Active = !value;
+                RaisePropertyChangedEvent("Abfahrten");
+            }
         }
 
         public bool ButtonTramVisible {
@@ -184,7 +190,10 @@ namespace ViennaTrafficMonitor.ViewModel {
         #region ButtonTramWLB
         public bool ButtonTramWlbActive {
             get { return !_verkehrsmittelFilter["TramWlbFilter"].Active; }
-            set { _verkehrsmittelFilter["TramWlbFilter"].Active = !value; }
+            set {
+                _verkehrsmittelFilter["TramWlbFilter"].Active = !value;
+                RaisePropertyChangedEvent("Abfahrten");
+            }
         }
 
         public bool ButtonTramWlbVisible {
@@ -195,7 +204,10 @@ namespace ViennaTrafficMonitor.ViewModel {
         #region ButtonCityBus
         public bool ButtonCityBusActive {
             get { return !_verkehrsmittelFilter["CityBusFilter"].Active; }
-            set { _verkehrsmittelFilter["CityBusFilter"].Active = !value; }
+            set {
+                _verkehrsmittelFilter["CityBusFilter"].Active = !value;
+                RaisePropertyChangedEvent("Abfahrten");
+            }
         }
 
         public bool ButtonCityBusVisible {
@@ -206,7 +218,10 @@ namespace ViennaTrafficMonitor.ViewModel {
         #region ButtonNachtBus
         public bool ButtonNachtBusActive {
             get { return !_verkehrsmittelFilter["NachtBusFilter"].Active; }
-            set { _verkehrsmittelFilter["NachtBusFilter"].Active = !value; }
+            set {
+                _verkehrsmittelFilter["NachtBusFilter"].Active = !value;
+                RaisePropertyChangedEvent("Abfahrten");
+            }
         }
 
         public bool ButtonNachtBusVisible {
