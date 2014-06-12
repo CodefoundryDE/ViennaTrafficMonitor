@@ -14,7 +14,7 @@
         <c:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
     <UserControl.Background>
-        <SolidColorBrush Color="White" Opacity="0.75"/>
+        <SolidColorBrush Color="White"/>
     </UserControl.Background>
     <UserControl.BorderBrush>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -61,7 +61,7 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Content="{Binding Title, FallbackValue=Titel}" FontWeight="Bold" BorderThickness="0,0,0,1" BorderBrush="Black" VerticalContentAlignment="Center" Margin="1,0,19,0" />
-        <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Content="{Binding Message, FallbackValue=Nachricht}" />
+        <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Content="{Binding Message, FallbackValue=Nachricht}"/>
 
         <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="10,0,10,0" Command="{Binding ButtonOkCommand}" Visibility="{Binding ButtonOk, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Ok" MinWidth="75"/>

@@ -21,7 +21,7 @@ namespace VtmFramework.View {
     public partial class ErrorView : UserControl {
         public ErrorView() {
             InitializeComponent();
-            Grid.Height = SystemParameters.FullPrimaryScreenHeight / 8;
+            Grid.Height = SystemParameters.FullPrimaryScreenHeight / 4;
             if (((ErrorViewModel)DataContext).Visible == false) {
                 ((ErrorViewModel)DataContext).Visible = true;
                 ((ErrorViewModel)DataContext).Visible = false;

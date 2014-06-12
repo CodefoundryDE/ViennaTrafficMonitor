@@ -75,7 +75,11 @@ namespace VtmFramework.ViewModel {
         private IObserver<EErrorResult> _observer;
 
         public string Title { get; set; }
-        public string Message { get; set; }
+        private string _message;
+        public string Message {
+            get { return _message; }
+            set { _message = value; RaisePropertyChangedEvent("Message"); }
+        }
         private bool _visible;
         public bool Visible {
             get { return _visible; }
