@@ -15,6 +15,7 @@ using VtmFramework.Error;
 using VtmFramework.Error.Exceptions;
 using VtmFramework.Scheduler;
 using VtmFramework.ViewModel;
+using System.Collections.Generic;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
@@ -117,7 +118,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             ErrorViewModel vm = e.Error;
             if (vm != null) {
                 try {
-                    _errors.AddOrUpdate((AbstractViewModel)sender, vm, (key, oldValue) => vm);
+                    _errors.AddOrUpdate((AbstractViewModel)sender, vm, (key, oldValue) => oldValue);
                 } catch (ArgumentException ex) {
                     //Exception bereits vorhanden, wird wohl schon bearbeitet!
                 }
