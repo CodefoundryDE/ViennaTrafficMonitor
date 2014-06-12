@@ -126,12 +126,12 @@
                 <ControlTemplate TargetType="{x:Type CheckBox}" >
                     <BulletDecorator Background="Transparent">
                         <BulletDecorator.Bullet>
-                            <Polyline x:Name="Polyline" Points="0,8 8,0 16,8" Stroke="{DynamicResource MainColor}" StrokeThickness="5" StrokeLineJoin="Round" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Polyline x:Name="Polyline" Points="0,16 16,0 32,16" Stroke="{DynamicResource MainColor}" StrokeThickness="10" StrokeLineJoin="Round" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </BulletDecorator.Bullet>
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="Polyline" Property="Points" Value="0,0 8,8 16,0" />
+                            <Setter TargetName="Polyline" Property="Points" Value="0,0 16,16 32,0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
