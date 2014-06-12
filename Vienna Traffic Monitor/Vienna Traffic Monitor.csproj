@@ -68,7 +68,7 @@
     <ManifestKeyFile>Vienna Traffic Monitor_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FileHelpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
@@ -298,36 +298,36 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ressources\DummyResponses\DemoResponse0.txt">
+    <Content Include="Ressources\DummyResponses\DemoResponse0.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse1.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse2.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse3.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse3.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse4.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse4.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse5.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse5.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse6.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse6.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse7.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse7.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse8.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse8.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse9.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse9.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Ressources\Icons\Light\appbar.clock.png" />
@@ -336,24 +336,24 @@
     <Resource Include="Ressources\Icons\Dark\appbar.clock.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ressources\DummyResponses\DemoResponse10.txt">
+    <Content Include="Ressources\DummyResponses\DemoResponse10.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse11.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse11.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse12.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse12.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse13.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse13.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse14.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse14.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ressources\DummyResponses\DemoResponse15.txt">
+    </Content>
+    <Content Include="Ressources\DummyResponses\DemoResponse15.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Ressources\Images\Graph.png" />
