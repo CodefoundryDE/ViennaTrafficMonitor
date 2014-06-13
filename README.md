@@ -6,9 +6,8 @@ Vienna Traffic Monitor ist ein Echtzeit-Abfahrtsmonitor für das Netz der Wiener
 http://codefoundryde.github.io/ViennaTrafficMonitor/
 
 
-Installation
-============
+Mindestvoraussetzungen
+=====================
 
-TODO
-
-
+Betriebssystem: Windows 7
+Internetverbindung
