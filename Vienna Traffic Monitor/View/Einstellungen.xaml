@@ -8,6 +8,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="190.4" d:DesignWidth="700.8">
     <UserControl.Resources>
+        <Style x:Key="EinstellungStackPanel" TargetType="StackPanel">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="20" />
+        </Style>
         <c:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
@@ -59,15 +65,19 @@
                     </Style.Triggers>
                 </Style>
             </DockPanel.Style>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+            <StackPanel Style="{StaticResource EinstellungStackPanel}">
                 <Label Content="Dummy-API" VerticalAlignment="Center" />
                 <CheckBox IsChecked="{Binding Dummy}" Style="{StaticResource Slider}" VerticalAlignment="Center" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+            <StackPanel Style="{StaticResource EinstellungStackPanel}">
                 <Label Content="Style" VerticalAlignment="Center" />
                 <ComboBox SelectedValue="{Binding Theme}" Width="120" ItemsSource="{Binding AvailableDictionaries}" IsEditable="False" VerticalAlignment="Center" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="20">
+            <StackPanel Style="{StaticResource EinstellungStackPanel}">
+                <Label Content="Monitor" VerticalAlignment="Center" />
+                <ComboBox SelectedIndex="{Binding Monitor}" Width="120" ItemsSource="{Binding AvailableMonitors}" IsEditable="False" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Style="{StaticResource EinstellungStackPanel}" HorizontalAlignment="Right">
                 <Button Content="Info" Margin="0,0,10,0" Style="{StaticResource ButtonInfo}" Command="{Binding InfoCommand}" />
                 <Button Content="Beenden" Margin="10,0,0,0" Style="{StaticResource BeendenButton}" Command="{Binding BeendenCommand}" />
             </StackPanel>
