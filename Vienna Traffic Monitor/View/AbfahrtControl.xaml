@@ -38,7 +38,7 @@
         <Label Name="lblSteig" Content="Steig" Grid.Column="1" Style="{StaticResource Headline}" />
         <Label Name="lblLinie" Content="Linie" Grid.Column="2" Style="{StaticResource Headline}" />
         <Label Name="lblRichtung" Content="Richtung" Grid.Column="3" Style="{StaticResource Headline}" />
-        <Label Name="lblRealTime" Content="Abfahrt" Grid.Column="4" Style="{StaticResource Headline}" />
+        <Label Name="lblRealTime" Content="Minuten" Grid.Column="4" Style="{StaticResource Headline}" />
         <fv:SplitFlapDisplay Name="LAbfahrt" StartChar="0" EndChar="9" PanelCount="5" Grid.Column="0" Grid.Row="1" Style="{StaticResource NumbersOnly}" />
         <fv:SplitFlapDisplay Name="LGleis" PanelCount="2" Grid.Column="1" Grid.Row="1" Style="{StaticResource SfdStyle}" />
         <fv:SplitFlapDisplay Name="LLinie" PanelCount="3" Grid.Column="2" Grid.Row="1" Style="{StaticResource SfdStyle}" />
