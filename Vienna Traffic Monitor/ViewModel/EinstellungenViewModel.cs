@@ -10,6 +10,7 @@ using System.Windows.Markup;
 using VtmFramework.Command;
 using VtmFramework.Logging;
 using VtmFramework.ViewModel;
+using System.Windows.Forms;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
@@ -68,6 +69,15 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
+        public int Monitor {
+            get { return Properties.Settings.Default.Monitor; }
+            set {
+                Properties.Settings.Default.Monitor = value;
+                Properties.Settings.Default.Save();
+                _changeMonitor();
+            }
+        }
+
         private bool _isChecked;
         public bool IsChecked {
             get { return _isChecked; }
@@ -95,14 +105,53 @@ namespace ViennaTrafficMonitor.ViewModel {
             ResourceDictionary dict;
             try {
                 // Das letzte Theme (falls vorhanden) entfernen
-                Application.Current.Resources.MergedDictionaries.RemoveAt(1);
+                System.Windows.Application.Current.Resources.MergedDictionaries.RemoveAt(1);
             } catch (ArgumentOutOfRangeException) { }
             using (var fs = new FileStream("Themes/" + Theme + ".xaml", FileMode.Open, FileAccess.Read, FileShare.Read)) {
                 dict = (ResourceDictionary)XamlReader.Load(fs);
                 // Neues Theme hinzufügen
             }
             // Neues Theme hinzufügen
-            Application.Current.Resources.MergedDictionaries.Add(dict);
+            System.Windows.Application.Current.Resources.MergedDictionaries.Add(dict);
+        }
+
+        public static ICollection<string> AvailableMonitors {
+            get { return _getMonitors(); }
+        }
+
+        private static ICollection<string> _getMonitors() {
+            ICollection<string> screens = new List<string>();
+
+            Screen[] allScreens = Screen.AllScreens;
+
+            for (int i = 0; i < allScreens.Length; i++) {
+                if (allScreens[i].Primary) {
+                    screens.Add("Hauptbildschirm");
+                } else {
+                    screens.Add("Monitor " + (i + 1));
+                }
+            }
+
+            return screens;
+        }
+
+        private void _changeMonitor() {
+            Screen screen;
+            try {
+                screen = Screen.AllScreens[Monitor];
+            } catch (IndexOutOfRangeException e) {
+                // Ausweichen auf den Hauptbildschirm
+                screen = Screen.PrimaryScreen;
+                Monitor = 0;
+                IVtmLogger logger = VtmLoggerFactory.GetInstance();
+                logger.Warning(e.Message);
+            }
+            Window MainWindow = System.Windows.Application.Current.MainWindow;
+            MainWindow.WindowState = WindowState.Normal;
+            MainWindow.Top = screen.WorkingArea.Top;
+            MainWindow.Left = screen.WorkingArea.Left;
+            MainWindow.WindowState = WindowState.Maximized;
+            MainWindow.WindowStyle = WindowStyle.None;
         }
 
     }
