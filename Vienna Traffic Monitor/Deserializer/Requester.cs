@@ -44,7 +44,7 @@ namespace ViennaTrafficMonitor.Deserializer {
                 builder.Append(rbl);
             }
             builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.MonitorRequestEnd);
-            builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.SenderIdDev);
+            builder.Append(ViennaTrafficMonitor.Properties.Settings.Default.SenderIdProd);
             return builder.ToString();
         }
 
