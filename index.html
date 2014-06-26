@@ -1,47 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
     <head>
         <meta charset='utf-8'>
-        <meta http-equiv="X-UA-Compatible" content="chrome=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
-        <!--[if lt IE 9]>
-        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+        <style type="text/css">
+            body {
+                font-family: 'Open Sans', sans-serif;
+            }
+        </style>    
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+        <!-- jQuery -->
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+        <!--<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />-->
 
         <title>Vienna Traffic Monitor by CodefoundryDE</title>
     </head>
 
     <body>
-        <header>
-            <div class="inner">
-                <h1>Vienna Traffic Monitor</h1>
-                <h2>Vienna Traffic Monitor ist ein Echtzeit-Abfahrtsmonitor für das Netz der Wiener Linien.</h2>
-                <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor" class="button"><small>Projekt auf </small>GitHub</a>
+        <div class="container-fluid text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Vienna Traffic Monitor</h1>
+                    <h2>- ein Echtzeit-Abfahrtsmonitor für das Netz der Wiener Linien</h2>
+                </div>
             </div>
-        </header>
 
-        <div id="content-wrapper">
-            <div class="inner clearfix">
-                <section id="main-content">
 
-                    <h3><a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h3>
+            <!-- Features -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h2><a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
                     <ul>
                         <li>Übersichtskarte aller Linien</li>
                         <li>Abfahrts-Monitor</li>
                         <li>Ausblenden einzelner Verkehrsmittel</li>
                         <li>Verschiedene Styles</li>
                     </ul>
+                    <h3>Screenshots</h3>
+                    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xy-12">
+                        <div id="screenshots" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#screenshots" data-slide-to="0" class="active"></li>
+                                <li data-target="#screenshots" data-slide-to="1"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img src="images/map.png" alt="Übersichtskarte" />
+                                </div>
+                                <div class="item">
+                                    <img src="images/abfahrten.png" alt="Abfahrtsmonitor" />
+                                </div>
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#screenshots" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#screenshots" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="row">
+                <h2>Downloads</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <h3>Für Benutzer</h3>
+                        </div>
+                        <div class="row">
+                            <div class="btn-group btn-group-lg">
+                                <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/releases/latest" class="btn btn-lg btn-success">
+                                    <span class="glyphicon glyphicon-random"></span> <strong>Download</strong> Installer / .zip
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <h3>Für Entwickler</h3>
+                        </div>
+                        <div class="row">
+                            <div class="btn-group btn-group-lg">
+                                <a title="Quellcode als ZIP-Datei herunterladen" href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/zipball/master" class="btn btn-lg btn-warning">
+                                    <span class="glyphicon glyphicon-list-alt"></span> Quellcode / .zip
+                                </a>
+                                <a title="Quellcode als TAR-GZ-Datei herunterladen" href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/tarball/master" class="btn btn-lg btn-warning">
+                                    <span class="glyphicon glyphicon-list-alt"></span> Quellcode / .tar.gz
+                                </a>
+                                <a title="Projekt auf Github ansehen" href="https://github.com/CodefoundryDE/ViennaTrafficMonitor" class="btn btn-lg btn-info">
+                                    <span class="glyphicon glyphicon-link"></span> Projekt auf GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <h3><a name="mindestvoraussetzungen" class="anchor" href="#mindestvoraussetzungen"><span class="octicon octicon-link"></span></a>Mindestvoraussetzungen</h3>
                     <ul>
-                      <li>Betriebssystem: Windows 7</li>
-                      <li>.NET Framework 4.5 (Wird automatisch mitinstalliert)</li>
-                      <li>- Internetverbindung</li>
+                        <li>Betriebssystem: Windows 7</li>
+                        <li>.NET Framework 4.5 (Wird automatisch mitinstalliert)</li>
+                        <li>- Internetverbindung</li>
                     </ul>  
 
                     <h3><a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h3>
@@ -51,46 +127,34 @@
 
                     <h3><a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support & Kontakt</h3>
                     <p>Probleme mit dem Vienna Traffic Monitor? Frag im <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/issues">GitHub-Issuetracker</a> nach!</p>
-                </section>
 
-                <aside id="sidebar">
-                    <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/releases/latest" class="button">
-                        <small>Installer</small>
-                        .zip - Datei
-                    </a>
-                    <br />
-                    <br />
-                    <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/zipball/master" class="button">
-                        <small>Quellcode</small>
-                        .zip - Datei
-                    </a>
-                    <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/tarball/master" class="button">
-                        <small>Quellcode</small>
-                        .tar.gz - Datei
-                    </a>
-
-                    <p class="repo-owner"><a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor"></a> is maintained by <a href="https://github.com/CodefoundryDE">CodefoundryDE</a>.</p>
-
-                    <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-                </aside>
+                </div>
             </div>
-        </div>
 
-<!-- Piwik -->
-<script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.codefoundry.de/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', 2]);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
-    g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<noscript><p><img src="http://piwik.codefoundry.de/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
-<!-- End Piwik Code -->
+
+            <p class="repo-owner"><a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor"></a> is maintained by <a href="https://github.com/CodefoundryDE">CodefoundryDE</a>.</p>
+
+            <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </div>
+        <!-- Piwik -->
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function() {
+                var u = (("https:" == document.location.protocol) ? "https" : "http") + "://piwik.codefoundry.de/";
+                _paq.push(['setTrackerUrl', u + 'piwik.php']);
+                _paq.push(['setSiteId', 2]);
+                var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                g.type = 'text/javascript';
+                g.defer = true;
+                g.async = true;
+                g.src = u + 'piwik.js';
+                s.parentNode.insertBefore(g, s);
+            })();
+        </script>
+        <noscript><p><img src="http://piwik.codefoundry.de/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
 
 
     </body>
