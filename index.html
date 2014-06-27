@@ -8,6 +8,10 @@
         <style type="text/css">
             body {
                 font-family: 'Open Sans', sans-serif;
+                background-image: url(images/highlight-bg.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: fixed;
             }
         </style>    
 
@@ -32,10 +36,10 @@
 
     <body>
         <div class="container-fluid text-center">
-            <div class="row">
+            <div class="row header jumbotron" style="background-color: transparent;">
                 <div class="col-md-12">
                     <h1>Vienna Traffic Monitor</h1>
-                    <h2>- ein Echtzeit-Abfahrtsmonitor für das Netz der Wiener Linien</h2>
+                    <h2><small>- ein Echtzeit-Abfahrtsmonitor für das Netz der Wiener Linien</small></h2>
                 </div>
             </div>
 
@@ -43,14 +47,14 @@
             <!-- Features -->
             <div class="row">
                 <div class="col-md-12">
-                    <h2><a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+                    <h2><a name="features" class="anchor" href="#features"></a>Features</h2>
                     <ul>
                         <li>Übersichtskarte aller Linien</li>
                         <li>Abfahrts-Monitor</li>
                         <li>Ausblenden einzelner Verkehrsmittel</li>
                         <li>Verschiedene Styles</li>
                     </ul>
-                    <h3>Screenshots</h3>
+                    <h2>Screenshots</h2>
                     <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xy-12">
                         <div id="screenshots" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
@@ -91,6 +95,14 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="row">
+                            <h4><a name="mindestvoraussetzungen" class="anchor" href="#mindestvoraussetzungen"><span class="octicon octicon-link"></span></a>Mindestvoraussetzungen</h4>
+                            <ul>
+                                <li>Betriebssystem: Windows 7</li>
+                                <li>.NET Framework 4.5 (Wird automatisch mitinstalliert)</li>
+                                <li>- Internetverbindung</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="col-md-8">
                         <div class="row">
@@ -99,42 +111,35 @@
                         <div class="row">
                             <div class="btn-group btn-group-lg">
                                 <a title="Quellcode als ZIP-Datei herunterladen" href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/zipball/master" class="btn btn-lg btn-warning">
-                                    <span class="glyphicon glyphicon-list-alt"></span> Quellcode / .zip
+                                    <span class="glyphicon glyphicon-list-alt"></span> <span class="hidden-xs"><strong>Quellcode</strong> / </span>.zip
                                 </a>
                                 <a title="Quellcode als TAR-GZ-Datei herunterladen" href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/tarball/master" class="btn btn-lg btn-warning">
-                                    <span class="glyphicon glyphicon-list-alt"></span> Quellcode / .tar.gz
+                                    <span class="glyphicon glyphicon-list-alt"></span> <span class="hidden-xs"><strong>Quellcode</strong> / </span>.tar.gz
                                 </a>
                                 <a title="Projekt auf Github ansehen" href="https://github.com/CodefoundryDE/ViennaTrafficMonitor" class="btn btn-lg btn-info">
-                                    <span class="glyphicon glyphicon-link"></span> Projekt auf GitHub
+                                    <span class="glyphicon glyphicon-link"></span> <span class="hidden-xs">Projekt auf </span>GitHub
                                 </a>
                             </div>
+                        </div>
+                        <div class="row">
+                            <h4><a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h4>
+                            <p>Voraussetzung: .NET Framework 4.5</p>
+                            <p>Vor dem Build muss das <a href="http://www.microsoft.com/en-us/download/details.aspx?id=27165">Bing Maps Windows Presentation Foundation (WPF) Control</a> installiert werden.</p>
+                            <p>Danach kann das Projekt mit der Datei build.bat kompiliert werden.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <h3><a name="mindestvoraussetzungen" class="anchor" href="#mindestvoraussetzungen"><span class="octicon octicon-link"></span></a>Mindestvoraussetzungen</h3>
-                    <ul>
-                        <li>Betriebssystem: Windows 7</li>
-                        <li>.NET Framework 4.5 (Wird automatisch mitinstalliert)</li>
-                        <li>- Internetverbindung</li>
-                    </ul>  
 
-                    <h3><a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h3>
-                    <p>Voraussetzung: .NET Framework 4.5</p>
-                    <p>Vor dem Build muss das <a href="http://www.microsoft.com/en-us/download/details.aspx?id=27165">Bing Maps Windows Presentation Foundation (WPF) Control</a> installiert werden.</p>
-                    <p>Danach kann das Projekt mit der Datei build.bat kompiliert werden.</p>
 
-                    <h3><a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support & Kontakt</h3>
+
+
+                    <h2><a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support & Kontakt</h2>
                     <p>Probleme mit dem Vienna Traffic Monitor? Frag im <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/issues">GitHub-Issuetracker</a> nach!</p>
 
                 </div>
             </div>
-
-
-            <p class="repo-owner"><a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor"></a> is maintained by <a href="https://github.com/CodefoundryDE">CodefoundryDE</a>.</p>
-
-            <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
         </div>
         <!-- Piwik -->
         <script type="text/javascript">
