@@ -30,6 +30,21 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+        <!-- 2-Klick-Share-Buttons -->
+        <script type="text/javascript" src="jquery.socialshareprivacy.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                if ($('#socialshareprivacy').length > 0) {
+                    $('#socialshareprivacy').socialSharePrivacy({
+                        "css_path": "socialshareprivacy/socialshareprivacy.css",
+                        "lang_path": "socialshareprivacy/lang/",
+                        "language": "de",
+                        "perma_orientation": "top"
+                    });
+                }
+            });
+        </script>
+
         <!--<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />-->
@@ -85,7 +100,7 @@
             <!-- Downloads -->
             <div class="row chapter">
                 <div class="col-md-12">
-                    <h2><a name="downloads" class="anchor" href="#downloads"><span class="glyphicon glyphicon-link"></span></a>Downloads</h2>
+                    <h2><a name="downloads" class="anchor" href="#downloads"><span class="glyphicon glyphicon-link"></span></a> Downloads</h2>
                     <div class="row">
                         <div class="col-md-4">
                             <h3>Für Benutzer</h3>
@@ -100,7 +115,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4><a name="mindestvoraussetzungen" class="anchor" href="#mindestvoraussetzungen"><span class="octicon octicon-link"></span></a>Mindestvoraussetzungen</h4>
+                                    <h4><a name="mindestvoraussetzungen" class="anchor" href="#mindestvoraussetzungen"></a>Mindestvoraussetzungen</h4>
                                     <p>Betriebssystem: <strong>Windows 7</strong></p>
                                     <p><strong>.NET Framework 4.5</strong> (Wird automatisch mitinstalliert)</p>
                                     <p>Internetverbindung</p>
@@ -141,7 +156,7 @@
             <!-- Über -->
             <div class="row chapter">
                 <div class="col-md-12">
-                    <h2><a name="about" class="anchor" href="#about"><span class="glyphicon glyphicon-link"></span></a>Über</h2>
+                    <h2><a name="about" class="anchor" href="#about"><span class="glyphicon glyphicon-link"></span></a> Über</h2>
                     Dieses Programm ist im Rahmen eines Projekts für die Vorlesung "Grafische Oberflächen" an der <a href="http://fh-rosenheim.de">Hochschule Rosenheim</a> entstanden.
                 </div>
             </div>
@@ -149,8 +164,16 @@
             <!-- Support -->
             <div class="row">
                 <div class="col-md-12">
-                    <h2><a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="glyphicon glyphicon-link"></span></a>Support & Kontakt</h2>
+                    <h2><a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="glyphicon glyphicon-link"></span></a> Support & Kontakt</h2>
                     <p>Probleme mit dem Vienna Traffic Monitor? Frag im <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/issues">GitHub-Issuetracker</a> nach!</p>
+                </div>
+            </div>
+
+            <!-- Share-Buttons -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="socialshareprivacy"></div>
+                    <noscript><p>Sie müssen JavaScript aktivieren, um die Share-Buttons zu sehen.</p></noscript>
                 </div>
             </div>
         </div>
