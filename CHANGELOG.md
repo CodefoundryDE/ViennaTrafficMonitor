@@ -11,6 +11,6 @@
 * Kleine Fehlerkorrekturen
 
 
-## v1.0 - 15.06.2014
+## 1.0 - 15.06.2014
 
 * Erstes Release
