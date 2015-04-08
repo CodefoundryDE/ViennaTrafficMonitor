@@ -3,38 +3,22 @@
     <head>
         <meta charset='utf-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Echtzeit-Abfahrtsmonitor für das Netz der Wiener Linien" />
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-
-        <style type="text/css">
-            body {
-                font-family: 'Open Sans', sans-serif;
-                background-image: url(images/highlight-bg.jpg);
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-attachment: fixed;
-            }
-            .chapter {
-                margin-bottom: 30px;
-            }
-        </style>    
+        <meta name="description" content="Live-Abfahrtsmonitor für das Netz der Wiener Linien" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
 
         <!-- jQuery -->
         <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="style/style.css" />
 
         <!-- 2-Klick-Share-Buttons -->
         <script type="text/javascript" src="jquery.socialshareprivacy.js"></script>
         <script type="text/javascript">
-            jQuery(document).ready(function ($) {
+            $(document).ready(function ($) {
                 if ($('#socialshareprivacy').length > 0) {
                     $('#socialshareprivacy').socialSharePrivacy({
                         "css_path": "socialshareprivacy/socialshareprivacy.css",
@@ -49,126 +33,158 @@
         <title>Vienna Traffic Monitor</title>
     </head>
 
-    <body>
+    <body data-spy="scroll" data-target="#navbar">
+        <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="">Vienna Traffic Monitor</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav" role="tablist">
+                        <li><a href="#downloads">Downloads</a></li>
+                        <li><a href="#requirements">Mindestvoraussetzungen</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#about">Über</a></li>
+                        <li><a href="#support">Support & Kontakt</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div>
+        </nav>
+
         <div class="container-fluid text-center">
-            <div class="row header jumbotron" style="background-color: transparent;">
-                <div class="col-md-12">
+
+            <div class="row feature feature-top">
+                <div class="col-md-4 col-md-offset-4">
                     <h1>Vienna Traffic Monitor</h1>
-                    <h2><small>Echtzeit-Abfahrtsmonitor für das Netz der Wiener Linien</small></h2>
+                    <h1><small>Live-Abfahrtsmonitor für das Netz der Wiener Linien</small></h1>
                 </div>
             </div>
 
+            <!-- Download -->
+            <a id="downloads"></a>
+            <div class="row feature feature-grey">
+                <div class="col-md-4 col-md-offset-4">
+                    <h2>Downloads</h2>
+                    <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/releases/latest" target="_blank" class="btn btn-lg btn-success">
+                        <strong>Installer</strong>
+                    </a>
+                    <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor" target="_blank" class="btn btn-lg btn-info">
+                        <strong>Projekt auf GitHub</strong>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Mindestvoraussetzungen -->
+            <a id="requirements"></a>
+            <div class="row feature">
+                <h2>Mindestvoraussetzungen</h2>
+                <p>Betriebssystem: <strong> Microsoft Windows 7 / 8 / 8.1</strong></p>
+                <p>Internetverbindung</p>
+            </div>
 
             <!-- Features -->
-            <div class="row chapter">
+            <a id="features"></a>
+            <div class="row feature feature-grey">
                 <div class="col-md-12">
-                    <h2><a name="features" class="anchor" href="#features"><span class="glyphicon glyphicon-link"></span></a> Features</h2>
-                    <span class="label label-success">Übersichtskarte aller Linien</span>
-                    <span class="label label-success">Abfahrts-Monitor</span>
-                    <span class="label label-success">Ausblenden einzelner Verkehrsmittel</span>
-                    <span class="label label-success">Verschiedene Styles</span>
+                    <h2>Features</h2>
                 </div>
             </div>
 
-            <!-- Screenshots -->
-            <div class="row chapter">
-                <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-                    <h2><a name="screenshots" class="anchor" href="#screenshots"><span class="glyphicon glyphicon-link"></span></a> Screenshots</h2>
-                    <div id="screenshots" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#screenshots" data-slide-to="0" class="active"></li>
-                            <li data-target="#screenshots" data-slide-to="1"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="item active"><img src="images/map.png" alt="Übersichtskarte aller Linien" /></div>
-                            <div class="item"><img src="images/abfahrten.png" alt="Live-Abfahrtsmonitor" /></div>
-                        </div>
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#screenshots" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
+            <div class="row feature feature-grey">
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <a href="images/uebersichtskarte.png">
+                            <img src="images/uebersichtskarte.png" alt="Übersichtskarte aller Linien" />
                         </a>
-                        <a class="right carousel-control" href="#screenshots" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h3>Übersichtskarte</h3>
+                    <p>Die Übersichtskarte der Stadt Wien zeigt die Linien von U-Bahn, Tram, VRT und Bus an.</p>
+                    <p>Über einen Klick auf eine Haltestelle kommt man ganz einfach zu deren Abfahrtsmonitor.</p>
+                </div>
+            </div>
+
+            <div class="row feature">
+                <div class="col-md-8">
+                    <h3>Live-Abfahrtsmonitor</h3>
+                    <p>Der Live-Abfahrtsmonitor zeigt die nächsten Abfahrten für eine Haltestelle an.</p>
+                    <p>In regelmäßigen Abständen werden Echtzeit-Daten von den Wiener Linien abgerufen.</p>
+                    <p>Optional verhalten sich die Displays wie ein echtes, altes Bahnhofsdisplay!</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <a href="images/abfahrten.png">
+                            <img src="images/abfahrten.png" alt="Live-Abfahrtsmonitor" />
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Downloads -->
-            <div class="row chapter">
-                <div class="col-md-12">
-                    <h2><a name="downloads" class="anchor" href="#downloads"><span class="glyphicon glyphicon-link"></span></a> Downloads</h2>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h3>Für Benutzer</h3>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="btn-group btn-group-lg btn-group-justified">
-                                        <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/releases/latest" class="btn btn-lg btn-success">
-                                            <span class="glyphicon glyphicon-random"></span> <strong>Download</strong> Installer / .zip
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h4><a name="mindestvoraussetzungen" class="anchor" href="#mindestvoraussetzungen"></a>Mindestvoraussetzungen</h4>
-                                    <p>Betriebssystem: <strong>Windows 7</strong></p>
-                                    <p><strong>.NET Framework 4.5</strong> (Wird automatisch mitinstalliert)</p>
-                                    <p>Internetverbindung</p>
-                                </div>
-                            </div>
-                        </div>
+            <div class="row feature feature-grey">
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <a href="images/filter.png">
+                            <img src="images/filter.png" alt="Verkehrsmittel-Filter" />
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h3>Ausblenden einzelner Verkehrsmittel</h3>
+                    <p>Sowohl auf der Karte als auch in einem Abfahrtsmonitor können Verkehrsmittel ausgeblendet werden.</p>
+                    <p>So werden nur noch die gewünschten Transportmittel angezeigt!</p>
+                </div>
+            </div>
 
-                        <div class="col-md-8">
-                            <h3>Für Entwickler</h3>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="btn-group btn-group-lg btn-group-justified">
-                                        <a title="Quellcode als ZIP-Datei herunterladen" href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/zipball/master" class="btn btn-lg btn-warning">
-                                            <span class="glyphicon glyphicon-list-alt"></span> <span class="hidden-xs"><strong>Quellcode</strong> / </span>.zip
-                                        </a>
-                                        <a title="Quellcode als TAR-GZ-Datei herunterladen" href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/tarball/master" class="btn btn-lg btn-warning">
-                                            <span class="glyphicon glyphicon-list-alt"></span> <span class="hidden-xs"><strong>Quellcode</strong> / </span>.tar.gz
-                                        </a>
-                                        <a title="Projekt auf Github ansehen" href="https://github.com/CodefoundryDE/ViennaTrafficMonitor" class="btn btn-lg btn-info">
-                                            <span class="glyphicon glyphicon-link"></span> <span class="hidden-xs">Projekt auf </span>GitHub
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h4>Build</h4>
-                                    <p>Voraussetzung: <strong>.NET Framework 4.5</strong></p>
-                                    <p>Vor dem Build muss das <a href="http://www.microsoft.com/en-us/download/details.aspx?id=27165"><strong>Bing Maps Windows Presentation Foundation (WPF) Control</strong></a> installiert werden.</p>
-                                    <p>Danach kann das Projekt mit der Datei <kbd>build.bat</kbd> <strong>kompiliert</strong> werden.</p>
-                                </div>
-                            </div>
-                        </div>
+            <div class="row feature">
+                <div class="col-md-8">
+                    <h3>Verschiedene Stile</h3>
+                    <p>Um den Vienna Traffic Monitor an Ihre individuellen Bedürfnisse anzupassen, können sie zwischen einem hellen und einem dunklen Stil wählen.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <a href="images/stile.png">
+                            <img src="images/stile.png" alt="Verschiedene Stile" />
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Über -->
-            <div class="row chapter">
+            <a id="about"></a>
+            <div class="row feature feature-grey">
                 <div class="col-md-12">
-                    <h2><a name="about" class="anchor" href="#about"><span class="glyphicon glyphicon-link"></span></a> Über</h2>
-                    Dieses Programm ist im Rahmen eines Projekts für die Vorlesung "Grafische Oberflächen" an der <a href="http://fh-rosenheim.de">Hochschule Rosenheim</a> entstanden.
+                    <h2>Über</h2>
+                    Dieses Programm ist im Rahmen eines Projekts für die Vorlesung "Grafische Oberflächen" an der Informatik-Fakultät der
+                    <a href="http://www.fh-rosenheim.de/" target="_blank">Hochschule Rosenheim</a>
+                    entstanden.
                 </div>
             </div>
 
             <!-- Support -->
-            <div class="row">
+            <a id="support"></a>
+            <div class="row feature">
                 <div class="col-md-12">
-                    <h2><a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="glyphicon glyphicon-link"></span></a> Support & Kontakt</h2>
-                    <p>Probleme mit dem Vienna Traffic Monitor? Frag im <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/issues">GitHub-Issuetracker</a> nach!</p>
+                    <h2>Support & Kontakt</h2>
+                    <p>Sie haben Probleme mit dem Vienna Traffic Monitor? Fragen Sie in unserem
+                        <a href="https://github.com/CodefoundryDE/ViennaTrafficMonitor/issues" target="_blank">GitHub-Issuetracker</a>
+                        nach!</p>
                 </div>
             </div>
 
             <!-- Share-Buttons -->
-            <div class="row">
-                <div class="col-md-12">
+            <a id="share"></a>
+            <div class="row feature feature-dark">
+                <div class="col-md-4 col-md-offset-4">
+                    <h2>Weiterempfehlen</h2>
                     <div id="socialshareprivacy"></div>
                     <noscript><p>Sie müssen JavaScript aktivieren, um die Share-Buttons zu sehen.</p></noscript>
                 </div>

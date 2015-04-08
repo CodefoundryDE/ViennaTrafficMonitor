@@ -1,0 +1,29 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 60px;
+    position: relative;
+}
+h2, h3 {
+    padding-bottom: 40px;
+}
+.btn {
+    border-radius: 0px !important;
+}
+.thumbnail {
+    border-radius: 0px;
+    padding: 0px;
+}
+.feature {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.feature-top {
+    padding-bottom: 80px;
+}
+.feature-grey {
+    background-color: #F0F2F3;
+}
+.feature-dark {
+    background-color: #27556C;
+    color: #B4D9EB;
+}
