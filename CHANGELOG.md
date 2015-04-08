@@ -12,4 +12,5 @@
 
 ## 1.1 - [unreleased]
 
+* Farben und Aussehen der Filter auf der Karte und bei den Abfahrten angepasst
 * Layout-Verbesserungen
