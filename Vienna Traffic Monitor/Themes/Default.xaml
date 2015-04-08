@@ -9,7 +9,13 @@
     <SolidColorBrush x:Key="BgSlider" Color="#FF939393"/>
     <SolidColorBrush x:Key="BorderSlider" Color="#FF8D8D8D"/>
     <SolidColorBrush x:Key="BackgroundPushpin" Color="#1C1C1C"/>
-
+    
+    <!-- Verkehrsmittel-Farben -->
+    <SolidColorBrush x:Key="UBahnColor" Color="#0099CC"/>
+    <SolidColorBrush x:Key="TramColor" Color="#CC0000"/>
+    <SolidColorBrush x:Key="WlbColor" Color="#9933CC"/>
+    <SolidColorBrush x:Key="BusColor" Color="#669900"/>
+    <SolidColorBrush x:Key="NachtBusColor" Color="#FF8800"/>
 
     <!-- Pushpins -->
     <Style TargetType="m:Pushpin" x:Key="MapPushpin">
@@ -43,20 +49,15 @@
     </Style>
 
     <Style TargetType="StackPanel" x:Key="FilterStackPanel">
-        <!--<Setter Property="Margin" Value="10" />-->
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Effect">
-            <Setter.Value>
-                <DropShadowEffect />
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style TargetType="Label" x:Key="FilterLabel">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="10,0,10,0" />
+        <Setter Property="Padding" Value="10,2" />
         <Setter Property="Margin" Value="10,0,10,0" />
+        <Setter Property="FontWeight" Value="Medium" />
     </Style>
 
     <Style x:Key="DiscreteCheckBoxStyle" TargetType="{x:Type CheckBox}">
@@ -71,31 +72,10 @@
                 <ControlTemplate TargetType="{x:Type CheckBox}">
                     <Border Padding="{TemplateBinding Padding}">
                         <Grid>
-                            <!--<ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" 
-                                              Margin="{TemplateBinding Padding}"  />-->
                             <Border Background="{TemplateBinding Background}" Opacity="0.3" />
-                            <Border>
-                                <Border.Background>
-                                    <VisualBrush Opacity="1.0" Stretch="None">
-                                        <VisualBrush.Visual>
-                                            <Path Name="path" Opacity="1.0" Data="M 0 5 L 3 10 10 0" Stroke="#FF3838BA" StrokeThickness="1.5" 
-                                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" />
-                                        </VisualBrush.Visual>
-                                    </VisualBrush>
-                                </Border.Background>
-                            </Border>
+                            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />
                         </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="path" Property="Opacity" Value="1.0" />
-                            <Setter TargetName="path" Property="Stroke" Value="#FF70A16F" />
-                            <Setter TargetName="path" Property="StrokeThickness" Value="2.5" />
-                        </Trigger>
-                        <!--<Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{DynamicResource GrayTextBrushKey}" />
-                        </Trigger>-->
-                    </ControlTemplate.Triggers>
+                    </Border>                   
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
