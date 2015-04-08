@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ViennaTrafficMonitor.Model {
 
-    public enum EVerkehrsmittel { NoInfo, Metro, SBahn, Tram, NachtBus, CityBus, TramWlb };
+    public enum EVerkehrsmittel { NoInfo, Metro, SBahn, Tram, NachtBus, CityBus, TramVrt };
 
     public class Linie : ILinie {
 
@@ -70,8 +70,8 @@ namespace ViennaTrafficMonitor.Model {
                         verkehrsmittel = EVerkehrsmittel.Metro;
                         break;
                     }
-                case "ptTramWLB": {
-                        verkehrsmittel = EVerkehrsmittel.TramWlb;
+                case "ptTramVRT": {
+                        verkehrsmittel = EVerkehrsmittel.TramVrt;
                         break;
                     }
                 default: {

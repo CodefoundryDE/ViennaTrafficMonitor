@@ -154,7 +154,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             _verkehrsmittelFilter.Add("NachtBusFilter", new AbfahrtenFilter(EVerkehrsmittel.NachtBus, false));
             _verkehrsmittelFilter.Add("SbahnFilter", new AbfahrtenFilter(EVerkehrsmittel.SBahn, false));
             _verkehrsmittelFilter.Add("TramFilter", new AbfahrtenFilter(EVerkehrsmittel.Tram, false));
-            _verkehrsmittelFilter.Add("TramWlbFilter", new AbfahrtenFilter(EVerkehrsmittel.TramWlb, false));
+            _verkehrsmittelFilter.Add("TramVrtFilter", new AbfahrtenFilter(EVerkehrsmittel.TramVrt, false));
             _verkehrsmittelFilter.Add("OrderByAbfahrt", new OrderAbfahrtenFilter(EAbfahrtenOrder.TimeRealAsc, _resultCount, true));
         }
         #endregion
@@ -187,17 +187,17 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
         #endregion
 
-        #region ButtonTramWLB
-        public bool ButtonTramWlbActive {
-            get { return !_verkehrsmittelFilter["TramWlbFilter"].Active; }
+        #region ButtonTramVrt
+        public bool ButtonTramVrtActive {
+            get { return !_verkehrsmittelFilter["TramVrtFilter"].Active; }
             set {
-                _verkehrsmittelFilter["TramWlbFilter"].Active = !value;
+                _verkehrsmittelFilter["TramVrtFilter"].Active = !value;
                 RaisePropertyChangedEvent("Abfahrten");
             }
         }
 
-        public bool ButtonTramWlbVisible {
-            get { return _verkehrsmittel.Contains(EVerkehrsmittel.TramWlb); }
+        public bool ButtonTramVrtVisible {
+            get { return _verkehrsmittel.Contains(EVerkehrsmittel.TramVrt); }
         }
         #endregion
 
