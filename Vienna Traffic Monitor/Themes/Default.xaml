@@ -9,7 +9,13 @@
     <SolidColorBrush x:Key="BgSlider" Color="#FF939393"/>
     <SolidColorBrush x:Key="BorderSlider" Color="#FF8D8D8D"/>
     <SolidColorBrush x:Key="BackgroundPushpin" Color="#1C1C1C"/>
-
+    
+    <!-- Verkehrsmittel-Farben -->
+    <SolidColorBrush x:Key="UBahnColor" Color="#0099CC"/>
+    <SolidColorBrush x:Key="TramColor" Color="#CC0000"/>
+    <SolidColorBrush x:Key="WlbColor" Color="#9933CC"/>
+    <SolidColorBrush x:Key="BusColor" Color="#669900"/>
+    <SolidColorBrush x:Key="NachtBusColor" Color="#FF8800"/>
 
     <!-- Pushpins -->
     <Style TargetType="m:Pushpin" x:Key="MapPushpin">
