@@ -1,11 +1,10 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:ViennaTrafficMonitor" x:Class="ViennaTrafficMonitor.View.MainWindow"
+        x:Class="ViennaTrafficMonitor.View.MainWindow"
         xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
         xmlns:v="clr-namespace:ViennaTrafficMonitor.View"
         xmlns:fv="clr-namespace:VtmFramework.View;assembly=VtmFramework"
-        xmlns:fvm="clr-namespace:VtmFramework.ViewModel;assembly=VtmFramework"
         Title="MainWindow" WindowState="Maximized" WindowStyle="None" Style="{StaticResource StandardWindow}" WindowStartupLocation="Manual">
     <Window.DataContext>
         <vm:MainViewModel />
