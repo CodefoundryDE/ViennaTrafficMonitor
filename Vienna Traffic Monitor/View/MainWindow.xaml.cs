@@ -30,7 +30,7 @@ namespace ViennaTrafficMonitor.View {
 
         private void OnGuiLoaded(object sender, RoutedEventArgs e) {
             _setMonitor();
-            ((MainViewModel)this.DataContext).initializeApp();
+            ((MainViewModel)this.DataContext).InitializeApp();
         }
 
         private void _setMonitor() {
