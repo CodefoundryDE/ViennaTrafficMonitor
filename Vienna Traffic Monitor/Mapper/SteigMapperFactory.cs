@@ -39,12 +39,8 @@ namespace ViennaTrafficMonitor.Mapper {
         }
 
         private static ISteigMapper _createInstance() {
-            try {
-                ConcurrentDictionary<int, ISteig> dict = SteigeParser.ReadFile(CSVDIR + "wienerlinien-ogd-steige.csv");
-                return new SteigMapper(dict);
-            } catch (VtmParsingException ex) {
-                throw ex;
-            }
+            ConcurrentDictionary<int, ISteig> dict = SteigeParser.ReadFile(CSVDIR + "wienerlinien-ogd-steige.csv");
+            return new SteigMapper(dict);
         }
 
     }
