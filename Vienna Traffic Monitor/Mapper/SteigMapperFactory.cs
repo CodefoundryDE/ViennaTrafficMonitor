@@ -12,34 +12,31 @@ using VtmFramework.Error.Exceptions;
 
 namespace ViennaTrafficMonitor.Mapper {
 
-    public sealed class SteigMapperFactory {
+    public static class SteigMapperFactory {
 
-        private const string CSVDIR = "Ressources\\Csv\\";
+        private const string Csvdir = "Ressources\\Csv\\";
 
-        private static volatile ISteigMapper instance = null;
-        private static object syncRoot = new Object();
-
-        private SteigMapperFactory() { }
+        private static volatile ISteigMapper _instance;
+        private static readonly object SyncRoot = new Object();
 
         public static ISteigMapper Instance {
             get {
-                if (instance == null) {
-                    try {
-                        lock (syncRoot) {
-                            if (instance == null) instance = _createInstance();
-                        }
-                    } catch (VtmParsingException ex) {
-                        throw new InvalidOperationException("Bei dem Versuch, die benötigten Daten aus den CSV-Dateien der Wiener Linien zu initialisieren trat ein Fehler auf" +
-                   " Die Datei " + ex.Path + " ist möglicherweise nicht vorhanden oder in Bearbeitung." +
-                   "Bitte stellen Sie sicher, dass die Datei vorhanden und in keinem anderen Programm geöffnet ist!", ex);
+                if (_instance != null) return _instance;
+                try {
+                    lock (SyncRoot) {
+                        if (_instance == null) _instance = _createInstance();
                     }
+                } catch (VtmParsingException ex) {
+                    throw new InvalidOperationException("Bei dem Versuch, die benötigten Daten aus den CSV-Dateien der Wiener Linien zu initialisieren trat ein Fehler auf" +
+                                                        " Die Datei " + ex.Path + " ist möglicherweise nicht vorhanden oder in Bearbeitung." +
+                                                        "Bitte stellen Sie sicher, dass die Datei vorhanden und in keinem anderen Programm geöffnet ist!", ex);
                 }
-                return instance;
+                return _instance;
             }
         }
 
         private static ISteigMapper _createInstance() {
-            ConcurrentDictionary<int, ISteig> dict = SteigeParser.ReadFile(CSVDIR + "wienerlinien-ogd-steige.csv");
+            var dict = SteigeParser.ReadFile(Csvdir + "wienerlinien-ogd-steige.csv");
             return new SteigMapper(dict);
         }
 
