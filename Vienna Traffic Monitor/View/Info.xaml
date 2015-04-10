@@ -28,7 +28,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Info" Style="{StaticResource H1}" />
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Vienna Traffic Monitor" Style="{StaticResource H1}" />
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Version, StringFormat=Version {0:C}}" Style="{StaticResource H1}" />
         <Separator VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource InfoMargin}" />
 
         <!-- Echtzeitdaten -->
