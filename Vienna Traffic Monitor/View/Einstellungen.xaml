@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:c="clr-namespace:VtmFramework.Converter;assembly=VtmFramework"
-             mc:Ignorable="d" 
-             d:DesignHeight="190.4" d:DesignWidth="700.8">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="EinstellungStackPanel" TargetType="StackPanel">
             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -71,6 +70,10 @@
             <StackPanel Style="{StaticResource EinstellungStackPanel}">
                 <Label Content="Style" VerticalAlignment="Center" />
                 <ComboBox SelectedValue="{Binding Theme}" Width="120" ItemsSource="{Binding AvailableDictionaries}" IsEditable="False" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Style="{StaticResource EinstellungStackPanel}">
+                <Label Content="Animationen" VerticalAlignment="Center" />
+                <CheckBox IsChecked="{Binding Animations}" Style="{StaticResource Slider}" VerticalAlignment="Center" />
             </StackPanel>
             <StackPanel Style="{StaticResource EinstellungStackPanel}">
                 <Label Content="Monitor" VerticalAlignment="Center" />
