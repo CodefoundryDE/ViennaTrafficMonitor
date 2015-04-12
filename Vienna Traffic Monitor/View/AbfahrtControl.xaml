@@ -18,6 +18,7 @@
         <Style x:Key="Headline" TargetType="Label">
             <Setter Property="Grid.Row" Value="0" />
             <Setter Property="Margin" Value="5" />
+            <Setter Property="FontSize" Value="20" />
             <Setter Property="Visibility" Value="Collapsed" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
