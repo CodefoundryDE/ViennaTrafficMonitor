@@ -4,10 +4,10 @@
     xmlns:local="clr-namespace:VtmFramework.View">
 
 
-    <Style TargetType="{x:Type local:AnimatedContentControl}">
+    <Style TargetType="{x:Type local:WindowAnimationControl}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:AnimatedContentControl}">
+                <ControlTemplate TargetType="{x:Type local:WindowAnimationControl}">
                     <Grid>
                         <ContentPresenter Content="{TemplateBinding Content}" x:Name="Part_MainContent" />
                         <Rectangle x:Name="Part_PaintArea" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />

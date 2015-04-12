@@ -37,7 +37,7 @@
         <Button Grid.Row="0" Content="Karte" Command="{Binding ButtonMapCommand}" HorizontalAlignment="Left" Margin="10,10,10,10" MinWidth="85" Grid.Column="0"/>
         <v:Suche Grid.Row="0" Grid.Column="1" DataContext="{Binding Suche}" Margin="10,10,10,10"/>
         <Button Grid.Row="0" Content="Hauptmenü" Command="{Binding ButtonHomeCommand}" HorizontalAlignment="Right" Margin="10,10,10,10" MinWidth="85" Grid.Column="2" />
-        <fv:AnimatedContentControl Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2" Content="{Binding Scheduler.Aktuell}" />
+        <fv:WindowAnimationControl Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2" Content="{Binding Scheduler.Aktuell}" />
         <fv:ErrorView Panel.ZIndex="101" DataContext="{Binding Error}"  Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
         <v:Einstellungen DataContext="{Binding Einstellungen}" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
     </Grid>
