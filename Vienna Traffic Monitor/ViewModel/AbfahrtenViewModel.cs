@@ -182,7 +182,7 @@ namespace ViennaTrafficMonitor.ViewModel
                 {"NachtBusFilter", new AbfahrtenFilter(EVerkehrsmittel.NachtBus, false)},
                 {"SbahnFilter", new AbfahrtenFilter(EVerkehrsmittel.SBahn, false)},
                 {"TramFilter", new AbfahrtenFilter(EVerkehrsmittel.Tram, false)},
-                {"TramWlbFilter", new AbfahrtenFilter(EVerkehrsmittel.TramWlb, false)},
+                {"TramVrtFilter", new AbfahrtenFilter(EVerkehrsmittel.TramVrt, false)},
                 {"OrderByAbfahrt", new OrderAbfahrtenFilter(EAbfahrtenOrder.TimeRealAsc, ResultCount, true)}
             };
         }
@@ -222,20 +222,20 @@ namespace ViennaTrafficMonitor.ViewModel
         }
         #endregion
 
-        #region ButtonTramWLB
-        public bool ButtonTramWlbActive
+        #region ButtonTramVRT
+        public bool ButtonTramVrtActive
         {
-            get { return !_verkehrsmittelFilter["TramWlbFilter"].Active; }
+            get { return !_verkehrsmittelFilter["TramVrtFilter"].Active; }
             set
             {
-                _verkehrsmittelFilter["TramWlbFilter"].Active = !value;
+                _verkehrsmittelFilter["TramVrtFilter"].Active = !value;
                 RaisePropertyChangedEvent("Abfahrten");
             }
         }
 
-        public bool ButtonTramWlbVisible
+        public bool ButtonTramVrtVisible
         {
-            get { return _verkehrsmittel.Contains(EVerkehrsmittel.TramWlb); }
+            get { return _verkehrsmittel.Contains(EVerkehrsmittel.TramVrt); }
         }
         #endregion
 

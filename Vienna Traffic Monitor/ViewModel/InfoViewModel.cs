@@ -1,13 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using VtmFramework.ViewModel;
 
-namespace ViennaTrafficMonitor.ViewModel {
+namespace ViennaTrafficMonitor.ViewModel
+{
 
-    public class InfoViewModel : AbstractViewModel {
+    public class InfoViewModel : AbstractViewModel
+    {
+
+        public string Version
+        {
+            get
+            {
+                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
+        }
 
     }
 

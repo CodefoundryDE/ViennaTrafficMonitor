@@ -63,10 +63,10 @@ namespace VtmTests.CsvImport {
 
             if (linien.TryGetValue(214433055, out testLinie)) {
                 Assert.AreEqual(214433055, testLinie.Id);
-                Assert.AreEqual("WLB", testLinie.Bezeichnung);
+                Assert.AreEqual("VRT", testLinie.Bezeichnung);
                 Assert.AreEqual(98, testLinie.Reihenfolge);
                 Assert.AreEqual(true, testLinie.Echtzeit);
-                Assert.AreEqual(EVerkehrsmittel.TramWlb, testLinie.Verkehrsmittel);
+                Assert.AreEqual(EVerkehrsmittel.TramVrt, testLinie.Verkehrsmittel);
             } else {
                 Assert.Fail();
             }
