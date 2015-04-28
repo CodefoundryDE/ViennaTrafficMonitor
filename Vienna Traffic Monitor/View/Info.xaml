@@ -27,6 +27,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Vienna Traffic Monitor" Style="{StaticResource H1}" />
         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Version, StringFormat=Version {0:C}}" Style="{StaticResource H1}" />
@@ -51,10 +52,17 @@
             from 
             <Hyperlink NavigateUri="http://www.flaticon.com/free-icon/train-front_45857">www.flaticon.com</Hyperlink>
         </TextBlock>
+        
+        <!-- FileHelpers -->
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="FileHelpers" Style="{StaticResource H2}" />
+        <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource InfoMargin}">
+            <Hyperlink NavigateUri="http://filehelpers.sourceforge.net/">FileHelpers v2.0</Hyperlink> 
+            Copyright (c) 2005, Marcos Meli
+        </TextBlock>
 
         <!-- Copyright -->
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Copyright" Style="{StaticResource H2}" />
-        <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource InfoMargin}">
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Copyright" Style="{StaticResource H2}" />
+        <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource InfoMargin}">
             &#xA9; 2014 Michael Hutterer - Martin Neumayer - Franz Wimmer
         </TextBlock>
     </Grid>
