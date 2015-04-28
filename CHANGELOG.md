@@ -6,6 +6,7 @@
 * WLB (Wiener Lokalbahnen) durch VRT (Vienna Ring Tram) ersetzt
 * Farben und Aussehen der Filter auf Karte und Abfahrten angepasst
 * Layout-Verbesserungen
+* Korrekte Nennung der FileHelpers-Bibliothek im Info-Screen
 
 
 ## 1.0.1 - 17.06.2014
