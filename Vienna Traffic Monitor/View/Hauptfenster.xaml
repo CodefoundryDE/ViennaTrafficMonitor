@@ -9,8 +9,6 @@
     <UserControl.Resources>
         <Style TargetType="fv:SplitFlapDisplay" x:Key="SfdStyle">
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="StartChar" Value="A" />
-            <Setter Property="EndChar" Value="Z" />
         </Style>
     </UserControl.Resources>
     <Grid>

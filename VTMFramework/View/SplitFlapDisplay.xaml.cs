@@ -73,55 +73,7 @@ namespace VtmFramework.View
         }
         #endregion
 
-        #region StartChar
-        public static readonly DependencyProperty StartCharProperty = DependencyProperty.Register("StartChar", typeof(char), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata('0'));
-
-        public char StartChar
-        {
-            get
-            { // Dieser Getter ist Threadsafe.
-                try
-                {
-                    return (char)this.Dispatcher.Invoke(
-                       System.Windows.Threading.DispatcherPriority.Normal,
-                       (DispatcherOperationCallback)delegate { return this.GetValue(StartCharProperty); },
-                       StartCharProperty);
-                }
-                catch
-                {
-                    return (char)StartCharProperty.DefaultMetadata.DefaultValue;
-                }
-            }
-            set { this.SetValue(StartCharProperty, value); }
-        }
-        #endregion
-
-        #region EndChar
-        public static readonly DependencyProperty EndCharProperty = DependencyProperty.Register("EndChar", typeof(char), typeof(SplitFlapDisplay), new FrameworkPropertyMetadata('Z'));
-
-        public char EndChar
-        {
-            get
-            { // Dieser Getter ist Threadsafe.
-                try
-                {
-                    return (char)this.Dispatcher.Invoke(
-                       System.Windows.Threading.DispatcherPriority.Normal,
-                       (DispatcherOperationCallback)delegate { return GetValue(EndCharProperty); },
-                       EndCharProperty);
-                }
-                catch
-                {
-                    return (char)EndCharProperty.DefaultMetadata.DefaultValue;
-                }
-            }
-            set { this.SetValue(EndCharProperty, value); }
-        }
-        #endregion
-
-        private readonly Timer _timer;
-
-        public List<SplitFlapPanel> Panels { get; private set; }
+        public List<ContentControl> Panels { get; private set; }
 
         private char[] _charsCurrent;
         private char[] _charsFinal;
@@ -129,8 +81,7 @@ namespace VtmFramework.View
         public SplitFlapDisplay()
         {
             InitializeComponent();
-            Panels = new List<SplitFlapPanel>();
-            _timer = new Timer(_tick);
+            Panels = new List<ContentControl>();
         }
 
         /// <summary>
@@ -142,13 +93,7 @@ namespace VtmFramework.View
             Panels.Clear();
             for (int i = 0; i < PanelCount; i++)
             {
-                var panel = new SplitFlapPanel
-                {
-                    Content = ' ',
-                    Width = 40,
-                    BorderThickness = new Thickness(1),
-                    BorderBrush = new SolidColorBrush(Colors.Black)
-                };
+                ContentControl panel = new ModernPanel();
                 Panels.Add(panel);
                 MainPanel.Children.Add(panel);
             }
@@ -174,25 +119,11 @@ namespace VtmFramework.View
 
             _charsFinal = text.ToCharArray(0, PanelCount);
 
-            _timer.Change(0, 150);
-        }
-
-        private void _tick(object state)
-        {
-            bool action = false;
             for (int i = 0; i < _charsCurrent.Length; i++)
             {
-                if (_charsCurrent[i] == _charsFinal[i]) continue;
-                // Wenn das Zeichen außerhalb des animierten Bereichs liegt, sofort hinspringen
-                // Oder, wenn das Panel nicht das Alphabet durchspringen soll
-                if (_charsFinal[i] < StartChar || _charsFinal[i] > EndChar || !Animated)
-                    _charsCurrent[i] = _charsFinal[i];
-                else
-                    _charsCurrent[i] = StrLib.AsciiInc(_charsCurrent[i], StartChar, EndChar);
+                _charsCurrent[i] = _charsFinal[i];
                 _display(i, _charsCurrent[i]);
-                action = true;
             }
-            if (!action) _timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
         private void _display(int panel, char character)

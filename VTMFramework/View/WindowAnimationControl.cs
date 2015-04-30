@@ -1,15 +1,13 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VtmFramework.Library;
 
 namespace VtmFramework.View {
 
-    public class AnimatedContentControl : ContentControl {
+    public class WindowAnimationControl : ContentControl {
 
         private ContentPresenter _mainContent;
         private Shape _paintArea;
@@ -17,8 +15,8 @@ namespace VtmFramework.View {
         public Transform OldContentTransform { get; set; }
         public Transform NewContentTransform { get; set; }
 
-        static AnimatedContentControl() {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(AnimatedContentControl), new FrameworkPropertyMetadata(typeof(AnimatedContentControl)));
+        static WindowAnimationControl() {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(WindowAnimationControl), new FrameworkPropertyMetadata(typeof(WindowAnimationControl)));
         }
 
         /// <summary>

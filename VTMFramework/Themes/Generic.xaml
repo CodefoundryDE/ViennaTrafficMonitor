@@ -4,10 +4,10 @@
     xmlns:local="clr-namespace:VtmFramework.View">
 
 
-    <Style TargetType="{x:Type local:AnimatedContentControl}">
+    <Style TargetType="{x:Type local:WindowAnimationControl}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:AnimatedContentControl}">
+                <ControlTemplate TargetType="{x:Type local:WindowAnimationControl}">
                     <Grid>
                         <ContentPresenter Content="{TemplateBinding Content}" x:Name="Part_MainContent" />
                         <Rectangle x:Name="Part_PaintArea" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
@@ -17,6 +17,13 @@
         </Setter>
     </Style>
 
+    <Style x:Key="PanelStyleBase" TargetType="ContentControl">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Width" Value="40" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="Content" Value=" " />
+    </Style>
+    
     <Style x:Key="SplitFlapTextBlock" TargetType="TextBlock">
         <Setter Property="TextAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -28,8 +35,8 @@
         <Setter Property="FontSize" Value="50" />
         <Setter Property="FontFamily" Value="Ressources/Font/#Droid Sans Mono"/>
     </Style>
-    
-    <Style TargetType="{x:Type local:SplitFlapPanel}">
+
+    <Style TargetType="{x:Type local:SplitFlapPanel}" BasedOn="{StaticResource PanelStyleBase}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:SplitFlapPanel}">
@@ -74,6 +81,29 @@
                         </Border>
                     </Grid>
 
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ModernPanelTextBlock" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="50" />
+        <Setter Property="FontFamily" Value="Ressources/Font/#Droid Sans Mono"/>
+    </Style>
+
+    <Style TargetType="{x:Type local:ModernPanel}" BasedOn="{StaticResource PanelStyleBase}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ModernPanel}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock Style="{StaticResource ModernPanelTextBlock}" Text="{TemplateBinding Content}" />
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
