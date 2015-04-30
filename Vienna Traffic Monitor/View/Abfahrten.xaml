@@ -48,7 +48,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="{Binding Haltestelle.Name}" Margin="10" Grid.Row="1" Grid.Column="0" FontSize="50" />
-            <fv:SplitFlapDisplay StartChar="0" EndChar="9" Text="{Binding CurrentTime}" PanelCount="8" Animated="False"
+            <fv:SplitFlapDisplay Text="{Binding CurrentTime}" PanelCount="8" Animated="False"
                              Grid.Row="1" Grid.Column="2" Margin="10" VerticalAlignment="Center" />
             <StackPanel Name="AbfahrtPanel" Grid.Row="3" Orientation="Vertical" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" />
         </Grid>

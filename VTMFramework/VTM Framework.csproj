@@ -77,6 +77,7 @@
     </Compile>
     <Compile Include="ViewModel\ErrorViewModel.cs" />
     <Compile Include="ViewModel\ErrorViewModelFactory.cs" />
+    <Compile Include="View\ModernPanel.cs" />
     <Compile Include="View\WindowAnimationControl.cs" />
     <Compile Include="View\SplitFlapDisplay.xaml.cs">
       <DependentUpon>SplitFlapDisplay.xaml</DependentUpon>
