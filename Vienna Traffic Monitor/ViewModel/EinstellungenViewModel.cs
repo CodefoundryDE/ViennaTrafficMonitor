@@ -12,33 +12,27 @@ using VtmFramework.Logging;
 using VtmFramework.ViewModel;
 using System.Windows.Forms;
 
-namespace ViennaTrafficMonitor.ViewModel
-{
+namespace ViennaTrafficMonitor.ViewModel {
 
-    public class EinstellungenViewModel : AbstractViewModel
-    {
+    public class EinstellungenViewModel : AbstractViewModel {
 
-        public EinstellungenViewModel()
-        {
+        public EinstellungenViewModel() {
             IsChecked = false;
         }
 
         #region Info
         public event EventHandler Info;
 
-        private void OnInfo()
-        {
+        private void OnInfo() {
             EventHandler handler = Info;
-            if (handler != null)
-            {
+            if (handler != null) {
                 handler(this, new EventArgs());
             }
             // Einstellungen schließen
             IsChecked = false;
         }
 
-        public ICommand InfoCommand
-        {
+        public ICommand InfoCommand {
             get { return new DelegateCommand(OnInfo); }
         }
         #endregion
@@ -46,104 +40,74 @@ namespace ViennaTrafficMonitor.ViewModel
         #region Beenden
         public event EventHandler Beenden;
 
-        private void OnBeenden()
-        {
+        private void OnBeenden() {
             EventHandler handler = Beenden;
-            if (handler != null)
-            {
+            if (handler != null) {
                 handler(this, new EventArgs());
             }
         }
 
-        public ICommand BeendenCommand
-        {
+        public ICommand BeendenCommand {
             get { return new DelegateCommand(OnBeenden); }
         }
         #endregion
 
-        public string Theme
-        {
+        public string Theme {
             get { return Properties.Settings.Default.Theme; }
-            set
-            {
+            set {
                 Properties.Settings.Default.Theme = value;
                 Properties.Settings.Default.Save();
                 _changeDictionary();
             }
         }
 
-        public static bool Dummy
-        {
+        public static bool Dummy {
             get { return Properties.Settings.Default.DummyRequester; }
-            set
-            {
+            set {
                 Properties.Settings.Default.DummyRequester = value;
                 Properties.Settings.Default.Save();
             }
         }
 
-        public int Monitor
-        {
+        public int Monitor {
             get { return Properties.Settings.Default.Monitor; }
-            set
-            {
+            set {
                 Properties.Settings.Default.Monitor = value;
                 Properties.Settings.Default.Save();
                 _changeMonitor();
             }
         }
 
-
-
-        public static bool Animations
-        {
-            get { return Properties.Settings.Default.Animations; }
-            set
-            {
-                Properties.Settings.Default.Animations = value;
-                Properties.Settings.Default.Save();
-            }
-        }
-
-
         private bool _isChecked;
-        public bool IsChecked
-        {
+        public bool IsChecked {
             get { return _isChecked; }
-            set
-            {
+            set {
                 _isChecked = value;
                 RaisePropertyChangedEvent("IsChecked");
             }
         }
 
-        public static ICollection<string> AvailableDictionaries
-        {
+        public static ICollection<string> AvailableDictionaries {
             get { return _getDictionaries(); }
         }
 
 
-        private static ICollection<string> _getDictionaries()
-        {
+        private static ICollection<string> _getDictionaries() {
             ICollection<string> dict = new List<string>();
             dict.Add("Light");
             dict.Add("Dark");
             return dict;
         }
 
-        private void _changeDictionary()
-        {
+        private void _changeDictionary() {
             //var uri = new Uri("pack://siteoforigin:,,,/Themes/" + Theme + ".xaml", UriKind.RelativeOrAbsolute);
             //ResourceDictionary dict = new ResourceDictionary() { Source = uri };
             ResourceDictionary dict;
-            try
-            {
+            try {
                 // Das letzte Theme (falls vorhanden) entfernen
                 System.Windows.Application.Current.Resources.MergedDictionaries.RemoveAt(1);
-            }
-            catch (ArgumentOutOfRangeException) { }
-            using (var fs = new FileStream("Themes/" + Theme + ".xaml", FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
+            } catch (ArgumentOutOfRangeException) { }
+            using (var fs = new FileStream("Themes/" + Theme + ".xaml", FileMode.Open, FileAccess.Read, FileShare.Read)) {
                 dict = (ResourceDictionary)XamlReader.Load(fs);
                 // Neues Theme hinzufügen
             }
@@ -151,25 +115,19 @@ namespace ViennaTrafficMonitor.ViewModel
             System.Windows.Application.Current.Resources.MergedDictionaries.Add(dict);
         }
 
-        public static ICollection<string> AvailableMonitors
-        {
+        public static ICollection<string> AvailableMonitors {
             get { return _getMonitors(); }
         }
 
-        private static ICollection<string> _getMonitors()
-        {
+        private static ICollection<string> _getMonitors() {
             ICollection<string> screens = new List<string>();
 
             Screen[] allScreens = Screen.AllScreens;
 
-            for (int i = 0; i < allScreens.Length; i++)
-            {
-                if (allScreens[i].Primary)
-                {
+            for (int i = 0; i < allScreens.Length; i++) {
+                if (allScreens[i].Primary) {
                     screens.Add("Hauptbildschirm");
-                }
-                else
-                {
+                } else {
                     screens.Add("Monitor " + (i + 1));
                 }
             }
@@ -177,15 +135,11 @@ namespace ViennaTrafficMonitor.ViewModel
             return screens;
         }
 
-        private void _changeMonitor()
-        {
+        private void _changeMonitor() {
             Screen screen;
-            try
-            {
+            try {
                 screen = Screen.AllScreens[Monitor];
-            }
-            catch (IndexOutOfRangeException e)
-            {
+            } catch (IndexOutOfRangeException e) {
                 // Ausweichen auf den Hauptbildschirm
                 screen = Screen.PrimaryScreen;
                 Monitor = 0;
