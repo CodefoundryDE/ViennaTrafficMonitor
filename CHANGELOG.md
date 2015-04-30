@@ -9,6 +9,7 @@
 * Layout-Verbesserungen
 * Performance-Verbesserungen
 * Korrekte Nennung der FileHelpers-Bibliothek im Info-Screen
+* Anwendung läuft jetzt im 64Bit-Modus wenn ein 64Bit .NET-Framework installiert ist
 
 
 ## 1.0.1 - 17.06.2014
