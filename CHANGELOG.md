@@ -2,6 +2,7 @@
 
 ## 1.1 - [unreleased]
 
+* Fallblattanzeige - Animationen entfernt
 * Aktuelle Linien-, Steig- und Haltestellendaten (Stand 01.04.2015)
 * WLB (Wiener Lokalbahnen) durch VRT (Vienna Ring Tram) ersetzt
 * Farben und Aussehen der Filter auf Karte und Abfahrten angepasst
