@@ -5,7 +5,7 @@
         xmlns:vm="clr-namespace:ViennaTrafficMonitor.ViewModel"
         xmlns:v="clr-namespace:ViennaTrafficMonitor.View"
         xmlns:fv="clr-namespace:VtmFramework.View;assembly=VtmFramework"
-        Title="MainWindow" WindowState="Maximized" WindowStyle="None" Style="{StaticResource StandardWindow}" WindowStartupLocation="Manual">
+        Title="MainWindow" WindowState="Maximized" WindowStyle="None" Style="{StaticResource StandardWindow}" WindowStartupLocation="Manual" Icon="/Vienna Traffic Monitor;component/train.ico">
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>

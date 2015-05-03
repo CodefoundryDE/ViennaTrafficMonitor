@@ -12,7 +12,7 @@ namespace ViennaTrafficMonitor.Mapper {
 
     public class SteigMapper : ISteigMapper {
 
-        private ConcurrentDictionary<int, ISteig> _data;
+        private readonly ConcurrentDictionary<int, ISteig> _data;
 
         public SteigMapper(ConcurrentDictionary<int, ISteig> data) {
             this._data = data;
@@ -26,14 +26,14 @@ namespace ViennaTrafficMonitor.Mapper {
             var query = from steig in _data.Values
                         where steig.HaltestellenId.Equals(haltestellenId)
                         select steig;
-            return new List<ISteig>(query);
+            return query.ToList();
         }
 
         public IList<ISteig> FindByRbl(int rbl) {
             var query = from steig in _data.Values
                         where steig.Rbl.Equals(rbl)
                         select steig;
-            return new List<ISteig>(query);
+            return query.ToList();
         }
 
         public IList<ISteig> FindByLinie(int linienId) {
@@ -41,12 +41,7 @@ namespace ViennaTrafficMonitor.Mapper {
                         where steig.LinienId.Equals(linienId)
                         orderby steig.Reihenfolge ascending
                         select steig;
-            //SortedList<int, ISteig> linieRhf = new SortedList<int, ISteig>();
-            //foreach (ISteig steig in query) {
-            //    linieRhf.Add(steig.Reihenfolge, steig);
-            //}
-            //return linieRhf;
-            return new List<ISteig>(query);
+            return query.ToList();
         }
 
         public ConcurrentDictionary<int, ISteig> All {

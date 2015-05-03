@@ -13,7 +13,7 @@ namespace ViennaTrafficMonitor.Mapper {
 
     public class HaltestellenMapper : IHaltestellenMapper {
 
-        private ConcurrentDictionary<int, IHaltestelle> _data;
+        private readonly ConcurrentDictionary<int, IHaltestelle> _data;
 
         public HaltestellenMapper(ConcurrentDictionary<int, IHaltestelle> data, ILinienMapper linienMappper) {
             var query = from haltestelle in data
@@ -55,28 +55,6 @@ namespace ViennaTrafficMonitor.Mapper {
             return firstMatches.Union(allMatches).ToList();
         }
 
-        /// <summary>
-        /// Findet alle Haltestellen in dem übergebenen Rechteck 
-        /// </summary>
-        /// <param name="rect"></param>
-        /// <returns></returns>
-        public ICollection<IHaltestelle> FindByRectangle(VtmRectangle rect) {
-            if (rect != null) {
-                double minX = rect.BottomLeft.X;
-                double minY = rect.BottomLeft.Y;
-                double maxX = rect.TopRight.X;
-                double maxY = rect.TopRight.Y;
-
-                return (from date in _data
-                        where date.Value.Location.X >= minX
-                        && date.Value.Location.X <= maxX
-                        && date.Value.Location.Y >= minY
-                        && date.Value.Location.Y <= maxY
-                        select date.Value).ToList();
-            }
-            return new List<IHaltestelle>();
-        }
-
         public IDictionary<int, Point> AllCoordinates {
             get { return _getAllCoordinates(); }
         }
@@ -90,11 +68,11 @@ namespace ViennaTrafficMonitor.Mapper {
             var query = from haltestelle in _data.Values
                         where haltestelle.Name.Length == length
                         select haltestelle;
-            return query.ToList<IHaltestelle>();
+            return query.ToList();
         }
 
         public ICollection<IHaltestelle> All {
-            get { return _data.Values.ToList<IHaltestelle>(); }
+            get { return _data.Values.ToList(); }
         }
 
     }
