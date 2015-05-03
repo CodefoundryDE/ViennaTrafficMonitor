@@ -63,7 +63,7 @@
         <!-- Copyright -->
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Copyright" Style="{StaticResource H2}" />
         <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource InfoMargin}">
-            &#xA9; 2014 Michael Hutterer - Martin Neumayer - Franz Wimmer
+            &#xA9; Michael Hutterer - Martin Neumayer - Franz Wimmer
         </TextBlock>
     </Grid>
 </UserControl>
