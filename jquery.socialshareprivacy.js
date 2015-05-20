@@ -4,8 +4,8 @@
  * http://www.heise.de/extras/socialshareprivacy/
  * http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html
  *
- * Copyright (c) 2011-2014 Hilko Holweg, Sebastian Hilbig, Nicolas Heiringhoff, Juergen Schmidt,
- * Heise Zeitschriften Verlag GmbH & Co. KG, http://www.heise.de
+ * Copyright (c) 2011-2015 Hilko Holweg, Sebastian Hilbig, Nicolas Heiringhoff, Juergen Schmidt,
+ * Heise Medien GmbH & Co. KG, http://www.heise.de
  *
  * is released under the MIT License http://www.opensource.org/licenses/mit-license.php
  *
