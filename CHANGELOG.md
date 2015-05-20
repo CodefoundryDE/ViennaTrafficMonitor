@@ -1,6 +1,6 @@
 # Vienna Traffic Monitor - Changelog
 
-## 1.1 - [unreleased]
+## 1.1 - 20.05.2015
 
 * Fallblattanzeige - Animationen entfernt
 * Aktuelle Linien-, Steig- und Haltestellendaten (Stand 01.04.2015)
