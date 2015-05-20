@@ -1,23 +1,15 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
 using ViennaTrafficMonitor.Events;
-using ViennaTrafficMonitor.Mapper;
 using VtmFramework.Command;
-using VtmFramework.Error;
-using VtmFramework.Error.Exceptions;
 using VtmFramework.Scheduler;
 using VtmFramework.ViewModel;
-using System.Collections.Generic;
 
 namespace ViennaTrafficMonitor.ViewModel {
 
@@ -28,14 +20,10 @@ namespace ViennaTrafficMonitor.ViewModel {
         public MapViewModel Map { get; private set; }
         public EinstellungenViewModel Einstellungen { get; private set; }
 
-        private ConcurrentDictionary <AbstractViewModel, ErrorViewModel> _errors;
+        private readonly ConcurrentDictionary <AbstractViewModel, ErrorViewModel> _errors;
         public ErrorViewModel Error {
             get {
-                ErrorViewModel evm = _errors.ElementAtOrDefault(0).Value;
-                if (evm == null) {
-                    evm = new ErrorViewModel();
-                }
-                return evm;
+                return _errors.ElementAtOrDefault(0).Value ?? new ErrorViewModel();
             }
         }
 
@@ -73,22 +61,22 @@ namespace ViennaTrafficMonitor.ViewModel {
             Scheduler.ScheduleInstant(Hauptfenster);
         }
 
-        public void initializeApp() {
-            InitializationViewModel Ivm = new InitializationViewModel();
-            Ivm.Beenden += OnBeenden;
-            Ivm.Initialized += OnInitialized;
-            _registerEvents(Ivm);
-            Scheduler.ScheduleInstant(Ivm);
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
+        public void InitializeApp() {
+            var ivm = new InitializationViewModel();
+            ivm.Beenden += OnBeenden;
+            ivm.Initialized += OnInitialized;
+            _registerEvents(ivm);
+            Scheduler.ScheduleInstant(ivm);
         }
 
-        private void OnSchedulerAktuellChanged(object Sender, EventArgs e) {
+        private void OnSchedulerAktuellChanged(object sender, EventArgs e) {
             RaisePropertyChangedEvent("Scheduler");
         }
 
         private static void _loadTheme() {
             string theme = Properties.Settings.Default.Theme;
             theme = String.IsNullOrWhiteSpace(theme) ? "Light" : theme;
-            //var uri = new Uri("pack://siteoforigin:,,,/Themes/" + theme + ".xaml", UriKind.RelativeOrAbsolute);
             using (var fs = new FileStream("Themes/" + theme + ".xaml", FileMode.Open, FileAccess.Read, FileShare.Read)) {
                 var dict = (ResourceDictionary)XamlReader.Load(fs);
                 // Neues Theme hinzufügen
@@ -96,12 +84,12 @@ namespace ViennaTrafficMonitor.ViewModel {
             }
         }
 
-        private void OnBeenden(object sender, EventArgs e) {
+        private static void OnBeenden(object sender, EventArgs e) {
             Application.Current.Shutdown();
         }
 
         private void OnSucheSubmitted(object sender, SucheEventArgs e) {
-            AbfahrtenViewModel vm = AbfahrtenViewModelFactory.GetInstance(e.HaltestelleSelected);
+            var vm = AbfahrtenViewModelFactory.GetInstance(e.HaltestelleSelected);
             _registerEvents(vm);
             vm.ConnectionLost += OnConnectionLost;
             Scheduler.ScheduleInstant(vm);
@@ -119,15 +107,14 @@ namespace ViennaTrafficMonitor.ViewModel {
         }
 
         private void OnErrorRaised(object sender, VtmFramework.Error.ErrorEventArgs e) {
-            ErrorViewModel vm = e.Error;
-            if (vm != null) {
-                try {
-                    _errors.AddOrUpdate((AbstractViewModel)sender, vm, (key, oldValue) => oldValue);
-                } catch (ArgumentException ex) {
-                    //Exception bereits vorhanden, wird wohl schon bearbeitet!
-                }
-                RaisePropertyChangedEvent("Error");
+            var vm = e.Error;
+            if (vm == null) return;
+            try {
+                _errors.AddOrUpdate((AbstractViewModel)sender, vm, (key, oldValue) => oldValue);
+            } catch {
+                //Exception bereits vorhanden, wird wohl schon bearbeitet!
             }
+            RaisePropertyChangedEvent("Error");
         }
 
         private void OnErrorCleared(object sender, EventArgs e) {

@@ -15,8 +15,6 @@ namespace ViennaTrafficMonitor.Mapper {
 
         ICollection<IHaltestelle> FindByName(String name);
 
-        ICollection<IHaltestelle> FindByRectangle(VtmRectangle rect);
-
         /// <summary>
         /// Gibt alle Koordinaten der Haltestellen als Dictionary<int, Point> aus, 
         /// wobei der Schlüssel die Haltestellen-Id repräsentiert.

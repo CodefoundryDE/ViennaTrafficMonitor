@@ -3,37 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:ds="clr-namespace:ViennaTrafficMonitor.Deserializer"
-             xmlns:v ="clr-namespace:ViennaTrafficMonitor.View"
              xmlns:fv="clr-namespace:VtmFramework.View;assembly=VtmFramework"
              xmlns:c="clr-namespace:VtmFramework.Converter;assembly=VtmFramework"
              mc:Ignorable="d" 
              d:DesignHeight="299.2" d:DesignWidth="587.2">
     <UserControl.Resources>
-        <c:StringToTimeConverter x:Key="StringToTimeConverter" />
         <c:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <StackPanel Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Panel.ZIndex="100">
             <StackPanel Name="PanelMetro" Style="{StaticResource FilterStackPanel}" Visibility="{Binding ButtonMetroVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonMetroActive}" Background="Blue" />
-                <Label Content="U-Bahn" Style="{StaticResource FilterLabel}" Background="Blue" />
+                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonMetroActive}" Background="{StaticResource UBahnColor}" />
+                <Label Content="U-Bahn" Style="{StaticResource FilterLabel}" Background="{StaticResource UBahnColor}" />
             </StackPanel>
             <StackPanel Name="PanelTram" Style="{StaticResource FilterStackPanel}" Visibility="{Binding ButtonTramVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonTramActive}" Background="Red" />
-                <Label Content="Tram" Style="{StaticResource FilterLabel}" Background="Red" />
+                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonTramActive}" Background="{StaticResource TramColor}" />
+                <Label Content="Tram" Style="{StaticResource FilterLabel}" Background="{StaticResource TramColor}" />
             </StackPanel>
-            <StackPanel Name="PanelTramWlb" Style="{StaticResource FilterStackPanel}" Visibility="{Binding ButtonTramWlbVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonTramWlbActive}" Background="BlueViolet" />
-                <Label Content="WLB" Style="{StaticResource FilterLabel}" Background="BlueViolet" />
+            <StackPanel Name="PanelTramVrt" Style="{StaticResource FilterStackPanel}" Visibility="{Binding ButtonTramVrtVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonTramVrtActive}" Background="{StaticResource VrtColor}" />
+                <Label Content="VRT" Style="{StaticResource FilterLabel}" Background="{StaticResource VrtColor}" />
             </StackPanel>
             <StackPanel Name="PanelCityBus" Style="{StaticResource FilterStackPanel}" Visibility="{Binding ButtonCityBusVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonCityBusActive}" Background="Green" />
-                <Label Content="Bus" Style="{StaticResource FilterLabel}" Background="Green" />
+                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonCityBusActive}" Background="{StaticResource BusColor}" />
+                <Label Content="Bus" Style="{StaticResource FilterLabel}" Background="{StaticResource BusColor}" />
             </StackPanel>
             <StackPanel Name="PanelNachtBus" Style="{StaticResource FilterStackPanel}" Visibility="{Binding ButtonNachtBusVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonNachtBusActive}" Background="Aquamarine" />
-                <Label Content="Nachtbus" Style="{StaticResource FilterLabel}" Background="Aquamarine" />
+                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonNachtBusActive}" Background="{StaticResource NachtBusColor}" />
+                <Label Content="Nachtbus" Style="{StaticResource FilterLabel}" Background="{StaticResource NachtBusColor}" />
             </StackPanel>
         </StackPanel>
         <Grid Background="Transparent">
@@ -51,7 +48,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="{Binding Haltestelle.Name}" Margin="10" Grid.Row="1" Grid.Column="0" FontSize="50" />
-            <fv:SplitFlapDisplay StartChar="0" EndChar="9" Text="{Binding CurrentTime}" PanelCount="8" Animated="False"
+            <fv:SplitFlapDisplay Text="{Binding CurrentTime}" PanelCount="8" Animated="False"
                              Grid.Row="1" Grid.Column="2" Margin="10" VerticalAlignment="Center" />
             <StackPanel Name="AbfahrtPanel" Grid.Row="3" Orientation="Vertical" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" />
         </Grid>

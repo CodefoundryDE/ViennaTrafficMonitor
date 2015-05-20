@@ -15,9 +15,6 @@ namespace ViennaTrafficMonitor.ViewModel {
         public event EventHandler Beenden;
         public event EventHandler Initialized;
 
-        public InitializationViewModel() {
-        }
-
         protected async override void Init() {
             bool success = await _testMapperInitialization();
             if (success) {
@@ -29,26 +26,24 @@ namespace ViennaTrafficMonitor.ViewModel {
         private async Task<bool> _testMapperInitialization() {
             Task<EErrorResult> task = null;
             try {
-                IHaltestellenMapper hm = HaltestellenMapperFactory.Instance;
-                ISteigMapper sm = SteigMapperFactory.Instance;
-                ILinienMapper lm = LinienMapperFactory.Instance;
+                var haltestellenMapper = HaltestellenMapperFactory.Instance;
+                var steigMapper = SteigMapperFactory.Instance;
+                var linienMapper = LinienMapperFactory.Instance;
             } catch (InvalidOperationException ex) {
                 task = _handleParsingError(ex);                
             }
-            if (task != null) {
-                EErrorResult result = await task;
-                switch (result) {
-                    case EErrorResult.Retry: {
-                            await _testMapperInitialization();
-                            return true;
-                        }
-                    default: {
-                            RaiseBeendenEvent();
-                            return false;
-                        }
+            if (task == null) return true;
+            var result = await task;
+            switch (result) {
+                case EErrorResult.Retry: {
+                    await _testMapperInitialization();
+                    return true;
+                }
+                default: {
+                    RaiseBeendenEvent();
+                    return false;
                 }
             }
-            return true;
         }
         private Task<EErrorResult> _handleParsingError(InvalidOperationException ex) {
             //EErrorResult result = await RaiseError("Parsing-Fehler", ex.Message, EErrorButtons.RetryCancel, ex);

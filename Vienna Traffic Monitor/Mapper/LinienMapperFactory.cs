@@ -8,42 +8,44 @@ using ViennaTrafficMonitor.CsvImport.Parser;
 using ViennaTrafficMonitor.Model;
 using VtmFramework.Error.Exceptions;
 
-namespace ViennaTrafficMonitor.Mapper {
+namespace ViennaTrafficMonitor.Mapper
+{
 
-    public sealed class LinienMapperFactory {
+    public static class LinienMapperFactory
+    {
 
-        private const string CSVDIR = "Ressources\\Csv\\";
+        private const string Csvdir = "Ressources\\Csv\\";
 
-        private static volatile ILinienMapper instance = null;
-        private static object syncRoot = new Object();
+        private static volatile ILinienMapper _instance;
+        private static readonly object SyncRoot = new Object();
 
-        private LinienMapperFactory() { }
-
-        public static ILinienMapper Instance {
-            get {
-                if (instance == null) {
-                    try {
-                        lock (syncRoot) {
-                            if (instance == null) instance = _createInstance();
-                        }
-                    } catch (VtmParsingException ex) {
-                        throw new InvalidOperationException("Bei dem Versuch, die benötigten Daten aus den CSV-Dateien der Wiener Linien zu initialisieren trat ein Fehler auf" +
-                       " Die Datei " + ex.Path + " ist möglicherweise nicht vorhanden oder in Bearbeitung." +
-                       "Bitte stellen Sie sicher, dass die Datei vorhanden und in keinem anderen Programm geöffnet ist!", ex);
+        public static ILinienMapper Instance
+        {
+            get
+            {
+                if (_instance != null) return _instance;
+                try
+                {
+                    lock (SyncRoot)
+                    {
+                        if (_instance == null) _instance = _createInstance();
                     }
                 }
-                return instance;
+                catch (VtmParsingException ex)
+                {
+                    throw new InvalidOperationException("Bei dem Versuch, die benötigten Daten aus den CSV-Dateien der Wiener Linien zu initialisieren trat ein Fehler auf" +
+                                                        " Die Datei " + ex.Path + " ist möglicherweise nicht vorhanden oder in Bearbeitung." +
+                                                        "Bitte stellen Sie sicher, dass die Datei vorhanden und in keinem anderen Programm geöffnet ist!", ex);
+                }
+                return _instance;
             }
 
         }
 
-        private static ILinienMapper _createInstance() {
-            try {
-                ConcurrentDictionary<int, ILinie> dict = LinienParser.ReadFile(CSVDIR + "wienerlinien-ogd-linien.csv");
-                return new LinienMapper(dict);
-            } catch (VtmParsingException ex) {
-                throw ex;
-            }
+        private static ILinienMapper _createInstance()
+        {
+            var dict = LinienParser.ReadFile(Csvdir + "wienerlinien-ogd-linien.csv");
+            return new LinienMapper(dict);
         }
     }
 
