@@ -87,6 +87,7 @@ namespace ViennaTrafficMonitor.ViewModel {
             _filterCollection.Add("SBahn", new MapFilter(EVerkehrsmittel.SBahn));
             _filterCollection.Add("Tram", new MapFilter(EVerkehrsmittel.Tram));
             _filterCollection.Add("TramVrt", new MapFilter(EVerkehrsmittel.TramVrt));
+            _filterCollection.Add("TramWlb", new MapFilter(EVerkehrsmittel.TramWlb));
             _filterCollection.Add("CityBus", new MapFilter(EVerkehrsmittel.CityBus));
             _filterCollection.Add("NachtBus", new MapFilter(EVerkehrsmittel.NachtBus));
         }
@@ -151,6 +152,12 @@ namespace ViennaTrafficMonitor.ViewModel {
         public bool ButtonTramVrtActive {
             get { return !_filterCollection["TramVrt"].Active; }
             set { _filterButton("TramVrt", !value); }
+        }
+
+        public bool ButtonTramWlbActive
+        {
+            get { return !_filterCollection["TramWlb"].Active; }
+            set { _filterButton("TramWlb", !value); }
         }
 
         public bool ButtonCityBusActive {
