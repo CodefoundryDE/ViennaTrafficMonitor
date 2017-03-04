@@ -1,6 +1,12 @@
 # Vienna Traffic Monitor - Changelog
 
-## 1.1 - [unreleased]
+## 1.2 - 04.03.2017
+
+* Aktuelle Haltestellen- und Steiginformationen
+* WLB wieder integriert
+
+
+## 1.1 - 20.05.2015
 
 * Fallblattanzeige - Animationen entfernt
 * Aktuelle Linien-, Steig- und Haltestellendaten (Stand 01.04.2015)

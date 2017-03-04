@@ -183,6 +183,7 @@ namespace ViennaTrafficMonitor.ViewModel
                 {"SbahnFilter", new AbfahrtenFilter(EVerkehrsmittel.SBahn, false)},
                 {"TramFilter", new AbfahrtenFilter(EVerkehrsmittel.Tram, false)},
                 {"TramVrtFilter", new AbfahrtenFilter(EVerkehrsmittel.TramVrt, false)},
+                {"TramWlbFilter", new AbfahrtenFilter(EVerkehrsmittel.TramWlb, false)},
                 {"OrderByAbfahrt", new OrderAbfahrtenFilter(EAbfahrtenOrder.TimeRealAsc, ResultCount, true)}
             };
         }
@@ -236,6 +237,23 @@ namespace ViennaTrafficMonitor.ViewModel
         public bool ButtonTramVrtVisible
         {
             get { return _verkehrsmittel.Contains(EVerkehrsmittel.TramVrt); }
+        }
+        #endregion
+
+        #region ButtonTramVLB
+        public bool ButtonTramWlbActive
+        {
+            get { return !_verkehrsmittelFilter["TramWlbFilter"].Active; }
+            set
+            {
+                _verkehrsmittelFilter["TramWlbFilter"].Active = !value;
+                RaisePropertyChangedEvent("Abfahrten");
+            }
+        }
+
+        public bool ButtonTramWlbVisible
+        {
+            get { return _verkehrsmittel.Contains(EVerkehrsmittel.TramWlb); }
         }
         #endregion
 
