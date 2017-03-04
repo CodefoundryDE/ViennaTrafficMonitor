@@ -5,11 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ViennaTrafficMonitor.Model {
+namespace ViennaTrafficMonitor.Model
+{
 
-    public enum EVerkehrsmittel { NoInfo, Metro, SBahn, Tram, NachtBus, CityBus, TramVrt };
+    public enum EVerkehrsmittel { NoInfo, Metro, SBahn, Tram, NachtBus, CityBus, TramVrt, TramWlb };
 
-    public class Linie : ILinie {
+    public class Linie : ILinie
+    {
+
+        private static IReadOnlyDictionary<string, EVerkehrsmittel> VerkehrsmittelMapping = new Dictionary<string, EVerkehrsmittel>
+        {
+            { string.Empty, EVerkehrsmittel.NoInfo },
+            { "ptTram", EVerkehrsmittel.Tram },
+            { "ptBusCity", EVerkehrsmittel.CityBus },
+            { "ptBusNight", EVerkehrsmittel.NachtBus },
+            { "ptTrainS", EVerkehrsmittel.SBahn },
+            { "ptMetro", EVerkehrsmittel.Metro },
+            { "ptTramVRT", EVerkehrsmittel.TramVrt },
+            { "ptTramWLB", EVerkehrsmittel.TramWlb },
+        };
 
         public int Id { get; set; }
         public string Bezeichnung { get; set; }
@@ -17,7 +31,8 @@ namespace ViennaTrafficMonitor.Model {
         public bool Echtzeit { get; set; }
         public EVerkehrsmittel Verkehrsmittel { get; set; }
 
-        public Linie() {
+        public Linie()
+        {
             this.Id = 0;
             this.Bezeichnung = "";
             this.Reihenfolge = 0;
@@ -25,7 +40,8 @@ namespace ViennaTrafficMonitor.Model {
             this.Verkehrsmittel = EVerkehrsmittel.Metro;
         }
 
-        public Linie(int id, string bezeichnung, int reihenfolge, bool echtzeit, EVerkehrsmittel verkehrsmittel) {
+        public Linie(int id, string bezeichnung, int reihenfolge, bool echtzeit, EVerkehrsmittel verkehrsmittel)
+        {
             this.Id = id;
             this.Bezeichnung = bezeichnung;
             this.Reihenfolge = reihenfolge;
@@ -47,43 +63,17 @@ namespace ViennaTrafficMonitor.Model {
             return Id.GetHashCode();
         }
 
-        public static EVerkehrsmittel VerkehrsmittelConverter(String type) {
-            EVerkehrsmittel verkehrsmittel;
-            switch (type) {
-                case "ptTram": {
-                        verkehrsmittel = EVerkehrsmittel.Tram;
-                        break;
-                    }
-                case "ptBusCity": {
-                        verkehrsmittel = EVerkehrsmittel.CityBus;
-                        break;
-                    }
-                case "ptBusNight": {
-                        verkehrsmittel = EVerkehrsmittel.NachtBus;
-                        break;
-                    }
-                case "ptTrainS": {
-                        verkehrsmittel = EVerkehrsmittel.SBahn;
-                        break;
-                    }
-                case "ptMetro": {
-                        verkehrsmittel = EVerkehrsmittel.Metro;
-                        break;
-                    }
-                case "ptTramVRT": {
-                        verkehrsmittel = EVerkehrsmittel.TramVrt;
-                        break;
-                    }
-                default: {
-                    verkehrsmittel = EVerkehrsmittel.NoInfo;
-                    break;
-                    }
+        public static EVerkehrsmittel VerkehrsmittelConverter(String type)
+        {
 
+            if (VerkehrsmittelMapping.ContainsKey(type))
+            {
+                return VerkehrsmittelMapping[type];
             }
-            return verkehrsmittel;
+            return EVerkehrsmittel.NoInfo;
         }
 
-        
+
 
     }
 

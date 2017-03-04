@@ -33,6 +33,10 @@
                 <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonTramVrtActive}" Background="{StaticResource VrtColor}" />
                 <Label Content="VRT" Style="{StaticResource FilterLabel}" Background="{StaticResource VrtColor}" />
             </StackPanel>
+            <StackPanel Name="PanelTramWlb" Style="{StaticResource FilterStackPanel}">
+                <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonTramWlbActive}" Background="{StaticResource WlbColor}" />
+                <Label Content="WLB" Style="{StaticResource FilterLabel}" Background="{StaticResource WlbColor}" />
+            </StackPanel>
             <StackPanel Name="PanelCityBus" Style="{StaticResource FilterStackPanel}">
                 <CheckBox Style="{StaticResource DiscreteCheckBoxStyle}" IsChecked="{Binding ButtonCityBusActive}" Background="{StaticResource BusColor}" />
                 <Label Content="Bus" Style="{StaticResource FilterLabel}" Background="{StaticResource BusColor}" />
